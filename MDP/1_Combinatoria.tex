@@ -1,0 +1,87 @@
+\section{Combinatoria}
+
+\begin{quotation}
+	"Serve a contare quanti elementi ci sono in un insieme.
+	(risponde alla domanda "Quante sono?")."
+\end{quotation}
+
+Ricorda: Negli insiemi non conta l'ordine (infatti si usano le "\{\}", se contava l'ordine si usavano le "()") e gli elementi ripetuti. Insieme finito $\{1, \dots, n\}$. Insieme infinito $\{1,\dots\}$.
+
+\definizione{Cardinalità}{
+Un insieme $A$ ha cardinalità $n$ se contiene esattamente $n$ elementi, o equivalentemente se $\exists$ una corrispondenza biunivoca $A \longleftrightarrow \{1,2,\dots, n\}$.}{d:cardinalita}
+
+La cardinalità si indica $|A|=n$.
+
+\definizione{Insieme finito}{Un insieme $A$ si dice finito se $\exists n \in \mathbb{N}$ t.c. $A$ contiene esattamente $n$ elementi distinti.}{d:insiemefinito}
+
+\osservazione{L'insieme vuoto è l'unico insieme finito di cardinalità 0.}
+
+\definizione{Cardinalità insiemi infiniti}{
+Due insiemi infiniti hanno la stessa cardinalità se $\exists$ una biezione (Corrispondenza biunivoca) tra di loro.}{d:cardinalitainsiemiinfiniti}
+
+\definizione{Insieme numerabile}{
+Un insieme $A$ si dice numerabile se ha la stessa cardinalità di $\{1,2,3,\dots\}$.}{d:insiemenumerabile}
+
+In altre parole un insieme è numerabile se i suoi elementi possono essere messi in un a fila infinità.
+
+Insiemi numerabili sono $\mathbb{N}$ (anche se più grande di $\{1,2,3,\dots\}$), $\mathbb{Z}=\{0,1,-1,2,-2,3,\dots\}$, $\mathbb{Q}_{>0}$ dalla dimostrazione classica di Cantor.
+
+Un insieme non numerabile sono delle sequenze infinite di bit 0/1.
+
+\definizione{Insieme Discreto}{Un insieme è discreto se è finito o numerabile.}{d:insiemediscreto}
+
+\mysubsection{Combinatoria di base}
+Costruisce schemi "complessi" partendo da schemi semplici riuscendo a controllarne la cardinalità. (si opera solo con insiemi finiti).
+
+\definizione{Prodotto Cartesiano}{Siano $A, B$ insiemi il cui prodotto cartesiano $A \times B$ è l'insieme delle coppie ordinate $(a,b), a \in A, b \in B$.
+
+generalizzando:
+\[
+A_1 \times A_2 \times \dots \times A_k = \{(a_1, \dots, a_k)\mid a_i\in A_i, \forall i \in 1,\dots, k\}
+\]
+}{d:prodcart}
+
+\textbf{n-esima potenza cartesiana di n}, ovvero $A \times \dots \times A = A^n$.
+
+\definizione{Sequenza}{Una sequenza (o lista) finita di lunghezza n di elementi di $A$ è un elemento $(a_1,\dots,a_n)$ del prodotto cartesiano $A^n$.}{d:sequenza}
+
+Sono \textbf{successioni} delle sequenze di lunghezza $\infty$, tipo $\{a_1,\dots\}$.
+
+\definizione{Insieme delle parti}{Sia $A$ un insieme, l'insieme delle parti $\mathcal{P}(A)$ è l'insieme i cui elementi sono tutti i sotto insiemi di A, inclusi l'insieme vuoto $\emptyset$ e $A$ stesso. (insieme i cui elementi sono insiemi).}{d:insiemedelleparti}
+
+\teorema{Insieme delle parti}{Sia $A$ un insieme di $|A|=n$, allora $\exists$ una corrispondenza biunivoca tra $\mathcal{P}(A)$ e $\{0,1\}^n$.}{t:insiemedelleparti}
+
+\dimostrazione{t:insiemedelleparti}{Vediamo un caso particolare $A=\{1,2,3\}$
+
+$\{1\}, \{2\}, \{3\}, \{1, 2\}, \{1, 3\}, \{2,3\}, \emptyset, A$
+
+$\updownarrow$
+
+$100=(1,0,0),010,001,110, 101,011,000,111$
+
+Per il caso generale $|A|=n, A=\{a_1,\dots, a_n\}$ procediamo come prima facendo corrispondere ad'un sotto insieme $S\subseteq A$ la sequenza binaria $B$ il uci i-esimo bit è $1\iff a_i\in S$.}
+
+\mysubsection{Principi di base}
+\begin{enumerate}
+	\item \textbf{Principio di ugualianza:} Siano $A, B$ insiemi qualunque in corrispondenza biunivoca allora questi hanno lo stesso numero di elementi.
+	\item \text{Principio della somma:} Siano $A, B$ insiemi qualunque disgiunti (non hanno elemtni in comune), allora $|A\cup B|=|A|+|B|$.
+
+	Ricorda: Si dice Distinti se gli insiemi sono diversi per almeno un elemento.
+	\item \textbf{Principio del prodotto:} Siano $A, B$ insiemi qualunque, allora $|A\times B|=|A|\cdot |B|$.
+\end{enumerate}
+
+Generalizzazione del Principio di ugualianza: $F:A\to B$ si dice $k:1$ (k a 1) se è surriettiva e a ogni elemento di $B$ corrispondono esattamente $k$ elementi di $A$. In questo caso $|A|=k|B|$. Il principio di ugualianza corrisponde al caso $k=1$.
+
+\definizione{Prodotto Condizionato}{Siano $A, B$ insiemi. $C \subseteq A \times B$ è sotto insieme del prodotto cartesiano e si dice prodotto condizionato di tipo $(n,m)$ se sono soddisfatte queste condizioni:
+\begin{enumerate}
+	\item $\exists n$ elementi di $A$ che compaiono come 1° coefficente in un elemento di $C$.
+	\item Fissata la 1° coordinata di un elemento di $C$, $\exists m$ elementi di $B$ che possono essere aggiunti come 2° coordinata.
+\end{enumerate}
+}{d:prodcond}
+
+In altri termini possiamo scegliere la 1° coordinata in n modi e fissata questa scelta possiamo scegliere la 2° in m modi.
+
+Se per tutti i primi n coefficenti si hanno m secondi coefficienti si ha il prodotto condizionato, altrimenti no.
+
+Una coordinata può non essere scelta.
+

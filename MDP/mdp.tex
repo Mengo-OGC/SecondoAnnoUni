@@ -1,0 +1,102 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[italian]{babel} % imposta la lingua in italiano.
+\usepackage{thmbox}			% ridifinizione stile blocco definizioni, teoremi, ecc tranne dimostrazione.
+\usepackage{tabularx}		% fa tabelle con colonne ridimensionabili.
+\usepackage{amsmath}    	% formule potenziate, allineamento, casi, ecc.
+\usepackage{amssymb}		% simboli aggiuntivi (insiemi, operatori logici, ecc.).
+\usepackage{amsfonts}	    % font matematici aggiuntivi (es. \mathbb).
+\usepackage[table]{xcolor}  % permette di colorare righe/colonne.
+\usepackage{fancyhdr}		% stile impaginazione.
+\usepackage{tikz}			% per fare grafici
+
+% link interni alle pagine e indice auto linkato.
+\usepackage[colorlinks=true, linkcolor=black]{hyperref}
+
+% impaginazione personalizzata:
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\hyperref[toc]{$\leftarrow$Indice}}	% link a indice sinistra alto
+\fancyhead[R]{\leftmark}							% nome sezione destra alto
+\fancyfoot[C]{\thepage}								% numero pagina centrale basso
+
+% ambienti personalizzati
+\newtheorem[L]{teo}{Teorema}[section]
+\newtheorem[L]{deff}{Definizione}[section]
+\newtheorem[S]{propo}{Proposizione}[section]
+\newtheorem[S]{propr}{Proprietà}[section]
+\newtheorem[S]{cor}{Corollario}[section]
+
+% permettono nelle dimostrazioni di avere "NomeAmbiente Numero"
+\providecommand*{\teoautorefname}{Teorema}
+\providecommand*{\deffautorefname}{Definizione}
+\providecommand*{\propoautorefname}{Proposizione}
+\providecommand*{\proprautorefname}{Proprietà}
+\providecommand*{\corautorefname}{Corollario}
+
+% definizione ambiente generico
+\newcommand{\bloccoTeorico}[6]{
+	\begin{#1}[#2]
+		\label{#4}%
+		#3
+	\end{#1}
+	\addcontentsline{toc}{subsection}{#5~#6~(#2)}
+}
+
+% definizione ambienti specifici. Nota: 4° parametro testo per indice
+\newcommand{\teorema}[3]{
+	\bloccoTeorico{teo}{#1}{#2}{#3}{Teorema}{\theteo}
+}
+\newcommand{\definizione}[3]{
+	\bloccoTeorico{deff}{#1}{#2}{#3}{Definizione}{\thedeff}
+}
+\newcommand{\proposizione}[3]{
+	\bloccoTeorico{propo}{#1}{#2}{#3}{Proposizione}{\thepropo}
+}
+\newcommand{\proprieta}[3]{
+	\bloccoTeorico{propr}{#1}{#2}{#3}{Proprietà}{\thepropr}
+}
+\newcommand{\corollario}[3]{
+	\bloccoTeorico{cor}{#1}{#2}{#3}{Corollario}{\thecor}
+}
+
+% ambiente dimostrazione che mostra nome e numero cliccabile della cosa da dimostrare
+\newcommand{\dimostrazione}[2]{
+	\begin{proof}[\autoref{#1}] #2 \end{proof}
+}
+
+% comandi semplici fomattazione
+\newcommand{\osservazione}[1]{
+	\textit{Osservazione:} #1
+}
+
+% tabella con colonne adattabili, non indentata e di dimensione del testo
+\newcommand{\tabella}[3]{
+	\noindent
+	\begin{tabularx}{\textwidth}{#1}
+		\hline
+		\rowcolor{gray!10}
+		#2 \\
+		\hline
+		#3
+		\hline
+	\end{tabularx}
+}
+
+\newcommand{\mysubsection}[1]{
+	\subsection*{#1}
+	\addcontentsline{toc}{subsection}{#1}
+}
+
+\title{Matematica discreta e Probabilità}
+\author{Leonardo Mengozzi}
+\date{}
+\begin{document}
+	\maketitle
+	\tableofcontents\label{toc}
+
+	\include{1_Combinatoria}
+	\include{2_StatisticaDescrittiva}
+	\include{3_Probabilità}
+	\include{4_StatisticaInferenziale}
+
+\end{document}

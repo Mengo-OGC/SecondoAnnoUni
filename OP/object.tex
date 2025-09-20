@@ -1,0 +1,78 @@
+\section{Variabili, Oggetti, Classi, Campi e Metodi}
+
+\subsection{(Almost) Everything is an object}
+Le variabili, contenitori con nomi, ora non denotano solo valori numerici (come in C), ma anche veri e propri oggetti irriducibili.
+
+Non ci sono meccanismi per controllo diretto memoria. Le variabili sono nomi "locali" con riferimenti ad'\textit{oggetti} e non maschere di indirizzi in memoria a cui accedere direttamente.
+
+Le variabili posso essere di tipo \textit{Java Types} quindi classi predefinite e autoimplementate oppure \textit{tipi primitivi}.
+
+\subsubsection{Tipi Primitivi}
+Non conviene trattare tutto come oggetto. I tipi atomici del C si sono mantenuti definendo una dimensione fissa e rimuovendo gli unsigned. Si è introdotto boolean con \textbf{true/false}.
+
+Questi tipi sono unici e fissi da linguaggio.
+
+\smallskip
+\centerline{
+\begin{tabular}{llll}
+	\hline
+	Tipi  primitivi & Dimensione & Minimo & Massimo \\
+	\hline
+	boolean & -- & -- & -- \\
+	char & 16bits & Unicode 0 & Unicode $2^{16}-1$ \\
+	byte & 8bits & -128 & +127 \\
+	short & 16bits & $-2^{15}$ & $-2^{15}-1$ \\
+	int & 32bits & $-2^{31}$& $+2^{31}-1$ \\
+	long & 64bits  & $-2^{63}$& $-2^{63}-1$\\
+	float & 32bits & IEEE754 & IEEE754 \\
+	double & 64bits & IEEE754 & IEEE754 \\
+	\hline
+\end{tabular}}
+\smallskip
+
+Le librerie \textit{BigDecimal, BigInteger} gestiscono numeri di dimensione/precisione arbitraria.
+
+\textbf{Nota:} In Java l'uso della memoria per i valori true/false di boolean, e tante altre cose, non sono date a sapere al programmatore dato che si dovrebbe concentrare su altro.
+
+\subsubsection{Stack e Heap}
+Tutte le variabili sono memorizzate nello \textbf{stack}. Le variabili di tipo primitivo sono affiancate dal loro valore mentre le variabili tipo classe sono affiancate dall'identità del loro oggetto. Gli oggetti sono memorizzati nell'heap.
+
+Uno stesso oggetto può essere puntato da variabili che si riferiscono alla stessa identità.
+
+\subsection{Oggetti}
+\begin{enumerate}
+	\item Creazione
+
+	\inline{<Tipo | var> <nome> = <new Tipo([Tipo1 par1, ...]) | altraVariabile | null>;}
+
+	altraVariabile deve essere della stessa classe della variabile che sto definendo.
+
+	Nota: solo quando si scrive \textit{new} (Keyword di linguaggio) si crea un oggetto dalla classe indicata.
+
+	\inline{var}\footnote{Local variable type inference} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
+\end{enumerate}
+
+\subsection{Classi}
+
+Nomi classi sempre con la maiuscola.
+
+Definisco le configurazioni.
+
+Le classi sono tipi di dato in un linguaggio a oggetti tutto è un oggetto fino a un certo punto.
+
+\subsubsection{Classe Object}
+
+Definizione, Creazione ed'Inizializzazione:
+\begin{enumerate}
+	\item \inline{<Tipo> <nome>;} sola definizione.
+	\item \inline{<Tipo> <nome> = valore;} definizone ed'inizializzazione.
+\end{enumerate}
+
+
+\subsubsection{Precisazioni slasse String}
+Diversi modi per inizializzare un oggetto stringa:
+\begin{enumerate}
+	\item \inline{... = new String();} inizializza con una stringa (sequenza di caratteri) vuota.
+	\item \inline{... = new String("...");} inizializza con la stringa passata come parametro.
+	\item \inline{... = "..."} inizializza direttamente con una stringa (come in C), caso unico.
+\end{enumerate}

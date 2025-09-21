@@ -1,1 +1,51 @@
-\section{Approccio object-oriented}
+\section{Fasi sviluppo Sofware}
+Un Programma (algoritmo) risolve una classe di problemi.
+
+Un Sistema sofware fornisce varie funzionalità grazie alla cooperazione di componenti di diversa natura.
+
+Fasi processo sviluppo: \textbf{1 Analisi} che fare?, \textbf{2 Design} come farlo?, \textbf{3 Implementazione/codifica} Quale algoritmo?, \textbf{4 Post-coficia}.
+Fasi 1-2 fatte dai senior e fase 3 junior (2-3 oggi unificate). La fase 4 più impiegare fino 70\% se fase precedenti fatte male/sbrigativamente (Software crisis).
+Tutte fasi fattibili dalla stessa persona.
+
+Un analisi è corretta se persone diverse giungono alla stessa soluzione.
+
+\subsection{Problem space vs Solution space}
+Problem space sono le entità/relazioni/processi del mondo reale che formano il problema. Solution space sono le entità/relazioni/processi nel mondo artificiale (espresse nel linguaggio di programmazione).
+
+Per passare dal Problem space al Solution solution si esegue un "mapping" che più semplice è meglio ho fatto le \textbf{astrazioni}\footnote{Strumento che semplifica sistemi informatici ma anche del mondo reale evidenziando "la parte importante". Si possono fare più livelli di astrazione}.
+
+I linguaggi di programmazione attuano l'astrazione coi loro costrutti, più o meno performanti, che rendono il mapping più o meno facile.
+
+I linguaggi moderni hanno un livello d'astrazione lontano dall'HardWare, i suoi problemi e la gestione della memoria.
+
+\subsection{Programmazione ad oggetti (OOP)}
+\colTwo{\textbf{Vantaggi:} poche astrazioni chiave, mapping ottimo e semplice, estensibilità e riutilizzo, librerie auto costruite, C-like, esecuzione efficente.}{\textbf{Critiche:} necessaria disciplina.}{55}{35}
+
+\section{Teoria degli oggetti}
+\colTwo{\textbf{Classe:} descrizione comportamento e forma oggetti. Indica come comunicare con i suoi oggetti, con messaggi che modificano stato e comportamento.}{\textbf{Oggetto:} entità (istanza di classe) manipolabile, con memoria, che comunicano tramite le loro operazioni descritte dalla classe di appartenenza.}{45}{45}
+
+Oggetti della stessa classe hanno comportamento e forma indentica, sono detti simili.
+Un oggetto non cambia mai classe, semmai si elimina e sene crea il sostituto.
+
+Nota: L'approccio OOP è usato anche in UML.
+
+\subsection{Com'è fatto un buon oggetto}
+Un oggetto ha un interfaccia\footnote{Insieme dei metodi definiti dall'interfaccia con cui l'oggetto riceve messaggi}, deve fornire un servizio, deve nascondere le implementazioni (riutilizzabili) e l'intero oggetto deve essere riutilizzabile tramite ereditarietà. Precisazioni:
+\begin{itemize}
+	\item Un oggetto fornisce un \textbf{sotto-servizio} dell'intero programma\footnote{Set di oggetti che si comunicano cosa fare.} (principio decomposizione). Linne giuda: 1 oggetto senza servizio si elimina, 2 oggetto con più servizi si divide.
+
+	\item L'implementazione di un oggetto (logiche interne) devono essere note solo al creatore della classe (Information hidding), cosi facendo l'utilizzatore è tutelato, da modifiche interne, avendo una piccola visione del tutto. \textit{less is more}.
+
+	\item Il creatore e l'utilizzatore riutilizzano le classi con gli approcci:
+	\begin{enumerate}
+		\item \textbf{has-a} (composizione), classe costituita da altre classi (oggetto ha come campi altri oggetti). Approccio dinamico, occultabile.
+		\item \textbf{is-a} (ereditarietà), classe estende servizi di un'altra classe (oggetto ha campi/metodi di altri oggetti).
+	\end{enumerate}
+\end{itemize}
+
+\section{Perchè Java?}
+\begin{itemize}
+	\item \textbf{Write once run everywhere}, eseguibile uvunque senza ricompilazione grazie JVM (HardWare virtuale, a stack) che processa un codice specifico "byte code", creando il corrispettivo eseguibile per ogni pc/os. Meno prestante.
+
+	\item \textbf{Keep it simple, stupid}, in teoria non in pratica.
+\end{itemize}

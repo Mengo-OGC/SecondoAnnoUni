@@ -1,13 +1,43 @@
-\section{Variabili, Oggetti, Classi, Campi e Metodi}
+\section{Struttura Programma Java}
+Un programma Java è composta da librerie di classi del JDK, Package\footnote{Contenitori, gerarcici tra loro, di una decina di classi di alto livello con scopo comune} e Moduli\footnote{Insieme di Package costituente un frammento di codice autonomo.}, librerie di esterne e un insieme di classi fondamentali, come la class main\footnote{Un main è il punto d'accesso di un programma.}.
+\inline{public static void main(String[] args) \{...\}}
 
-\subsection{(Almost) Everything is an object}
+Per importare le classi di una libreria:
+\begin{itemize}
+	\item \inline{import java...;}, importa una singola classe.
+	\item \inline{import java...*;}, importa l'intero Package.
+	\item \inline{import java.lang.*;}, importazione di default.
+\end{itemize}
+
+Nota: Il nome completo di una classe dipende dal Package in cui si trova.
+
+\subsection{Esecuzione Programma}
+\begin{enumerate}
+	\item Salvare la classe in un file \textbf{"NomeClasse.java"}.
+	\item Compilare con \textit{javac NomeFileClasse.java}. Genererà il \textbf{bytecode NomeFileClasse.class} per la JVM.
+	\item Esegiure con \textit{java NomeFileClasse}. La JVM cercherà il main da cui partire a eseguire.
+\end{enumerate}
+
+Lavorando con più file: si compila tutto con \textit{javac *.java} poi si esegue solo la classe main.
+
+
+
+
+
+\section{(Almost) Everything is an object}
 Le variabili, contenitori con nomi, ora non denotano solo valori numerici (come in C), ma anche veri e propri oggetti irriducibili.
 
 Non ci sono meccanismi per controllo diretto memoria. Le variabili sono nomi "locali" con riferimenti ad'\textit{oggetti} e non maschere di indirizzi in memoria a cui accedere direttamente.
 
 Le variabili posso essere di tipo \textit{Java Types} quindi classi predefinite e autoimplementate oppure \textit{tipi primitivi}.
 
-\subsubsection{Tipi Primitivi}
+Visibilità legata al blocco di definizione.
+
+Variabili non inizializzate sono inutilizzabili.
+
+Il \textbf{garbage collector} (componente della JVM) dealloca automaticamente memoria non più utilizzata direttamente o indirettamente dall'heap. Un'oggetto continua a esistere dopo la fine esecuzione dello scope di una variabile che gli fa riferimento.
+
+\subsection{Tipi Primitivi}
 Non conviene trattare tutto come oggetto. I tipi atomici del C si sono mantenuti definendo una dimensione fissa e rimuovendo gli unsigned. Si è introdotto boolean con \textbf{true/false}.
 
 Questi tipi sono unici e fissi da linguaggio.
@@ -34,45 +64,75 @@ Le librerie \textit{BigDecimal, BigInteger} gestiscono numeri di dimensione/prec
 
 \textbf{Nota:} In Java l'uso della memoria per i valori true/false di boolean, e tante altre cose, non sono date a sapere al programmatore dato che si dovrebbe concentrare su altro.
 
-\subsubsection{Stack e Heap}
-Tutte le variabili sono memorizzate nello \textbf{stack}. Le variabili di tipo primitivo sono affiancate dal loro valore mentre le variabili tipo classe sono affiancate dall'identità del loro oggetto. Gli oggetti sono memorizzati nell'heap.
+\subsection{Stack e Heap}
+Gli oggetti sono memorizzati nell'\textbf{heap}. Tutte le variabili sono memorizzate nello \textbf{stack}.
 
-Uno stesso oggetto può essere puntato da variabili che si riferiscono alla stessa identità.
+Le variabili di tipo primitivo contengono direttamente il valore. Le variabili tipo classe contengono il riferimento dell'oggetto oppure null.
 
-\subsection{Oggetti}
-\begin{enumerate}
-	\item Creazione
+Nota: Uno stesso oggetto può essere puntato da variabili che si riferiscono alla stessa identità.
 
-	\inline{<Tipo | var> <nome> = <new Tipo([Tipo1 par1, ...]) | altraVariabile | null>;}
+\subsection{Oggetti lato Utente}
+Dichiarazione, creazione, inizializzazione:
 
-	altraVariabile deve essere della stessa classe della variabile che sto definendo.
+\inline{<Tipo | var> <nome> = <new Tipo([Tipo1 par1, ...]) | altraVariabile | null>;}
+\begin{itemize}
+	\item \inline{<Tipo> <nome>;} Si può solo dichiarare una variabile oggetto per poi crearla e inizializzarla successivamente.
+	\item solo quando si scrive \textit{new} (Keyword di linguaggio) si crea un oggetto dalla classe indicata.
+	\item \inline{var}\footnote{Local variable type inference} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
+	\item \inline{altraVariabile} deve essere della stessa classe della variabile che sto definendo.
+\end{itemize}
 
-	Nota: solo quando si scrive \textit{new} (Keyword di linguaggio) si crea un oggetto dalla classe indicata.
 
-	\inline{var}\footnote{Local variable type inference} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
-\end{enumerate}
 
-\subsection{Classi}
 
-Nomi classi sempre con la maiuscola.
+
+
+
+\section{Classi}
+Sono template (tipo, struttura in memoria, comportamento) per generare oggetti (istanza).
+
+Le classi hanno un nome (NomeClasse) che sarà anche il nome del tipo per le variabili e del file.
+
+I membri fondamentali di una classe sono:
+\begin{itemize}
+	\item \textbf{Campi}, descrivono la struttura/stato
+	\item \textbf{Metodi}, descrivono i messaggi e il comportamento
+\end{itemize}
+
+\multiline{strutturaclasse}{}{CodiciEsempio/StruturaClasse.java}
 
 Definisco le configurazioni.
 
 Le classi sono tipi di dato in un linguaggio a oggetti tutto è un oggetto fino a un certo punto.
 
-\subsubsection{Classe Object}
+\subsection{Campi}
+Sono lo stato attuale dell'oggetto.
+Simili hai membri di una struttura C, con la differenza che possono essere 0,1,diversi (5-7max). Simili a variabili (tipo+nome), ma non si può usare \textit{var}.
+Possono essere valori primitivi o altri oggetti (anche della classe stessa).
+L'ordine dei non conta.
 
-Definizione, Creazione ed'Inizializzazione:
+I campi sono iniziabili alla dichiarazione dell'oggetto (coi parametri), sennò sono inizializzati in base al tipo a \textbf{0, false, null}.
+
+Uso dei campi lato utente: Assegnamento \inline{... obj.campo = ...}, Lettura \inline{... = obj.campo ...}
+
+\subsection{Metodi}
+Definiscono il comportamento dell'oggetto.
+Simili a funzioni C. Hanno un intestazione (tipo di ritorno|void, nome, argomenti) e un corpo.
+I metodi di una classe possono essere 0, 1, diversi.
+
+i metodi possono leggere/scrivere i campi.
+
+Uso dei metodi lato utente \inline{... obj.metodo() ...}. L'invocazione del metodo, corrisponde a inviare un messaggio al receiver (obj nell'esempio) azionando l'esecuzione del corpo del metodo.
+
+\multiline{strutturametodo}{}{CodiciEsempio/StrutturaMetodo.java}
+
+\subsection{La variabile \textit{this}}
+Variabile contenente il riferimento all'oggetto che sta gestendo il messaggio corrente. Si usa per rendere meno ambiguo il codice accedento tramite \textit{this} a campi o metodi. (Usare sempre).
+\inline{... this.cmapo ... this.metodo() ...}
+
+\subsection{Precisazioni}
+Inizializzazioni particolari degli oggetti Stringa:
 \begin{enumerate}
-	\item \inline{<Tipo> <nome>;} sola definizione.
-	\item \inline{<Tipo> <nome> = valore;} definizone ed'inizializzazione.
-\end{enumerate}
-
-
-\subsubsection{Precisazioni slasse String}
-Diversi modi per inizializzare un oggetto stringa:
-\begin{enumerate}
-	\item \inline{... = new String();} inizializza con una stringa (sequenza di caratteri) vuota.
-	\item \inline{... = new String("...");} inizializza con la stringa passata come parametro.
-	\item \inline{... = "..."} inizializza direttamente con una stringa (come in C), caso unico.
+	\item \inline{... = new String();}, stringa vuota (è diverso da null).
+	\item \inline{... = "..."}, come in C, comportamento speciale degli oggetti Stringa.
 \end{enumerate}

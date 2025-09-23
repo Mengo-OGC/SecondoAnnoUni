@@ -1,19 +1,35 @@
 \documentclass{article}
+\usepackage[a4paper, hmargin=15mm]{geometry}
 \usepackage{tabularx}
 
 \title{Sistemi Operativi}
 \author{Leonardo Mengozzi}
 \date{}
+
+\newcommand{\sezione}[1]{\hline#1 & Descrizione\\\hline}
+
 \begin{document}
 	\maketitle
-	\begin{tabularx}{\textwidth}{lX}
-	\hline
-	Comando Linux & Descrizione\\
-	\hline
-	strace "comando" & Dice la sistem-call usata.\\
 
+	\centering
+	{\large Comandi bath}\\[0.01\textheight]
+	\begin{tabularx}{\textwidth}{lX}
+	\sezione{Directory}
+	cd \textit{percorso} & Sposta logicamente in una diversa directory, secondo un path asssoluto o relativo.\\
+	ls & Visualizza i files/direcotry contenuti nella directory corrente (anche ., ..). Parametri utili:
+
+	\textit{-l} mostra informazioni aggiuntive sui files.\\
+	pwd & Visualizza il percorso assoluto, da / fino alla directory corrente.\\
+
+	\sezione{Scripting}
+	echo \textit{testo} & Visualizza a video la sequenza di caratteri passata fino al primo "INVIO".\\
+	\ & Disabila interpretazione per il carattere successivo, andata a capo, permettendo di stamparlo.\\
+	echo "\textit{testo}" & Come echo, ma disabilita interpretazione caratteri speciali e andate a capo.\\
+	; & Separatore di più comandi lanciati durante la stessa digitazione.\\
+
+	\sezione{Vari}
+	strace \textit{comando} & Dice la sistem-call usata.\\
 	\hline
 	\end{tabularx}
 
-	Assembly: \textbf{int} aziona un interrupt che può cambiare il ring.
 \end{document}

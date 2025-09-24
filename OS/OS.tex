@@ -13,22 +13,45 @@
 
 	\centering
 	{\large Comandi bath}\\[0.01\textheight]
+
 	\begin{tabularx}{\textwidth}{lX}
+	\sezione{V.Ambiente}
+	PATH & modificabile, sequenza di percorsi assoluti, divisi da ":", di directory contenenti eseguibili (lanciabili senza digitare path). Ricerca secondo ordine specificato in PATH, si ferma a primo eseguibile con nome uguale. Eventuale ErrorNotFoutd.\\
+
 	\sezione{Directory}
 	cd \textit{percorso} & Sposta logicamente in una diversa directory, secondo un path asssoluto o relativo.\\
-	ls & Visualizza i files/direcotry contenuti nella directory corrente (anche ., ..). Parametri utili:
-
-	\textit{-l} mostra informazioni aggiuntive sui files.\\
+	ls & Visualizza i files/direcotry contenuti nella directory corrente.\\
+	ls -a & ls ma mosta anche file nascosti (anche ., ..).\\
+	ls -l & ls ma mostra più informazioni sui files.\\
 	pwd & Visualizza il percorso assoluto, da / fino alla directory corrente.\\
+	touch \textit{nomeFile.estensione} & Crea un file vuoto nella dyrectory corrente.\\
 
 	\sezione{Scripting}
 	echo \textit{testo} & Visualizza a video la sequenza di caratteri passata fino al primo "INVIO".\\
 	\ & Disabila interpretazione per il carattere successivo, andata a capo, permettendo di stamparlo.\\
 	echo "\textit{testo}" & Come echo, ma disabilita interpretazione caratteri speciali e andate a capo.\\
 	; & Separatore di più comandi lanciati durante la stessa digitazione.\\
+	nome=\textit{valore} & simboli con nome e valore, stringa modificabile, alfanumerici casesensitive. No spazi prima o dopo "=". Sono d'ambiente o ex-novo.
+
+	Solo la bash in cui sono create le variabili le può usare. I programmi lanciati dalla bash hanno una speudocopia della bash.\\
+	\$\{nomeVari\} & Fa sostituire il nome della variabile con il valore. graffe opzionali se nome variabile seguito da uno spazio.\\
+	\#... & Commeto.\\
+	\#!... & Se indicato nella prima riga indica quale interprete deve eseguire lo script. Se non specificato usato quello corrente.\\
+
+	\sezione{Privilegi}
+	chmod u+x \textit{script.sh} & Modifica permessi file mediante formato numerico: u+x terna 0-7. Ogni numero è la somma dei valori associati hai permessi di r(4), w(2), x/s(1). Ordine: proprietario, gruppo, altri utenti.\\
+	chgrp ??? & Modifica il gruppo di appartenenza di un file.\\
+	chown \textit{newOwner nameFile} & Modifica il proprietario (e anche gruppo) di un file.\\
+	ls -al \textit{nomeFile.estensione} & ls ma mostra permessi, anche dei file nascosti. Interpretazione: 1°carattere tipo file (- file, d dyrectory, c collegamento seriale, b device a blocchi), 9 caratteri successivi terzine di permessi (r read,w write,x/s execute) per proprietario, gruppo, altri utenti. \\
 
 	\sezione{Vari}
+	bash & Crea una bash figlia, copiaparziale della padre.\\
+	exit & Termina bash corrente e sale alla padre.\\
+	ps & Mostra i processi in esecuzione. Dati: PID=identificatore univoco, PPID=PID processo padre .\\
 	strace \textit{comando} & Dice la sistem-call usata.\\
+	clear & Pulisce la CLI. Non modifica variabili create.\\
+	which \textit{comando} & Cerca in PATH il comando e se lo trova mostra il path in cui si trova. \\
+	cat \textit{nomeFile.estensione} & Visualizza il contenuto del file.\\
 	\hline
 	\end{tabularx}
 

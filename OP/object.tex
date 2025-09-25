@@ -37,33 +37,6 @@ Variabili non inizializzate sono inutilizzabili.
 
 Il \textbf{garbage collector} (componente della JVM) dealloca automaticamente memoria non più utilizzata direttamente o indirettamente dall'heap. Un'oggetto continua a esistere dopo la fine esecuzione dello scope di una variabile che gli fa riferimento.
 
-\subsection{Tipi Primitivi}
-Non conviene trattare tutto come oggetto. I tipi atomici del C si sono mantenuti definendo una dimensione fissa e rimuovendo gli unsigned. Si è introdotto boolean con \textbf{true/false}.
-
-Questi tipi sono unici e fissi da linguaggio.
-
-\smallskip
-\centerline{
-\begin{tabular}{llll}
-	\hline
-	Tipi  primitivi & Dimensione & Minimo & Massimo \\
-	\hline
-	boolean & -- & -- & -- \\
-	char & 16bits & Unicode 0 & Unicode $2^{16}-1$ \\
-	byte & 8bits & -128 & +127 \\
-	short & 16bits & $-2^{15}$ & $-2^{15}-1$ \\
-	int & 32bits & $-2^{31}$& $+2^{31}-1$ \\
-	long & 64bits  & $-2^{63}$& $-2^{63}-1$\\
-	float & 32bits & IEEE754 & IEEE754 \\
-	double & 64bits & IEEE754 & IEEE754 \\
-	\hline
-\end{tabular}}
-\smallskip
-
-Le librerie \textit{BigDecimal, BigInteger} gestiscono numeri di dimensione/precisione arbitraria.
-
-\textbf{Nota:} In Java l'uso della memoria per i valori true/false di boolean, e tante altre cose, non sono date a sapere al programmatore dato che si dovrebbe concentrare su altro.
-
 \subsection{Stack e Heap}
 Gli oggetti sono memorizzati nell'\textbf{heap}. Tutte le variabili sono memorizzate nello \textbf{stack}.
 
@@ -71,16 +44,86 @@ Le variabili di tipo primitivo contengono direttamente il valore. Le variabili t
 
 Nota: Uno stesso oggetto può essere puntato da variabili che si riferiscono alla stessa identità.
 
-\subsection{Oggetti lato Utente}
-Dichiarazione, creazione, inizializzazione:
+\subsection{Tipi Primitivi}
+Ripasso: Un tipo classifica valori/oggetti tramite un nome, set valori, operatori.
 
-\inline{<Tipo | var> <nome> = <new Tipo([Tipo1 par1, ...]) | altraVariabile | null>;}
+I tipi atomici \textbf{signed} del C si sono mantenuti (non conveniva trattarli come oggetti) definendo un unica interpretazione:
+\begin{center}
+	\begin{tabular}{llll}
+		\hline
+		Tipi  primitivi & Dimensione & Minimo & Massimo \\
+		\hline
+		boolean & -- & -- & -- \\
+		char & 16bits & Unicode 0 & Unicode $2^{16}-1$ \\
+		byte & 8bits & -128 & +127 \\
+		short & 16bits & $-2^{15}$ & $-2^{15}-1$ \\
+		int & 32bits & $-2^{31}$& $+2^{31}-1$ \\
+		long & 64bits  & $-2^{63}$& $-2^{63}-1$\\
+		float & 32bits & IEEE754 & IEEE754 \\
+		double & 64bits & IEEE754 & IEEE754 \\
+		\hline
+	\end{tabular}
+
+{\tiny Le librerie \textit{BigDecimal, BigInteger} gestiscono numeri di dimensione/precisione arbitraria.}
+\end{center}
+
+\textbf{typing statico}: espressioni tipo noto al compilatore, vantaggio intercettazione errori.
+
+\textbf{Nota:} Uso memoria non dato a sapere al programmatore.
+
+\subsubsection{Boolean}
+Introdotto come tipo risultato delle espressioni e condizioni.
 \begin{itemize}
-	\item \inline{<Tipo> <nome>;} Si può solo dichiarare una variabile oggetto per poi crearla e inizializzarla successivamente.
-	\item solo quando si scrive \textit{new} (Keyword di linguaggio) si crea un oggetto dalla classe indicata.
-	\item \inline{var}\footnote{Local variable type inference} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
-	\item \inline{altraVariabile} deve essere della stessa classe della variabile che sto definendo.
+	\item \textbf{Valori} true, false.
+	\item \textbf{Operatori Unari} ! (not). Peratori binari: \& (and), | (or), \^ (xor), \&\& (and-C), || (or-c)\footnote{\& e | valutano sempre primo e secondo termine, essendo pensati per operazioni bit a bit mentre \&\& e || valotano il secondo operatore solo se necessario.}.
+	\item \textbf{Operatori confronto numerici} <, >, <=, >=.
+	\item \textbf{Operatori di uguaglianza} ==, !=. Con gli oggett di base confronta i riferimenti.
+	\item \textbf{Operatore ternario} \inline{<eb> ? e1 : e2}. restituisce e1 se eb è true, altrimenti restituisce e2. e1 e e2 espressioni dello stesso tipo.
 \end{itemize}
+
+\subsection{Caratteri}
+
+
+\subsubsection{Interi}
+\begin{itemize}
+	\item \textbf{Codificati} in complemento a 2.
+	\item \textbf{Operatori} + ,-, *, /, \%, + e - unari, \&, |, ~, <<, >>, >>>. Output stesso tipo Input.
+	\item \textbf{Rappresentabili} in codifica decimale (1\_000\_000), ottale (0...), esadecimale (0x...).
+	\item \textbf{Input tastiera} default int (più usato e efficente). Se voglio un long va aggiunta una "l" dopo il numero.
+\end{itemize}
+
+\subsubsection{Virgola mobile}
+\begin{itemize}
+	\item \textbf{Operatori} + ,-, *, /, \%, + e - unari.
+	\item \textbf{Codificati} in IEEE754.
+	\item \textbf{Rappresentabili} in codifica decimale o scientifica.
+	\item \textbf{Input tastiera} default double. Se voglio un float (più efficente) va aggiunta una "f" dopo il numero.
+\end{itemize}
+\textbf{Ricorda}: IEEE754 ha errori di precisione che portano all'approssimazione dei risultati.
+
+\subsection{Conversioni}
+\begin{itemize}
+	\item \textbf{Implicita} automaticamente applicata nelle esperessioni e nell'assegnamento portando tutti tipi a quello più "generale" presente nell'espressione. Detta \textit{coercizione}.
+
+	$byte\to short \to int \to long \to float \to double$
+	\item \textbf{Esplicito} fatto con operatore di casting: \inline{...=(<tipo>)<espressione>;}. Può causare perdità di informazioni.
+\end{itemize}
+
+\subsection{Array}
+Oggetti (variabili hanno riferimento nello heap) di lunghezza esplicita e acessibile, inacessibile fuori dai limiti (errore esecuzione), mutabili. Indirizzi elementi [0, lunghezza-1].
+
+Sintassi:
+\begin{itemize}
+	\item \inline{<tipo>[] <nome> = new <tipo>[] \{v1,...,vn\};}
+	\item \inline{<tipo>[] <nome> = new <tipo>[<dim>];}. Elementi inizializzati a valore default tipo (false, 0, null).
+	\item \inline{<tipo>[] <nome> = \{v1,...,vn\};}
+\end{itemize}
+
+Note: Si possono fare array di array. Gli array di oggetti sono oggetti con puntatori ad'altri oggetti.
+
+Accesso a variabile \inline{... <nome>[<ind>] ...}.
+
+Per sapere la lunghezza dell'array \inline{<nome>.length}.
 
 
 
@@ -136,3 +179,14 @@ Inizializzazioni particolari degli oggetti Stringa:
 	\item \inline{... = new String();}, stringa vuota (è diverso da null).
 	\item \inline{... = "..."}, come in C, comportamento speciale degli oggetti Stringa.
 \end{enumerate}
+
+\section{Oggetti lato Utente}
+Dichiarazione, creazione, inizializzazione:
+
+\inline{<Tipo | var> <nome> = <new Tipo([Tipo1 par1, ...]) | altraVariabile | null>;}
+\begin{itemize}
+	\item \inline{<Tipo> <nome>;} Si può solo dichiarare una variabile oggetto per poi crearla e inizializzarla successivamente.
+	\item solo quando si scrive \textit{new} (Keyword di linguaggio) si crea un oggetto dalla classe indicata. \textit{new} da il riferimento dell'oggetto alla variabile.
+	\item \inline{var}\footnote{Local variable type inference} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
+	\item \inline{altraVariabile} deve essere della stessa classe della variabile che sto definendo.
+\end{itemize}

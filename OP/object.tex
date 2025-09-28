@@ -1,15 +1,9 @@
 \section{Struttura Programma Java}
-Un programma Java è composta da librerie di classi del JDK, Package\footnote{Contenitori, gerarcici tra loro, di una decina di classi di alto livello con scopo comune} e Moduli\footnote{Insieme di Package costituente un frammento di codice autonomo.}, librerie di esterne e un insieme di classi fondamentali, come la class main\footnote{Un main è il punto d'accesso di un programma.}.
-\inline{public static void main(String[] args) \{...\}}
+Un programma Java è composta da librerie di classi del JDK, Package\footnote{Contenitori, gerarcici tra loro, di una decina di classi di alto livello con scopo comune} e Moduli\footnote{Insieme di Package costituente un frammento di codice autonomo.}, librerie di esterne e un insieme di classi fondamentali.
 
-Per importare le classi di una libreria:
-\begin{itemize}
-	\item \inline{import java...;}, importa una singola classe.
-	\item \inline{import java...*;}, importa l'intero Package.
-	\item \inline{import java.lang.*;}, importazione di default.
-\end{itemize}
-
-Nota: Il nome completo di una classe dipende dal Package in cui si trova.
+La classe cardine di un programma è la class main\footnote{Un main è il punto d'accesso di un programma.}.
+\multiline{main}{}{CodiciEsempio/main.java}
+Il parametro del main è un array di stringhe che sono i parametri che l'utente può immettere da tastiera quando il programma è lanciato da CLI. Poco usato.
 
 \subsection{Esecuzione Programma}
 \begin{enumerate}
@@ -17,11 +11,23 @@ Nota: Il nome completo di una classe dipende dal Package in cui si trova.
 	\item Compilare con \textit{javac NomeFileClasse.java}. Genererà il \textbf{bytecode NomeFileClasse.class} per la JVM.
 	\item Esegiure con \textit{java NomeFileClasse}. La JVM cercherà il main da cui partire a eseguire.
 \end{enumerate}
-
 Lavorando con più file: si compila tutto con \textit{javac *.java} poi si esegue solo la classe main.
 
+\subsection{I package}
+Per prassi nella cartella di un progetto, si fa corrispondere hai package auto-costruiti delle directory del file system.
 
+Di default il package di una unità di compilazione\footnote{File.java compilabile atomicamente contenente classi una dopo l'altra.}, ".java", è la root di gerarchia.
+Per definire il pakage di appartenenza si specifica a inizio sorgente:
 
+\inline{package pname;}
+
+Per poi usare una classe di un package bisogna importarla (non aggiunge codice nell'eseguibile):
+\begin{itemize}
+	\item \inline{import java...;} importa una singola classe.
+	\item \inline{import java...*;} importa l'intero Package.
+	\item \inline{import java.lang.*;} importazione di default.
+\end{itemize}
+Il nome completo di una classe dipende dal Package in cui si trova. Se non si importa bisogna specificare all'uso il nome completo.
 
 
 \section{(Almost) Everything is an object}
@@ -32,10 +38,7 @@ Non ci sono meccanismi per controllo diretto memoria. Le variabili sono nomi "lo
 Le variabili posso essere di tipo \textit{Java Types} quindi classi predefinite e autoimplementate oppure \textit{tipi primitivi}.
 
 Visibilità legata al blocco di definizione.
-
 Variabili non inizializzate sono inutilizzabili.
-
-Il \textbf{garbage collector} (componente della JVM) dealloca automaticamente memoria non più utilizzata direttamente o indirettamente dall'heap. Un'oggetto continua a esistere dopo la fine esecuzione dello scope di una variabile che gli fa riferimento.
 
 \subsection{Stack e Heap}
 Gli oggetti sono memorizzati nell'\textbf{heap}. Tutte le variabili sono memorizzate nello \textbf{stack}.
@@ -64,7 +67,7 @@ I tipi atomici \textbf{signed} del C si sono mantenuti (non conveniva trattarli 
 		\hline
 	\end{tabular}
 
-{\tiny Le librerie \textit{BigDecimal, BigInteger} gestiscono numeri di dimensione/precisione arbitraria.}
+	{\tiny Le librerie \textit{BigDecimal, BigInteger} gestiscono numeri di dimensione/precisione arbitraria.}
 \end{center}
 
 \textbf{typing statico}: espressioni tipo noto al compilatore, vantaggio intercettazione errori.
@@ -75,26 +78,26 @@ I tipi atomici \textbf{signed} del C si sono mantenuti (non conveniva trattarli 
 Introdotto come tipo risultato delle espressioni e condizioni.
 \begin{itemize}
 	\item \textbf{Valori} true, false.
-	\item \textbf{Operatori Unari} ! (not). Peratori binari: \& (and), | (or), \^ (xor), \&\& (and-C), || (or-c)\footnote{\& e | valutano sempre primo e secondo termine, essendo pensati per operazioni bit a bit mentre \&\& e || valotano il secondo operatore solo se necessario.}.
-	\item \textbf{Operatori confronto numerici} <, >, <=, >=.
-	\item \textbf{Operatori di uguaglianza} ==, !=. Con gli oggett di base confronta i riferimenti.
+	\item \textbf{Operatori Unari} \inline{! (not)}. Peratori binari: \inline{\& (and), | (or), \^ (xor), \&\& (and-C), || (or-c)}\footnote{\& e | valutano sempre primo e secondo termine, essendo pensati per operazioni bit a bit mentre \&\& e || valotano il secondo operatore solo se necessario.}.
+	\item \textbf{Operatori confronto numerici} \inline{<, >, <=, >=}.
+	\item \textbf{Operatori di uguaglianza} \inline{==, !=}. Con gli oggett di base confronta i riferimenti.
 	\item \textbf{Operatore ternario} \inline{<eb> ? e1 : e2}. restituisce e1 se eb è true, altrimenti restituisce e2. e1 e e2 espressioni dello stesso tipo.
 \end{itemize}
 
-\subsection{Caratteri}
-
+\subsubsection{Caratteri}
+Rappresentazione \inline{'carattere'} o \inline{'\u<0-65535>'}. Formato ASCII o UTF16 (16bit). I caratteri d'escape si fanno \inline{'\\<specificatore>'}.
 
 \subsubsection{Interi}
 \begin{itemize}
 	\item \textbf{Codificati} in complemento a 2.
-	\item \textbf{Operatori} + ,-, *, /, \%, + e - unari, \&, |, ~, <<, >>, >>>. Output stesso tipo Input.
+	\item \textbf{Operatori} \inline{+ ,-, *, /, \%, + e - unari, \&, |, ~, <<, >>, >>>}. Output stesso tipo Input.
 	\item \textbf{Rappresentabili} in codifica decimale (1\_000\_000), ottale (0...), esadecimale (0x...).
 	\item \textbf{Input tastiera} default int (più usato e efficente). Se voglio un long va aggiunta una "l" dopo il numero.
 \end{itemize}
 
 \subsubsection{Virgola mobile}
 \begin{itemize}
-	\item \textbf{Operatori} + ,-, *, /, \%, + e - unari.
+	\item \textbf{Operatori} \inline{+ ,-, *, /, \%, + e -} unari.
 	\item \textbf{Codificati} in IEEE754.
 	\item \textbf{Rappresentabili} in codifica decimale o scientifica.
 	\item \textbf{Input tastiera} default double. Se voglio un float (più efficente) va aggiunta una "f" dopo il numero.
@@ -125,6 +128,14 @@ Accesso a variabile \inline{... <nome>[<ind>] ...}.
 
 Per sapere la lunghezza dell'array \inline{<nome>.length}.
 
+\subsubsection{Foreach}
+Astazione \inline{for} in sola \textbf{lettura}, utile quando non importa ordine scorrimento elementi collezione e valore indice.
+
+\inline{for(<tipo> <v>: <e>)}
+\begin{itemize}
+	\item \inline{v} è variabile del tipo indicato che vale via via ogni elemento della colezzione.
+	\item \inline{e} è un espressione che restituisce una collezione di elementi del tipo indicato.
+\end{itemize}
 
 
 
@@ -141,15 +152,14 @@ I membri fondamentali di una classe sono:
 	\item \textbf{Campi}, descrivono la struttura/stato
 	\item \textbf{Metodi}, descrivono i messaggi e il comportamento
 \end{itemize}
-
-\multiline{strutturaclasse}{}{CodiciEsempio/StruturaClasse.java}
-
-Definisco le configurazioni.
+Poi possiamo avere Costruttori, ecc.
 
 Le classi sono tipi di dato in un linguaggio a oggetti tutto è un oggetto fino a un certo punto.
 
+\multiline{strutturaclasse}{}{CodiciEsempio/StruturaClasse.java}
+
 \subsection{Campi}
-Sono lo stato attuale dell'oggetto.
+Sono lo stato attuale dell'oggetto. Nome con la minuscola.
 Simili hai membri di una struttura C, con la differenza che possono essere 0,1,diversi (5-7max). Simili a variabili (tipo+nome), ma non si può usare \textit{var}.
 Possono essere valori primitivi o altri oggetti (anche della classe stessa).
 L'ordine dei non conta.
@@ -158,8 +168,15 @@ I campi sono iniziabili alla dichiarazione dell'oggetto (coi parametri), sennò 
 
 Uso dei campi lato utente: Assegnamento \inline{... obj.campo = ...}, Lettura \inline{... = obj.campo ...}
 
+\subsubsection{final e costanti}
+Modificatore (opzionale) per campi, variabili e parametri. Dopo inizializzazione non più modificabile il valore.
+
+\inline{<tipo> final <nomeVar [= new ... | valore;]}
+
+Per fare le \textbf{costanti} (NOME\_COSTANTE) usare \inline{static final ...;}. Soluzione a \textit{Magic Number}.
+
 \subsection{Metodi}
-Definiscono il comportamento dell'oggetto.
+Definiscono il comportamento dell'oggetto. Nome con la minuscola.
 Simili a funzioni C. Hanno un intestazione (tipo di ritorno|void, nome, argomenti) e un corpo.
 I metodi di una classe possono essere 0, 1, diversi.
 
@@ -169,9 +186,57 @@ Uso dei metodi lato utente \inline{... obj.metodo() ...}. L'invocazione del meto
 
 \multiline{strutturametodo}{}{CodiciEsempio/StrutturaMetodo.java}
 
-\subsection{La variabile \textit{this}}
+\subsubsection{return this}
+Un metodo può ritorna \inline{this}, l'oggetto corrente. Deve avere come tipo di ritorno la classe stessa.
+
+Usato per concatenare più metodi in una sola espressione, combinando i risultati parziali, e restituendo con l'ultimo metodo l'oggetto processato:
+
+\inline{... obj.m1().m2()...mThis();}
+
+Questo schema è detto \textbf{fluente}.
+
+\subsection{Costruttore}
+Simile a un metodo con nome il nome della classe, senza tipo di ritorno e opzionalmente dei parametri formali.
+
+\inline{NomeClasse([parametri]) {...}}
+
+Se non si definisce il costruttore viene implicitamente inserito il costruttore di default (0 parametri) che inizializza i campi ai tipi di default.
+
+\subsubsection{Overloading}
+Si possono definire più costruttori e metodi, ma non è una buona pratica.
+Nel caso devono essere \textbf{distinguibili dal numero e/o tipo} dei parametri.
+
+I costruttori si possono \textbf{invocare a vicenda} (riuso codice). \inline{this(...)} deve essere la prima riga del corpo del costruttore.
+
+\multiline{riusocostruttori}{}{CodiciEsempio/RiusoCostruttori.java}
+
+\subsection{this}
 Variabile contenente il riferimento all'oggetto che sta gestendo il messaggio corrente. Si usa per rendere meno ambiguo il codice accedento tramite \textit{this} a campi o metodi. (Usare sempre).
 \inline{... this.cmapo ... this.metodo() ...}
+
+\subsection{static}
+Scollega metodi e campi dagli oggetti di una stessa classe, rendendoli condivisi tra essi. I metodi diventano funzioni pure e i campi variabili globali alla classe.
+
+Si possono fare classi solo statiche (utility class, NomeClasse+s) più non statiche (approccio migliore) o miste (campi e metodi static in fondo).
+
+Richiamo fuori dalla classe: \inline{... nomeClase.campo|metodo() ...}.
+Richiamo nella classe come normale campo o metodo.
+Richiamabile anche da un oggetto.
+
+\inline{static campo|metodo|classe}
+
+Quando \inline{static}?
+Si fanno statici i metodi o campi che sono indipendenti dallo stato di un oggetto della classe. Fanno un servizio indipendente dal singolo oggetto.
+
+\subsection{Livelli d'accesso}
+Si antepongono a classi, metodi, campi, costruttori, ecc per definire il grado di utilizzo:
+\begin{itemize}
+	\item \inline{public} Visibile e richiamabile da qualunque classe.
+	\item \inline{package} default (no keyword). Visibile e richiamabili dentro il package e invisibili fuori.
+	\item \inline{private} Visibile e richiamabile solo nella classe di definizione.
+\end{itemize}
+
+In una unità di compilazione una sola classe è \inline{public} e con lo stesso nome del file.
 
 \subsection{Precisazioni}
 Inizializzazioni particolari degli oggetti Stringa:
@@ -183,10 +248,10 @@ Inizializzazioni particolari degli oggetti Stringa:
 \section{Oggetti lato Utente}
 Dichiarazione, creazione, inizializzazione:
 
-\inline{<Tipo | var> <nome> = <new Tipo([Tipo1 par1, ...]) | altraVariabile | null>;}
+\inline{<Tipo | var> <nome> = <new Tipo([argomenti]) | altraVariabile | null>;}
 \begin{itemize}
 	\item \inline{<Tipo> <nome>;} Si può solo dichiarare una variabile oggetto per poi crearla e inizializzarla successivamente.
-	\item solo quando si scrive \textit{new} (Keyword di linguaggio) si crea un oggetto dalla classe indicata. \textit{new} da il riferimento dell'oggetto alla variabile.
+	\item solo quando si scrive \inline{new} (Keyword di linguaggio di chiamata al costruttore) si crea e inizializza un oggetto dalla classe indicata. \inline{new} da il riferimento (\inline{this}) dell'oggetto alla variabile.
 	\item \inline{var}\footnote{Local variable type inference} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
 	\item \inline{altraVariabile} deve essere della stessa classe della variabile che sto definendo.
 \end{itemize}

@@ -19,7 +19,7 @@ I linguaggi di programmazione attuano l'astrazione coi loro costrutti, più o me
 I linguaggi moderni hanno un livello d'astrazione lontano dall'HardWare, i suoi problemi e la gestione della memoria.
 
 \subsection{Programmazione ad oggetti (OOP)}
-\colTwo{\textbf{Vantaggi:} poche astrazioni chiave, mapping ottimo e semplice, estensibilità e riutilizzo, librerie auto costruite, C-like, esecuzione efficente.}{\textbf{Critiche:} necessaria disciplina.}{55}{35}
+\textbf{Vantaggi:} poche astrazioni chiave, mapping ottimo e semplice, estensibilità e riutilizzo, librerie auto costruite, C-like, esecuzione efficente. \textbf{Critiche:} necessaria disciplina.
 
 \section{Teoria degli oggetti}
 \colTwo{\textbf{Classe:} Descrizione comportamento e forma oggetti. Indica come comunicare con i suoi oggetti, con messaggi che modificano stato e comportamento.}{\textbf{Oggetto:} Entità (istanza di classe) manipolabile, con memoria, che comunicano tramite le loro operazioni descritte dalla classe di appartenenza.}{45}{45}
@@ -49,3 +49,26 @@ Un oggetto ha un interfaccia\footnote{Insieme dei metodi definiti dall'interfacc
 
 	\item \textbf{Keep it simple, stupid}, in teoria non in pratica.
 \end{itemize}
+
+\subsection{Elementi fondamentali}
+\colTwo{\textbf{Espressione}: fornisce un risulato, riusabile ove si attende un valore.}{\textbf{Comando}: istruzione da terminare con ";", non componibile con altre}{45}{45}
+
+Alcune parole chiave del linguaggio: \inline{for, while, do, switch, if, break, continue, return, var, ecc}.
+
+\subsection{Differenze con C}
+\begin{itemize}
+	\item Condizioni di \inline{if, for, while, do} restituiscono \inline{boolean}.
+
+	\item Nel \inline{for} è possibile dichiare le variabili contatore (visibili solo internamente).
+
+	\inline{for (<tipo> <c1>,...; <condizoneBoolean>, <modificaC1>,...) \{...\}}
+
+	\item Java da \inline{unreachable statement, variable may not have been initialised, missing return statemet,ecc} come errori, C solo come warning. Approccio più "rigido" ma anche più "corretto".
+\end{itemize}
+
+\subsection{Gestione Oggetti in memoria}
+Alla creazione di un oggetto, la \inline{new} chiama il gestore della memoria, si calcola la dimensine della memoria da allocare, si alloca, si inizializza e si restituisce il riferimento alla variabile.
+
+La memoria occupata da un oggetto, non si sa com'è organizzata, ma contiene i campi non statici e il riferimento alla classe con la tabella dei metodi. Gli elementi statici sono allocati in una sezione dedicata.
+
+Il \textbf{garbage collector} (componente della JVM) dealloca automaticamente memoria heap non più utilizzata direttamente o indirettamente. Un'oggetto continua a esistere dopo la fine esecuzione dello scope di una variabile che gli fa riferimento.

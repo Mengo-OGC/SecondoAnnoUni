@@ -1,7 +1,11 @@
-class NomeDiUnaClasse {
+[public | private | ""] class NomeDiUnaClasse {
+	// Campi
+	[public | private | ""] [static] [final] <tipo> <nomeCampo>;
 	...
-	<Campi>
+	// Costruttore/i
+	[public | private | ""] NomeClasse([<parametri>]) {...}
 	...
-	<Metodi>
+	// Metodi
+	[public | private | ""] [static] <tipo> <nomeMetodo>([<parametri>]) {...}
 	...
 }

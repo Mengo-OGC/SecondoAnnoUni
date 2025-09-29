@@ -37,6 +37,7 @@
 	\$\{nomeVari\} & Fa sostituire il nome della variabile con il valore. graffe opzionali se nome variabile seguito da uno spazio.\\
 	\#... & Commeto.\\
 	\#!... & Se indicato nella prima riga indica quale interprete deve eseguire lo script. Se non specificato usato quello corrente.\\
+	\textit{comando1} | \textit{comando2} & pipe (speudo-file temporaneo): collega automaticamente l'output di un comando all'input di un altro. Unidirezionale.\\
 
 	\sezione{Privilegi}
 	chmod u+x \textit{script.sh} & Modifica permessi file mediante formato numerico: u+x terna 0-7. Ogni numero è la somma dei valori associati hai permessi di r(4), w(2), x/s(1). Ordine: proprietario, gruppo, altri utenti.\\
@@ -52,6 +53,9 @@
 	clear & Pulisce la CLI. Non modifica variabili create.\\
 	which \textit{comando} & Cerca in PATH il comando e se lo trova mostra il path in cui si trova. \\
 	cat \textit{nomeFile.estensione} & Visualizza il contenuto del file.\\
+	lsmod & Elenca tutti i moduli attivi.\\
+	modinfo \textit{nomeModulo} & Dice le informazioni sul modulo specificato.\\
+	sudo modprobe \textit{nomeModulo} & Carica il modulo specificato.\\
 	\hline
 	\end{tabularx}
 

@@ -8,8 +8,7 @@
 \mysubsection{Insiemi}
 Negli insiemi non conta l'ordine (infatti si usano le "\{\}", se contava l'ordine si usavano le "()") e gli elementi ripetuti. Insieme finito $\{1, \dots, n\}$. Insieme infinito $\{1,\dots\}$.
 
-\definizione{Cardinalità}{
-Un insieme $A$ ha cardinalità $n$ se contiene esattamente $n$ elementi, o equivalentemente se $\exists$ una corrispondenza biunivoca $A \longleftrightarrow \{1,2,\dots, n\}$.}{d:cardinalita}
+\definizione{Cardinalità}{Un insieme $A$ ha cardinalità $n$ se contiene esattamente $n$ elementi, o equivalentemente se $\exists$ una corrispondenza biunivoca $A \longleftrightarrow \{1,2,\dots, n\}$.}{d:cardinalita}
 
 La cardinalità si indica $|A|=n$.
 
@@ -17,11 +16,9 @@ La cardinalità si indica $|A|=n$.
 
 \osservazione{L'insieme vuoto è l'unico insieme finito di cardinalità 0.}
 
-\definizione{Cardinalità insiemi infiniti}{
-Due insiemi infiniti hanno la stessa cardinalità se $\exists$ una biezione (Corrispondenza biunivoca) tra di loro.}{d:cardinalitainsiemiinfiniti}
+\definizione{Cardinalità insiemi infiniti}{Due insiemi infiniti hanno la stessa cardinalità se $\exists$ una biezione (Corrispondenza biunivoca) tra di loro.}{d:cardinalitainsiemiinfiniti}
 
-\definizione{Insieme numerabile}{
-Un insieme $A$ si dice numerabile se ha la stessa cardinalità di $\{1,2,3,\dots\}$.}{d:insiemenumerabile}
+\definizione{Insieme numerabile}{Un insieme $A$ si dice numerabile se ha la stessa cardinalità di $\{1,2,3,\dots\}$.}{d:insiemenumerabile}
 
 In altre parole un insieme è numerabile se i suoi elementi possono essere messi in un a fila infinità.
 
@@ -65,13 +62,13 @@ Per il caso generale $|A|=n, A=\{a_1,\dots, a_n\}$ procediamo come prima facendo
 \mysubsection{Principi di base}
 \begin{enumerate}
 	\item \textbf{Principio di ugualianza:} Siano $A, B$ insiemi qualunque in corrispondenza biunivoca allora questi hanno lo stesso numero di elementi.
-	\item \textbf{Principio della somma:} Siano $A, B$ insiemi qualunque disgiunti (non hanno elemtni in comune), allora $|A\cup B|=|A|+|B|$.
+
+	Generalizzazione del Principio di ugualianza: $F:A\to B$ si dice $k:1$ (k a 1) se è surriettiva e a ogni elemento di $B$ corrispondono esattamente $k$ elementi di $A$. In questo caso $|A|=k|B|$. Il principio di ugualianza corrisponde al caso $k=1$.
+	\item \textbf{Principio della somma:} Siano $A, B$ insiemi qualunque disgiunti (non hanno elementi in comune), allora $|A\cup B|=|A|+|B|$.
 
 	Ricorda: Si dice Distinti se gli insiemi sono diversi per almeno un elemento.
 	\item \textbf{Principio del prodotto:} Siano $A, B$ insiemi qualunque, allora $|A\times B|=|A|\cdot |B|$.
 \end{enumerate}
-
-Generalizzazione del Principio di ugualianza: $F:A\to B$ si dice $k:1$ (k a 1) se è surriettiva e a ogni elemento di $B$ corrispondono esattamente $k$ elementi di $A$. In questo caso $|A|=k|B|$. Il principio di ugualianza corrisponde al caso $k=1$.
 
 \definizione{Prodotto Condizionato}{Siano $A, B$ insiemi. $C \subseteq A \times B$ è sotto insieme del prodotto cartesiano e si dice prodotto condizionato di tipo $(n,m)$ se sono soddisfatte queste condizioni:
 \begin{enumerate}

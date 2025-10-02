@@ -1,11 +1,16 @@
-[public | private | ""] class NomeDiUnaClasse {
+[modAccesso] class NomeDiUnaClasse {
+	// Costanti
+	static final <tipo> <NOME_COSTANTE>;
+	...
 	// Campi
-	[public | private | ""] [static] [final] <tipo> <nomeCampo>;
+	private [final] <tipo> <nomeCampo>;
 	...
 	// Costruttore/i
-	[public | private | ""] NomeClasse([<parametri>]) {...}
+	public NomeClasse([<parametri>]) {...}
 	...
 	// Metodi
-	[public | private | ""] [static] <tipo> <nomeMetodo>([<parametri>]) {...}
+	[modAccesso] [static] <tipo> <nomeMetodo>([<parametri>]) {...}
 	...
+	// Campi e Metodi statici
+	static ...
 }

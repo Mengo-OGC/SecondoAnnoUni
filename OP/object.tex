@@ -29,6 +29,22 @@ Per poi usare una classe di un package bisogna importarla (non aggiunge codice n
 \end{itemize}
 Il nome completo di una classe dipende dal Package in cui si trova. Se non si importa bisogna specificare all'uso il nome completo.
 
+\subsection{Convenzioni}
+\begin{itemize}
+	\item Linee max 90 caratteri e indenzazione 2-4 caratteri.
+	\item Una sola istruzione per riga e quindi si definisce una sola variabile per riga, quando necessario, sempre inizializzata.
+	\item Apertura "\{" a fine riga della dichiarazione e chiusura "\}" in linea a dove inizia la riga di apertura.
+	\item Condice senza righe vuote di separazione a meno di metodi/costruttori.
+	\item Non usare assegnamenti dentro espressioni e usare parentesi solo in espressioni non banali.
+	\item Nomi classi e interfacce in "PascalCase". Nomi metodi, campi, variabili in "camelCase" e costanti in "BIG\_CASE".
+	\bigskip
+	\item I metodi che returnano, senza parametri, si chiamano \inline{get...} oppure \inline{is/has...} se return boolean.
+	\item I metodi che returnano void, e accettano parametri, si chiamano \inline{set...}.
+\end{itemize}
+
+\subsubsection{I Commenti}
+Oltre a \inline{//... e /*...*/} in java abbiamo \inline{/** ... */} un commento multi linea usato per generare documentazione.
+
 
 \section{(Almost) Everything is an object}
 Le variabili, contenitori con nomi, ora non denotano solo valori numerici (come in C), ma anche veri e propri oggetti irriducibili.
@@ -131,10 +147,12 @@ Per sapere la lunghezza dell'array \inline{<nome>.length}.
 \subsubsection{Foreach}
 Astazione \inline{for} in sola \textbf{lettura}, utile quando non importa ordine scorrimento elementi collezione e valore indice.
 
-\inline{for(<tipo> <v>: <e>)}
+\oneline{for(final<tipo> <v>: <e>)}
+
 \begin{itemize}
 	\item \inline{v} è variabile del tipo indicato che vale via via ogni elemento della colezzione.
 	\item \inline{e} è un espressione che restituisce una collezione di elementi del tipo indicato.
+	\item Si può esplicitare \inline{final}, anche se non servirebbe, perchè il foreach crea una nuova variabile a ogni iterazione in realtà.
 \end{itemize}
 
 
@@ -164,16 +182,23 @@ Simili hai membri di una struttura C, con la differenza che possono essere 0,1,d
 Possono essere valori primitivi o altri oggetti (anche della classe stessa).
 L'ordine dei non conta.
 
-I campi sono iniziabili alla dichiarazione dell'oggetto (coi parametri), sennò sono inizializzati in base al tipo a \textbf{0, false, null}.
+I campi sono iniziabili alla dichiarazione dell'oggetto (coi parametri), sennò sono inizializzati in base al tipo a \textbf{0, false, null}. Mai alla dichiarazione si inizalizzano (...=...;).
+
+\oneline{public|private|"" [final] <tipo> <nomeCampo>;}
 
 Uso dei campi lato utente: Assegnamento \inline{... obj.campo = ...}, Lettura \inline{... = obj.campo ...}
 
-\subsubsection{final e costanti}
-Modificatore (opzionale) per campi, variabili e parametri. Dopo inizializzazione non più modificabile il valore.
+\subsection{final e costanti}
+Modificatore (da usare quando si può) per campi, variabili e parametri. Dopo inizializzazione non più modificabile il valore.
 
-\inline{<tipo> final <nomeVar [= new ... | valore;]}
+\oneline{<tipo> final <nomeVar [= new ... | valore;]}
 
 Per fare le \textbf{costanti} (NOME\_COSTANTE) usare \inline{static final ...;}. Soluzione a \textit{Magic Number}.
+
+\subsubsection{Oggetti immutabili}
+Oggetti i cui campi non si modificheranno mai, dopo la prima modifica del costruttore.
+
+Si creano dichiarando \inline{final private} tutti i campi della classe di tipo: tipi primitivi o oggetti immutabili.
 
 \subsection{Metodi}
 Definiscono il comportamento dell'oggetto. Nome con la minuscola.
@@ -223,7 +248,7 @@ Richiamo fuori dalla classe: \inline{... nomeClase.campo|metodo() ...}.
 Richiamo nella classe come normale campo o metodo.
 Richiamabile anche da un oggetto.
 
-\inline{static campo|metodo|classe}
+\oneline{static campo|metodo|classe}
 
 Quando \inline{static}?
 Si fanno statici i metodi o campi che sono indipendenti dallo stato di un oggetto della classe. Fanno un servizio indipendente dal singolo oggetto.
@@ -238,11 +263,43 @@ Si antepongono a classi, metodi, campi, costruttori, ecc per definire il grado d
 
 In una unità di compilazione una sola classe è \inline{public} e con lo stesso nome del file.
 
+Vantaggio: Si può far rispettare al meglio il contratto\footnote{Insieme degli scienari d'utilizzo e quindi aspettative di un utente al suo utilizzo.} di un oggetto.
+
+\subsubsection{Incapsulamento}
+\colTwo{Dichiaro \inline{public} solo metodi/costruttori, di "design", necessari all'utente per interagire/creare l'istanza della classe.}{Dichiaro \inline{private} tutti i metodi/costruttori di "implementazione", e \textbf{tutti i campi}.}{45}{45}
+
+Cosi modifiche implementative non influenzano uso dell'utente. Controllo dati e riuduco possibilità errori lato utente. Maggior distacco tra dato e implementazione. (\textit{Information hidding}).
+
+\bigskip
+
+\textbf{Principio di decomposizione (\textit{divide et impera})}: Soluzione di un problema complesso è la somma di due o più sotto problemi più semplici, tra loro indipendenti.
+
+Tali sotto problemi devono avere il minor numero di dipendenze\footnote{Riferito alle classi è quando una classe usa al suo interno un'altra. Ciò può comportare modifiche a cascata rischiando la \textit{sindrome dell'"intoccambilità"}.} reciproche. Permettendo maggior autonomia, più modifiche senza danni collaterali e meno interazioni.
+
+Una buona divisione da moduli con basse dipendenze esterne e alte dipendenze interne.
+
+Nella OO le suddivisioni base sono pacakge, classi e metodi.
+
+\subsection{toString()}
+Ogni classe deve definire tale metodo che restituisce una rappresentazione in stringa dell'oggetto, utile in fase di debug.
+
+Automaticamente chiamato dall'operatore "+" nelle concatenazioni tra stringhe e oggetti.
+
+
 \subsection{Precisazioni}
 Inizializzazioni particolari degli oggetti Stringa:
 \begin{enumerate}
 	\item \inline{... = new String();}, stringa vuota (è diverso da null).
 	\item \inline{... = "..."}, come in C, comportamento speciale degli oggetti Stringa.
+\end{enumerate}
+
+\subsection{Fasi Implementazione}
+\begin{enumerate}
+	\item Progettazione della parte pubblica della classe (nome classe, signatura metodi e costruttori necesari).
+	\item Costruzione dello stato (campi privati, con nome diverso dai metodi relativi).
+	\item Completamento implementazione. (test).
+	\item Miglioramento codice finale (commenti, eliminare \textit{Magic Number}, fattorizzare sotto-funzioni). (test).
+	\item Test del risultato con test-case. (test-driven development con JUnit).
 \end{enumerate}
 
 \section{Oggetti lato Utente}

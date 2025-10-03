@@ -2,6 +2,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{fancyhdr}
+\usepackage{lastpage}
 \usepackage[colorlinks=true, linkcolor=black]{hyperref}
 
 \renewcommand{\lstlistingname}{Codice}		% titoletto dei caption
@@ -40,4 +41,4 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\hyperref[toc]{$\leftarrow$Indice}}
-\fancyhead[R]{\thepage}
+\fancyhead[R]{\thepage/\pageref{LastPage}}

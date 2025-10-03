@@ -1,0 +1,62 @@
+\section{Dipendenze}
+Il minimo numero di dipendenze fra classi sono manifestazione di "riuso" di codice e ne fanno un sistema e non un mero gruppo.
+
+I tipi di dipendenze sono:
+\begin{itemize}
+	\item \textbf{Associazione} (uses),  un oggetto ne usa un altro.
+	\item \textbf{Composizione} (has-a), un oggetto ne aggrega altri.
+
+	Un oggetto di una classe \textit{si compone di} (campi) un insieme di altri oggetti, di altre classi.
+
+	Tale composizione può essere permanente (campo final) o opzionale (campo possibilmente \inline{null}), multipla nota (più campi) o sconosciuta (campo array).
+	\item \textbf{Specializzazione} (is-a), una classe ne specializza un'altra.
+\end{itemize}
+
+Nota: Nella composizione alla cancellazione dell'oggetto utilizzatore gli oggetti usati vengono cancellati a loro volta. Diversamente nell'aggregazione questi persistono.
+
+\subsection{Interfacce}
+Sopra tipo con caratteristiche comuni. Le classi implementative sono sotto tipi dell'interfaccia.
+
+\bigskip
+
+Separa esplicitamente l'interfaccia (contratto, fisso) dalla realizzazione (implementazione, variabile) della classe.
+
+Consente diverse realizzazioni di un contratto, usabili omogeneamente. (più classi implementano medesime funzioni e si vuole usarele come fossero la stessa).
+
+\oneline{interface <NomeInterfaccia> \{...\}}
+
+\begin{itemize}
+	\item Nuovo tipo solo dichiarabile (no \inline{new NomeInterfaccia()}) con valore oggetti delle classi che implementano l'interfaccia.
+
+	\textbf{Principio sostituibilità di Liskov}: A sottotipo di B, ogni oggetto A deve essere usabile dove ci si attende un oggetto B.
+	\item Un oggetto tipo interfaccia consente solo chiamate ai metodi definiti dall'interfaccia e esegue l'implementazione specifica classe implementativa dell'interfaccia.
+
+	\oneline{<NomeInterfaccia> <nomeVar> = new <ClasseImplementativa>();}
+
+	Tipo statico è interfaccia e tipo run-time è tipo classe implementativa.
+	\textbf{Late binding}: Codice da eseguire scelto dinamicamente, dipende da classe implementativa dell'interfaccia tipo della variabile.
+
+	\item Include solo intestazioni di metodi. Sono automaticamente \inline{public} e non si specifica.
+	\item Compilato come una classe (produce un .class).
+
+	\item Un interfaccia può estendere altre interfacce.
+
+	\oneline{interface <NomeInterfaccia> extends int1[,...] \{...\}}
+
+	Nel corpo dell'interfaccia si specificano solo i metodi che aggiunge.
+\end{itemize}
+
+\oneline{class <NomeClasse> implements <NomeInterfaccia[, ...]> \{...\}}
+
+\begin{itemize}
+	\item Deve implementare il corpo di tutte le intetazioni di metodo delle interfacce (metodi in comune implementati una volta). La classe potrà avere altri metodi suoi.
+	\item Le istanze avranno tipo la classe e le interfacce.
+\end{itemize}
+
+Nota: l'interfaccia è il sopra tipo/insieme delle classi, è più generale, ma fornisce meno funzionalità.
+
+\subsection{Poliformismo}
+\begin{itemize}
+	\item \textbf{Inclusivo} (subtyping): applicazione principio sostituibilità.
+	\item \textbf{Parametrico} (genericità): ???.
+\end{itemize}

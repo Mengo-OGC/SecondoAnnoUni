@@ -1,0 +1,20 @@
+\section{UML (Class Diagram)}
+Linguaggio grafico, OO-based, di modellazione di software.
+\begin{itemize}
+	\item \textbf{Classi}: un box rettangolare per classe diviso in:
+	\begin{enumerate}
+		\item Nome classe. Nel caso delle interfacce aggiunge "<<interface>>" a sinistra del nome.
+		\item Campi.
+		\item Metodi e costruttori. Signatura: \inline{nome(arg1:tipo,...):tipoRitorno}.
+	\end{enumerate}
+	- indica \inline{private}, + indica \inline{public} e sottolineato indica \inline{static}.
+	\item Dipendenze tra classi:
+	\begin{itemize}
+		\item Composizione è arco con rombo.
+		\item Associazione è arco con freccia.
+		\item Generalizzazione è arco tratteggiato con triangolo.
+	\end{itemize}
+	L'arco può essere indicato con le molteplicità: 1,0, n, 0...1, 1...n.
+\end{itemize}
+
+Spesso si omette tutto ciò che non è "design" e le signature ed'alcune relazioni.

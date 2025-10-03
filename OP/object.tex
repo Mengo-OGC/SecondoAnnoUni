@@ -1,5 +1,5 @@
 \section{Struttura Programma Java}
-Un programma Java è composta da librerie di classi del JDK, Package\footnote{Contenitori, gerarcici tra loro, di una decina di classi di alto livello con scopo comune} e Moduli\footnote{Insieme di Package costituente un frammento di codice autonomo.}, librerie di esterne e un insieme di classi fondamentali.
+Un programma Java è composta da librerie di classi del JDK, Package\footnote{Contenitori, gerarcici tra loro, di una decina di classi di alto livello con scopo comune.} e Moduli\footnote{Insieme di Package costituente un frammento di codice autonomo.}, librerie di esterne e un insieme di classi fondamentali.
 
 La classe cardine di un programma è la class main\footnote{Un main è il punto d'accesso di un programma.}.
 \multiline{main}{}{CodiciEsempio/main.java}
@@ -11,7 +11,7 @@ Il parametro del main è un array di stringhe che sono i parametri che l'utente 
 	\item Compilare con \textit{javac NomeFileClasse.java}. Genererà il \textbf{bytecode NomeFileClasse.class} per la JVM.
 	\item Esegiure con \textit{java NomeFileClasse}. La JVM cercherà il main da cui partire a eseguire.
 \end{enumerate}
-Lavorando con più file: si compila tutto con \textit{javac *.java} poi si esegue solo la classe main.
+Lavorando con più file: si compila tutto con \textit{javac *.java} poi si esegue solo il bytecode contenente la classe main.
 
 \subsection{I package}
 Per prassi nella cartella di un progetto, si fa corrispondere hai package auto-costruiti delle directory del file system.
@@ -29,6 +29,19 @@ Per poi usare una classe di un package bisogna importarla (non aggiunge codice n
 \end{itemize}
 Il nome completo di una classe dipende dal Package in cui si trova. Se non si importa bisogna specificare all'uso il nome completo.
 
+\subsubsection{Compilazione ed'esecuzione Avanzata}
+Per tenere sorgenti e eseguibili separati, in progetti grandi si dispone la cartella \textit{src} per i sorgenti (.java) e la cartella \textit{bin} per i bytecode (.class).
+
+\oneline{javac -d "<dirEseguibili>" [-cp "<p1[:|;...]>"] <elencoSorgenti>}
+
+\oneline{java -cp "<p1[:|;...]>" <classeMain>}
+
+\begin{itemize}
+	\item \inline{-d} specifica al compilatore la cartella dove creare i .class. Se non già presente la crea.
+	\item \inline{-cp} linka una o più (divise da : o ;) classi del classpath\footnote{Sottopercorso (insieme ordinato) di cartelle che corrisponde al percorso del package dichiarato per la classe corrispondente. Il classpath di default è il JRE (Java Runtime Environment).} indicato a quello che si genererà.
+	\item La JVM si aspetta il FQCN (Fully-Qualified Class Name).
+\end{itemize}
+
 \subsection{Convenzioni}
 \begin{itemize}
 	\item Linee max 90 caratteri e indenzazione 2-4 caratteri.
@@ -36,7 +49,7 @@ Il nome completo di una classe dipende dal Package in cui si trova. Se non si im
 	\item Apertura "\{" a fine riga della dichiarazione e chiusura "\}" in linea a dove inizia la riga di apertura.
 	\item Condice senza righe vuote di separazione a meno di metodi/costruttori.
 	\item Non usare assegnamenti dentro espressioni e usare parentesi solo in espressioni non banali.
-	\item Nomi classi e interfacce in "PascalCase". Nomi metodi, campi, variabili in "camelCase" e costanti in "BIG\_CASE".
+	\item Nomi classi e interfacce in "PascalCase". Nomi metodi, campi, variabili in "camelCase" e costanti in "SNAKE\_CASE". Nomi di package in minuscolo con numeri e senza "\_".
 	\bigskip
 	\item I metodi che returnano, senza parametri, si chiamano \inline{get...} oppure \inline{is/has...} se return boolean.
 	\item I metodi che returnano void, e accettano parametri, si chiamano \inline{set...}.
@@ -94,7 +107,7 @@ I tipi atomici \textbf{signed} del C si sono mantenuti (non conveniva trattarli 
 Introdotto come tipo risultato delle espressioni e condizioni.
 \begin{itemize}
 	\item \textbf{Valori} true, false.
-	\item \textbf{Operatori Unari} \inline{! (not)}. Peratori binari: \inline{\& (and), | (or), \^ (xor), \&\& (and-C), || (or-c)}\footnote{\& e | valutano sempre primo e secondo termine, essendo pensati per operazioni bit a bit mentre \&\& e || valotano il secondo operatore solo se necessario.}.
+	\item \textbf{Operatori Unari} \inline{! (not)}. Peratori binari: \inline{\& (and), | (or), \^ (xor), \&\& (and-C), || (or-c)}\footnote{\inline{& e |} valutano sempre primo e secondo termine, essendo pensati per operazioni bit a bit mentre \inline{&& e ||} valotano il secondo operatore solo se necessario.}.
 	\item \textbf{Operatori confronto numerici} \inline{<, >, <=, >=}.
 	\item \textbf{Operatori di uguaglianza} \inline{==, !=}. Con gli oggett di base confronta i riferimenti.
 	\item \textbf{Operatore ternario} \inline{<eb> ? e1 : e2}. restituisce e1 se eb è true, altrimenti restituisce e2. e1 e e2 espressioni dello stesso tipo.
@@ -191,6 +204,8 @@ Uso dei campi lato utente: Assegnamento \inline{... obj.campo = ...}, Lettura \i
 \subsection{final e costanti}
 Modificatore (da usare quando si può) per campi, variabili e parametri. Dopo inizializzazione non più modificabile il valore.
 
+Per variabili di tipo classe non si può cambiare il riferimento all'oggetto, ma i campi dell'oggetto si.
+
 \oneline{<tipo> final <nomeVar [= new ... | valore;]}
 
 Per fare le \textbf{costanti} (NOME\_COSTANTE) usare \inline{static final ...;}. Soluzione a \textit{Magic Number}.
@@ -285,7 +300,6 @@ Ogni classe deve definire tale metodo che restituisce una rappresentazione in st
 
 Automaticamente chiamato dall'operatore "+" nelle concatenazioni tra stringhe e oggetti.
 
-
 \subsection{Precisazioni}
 Inizializzazioni particolari degli oggetti Stringa:
 \begin{enumerate}
@@ -309,6 +323,6 @@ Dichiarazione, creazione, inizializzazione:
 \begin{itemize}
 	\item \inline{<Tipo> <nome>;} Si può solo dichiarare una variabile oggetto per poi crearla e inizializzarla successivamente.
 	\item solo quando si scrive \inline{new} (Keyword di linguaggio di chiamata al costruttore) si crea e inizializza un oggetto dalla classe indicata. \inline{new} da il riferimento (\inline{this}) dell'oggetto alla variabile.
-	\item \inline{var}\footnote{Local variable type inference} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
+	\item \inline{var}\footnote{Local variable type inference.} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
 	\item \inline{altraVariabile} deve essere della stessa classe della variabile che sto definendo.
 \end{itemize}

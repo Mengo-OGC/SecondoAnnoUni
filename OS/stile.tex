@@ -1,0 +1,33 @@
+\usepackage[a4paper, hmargin=15mm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[colorlinks=true, linkcolor=black]{hyperref}
+\usepackage{tikz}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\hyperref[toc]{$\leftarrow$Indice}}
+\fancyhead[R]{\thepage/\pageref{LastPage}}
+
+\rowcolors{2}{gray!10}{white}
+
+\newcommand{\riga}[2]{
+	#1 & #2\\
+}
+
+\newcommand{\tabella}[2]{
+	\addcontentsline{toc}{subsection}{Comandi #1}
+	\begin{center}
+		\begin{tabularx}{\textwidth}{|lX|}
+			\hline
+			\rowcolor{gray!20}
+			\textbf{#1} & \textbf{Descrizione}\\
+			\hline
+			#2
+			\hline
+		\end{tabularx}
+	\end{center}
+	\vfill
+}

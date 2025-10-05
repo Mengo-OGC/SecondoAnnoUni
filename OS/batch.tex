@@ -1,0 +1,94 @@
+\section{Batch}
+
+\tabella{V.Ambiente}{
+	\riga{PATH}{Modificabile, sequenza di percorsi assoluti, divisi da ":", di directory contenenti eseguibili (lanciabili senza digitare path). Ricerca secondo ordine specificato in PATH, si ferma a primo eseguibile con nome uguale. Eventuale ErrorNotFoutd.
+
+		Altre variabili d'ambiente: \$HOME, \$USER, \$SHELL, \$TERM.}
+	\riga{env}{Visualizza l'elenco delle variabili d'ambiente.}
+}
+
+\tabella{File speciali}{
+	\riga{/etc/passwd}{Righe sono info ogni utente divise da “:”.}
+	\riga{/etc/shadow}{Righe sono password utente codificate.}
+	\riga{/etc/group}{Righe sono info ongi gruppo divise da ":".}
+	\riga{/usr/bin/passwd}{Cambia la pass utente.}
+}
+
+\tabella{Directory}{
+	\riga{cd \textit{percorso}}{Sposta logicamente in una diversa directory, secondo un path asssoluto o relativo.}
+	\riga{ls}{Visualizza i files/direcotry contenuti nella directory corrente.}
+	\riga{ls -a}{ls ma mosta anche file nascosti (anche ., ..).}
+	\riga{ls -l}{ls ma mostra più informazioni sui files.}
+	\riga{ls \textit{nomefile}}{Dice se il file esiste o no, e con i parametri opzinali da altre info solo per quel file.}
+	\riga{pwd}{Visualizza il percorso assoluto, da / fino alla directory corrente.}
+	\riga{touch \textit{nomeFile.estensione}}{Crea un file vuoto nella dyrectory corrente.}
+}
+
+\tabella{Scripting}{
+	\riga{echo \textit{testo}}{Visualizza a video la sequenza di caratteri passata fino al primo "INVIO".}
+	\riga{\texttt{\textbackslash}}{Disabila interpretazione per il carattere successivo, andata a capo, permettendo di stamparlo.}
+	\riga{echo "\textit{testo}"}{Come echo, ma disabilita interpretazione caratteri speciali e andate a capo.}
+	\riga{;}{Separatore di più comandi lanciati durante la stessa digitazione.}
+	\riga{nome=\textit{valore}}{Simboli con nome e valore, stringa modificabile, alfanumerici casesensitive. No spazi prima o dopo "=". Sono d'ambiente o ex-novo locali.
+
+		Solo la bash in cui sono create le variabili le può usare. I programmi lanciati dalla bash hanno una speudocopia della bash.}
+	\riga{export nomevar \textbar nomevar=valore}{Variabile d'ambiente. Un shell figlia riceve una copia modificabile che non influenza variabile d'ambiente del padre.}
+	\riga{unset \textit{nomevariabile}}{Elimina una variabile esistente (vuota o no).
+
+		Quotare ("...") sempre variabili per evitare errori con variabili vuote o inesistenti.}
+	\riga{\$\{nomeVari\}}{Fa sostituire il nome della variabile con il valore. graffe opzionali se nome variabile seguito da uno spazio.}
+	\riga{\#...}{Commeto.}
+	\riga{\#!...}{Se indicato nella prima riga indica quale interprete deve eseguire lo script. Se non specificato usato quello corrente.}
+	\riga{\textit{comando1} \textbar \textit{comando2}}{pipe (speudo-file temporaneo): collega automaticamente l'output di un comando all'input di un altro. Unidirezionale.}
+}
+
+\tabella{Privilegi}{
+	\riga{chmod u+x \textit{script.sh}}{Modifica permessi file mediante formato numerico: u+x terna 0-7. Ogni numero è la somma dei valori associati hai permessi di r(4), w(2), x/s(1). Ordine: proprietario, gruppo, altri utenti.
+
+		Può diventare un quartetto aggiungendo per primo l'identificatore numero dei privilegi di \textit{setuid, setgid, sticky bit}.}
+	\riga{chgrp ???}{Modifica il gruppo di appartenenza di un file.}
+	\riga{chown \textit{newOwner nameFile}}{Modifica il proprietario (e anche gruppo) di un file.}
+	\riga{ls -al \textit{nomeFile.estensione}}{ls che mostra permessi, anche dei file nascosti. Interpretazione: 1°carattere tipo file (- file, d dyrectory, c collegamento seriale, b device a blocchi), 9 caratteri successivi terzine di permessi (r read,w write,x/s execute) per proprietario, gruppo, altri utenti.}
+	\riga{whoami}{Dice all'utente corrente le sue informazioni.}
+	\riga{sudo \textit{comando}}{fa eseguire il comando come administratore, può essere chiesta userPass. Solo utenti gruppo sudo (gestito dall'admin) possono usarlo.}
+}
+
+
+\tabella{Subshell}{
+	\riga{bash}{Crea una bash figlia, eredita dal padre: dir. corrente, copia variabili d'ambiente.  Non sono ereditate le variabili locali.
+
+		Creata in automatico da: comandi raggruppati, script, processi in background.
+
+		Nota: i built-in eseguiti in shell corrente/padre.}
+	\riga{bash -c \textit{script.sh}}{Esegue in una subshell, con l'interprete opzionalmente indicato, lo script specificato.}
+	\riga{var=val comando}{Scrivendo le assegnazioni prima dell'esecuzione di un comando si creano delle var. d'ambiente solo per l'imminente subshell. Non saranno ereditate da successive subshell.}
+	\riga{. \textbar source \textit{script.sh}}{Esegue lo script nella shell corrente.
+
+		Utile a impostare/modificare variabili shell.
+
+		Ignorata prima riga opzionale e eseguito con interprete corrente.}
+	\riga{exit}{Termina bash corrente, elimina l'ambiente e sale alla padre.}
+	\riga{top}{Mostra in tempo reale processi in esecuzione e risorse di sistema usate.}
+	\riga{ps}{Mostra i processi in esecuzione.
+
+		Con l'opzione \textit{-all} vedo più informazioni (PID, PPID,ecc).}
+	\riga{set}{Visualizza tutte variabili della shell corrente.}
+}
+
+\tabella{Vari}{
+	\riga{./ \textit{conado}}{Esegue comando presente nella directory corrente (percorso relativo).
+
+		Alternativa è inserire il percorso relativo o aggiungere il percorso assoluto alla variabile PATH.}
+	\riga{strace \textit{comando}}{Dice la sistem-call usata.}
+	\riga{clear}{Pulisce la CLI. Non modifica variabili create.}
+	\riga{which \textit{comando}}{Cerca in PATH il comando e se lo trova mostra il path in cui si trova.}
+	\riga{cat \textit{nomeFile.estensione}}{Visualizza il contenuto del file.}
+	\riga{lsmod}{Elenca tutti i moduli attivi.}
+	\riga{modinfo \textit{nomeModulo}}{Dice le informazioni sul modulo specificato.}
+	\riga{sudo modprobe \textit{nomeModulo}}{Carica il modulo specificato.}
+	\riga{history}{Visualizza comandi, numerati, precedentemente eseguiti, anche da shell precedentemente chiuse.
+
+		Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
+}
+
+Directory "proc" info sui processi memorizzati con una dir. per ogni processo attivo, create e cancellate continuamente.

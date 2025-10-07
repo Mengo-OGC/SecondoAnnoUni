@@ -1,9 +1,9 @@
-\section{Batch}
+\section{Bash}
 
-\tabella{V.Ambiente}{
+\tabella{Variabili Ambiente}{
 	\riga{PATH}{Modificabile, sequenza di percorsi assoluti, divisi da ":", di directory contenenti eseguibili (lanciabili senza digitare path). Ricerca secondo ordine specificato in PATH, si ferma a primo eseguibile con nome uguale. Eventuale ErrorNotFoutd.
 
-		Altre variabili d'ambiente: \$HOME, \$USER, \$SHELL, \$TERM.}
+	Altre variabili d'ambiente: \$HOME, \$USER, \$SHELL, \$TERM.}
 	\riga{env}{Visualizza l'elenco delle variabili d'ambiente.}
 }
 
@@ -16,69 +16,138 @@
 
 \tabella{Directory}{
 	\riga{cd \textit{percorso}}{Sposta logicamente in una diversa directory, secondo un path asssoluto o relativo.}
-	\riga{ls}{Visualizza i files/direcotry contenuti nella directory corrente.}
-	\riga{ls -a}{ls ma mosta anche file nascosti (anche ., ..).}
-	\riga{ls -l}{ls ma mostra più informazioni sui files.}
-	\riga{ls \textit{nomefile}}{Dice se il file esiste o no, e con i parametri opzinali da altre info solo per quel file.}
-	\riga{pwd}{Visualizza il percorso assoluto, da / fino alla directory corrente.}
+	\riga{mkdir \textit{nomeDir}}{Crea una nuova directory.}
 	\riga{touch \textit{nomeFile.estensione}}{Crea un file vuoto nella dyrectory corrente.}
+	\riga{rmdir \textit{nomeDir}}{Rimuove una directory solo se è vuota.}
+	\riga{rm \textit{file\textbar dir}}{Rimuove una directory vuota o un file. Parametri:
+	\begin{itemize}
+		\item \textbf{-r} elimina ricorsivamente sotto cartelle e file.
+		\item \textbf{-f} non fa chiedere le autorizzazioni di eliminazione.
+	\end{itemize}}
+	\riga{mv file1 file2\textbar dir}{Rinomina file1 in file2 o sposta file1 nella directory specificata.}
+	\riga{ls [\textit{nomefile}]}{Visualizza i files/direcotry contenuti nella directory corrente. Parametri:
+	\begin{itemize}
+		\item \textbf{-a} mosta anche file nascosti (anche ., ..).
+		\item \textbf{-l} mostra più informazioni sui files.
+		\item \textbf{-h} rende i dati più leggibili.
+		\item \textbf{-d} fa applicare il comando alla directory e non ai file.
+		\item \textbf{-R} mostra ricorsivamente contenuto sotto directory.
+	\end{itemize}
+	Se specifico un file mi dice se esiste e mi da informazioni solo di lui.
+	}
+
+	\riga{pwd}{Visualizza il percorso assoluto, da / fino alla directory corrente.}
+}
+
+\tabella{Controllo Comandi}{
+	\riga{\textbackslash}{Disabila interpretazione per il carattere successivo, andata a capo, permettendo di stamparlo.}
+	\riga{"..."}{Delimita un argomento e non fa interpretare nessun comando a eccezzione dell'espansione di variabili (\$..).}
+	\riga{'...'}{Delimita un argomento e non fa interpretare nessun comando.}
+
+	\riga{pre\{s1,...\}post}{Stringa di testo racchiusa fra separatori (spazio, tab, a capo) con coppia di graffe (non precedute da \$) e senza separatori.
+
+		Le stringhe racchiuse dalle graffe vengono composte con il preambolo (pre) e postscritto (post), che sono opzionali. Alternative:
+
+		Sono annidabili (quelle più esterne eseguite per prime).
+		Vengono eseguite prima le brace expansions delle variable expansions.
+
+	\begin{itemize}
+			\item $a_1..a_2$ lettere da $a_1$ a $a_2$ nell'alfabeto.
+			\item $n_1..n_2$ numeri compresi tra $n_1$ e $n_2$.
+	\end{itemize}}
+	\riga{;}{Separatore di più comandi scritti sulla stessa riga di comando e eseguiti dopo la terminazione del precedente.}
+	\riga{*}{Sostituito con una qualsiasi sequenza di caratteri anche vuota.}
+	\riga{?}{Sostituito con un singolo carattere (no spazio vuoto).}
+	\riga{[c1c2...]}{Sostituito con solo uno dei caratteri specificati in elenco. Alternative:
+	\begin{itemize}
+		\item $a_1..a_2$ lettere da $a_1$ a $a_2$ nell'alfabeto.
+		\item $n_1..n_2$ numeri compresi tra $n_1$ e $n_2$.
+		\item \textbf{[:digit:]} una cifra.
+		\item \textbf{[:upper:]} un carattere maiuscolo.
+		\item \textbf{[:lower:]} un carattere minuscolo.
+	\end{itemize}
+	Annidabili
+	}
 }
 
 \tabella{Scripting}{
-	\riga{echo \textit{testo}}{Visualizza a video la sequenza di caratteri passata fino al primo "INVIO".}
-	\riga{\texttt{\textbackslash}}{Disabila interpretazione per il carattere successivo, andata a capo, permettendo di stamparlo.}
-	\riga{echo "\textit{testo}"}{Come echo, ma disabilita interpretazione caratteri speciali e andate a capo.}
-	\riga{;}{Separatore di più comandi lanciati durante la stessa digitazione.}
+	\riga{echo \textit{testo}}{Visualizza a video la sequenza di caratteri passata fino al primo "INVIO". Se passo \textit{"testo"} si disabilità l'interpretazione dei caratteri speciali e andate a capo.}
+
 	\riga{nome=\textit{valore}}{Simboli con nome e valore, stringa modificabile, alfanumerici casesensitive. No spazi prima o dopo "=". Sono d'ambiente o ex-novo locali.
 
-		Solo la bash in cui sono create le variabili le può usare. I programmi lanciati dalla bash hanno una speudocopia della bash.}
+	Solo la bash in cui sono create le variabili le può usare. I programmi lanciati dalla bash hanno una speudocopia della bash.}
 	\riga{export nomevar \textbar nomevar=valore}{Variabile d'ambiente. Un shell figlia riceve una copia modificabile che non influenza variabile d'ambiente del padre.}
 	\riga{unset \textit{nomevariabile}}{Elimina una variabile esistente (vuota o no).
 
-		Quotare ("...") sempre variabili per evitare errori con variabili vuote o inesistenti.}
-	\riga{\$\{nomeVari\}}{Fa sostituire il nome della variabile con il valore. graffe opzionali se nome variabile seguito da uno spazio.}
+	Quotare ("...") sempre variabili per evitare errori con variabili vuote o inesistenti.}
+	\riga{\$\{nomeVar\}}{Fa sostituire il nome della variabile con il valore. graffe opzionali se nome variabile seguito da uno spazio.}
 	\riga{\#...}{Commeto.}
 	\riga{\#!...}{Se indicato nella prima riga indica quale interprete deve eseguire lo script. Se non specificato usato quello corrente.}
 	\riga{\textit{comando1} \textbar \textit{comando2}}{pipe (speudo-file temporaneo): collega automaticamente l'output di un comando all'input di un altro. Unidirezionale.}
+	\riga{\textit{script.sh} c1...}{Sono un insieme ordinato di caratteri separati da spazi successivi al nome del programma. Sono immodificabili dopo la sostituzione dei metacaratteri (*, ?,ecc).
+
+	Riga di comando = nomeProgramma + parametri.
+	Nella riga di comando gli elementi sono indicizzati da 0 (nomeProgramma).
+	\begin{itemize}
+		\item \textbf{\$\#} Contiene il numero di parametri passati.
+		\item \textbf{\$n} Accede all'n-esimo parametro a partire da indice 0.
+		\item \textbf{\$*} Tutti argomenti concatenati e divisi da spazi.
+		\item \textbf{\$@} Vettore di argomenti quotati ("...").
+	\end{itemize}}
+}
+
+\tabella{Tilde Expansion}{
+	\riga{~/...}{Tilde espansa con il percorso assoluto della home directory dell'effective user. Valido caso con solo \textbf{~} e solo \textbf{~/}.}
+	\riga{~userName/...}{Tilde e userName espansi con il percorso assoluto della home directory dell'utente specificato. Valido caso con solo \textbf{~userName/}.}
 }
 
 \tabella{Privilegi}{
 	\riga{chmod u+x \textit{script.sh}}{Modifica permessi file mediante formato numerico: u+x terna 0-7. Ogni numero è la somma dei valori associati hai permessi di r(4), w(2), x/s(1). Ordine: proprietario, gruppo, altri utenti.
 
-		Può diventare un quartetto aggiungendo per primo l'identificatore numero dei privilegi di \textit{setuid, setgid, sticky bit}.}
+	Può diventare un quartetto aggiungendo per primo l'identificatore numero dei privilegi di \textit{setuid, setgid, sticky bit}.}
 	\riga{chgrp ???}{Modifica il gruppo di appartenenza di un file.}
 	\riga{chown \textit{newOwner nameFile}}{Modifica il proprietario (e anche gruppo) di un file.}
-	\riga{ls -al \textit{nomeFile.estensione}}{ls che mostra permessi, anche dei file nascosti. Interpretazione: 1°carattere tipo file (- file, d dyrectory, c collegamento seriale, b device a blocchi), 9 caratteri successivi terzine di permessi (r read,w write,x/s execute) per proprietario, gruppo, altri utenti.}
+	\riga{ls -al \textit{nomeFile.estensione}}{Mostra permessi, anche dei file nascosti. Interpretazione: 1°carattere tipo file (- file, d dyrectory, c collegamento seriale, b device a blocchi), 9 caratteri successivi terzine di permessi (r read,w write,x/s execute) per proprietario, gruppo, altri utenti.}
 	\riga{whoami}{Dice all'utente corrente le sue informazioni.}
 	\riga{sudo \textit{comando}}{fa eseguire il comando come administratore, può essere chiesta userPass. Solo utenti gruppo sudo (gestito dall'admin) possono usarlo.}
 }
 
 
 \tabella{Subshell}{
-	\riga{bash}{Crea una bash figlia, eredita dal padre: dir. corrente, copia variabili d'ambiente.  Non sono ereditate le variabili locali.
+	\riga{bash}{Crea una shell figlia (interattiva non di login).
 
-		Creata in automatico da: comandi raggruppati, script, processi in background.
+	Eredita dal padre: dir. corrente, copia variabili d'ambiente.  Non sono ereditate le variabili locali.
 
-		Nota: i built-in eseguiti in shell corrente/padre.}
-	\riga{bash -c \textit{script.sh}}{Esegue in una subshell, con l'interprete opzionalmente indicato, lo script specificato.}
+	Creata in automatico per comandi raggruppati, script, processi in background. I comandi built-in sono  eseguiti in shell corrente/padre.
+	\begin{itemize}
+		\item \textbf{-c \textit{script.sh}} non interattiva.
+		\item \textbf{-l \textbar --login} interattiva di login.
+	\end{itemize}}
+
 	\riga{var=val comando}{Scrivendo le assegnazioni prima dell'esecuzione di un comando si creano delle var. d'ambiente solo per l'imminente subshell. Non saranno ereditate da successive subshell.}
 	\riga{. \textbar source \textit{script.sh}}{Esegue lo script nella shell corrente.
 
-		Utile a impostare/modificare variabili shell.
+	Utile a impostare/modificare variabili shell.
 
-		Ignorata prima riga opzionale e eseguito con interprete corrente.}
+	Ignorata prima riga opzionale e eseguito con interprete corrente.}
 	\riga{exit}{Termina bash corrente, elimina l'ambiente e sale alla padre.}
 	\riga{top}{Mostra in tempo reale processi in esecuzione e risorse di sistema usate.}
 	\riga{ps}{Mostra i processi in esecuzione.
 
-		Con l'opzione \textit{-all} vedo più informazioni (PID, PPID,ecc).}
-	\riga{set}{Visualizza tutte variabili della shell corrente.}
+	Con l'opzione \textit{-all} vedo più informazioni (PID, PPID,ecc).}
+	\riga{set}{Visualizza sia variabili locali che d'ambiente della shell corrente (anche funzioni di shell). I parametri [re]settano dei comportamenti della shell:
+	\begin{itemize}
+		\item \textbf{+o \textit{comando}} Disalibilita il comando (tipo history).
+		\item \textbf{-o \textit{comando}} Abilita il comando (tipo history).
+		\item \textbf{-a} Successive variabili create/modificate diverrano d'ambiente e ereditate da shell figlie. Per [ri]definire variabili locali usare \textbf{export -n \textit{variabile}}.
+		\item \textbf{+a} Successive variabili create/modificate diverrano locali e non ereditabili da shell figlie. (default).
+	\end{itemize}}
 }
 
 \tabella{Vari}{
 	\riga{./ \textit{conado}}{Esegue comando presente nella directory corrente (percorso relativo).
 
-		Alternativa è inserire il percorso relativo o aggiungere il percorso assoluto alla variabile PATH.}
+	Alternativa è inserire il percorso relativo o aggiungere il percorso assoluto alla variabile PATH.}
 	\riga{strace \textit{comando}}{Dice la sistem-call usata.}
 	\riga{clear}{Pulisce la CLI. Non modifica variabili create.}
 	\riga{which \textit{comando}}{Cerca in PATH il comando e se lo trova mostra il path in cui si trova.}
@@ -88,7 +157,16 @@
 	\riga{sudo modprobe \textit{nomeModulo}}{Carica il modulo specificato.}
 	\riga{history}{Visualizza comandi, numerati, precedentemente eseguiti, anche da shell precedentemente chiuse.
 
-		Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
+	Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
 }
 
 Directory "proc" info sui processi memorizzati con una dir. per ogni processo attivo, create e cancellate continuamente.
+
+Istruzini di controllo di flusso:
+\begin{itemize}
+	\item \textbf{for <variabile> in <pool> ; do ... done} Dopo il for variabile è usabile.
+	\item while do done
+	\item if then elif then else if
+\end{itemize}
+Espressioni condizionate su file o variabile: [ condizione di un file ].
+Valutazione di un espressione matematica applicata a variabili d'ambiente: (( istruzini con espressione ))

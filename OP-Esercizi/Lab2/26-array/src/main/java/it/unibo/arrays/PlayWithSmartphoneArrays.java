@@ -3,15 +3,33 @@ package it.unibo.arrays;
 class PlayWithSmartphoneArrays {
 
     static int search(Smartphone[] array, String brand) {
-        return 0;
+        int i; 
+        for (i = 0; i < array.length; i++) {
+            if (array[i].getBrand() == brand) {
+                i++;
+            }
+        }
+        return i;
     }
 
     static int search(Smartphone[] array, boolean hasNFC, boolean hasGPS) {
-        return 0;
+                int i; 
+        for (i = 0; i < array.length; i++) {
+            if (array[i].hasNFC() && array[i].hasGPS()) {
+                i++;
+            }
+        }
+        return i;
     }
 
     static int search(Smartphone[] array, int nCPUs, int sdSize, boolean has3G) {
-        return 0;
+        int i; 
+        for (i = 0; i < array.length; i++) {
+            if (array[i].getCPUs() == nCPUs && array[i].getSdSize() == sdSize && array[i].has3G()) {
+                i++;
+            }
+        }
+        return i;    
     }
 
     public static void main(String[] args) {

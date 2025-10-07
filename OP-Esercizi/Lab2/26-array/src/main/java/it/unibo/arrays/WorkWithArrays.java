@@ -25,17 +25,17 @@ class WorkWithArrays {
     }
 
     static int[] oddElements(final int[] array) {
-        int[] res = new int[array.length / DIVIDENDO + array.length % DIVIDENDO];
-        for (int i = 1, j = 1; j < array.length; i++, j = j + 2) {
+        int[] res = new int[array.length / DIVIDENDO];
+        for (int i = 0, j = 1; i < res.length; i++, j = j + 2) {
             res[i] = array[j];
         }
         return res;
     }
 
-    static int IndexMaxValue(int[] array) {
+    static int IndexMaxValue(final int[] array) {
         int i = 0;
-        for(int j: array) {
-            if (j > i) {
+        for(final int j: array) {
+            if (array[j] > array[i]) {
                 i = j;
             }
         }
@@ -53,20 +53,55 @@ class WorkWithArrays {
                 }
             }
         }
-
-        return array[IndexMaxValue(array)];
+        return array[IndexMaxValue(counters)];
     }
 
     static int[] sortArray(final int[] array, final boolean isDescending) {
+        int temp;
+        for (int i = array.length - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (isDescending) {
+                    if (array[j] < array[j + 1]) {
+                        temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
+                } else {
+                    if (array[j] > array[j + 1]) {
+                        temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
+                }
+
+            }
+        }
         return array;
     }
 
     static double computeVariance(final int[] array) {
-        return 0;
+        double sum = 0;
+        for (final int i: array) {
+            sum = sum + i;
+        }
+        double med = sum / array.length;
+        double varianza = 0;
+        for (final int i: array) {
+            varianza += (i - med) * (i - med);
+        }
+        varianza = varianza / array.length;
+        return varianza;
     }
 
     static int[] revertUpTo(final int[] array, final int element) {
-        return null;
+        int[] reverse = new int[array.length];
+        for (int i = 0; i < element; i++) {
+            reverse[i] = array[element - i - 1];
+        }
+        for (int i = element; i < array.length; i++) {
+            reverse[i] = array[i];
+        }
+        return reverse;
     }
 
     static int[] duplicateElements(final int[] array, final int times) {
@@ -87,7 +122,7 @@ class WorkWithArrays {
             && countOccurrencies(new int[] { 0, 2, 3, 4 }, 1) == 0
             && countOccurrencies(new int[] { 7, 4, 1, 9, 3, 1, 5 }, 2) == 0
             && countOccurrencies(new int[] { 1, 2, 1, 3, 4, 1 }, 1) == 3
-            && countOccurrencies(new int[] {1,2,3,4,5,12,3,3,4,4,2}, 2) == 4;
+            && countOccurrencies(new int[] {1,2,3,4,5,12,3,3,4,4,2}, 2) == 2;
     }
 
     /* Utility method for testing evenElems method */

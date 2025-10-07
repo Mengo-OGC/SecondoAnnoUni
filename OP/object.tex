@@ -32,13 +32,13 @@ Il nome completo di una classe dipende dal Package in cui si trova. Se non si im
 \subsubsection{Compilazione ed'esecuzione Avanzata}
 Per tenere sorgenti e eseguibili separati, in progetti grandi si dispone la cartella \textit{src} per i sorgenti (.java) e la cartella \textit{bin} per i bytecode (.class).
 
-\oneline{javac -d "<dirEseguibili>" [-cp "<p1[:|;...]>"] <elencoSorgenti>}
+\oneline{javac -d "<dirExe>" [-cp "<lib1:|;...>"] <.../elencoSorgenti>}
 
-\oneline{java -cp "<p1[:|;...]>" <classeMain>}
+\oneline{java -cp "<dirExe[lib1:|;...]>" <fullyClasseMain>}
 
 \begin{itemize}
 	\item \inline{-d} specifica al compilatore la cartella dove creare i .class. Se non già presente la crea.
-	\item \inline{-cp} linka una o più (divise da : o ;) classi del classpath\footnote{Sottopercorso (insieme ordinato) di cartelle che corrisponde al percorso del package dichiarato per la classe corrispondente. Il classpath di default è il JRE (Java Runtime Environment).} indicato a quello che si genererà.
+	\item \inline{-cp} linka le classi dei percorsi specificati (divisi da : o ;) al classpath\footnote{Sottopercorso (insieme ordinato) di cartelle che corrisponde al percorso del package dichiarato per la classe corrispondente. Il classpath di default è il JRE (Java Runtime Environment).}.
 	\item La JVM si aspetta il FQCN (Fully-Qualified Class Name).
 \end{itemize}
 

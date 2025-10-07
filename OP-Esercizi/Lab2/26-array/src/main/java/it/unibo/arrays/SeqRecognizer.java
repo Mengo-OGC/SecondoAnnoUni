@@ -16,21 +16,82 @@ class SeqRecognizer {
      * Recognizes: 1{2}3.
      */
     static boolean checkSeq2(final int[] array) {
-        return false;
+        if (array.length <= 0) {
+            return false;
+        }
+        int i = 0;
+        if (array[i] == 1) {
+            i++;
+        } else {
+            return false;
+        }
+        for (; i < array.length - 1 && array[i] == 2; i++);
+        if (array[i] == 3) {
+            i++;
+            return i == array.length;
+        } else {
+            return false;
+        }
     }
 
     /*
      * Recognizes: 1{2}3{4}[5].
      */
     static boolean checkSeq3(final int[] array) {
-        return false;
+        if (array.length <= 0) {
+            return false;
+        }
+        int i = 0;
+        if (array[i] == 1) {
+            i++;
+        } else {
+            return false;
+        }
+        for (; i < array.length - 1 && array[i] == 2; i++);
+        if (array[i] == 3) {
+            i++;
+            if (i == array.length) {
+                return true;
+            }
+            for (; i < array.length - 1 && array[i] == 4; i++);
+            if (array[i] == 5 || array[i] == 4) {
+                i++;
+            } else {
+                return false;
+            }
+            return i == array.length;
+        } else {
+            return false;
+        }
     }
 
     /*
      * Recognizes: [2|3]{4}5.
      */
     static boolean checkSeq4(final int[] array) {
-        return false;
+        if (array.length <= 0) {
+            return false;
+        }
+        int i = 0;
+        if (array[i] == 5) {
+            return true;
+        }
+        if (array[i] == 2 || array[i] == 3 || array[i] == 4) {
+            i++;
+            if (array.length > 1) {
+                for (; i < array.length - 1 && array[i] == 4; i++);
+                if (array[i] == 5) {
+                    i++;
+                } else {
+                    return false;
+                }
+                return i == array.length;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     /** Testing methods **/

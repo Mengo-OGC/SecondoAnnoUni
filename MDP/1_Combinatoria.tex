@@ -24,12 +24,11 @@ In altre parole un insieme è numerabile se i suoi elementi possono essere messi
 
 Insiemi numerabili sono $\mathbb{N}$ (anche se più grande di $\{1,2,3,\dots\}$), $\mathbb{Z}=\{0,1,-1,2,-2,3,\dots\}$, $\mathbb{Q}_{>0}$ dalla dimostrazione classica di Cantor.
 
-Un insieme non numerabile sono delle sequenze infinite di bit 0/1.
+Un insieme non numerabile sono delle sequenze infinite di bit 0/1. Dimostrazione non riportata.
 
 \definizione{Insieme Discreto}{Un insieme è discreto se è finito o numerabile.}{d:insiemediscreto}
 
-\mysubsection{Combinatoria di base}
-Costruisce schemi "complessi" partendo da schemi semplici riuscendo a controllarne la cardinalità. (si opera solo con insiemi finiti).
+\definizione{Combinatoria di base}{Costruisce schemi "complessi" partendo da schemi semplici riuscendo a controllarne la cardinalità. (si opera solo con insiemi finiti).}{d:comDiBase}
 
 \definizione{Prodotto Cartesiano}{Siano $A, B$ insiemi il cui prodotto cartesiano $A \times B$ è l'insieme delle coppie ordinate $(a,b), a \in A, b \in B$.
 
@@ -103,12 +102,14 @@ Conseguenza: Dal Fattoriale Discreto, il numero di permutazioni di lunghezza $n$
 	\item Sequenza binarie lunghezza $n$ con $a$ volte 1 e $b$ volte 0.
 \end{enumerate}
 Questi insiemi hanno esattamente $\frac{(n)_a}{a!}=\frac{(n)_b}{b!}=\frac{n!}{a!b!}$ elementi.
-Questo numero $\frac{(n)_a}{a!}=\binom{n}{a}=\binom{n}{a,b}$.}{prop:combinazioni}
+Questo numero $\frac{(n)_a}{a!}=\binom{n}{a}=\binom{n}{a,b}$ (coefficente binomiale).}{prop:combinazioni}
 
 Coefficente binomiale:
 \[
 (x+y)^n=\sum_{a=0}^n\binom{n}{a}x^ay^{n-a}=\sum_{a,b\mid a+b=n}\binom{n}{a,b}x^ay^b
 \]
+
+\osservazione{Negli esercizi considerare il numero sopra con "l'insieme di elementi" e quello sotto "quante posizioni in cui metterli".}
 
 \dimostrazione{prop:combinazioni}{$(Parte1)$ La corrispondenza tra 1 e 3 la si dimostra con il seguene esempio: $n=5, a=3$
 \[
@@ -255,3 +256,94 @@ Usando il principio di inclusione esclusione scopro che il numero di sequenze k-
 \definizione{Scombussolamenti}{Uno scombussolamento è una permutazione di $\{1,\dots,n\}$ in cui per ogni $i$ il numero non sta al posto $i$.}{scombussolamenti}
 
 Usando il principio di inclusione esclusione scopro che il numero di scombussolamenti di $n$ coefficenti è \[|S|=\sum_{j=0}^n(-1)^j(n)_{n-j}\]
+
+\definizione{Partizione}{Una partizione di $A$ è una suddivisione in sotto insiemi di $A$. Cioè un insieme di sotto insiemi detti blocchi della partizione $\{s_1,s_2,s_3,\dots\}$ tale che:
+\begin{enumerate}
+	\item $S_i\cap S_j=\emptyset, \forall i \ne j$
+	\item $\stackrel{\cup}{i}S_i=A$
+	\end{enumerate}}{d:partizione}
+
+In altre parole la partizione è la suddivisione e i blocchi sono i pezzi della partizione.
+
+Nota: Le partizioni possono essere usate per "raggruppare" le permutazioni degli stessi elementi. Non è una fuzione biunivoca.
+
+\definizione{Numero di Bell}{Il numero di partizioni di $\{1,\dots,n\}$ si dice numero di Bell e si indica con $B_n$.
+Si calcola con la formula ricorsiva per $\forall n \geqslant 2$: \[B_n=\sum_{k=0}^{n-1}\binom{n-1}{k}B_n\] Si assume $B_n=1$ per convenzione.}{d:Bell}
+
+\dimostrazione{d:Bell}{Poniamo $B_{n,k}$ come il numero di partizioni di $\{1,\dots,n\}$ in cui $n$ compare in un blocco con $k$ elementi.
+
+Calcoliamo $B_{n,k}$:
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=black, thin, solid] (0.00,0.00) ellipse (3.00 and 2.00);
+		\draw[draw=black, thin, solid] (2.00,1.50) -- (0.00,-2.00);
+		\node[black, anchor=south west] at (-2.06,0.25) {n-k};
+		\node[black, anchor=south west] at (1.94,0.25) {n};
+	\end{tikzpicture}
+\end{center}
+
+I numeri nel blocco che contiene $n$ li possiamo scegliere in $\binom{n-1}{k-1}$ modi.
+Gli altri $n-k$ numeri li possiamo partizionare in $B_{n-k}$ modi. Implicando:
+
+\[B_{n,k}=\binom{n-1}{k-1}B_{n-k}\]
+
+Ottenendo così
+
+\[B_n=\sum_{k=1}^n\binom{n-1}{k-1}B_{n-k}\]
+
+Equivalente a quella dell'enunciato ponendo $h=n-k$:
+
+\[B_h=\sum_{h=0}^{n-1}\binom{n-1}{n-h-1}B_h=B_h=\sum_{h=0}^{h-1}\binom{h-1}{h}B_h\]
+}
+
+\mysubsection{Triangolo di Bell}
+Trucco per calcolare il numero di Bell:
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=black, thin, solid] (-2.00,5.00) -- (-2.00,-1.00);
+		\draw[draw=black, thin, solid] (-2.00,-1.00) -- (5.00,-1.00);
+		\draw[draw=black, thin, solid] (-2.00,5.00) -- (5.00,-1.00);
+		\node[black, anchor=south west] at (-2.06,4.25) {1};
+		\node[black, anchor=south west] at (-2.06,3.25) {1};
+		\node[black, anchor=south west] at (-2.06,2.25) {2};
+		\node[black, anchor=south west] at (-1.06,2.25) {3};
+		\node[black, anchor=south west] at (-0.06,2.25) {5};
+		\node[black, anchor=south west] at (-2.06,1.25) {5};
+		\node[black, anchor=south west] at (-1.06,1.25) {7};
+		\node[black, anchor=south west] at (-0.06,1.25) {10};
+		\node[black, anchor=south west] at (0.94,1.25) {15};
+		\node[black, anchor=south west] at (-2.06,0.25) {15};
+		\node[black, anchor=south west] at (-1.06,0.25) {...};
+		\node[black, anchor=south west] at (-3.06,4.25) {$B_0$};
+		\node[black, anchor=south west] at (-3.06,3.25) {$B_1$};
+		\node[black, anchor=south west] at (-3.06,2.25) {$B_2$};
+		\node[black, anchor=south west] at (-3.06,1.25) {$B_3$};
+		\node[black, anchor=south west] at (-3.06,0.25) {$...$};
+		\node[black, anchor=south west] at (-1.06,3.25) {2};
+		\draw[draw=black, thin, solid] (-1.50,3.50) -- (-1.00,3.50);
+		\draw[draw=black, thin, solid] (-1.50,4.50) -- (-1.00,3.50);
+		\draw[draw=black, thin, solid] (-1.50,2.50) -- (-1.00,2.50);
+		\draw[draw=black, thin, solid] (-1.50,3.50) -- (-1.00,2.50);
+		\draw[draw=black, thin, solid] (-0.50,2.50) -- (0.00,2.50);
+		\draw[draw=black, thin, solid] (-0.50,3.50) -- (0.00,2.50);
+		\draw[draw=black, thin, solid] (-1.50,1.50) -- (-1.00,1.50);
+		\draw[draw=black, thin, solid] (-1.50,2.50) -- (-1.00,1.50);
+		\draw[draw=black, thin, solid] (-0.50,1.50) -- (0.00,1.50);
+		\draw[draw=black, thin, solid] (-0.50,2.50) -- (0.00,1.50);
+		\draw[draw=black, thin, solid] (0.50,1.50) -- (1.00,1.50);
+		\draw[draw=black, thin, solid] (0.50,2.50) -- (1.00,1.50);
+		\draw[draw=black, thin, solid] (-1.50,0.50) -- (-1.00,0.50);
+		\draw[draw=black, thin, solid] (-1.50,1.50) -- (-1.00,0.50);
+	\end{tikzpicture}
+\end{center}
+
+\definizione{Numero di Stirling}{Indichiamo con $S_{n,k}$ il numero di partizioni di $\{1,\dots,n\}$ in $k$ blocchi. Si calcola con la formula ricorsiva: \[S_{n,k}=S_{n-1,k-1}+kS_{n-1,k}\] Si assume $S_{n,n}=1$ e $S_n,1=1$.}{d:nStirling}
+
+\dimostrazione{d:nStirling}{Contiamo le partizioni in $k$ blocchi in cui $n$ è da solo. Gli altri $n-1$ numeri devono essere partizionati in $k-1$ blocchi: $S_{n-1,k-1}$ scelte.
+
+Contiamo ora quelle in cui $n$ non è in blocco da solo (procedendo per scelte successive):
+\begin{itemize}
+	\item Partizioniamo i numeri da 1 a $n-1$ in $k$ blocchi: $S_{n-1,k}$ scelte.
+	\item Scegliamo in quale blocco inserire $n$: $k$ scelte.
+\end{itemize}}

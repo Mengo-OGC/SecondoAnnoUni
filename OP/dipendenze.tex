@@ -46,17 +46,64 @@ Consente diverse realizzazioni di un contratto, usabili omogeneamente. (più cla
 	Nel corpo dell'interfaccia si specificano solo i metodi che aggiunge.
 \end{itemize}
 
-\oneline{class <NomeClasse> implements <NomeInterfaccia[, ...]> \{...\}}
+\oneline{class <NomeClasse> implements <NomeInterfaccia[,...]> \{...\}}
 
 \begin{itemize}
 	\item Deve implementare il corpo di tutte le intetazioni di metodo delle interfacce (metodi in comune implementati una volta). La classe potrà avere altri metodi suoi.
 	\item Le istanze avranno tipo la classe e le interfacce.
 \end{itemize}
 
-Nota: l'interfaccia è il sopra tipo/insieme delle classi, è più generale, ma fornisce meno funzionalità.
+Nota: L'interfaccia è il sopra tipo/insieme delle classi, è più generale, ma fornisce meno funzionalità.
 
-\subsection{Poliformismo}
+Nota: La classe che rispeccia l'interfaccia si chiama \textit{impNnomeInterfaccia}.
+
+\subsubsection{Poliformismo}
 \begin{itemize}
 	\item \textbf{Inclusivo} (subtyping): applicazione principio sostituibilità.
 	\item \textbf{Parametrico} (genericità): ???.
 \end{itemize}
+
+\subsection{Riuso con estensione/sostituibilità}
+Data una classe (di cui possono non avere i sorgenti) ne realizzo un'altra con caratteristiche solo in parte diverse, ovvero una specializzazione. Questa nuova classe potrebbe sostituire la precedente (gerarchia \textit{is-a}).
+
+Senzia violare \textbf{DRY}: Don't Repeat Yoursealf.
+
+\subsubsection{Composizione/delegazione}
+Nella nuova classe:
+\begin{enumerate}
+	\item \textbf{Incapsulare} un oggetto della classe da modificare/estendere mediante campo \inline{private final}\footnote{Cosi che l'oggetto una volta inizializzato non possa essere cambiato ma si possa allo stesso tempo adoperare metodi e campi di conseguenza.}. Sarà inizializzato nel costruttore della nuova classe.
+
+	\item \textbf{Metodi} possono delegare all'oggetto incapsulato e essere di più o meno, ampliando cos'ì le funzionalità. Viola poco DRY.
+
+	\item Combinare con l'uso delle interfacce per ottenere la sostituibilità.
+\end{enumerate}
+Quando si può è meglio usare i metodi "ridefiniti" che "originali" per rispettare l'incapsulamento.
+
+\subsection{Ereditarietà}
+Definisce una classse specializzandone una esistente \textbf{ereditando}. Rispetta DRY.
+
+\oneline{class <ClasseFiglio> extends <ClassePare> \{...\}}
+
+\begin{itemize}
+	\item Eredita (usabili) campi, metodi, costruttori non privati.
+
+	\item Costruttori non privati del padre richiamti solo da costruttori figlio (c.Figlio>=c.Padre), per inizializzare campi Padre.
+
+	\oneline{super(<parametri>)}
+
+	Se precesente deve essere la prima riga dei costruttori del figlio che devono avere almeno i parametri dei costruttori del padre.
+
+	Costruttori default padre chiamato se \inline{super()} assente/posizione errata.
+	\item Può aggiungere e modificare campi e metodi.
+
+	\item Figlio acede a campi Padre (private) con get/set \inline{protected} per rispettare incapsulamento.
+\end{itemize}
+
+Nota: Bastano i binari per estendre una clsse.
+
+\subsubsection{Overriding}
+Riscrizione di uno o più metodi del Padre nel Figlio.
+
+Il metodo riscritto può invocare la versione Padre con \inline{super.<metodoPadre()>}.
+
+I metodi override hanno la notazione \inline{@Override}.

@@ -1,0 +1,158 @@
+\section{Classi}
+Sono template (tipo, struttura in memoria, comportamento) per generare oggetti (istanza).
+
+Le classi hanno un nome (NomeClasse) che sarà anche il nome del tipo per le variabili e del file.
+
+I membri fondamentali di una classe sono:
+\begin{itemize}
+	\item \textbf{Campi}, descrivono la struttura/stato
+	\item \textbf{Metodi}, descrivono i messaggi e il comportamento
+\end{itemize}
+Poi possiamo avere Costruttori, ecc.
+
+Le classi sono tipi di dato in un linguaggio a oggetti tutto è un oggetto fino a un certo punto.
+
+\multiline{strutturaclasse}{}{CodiciEsempio/StruturaClasse.java}
+
+\subsection{Campi}
+Sono lo stato attuale dell'oggetto. Nome con la minuscola.
+Simili hai membri di una struttura C, con la differenza che possono essere 0,1,diversi (5-7max). Simili a variabili (tipo+nome), ma non si può usare \textit{var}.
+Possono essere valori primitivi o altri oggetti (anche della classe stessa).
+L'ordine dei non conta.
+
+I campi sono iniziabili alla dichiarazione dell'oggetto (coi parametri), sennò sono inizializzati in base al tipo a \textbf{0, false, null}. Mai alla dichiarazione si inizalizzano (...=...;).
+
+\oneline{public|private|"" [final] <tipo> <nomeCampo>;}
+
+Uso dei campi lato utente: Assegnamento \inline{... obj.campo = ...}, Lettura \inline{... = obj.campo ...}
+
+\subsection{final e costanti}
+Modificatore (da usare quando si può) per campi, variabili e parametri. Dopo inizializzazione non più modificabile il valore.
+
+Per variabili di tipo classe non si può cambiare il riferimento all'oggetto, ma i campi dell'oggetto si.
+
+\oneline{<tipo> final <nomeVar [= new ... | valore;]}
+
+Per fare le \textbf{costanti} (NOME\_COSTANTE) usare \inline{static final ...;}. Soluzione a \textit{Magic Number}.
+
+\subsubsection{Oggetti immutabili}
+Oggetti i cui campi non si modificheranno mai, dopo la prima modifica del costruttore.
+
+Si creano dichiarando \inline{final private} tutti i campi della classe di tipo: tipi primitivi o oggetti immutabili.
+
+\subsection{Metodi}
+Definiscono il comportamento dell'oggetto. Nome con la minuscola.
+Simili a funzioni C. Hanno un intestazione (tipo di ritorno|void, nome, argomenti) e un corpo.
+I metodi di una classe possono essere 0, 1, diversi.
+
+i metodi possono leggere/scrivere i campi.
+
+Uso dei metodi lato utente \inline{... obj.metodo() ...}. L'invocazione del metodo, corrisponde a inviare un messaggio al receiver (obj nell'esempio) azionando l'esecuzione del corpo del metodo.
+
+\multiline{strutturametodo}{}{CodiciEsempio/StrutturaMetodo.java}
+
+\subsubsection{return this}
+Un metodo può ritorna \inline{this}, l'oggetto corrente. Deve avere come tipo di ritorno la classe stessa.
+
+Usato per concatenare più metodi in una sola espressione, combinando i risultati parziali, e restituendo con l'ultimo metodo l'oggetto processato:
+
+\inline{... obj.m1().m2()...mThis();}
+
+Questo schema è detto \textbf{fluente}.
+
+\subsection{Costruttore}
+Simile a un metodo con nome il nome della classe, senza tipo di ritorno e opzionalmente dei parametri formali.
+
+\inline{NomeClasse([parametri]) {...}}
+
+Se non si definisce il costruttore viene implicitamente inserito il costruttore di default (0 parametri) che inizializza i campi ai tipi di default.
+
+\subsubsection{Overloading}
+Si possono definire più costruttori e metodi, ma non è una buona pratica.
+Nel caso devono essere \textbf{distinguibili dal numero e/o tipo} dei parametri.
+
+I costruttori si possono \textbf{invocare a vicenda} (riuso codice). \inline{this(...)} deve essere la prima riga del corpo del costruttore.
+
+\multiline{riusocostruttori}{}{CodiciEsempio/RiusoCostruttori.java}
+
+\subsection{this}
+Variabile contenente il riferimento all'oggetto che sta gestendo il messaggio corrente. Si usa per rendere meno ambiguo il codice accedento tramite \textit{this} a campi o metodi. (Usare sempre).
+\inline{... this.cmapo ... this.metodo() ...}
+
+\subsection{static}
+Scollega metodi e campi dagli oggetti di una stessa classe, rendendoli condivisi tra essi. I metodi diventano funzioni pure e i campi variabili globali alla classe.
+
+Si possono fare classi solo statiche (utility class, NomeClasse+s) più non statiche (approccio migliore) o miste (campi e metodi static in fondo).
+
+Richiamo fuori dalla classe: \inline{... nomeClase.campo|metodo() ...}.
+Richiamo nella classe come normale campo o metodo.
+Richiamabile anche da un oggetto.
+
+\oneline{static campo|metodo|classe}
+
+Quando \inline{static}?
+Si fanno statici i metodi o campi che sono indipendenti dallo stato di un oggetto della classe. Fanno un servizio indipendente dal singolo oggetto.
+
+\subsection{Livelli d'accesso}
+Si antepongono a classi, metodi, campi, costruttori per definire il grado di utilizzo, in ordine crescente di libertà:
+\begin{enumerate}
+	\item \inline{private} Visibile e richiamabile solo nella classe di definizione.
+	\item \inline{package} default (no keyword). Visibile e richiamabili dentro il package e invisibili fuori.
+	\item \inline{protected} Visibile alla classe corrente e dalle sotto classi ricorsivamente. (in java anche al package).
+	\item \inline{public} Visibile e richiamabile da qualunque classe.
+\end{enumerate}
+
+In una unità di compilazione una sola classe è \inline{public} e con lo stesso nome del file.
+
+Vantaggio: Si può far rispettare al meglio il contratto\footnote{Insieme degli scienari d'utilizzo e quindi aspettative di un utente al suo utilizzo.} di un oggetto.
+
+\subsubsection{Incapsulamento}
+\begin{center}
+	Scopo: Avere controllo su come vengono usati i dati.
+\end{center}
+
+\colTwo{Dichiaro \inline{public} solo metodi/costruttori, di "design", necessari all'utente per interagire/creare l'istanza della classe.}{Dichiaro \inline{private} tutti i metodi/costruttori di "implementazione", e \textbf{tutti i campi}.}{45}{45}
+
+Cosi modifiche implementative non influenzano uso dell'utente. Controllo dati e riuduco possibilità errori lato utente. Maggior distacco tra dato e implementazione. (\textit{Information hidding} = nascondere implementazione informazioni).
+
+\bigskip
+
+\textbf{Principio di decomposizione (\textit{divide et impera})}: Soluzione di un problema complesso è la somma di due o più sotto problemi più semplici, tra loro indipendenti.
+
+Tali sotto problemi devono avere il minor numero di dipendenze\footnote{Riferito alle classi è quando una classe usa al suo interno un'altra. Ciò può comportare modifiche a cascata rischiando la \textit{sindrome dell'"intoccambilità"}.} reciproche. Permettendo maggior autonomia, più modifiche senza danni collaterali e meno interazioni.
+
+Una buona divisione da moduli con basse dipendenze esterne e alte dipendenze interne.
+
+Nella OO le suddivisioni base sono pacakge, classi e metodi.
+
+\subsection{toString()}
+Ogni classe deve definire tale metodo che restituisce una rappresentazione in stringa dell'oggetto, utile in fase di debug.
+
+Automaticamente chiamato dall'operatore "+" nelle concatenazioni tra stringhe e oggetti.
+
+\subsection{Precisazioni}
+Inizializzazioni particolari degli oggetti Stringa:
+\begin{enumerate}
+	\item \inline{... = new String();}, stringa vuota (è diverso da null).
+	\item \inline{... = "..."}, come in C, comportamento speciale degli oggetti Stringa.
+\end{enumerate}
+
+\subsection{Fasi Implementazione}
+\begin{enumerate}
+	\item Progettazione della parte pubblica della classe (nome classe, signatura metodi e costruttori necesari).
+	\item Costruzione dello stato (campi privati, con nome diverso dai metodi relativi).
+	\item Completamento implementazione. (test).
+	\item Miglioramento codice finale (commenti, eliminare \textit{Magic Number}, fattorizzare sotto-funzioni). (test).
+	\item Test del risultato con test-case. (test-driven development con JUnit).
+\end{enumerate}
+
+\section{Oggetti lato Utente}
+Dichiarazione, creazione, inizializzazione:
+
+\inline{<Tipo | var> <nome> = <new Tipo([argomenti]) | altraVariabile | null>;}
+\begin{itemize}
+	\item \inline{<Tipo> <nome>;} Si può solo dichiarare una variabile oggetto per poi crearla e inizializzarla successivamente.
+	\item solo quando si scrive \inline{new} (Keyword di linguaggio di chiamata al costruttore) si crea e inizializza un oggetto dalla classe indicata. \inline{new} da il riferimento (\inline{this}) dell'oggetto alla variabile.
+	\item \inline{var}\footnote{Local variable type inference.} fa infierire\footnote{Far dedurre al compilatore il tipo della variabile locale dall'espressione assegnata.} il tipo della variabile locale per allegerire il codice. Se manca l'espressione non va, esempio \inline{var i;}.
+	\item \inline{altraVariabile} deve essere della stessa classe della variabile che sto definendo.
+\end{itemize}

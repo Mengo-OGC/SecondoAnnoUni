@@ -7,6 +7,7 @@
 \usepackage[table]{xcolor}  % permette di colorare righe/colonne.
 \usepackage{fancyhdr}		% stile impaginazione.
 \usepackage{tikz}			% per fare grafici
+\usepackage{lastpage}
 
 % link interni alle pagine e indice auto linkato.
 \usepackage[colorlinks=true, linkcolor=black]{hyperref}
@@ -16,7 +17,7 @@
 \fancyhf{}
 \fancyhead[L]{\hyperref[toc]{$\leftarrow$Indice}}	% link a indice sinistra alto
 \fancyhead[R]{\leftmark}							% nome sezione destra alto
-\fancyfoot[C]{\thepage}								% numero pagina centrale basso
+\fancyfoot[C]{\thepage/\pageref{LastPage}}			% numero pagina centrale basso
 
 % ambienti personalizzati
 \newtheorem[L]{teo}{Teorema}[section]

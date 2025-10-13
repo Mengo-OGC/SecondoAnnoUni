@@ -141,6 +141,35 @@ Rappresentazione \inline{'carattere'} o \inline{'\u<0-65535>'}. Formato ASCII o 
 	\item \textbf{Esplicito} fatto con operatore di casting: \inline{...=(<tipo>)<espressione>;}. Può causare perdità di informazioni.
 \end{itemize}
 
+\subsection{tipo statico e a rum-time}
+\begin{itemize}
+	\item \textbf{Tipo Statico}: Tipo di un espressione desumibile dal compilatore.
+	\item \textbf{Tipo run-time}: Tipo effettivamente presente è tipo statico o sottotipo.
+\end{itemize}
+
+Per ispezionare il tipo a run-time:
+
+\oneline{<espressione> instanceof <tipo>}
+
+Restituisce \inline{boolean} e usato nella condizione di un \inline{if} permette di specializzare esecuzione.
+\bigskip
+
+\textbf{Downcast}: Creare nuovo riferimento di tipo statico all'espressione (da sovraTipo a sottoTipo):
+
+\oneline{... (<tipoEffettio>)<espressione> ...}
+
+\subsection{Autoboxing}
+Ogni tipo primitivo può essere "boxed" in un oggetto.
+
+\begin{itemize}
+	\item \textbf{boxing} azione di inscatolamento di un tipo primitivo in un oggetto.
+	\oneline{<Tipo> <variabile> = <Tipo>.valueOf(<tipoPrimitivo>)}
+	\item \textbf{de-boxing} azione di estrarre un tipo primitivo da un ogetto.
+	\oneline{... <varOggetto>.<tipoPrimitivo>Value() ...}
+\end{itemize}
+
+Boxing e De-boxing sono effettuati in automatico.
+
 \subsection{Array}
 Oggetti (variabili hanno riferimento nello heap) di lunghezza esplicita e acessibile, inacessibile fuori dai limiti (errore esecuzione), mutabili. Indirizzi elementi [0, lunghezza-1].
 

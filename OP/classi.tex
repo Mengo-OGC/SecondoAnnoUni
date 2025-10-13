@@ -51,6 +51,18 @@ Uso dei metodi lato utente \inline{... obj.metodo() ...}. L'invocazione del meto
 
 \multiline{strutturametodo}{}{CodiciEsempio/StrutturaMetodo.java}
 
+Nota: Classi POJO sono classi con solo campi privati, costruttori e metodi get e set.
+
+\subsubsection{Variable arguments}
+Per passare un numero indefinito di parametri di un certo tipo:
+
+\oneline{<tipo> <nomeMetodo>([<parametri>], <tipo>... <nomeParametro>) \{...\}}
+\begin{itemize}
+	\item Va definito come ultimo o unico parametro.
+	\item Nel corpo del metodo sarà trattato come un array di \inline{<tipo>}.
+	\item Il chiamante passa al metodo una lista di parametri di \inline{<tipo>}.
+\end{itemize}
+
 \subsubsection{return this}
 Un metodo può ritorna \inline{this}, l'oggetto corrente. Deve avere come tipo di ritorno la classe stessa.
 
@@ -67,6 +79,7 @@ Simile a un metodo con nome il nome della classe, senza tipo di ritorno e opzion
 
 Se non si definisce il costruttore viene implicitamente inserito il costruttore di default (0 parametri) che inizializza i campi ai tipi di default.
 
+Nota: per fare una classe non istanziabile basta fare i costruttori \inline{private/protected}.
 \subsubsection{Overloading}
 Si possono definire più costruttori e metodi, ma non è una buona pratica.
 Nel caso devono essere \textbf{distinguibili dal numero e/o tipo} dei parametri.
@@ -125,10 +138,7 @@ Una buona divisione da moduli con basse dipendenze esterne e alte dipendenze int
 
 Nella OO le suddivisioni base sono pacakge, classi e metodi.
 
-\subsection{toString()}
-Ogni classe deve definire tale metodo che restituisce una rappresentazione in stringa dell'oggetto, utile in fase di debug.
-
-Automaticamente chiamato dall'operatore "+" nelle concatenazioni tra stringhe e oggetti.
+Nota: Per rispettare l'incapsulamento quando si fa un get di un tipo non primitivo, bisogna restituire una copia del campo e non il campo stesso.
 
 \subsection{Precisazioni}
 Inizializzazioni particolari degli oggetti Stringa:

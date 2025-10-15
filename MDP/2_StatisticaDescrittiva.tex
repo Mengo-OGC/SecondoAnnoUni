@@ -93,3 +93,70 @@ Caso particolare è con $y=1$ ottenendo così $z=ax+b$ e quindi $\overline{z}=a\
 
 \dimostrazione{d:linMed}{\[\overline{z}=\frac{1}{n}\sum_{i=1}^nz_i=\frac{1}{n}\sum_{i=1}^n(ax_i+by_i)=\frac{1}{n}a\sum_{i=1}^nx_i+\frac{1}{n}b\sum_{i=1}^ny_i=a\overline{x}+b\overline{y}\]}
 
+\definizione{Media Ponderata}{La media ponderata si usa per dare diversa importanza (peso) ai vari elementi d'un campione. \[\overline{x_w}=\frac{x_1w_1+\dots+x_nw_n}{w_1+\dots+w_n}\]}{d:medPond}
+
+\osservazione{La media campionaria si ottiene dando peso 1 a tutti gli elementi.}
+
+\definizione{Varianza}{La varianza di $x$ è la media dei quadrati della distanza da $\overline{x}$. \[\sigma_x^2=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})^2\]}{d:varianza}
+In altre parole indica la dispersione dei valori, ovvero da una misura di qunato i dati sono lontanti tra dolo.
+
+\dimostrazione{d:varianza}{Ricordiamo la formula della parabola $at^2+bt+c=0, a>0$ e con vertice d'ascissa $-b/2a$.
+
+Possiamo fissare un punto a caso $t$. Consideriamo la media dei quadrati delle distanze date come: \[\frac{(x_1-t)^2+\dots+(x_n-t)^2}{n}\] Per quale $t$ questa quantità è minima? $\frac{1}{n}\sum_{i=1}^n(x_i-t)^2=\frac{1}{n}(\sum_{i=1}^n(t^2-2x_1t+x_1^2))=t^2-\frac{2t}{n}\sum_{i=1}^nx_i+\frac{1}{n}\sum_{i=1}^nx_i^2=t^2-2\overline{x}t+\frac{1}{n}\sum_{i=1}^nx_i^2$.
+Il valore minimo lo otteniamo per $t=\frac{-(-2\overline{x})}{2 \cdot 1}=\overline{x}$.}
+
+\osservazione{Dal calcolo precedente con $\overline{x}, \sigma_x^2=\overline{x}^2-2\overline{x}\overline{x}-\overline{x^2}=\overline{x^2}-\overline{x}^2$.}
+
+\osservazione{La varianza è sempre positiva.}
+
+\proprieta{1° varianza}{La varianza rimane invariata per traslazioni di costanti. \[\sigma_y^2=\sigma_x^2\]}{prop:var1}
+
+\dimostrazione{prop:var1}{Sia $y=x+c$ con $c$ costante. Otteniamo $\overline{y}=\overline{x}+c$ ovvero $\overline{y^2}=\overline{x^2+2cx+c^2}=\overline{x^2}+2c\overline{x}+c^2$ che ci da $\sigma_y^2=\overline{y^2}-\overline{y}^2=\overline{x^2}+2c\overline{x}+c^2-(\overline{x}^2+2c\overline{x}+c^2)=\sigma_x^2$.}
+
+\proprieta{2° varianza}{La varianza aumenta per prodotto con costanti. \[\sigma_y^2=a^2\sigma_x^2\]}{prop:var2}
+
+\dimostrazione{prop:var2}{Sia $y=ax$ con $a$ costante. Otteniamo $\overline{y}=a\overline{x}$ ovvero $\overline{y^2}=\overline{a^2x^2}=a^2\overline{x^2}$ che ci da $\sigma_y^2=\overline{y^2}-\overline{y}^2=a^2\overline{x^2}-a^2\overline{x}^2=a^2\sigma_x^2$.}
+
+\definizione{Correlazione Positiva}{Dati due caratteri $x$ e $y$ diciamo che sono positivamente correlati se al crescere di uno ci aspettiamo che cresca anche l'altro.}{d:posCor}
+
+\definizione{Correlazione Negativa}{Dati due caratteri $x$ e $y$ diciamo che sono negativamente correlati se al crescere di uno ci aspettiamo che l'altro diminuisca.}{d:negCor}
+
+\definizione{Covarianza}{La covarianza di $x$ e $y$ è \[\sigma_{x,y}=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})=\overline{xy}-\overline{x}\overline{y}\]}{d:covarianza}
+In altre parole se $x$ e $y$ sono positivamente correlate allora $(x_i-\overline{x})$ e $(y_i-\overline{y})$. Ci aspettiamo che siano concordi e quindi che il prodotto sia maggiore di zero.
+
+\osservazione{$\sigma_{x,x}=\sigma_x^2$.}
+
+\dimostrazione{d:covarianza}{$\sigma_{x,y}=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})=\frac{1}{n}\sum_{i=1}^n(x_iy_i)-x_i\overline{y}-\overline{x}y_i+\overline{xy}=\overline{xy}-\overline{x}\overline{y}-\overline{x}\overline{y}+\overline{x}\overline{y}=\overline{xy}-\overline{x}\overline{y}$.}
+
+\definizione{Retta ai minimi quadrati}{La retta ai minimi quadratici è la retta che minizza i quadrati degli errori (cioè delle lunghezze dei segmenti verticali.)}{def:rettaMinQuad}
+
+La somma dei quadrati degli errori è \[S(m,q)=\sum_{i=1}^n(y_i-mx_i-q)^2\] vogliamo $m$ e $q$ in modo che queta quantità sia minima. \[S(m,q)=\sigma_y^2+m^2\sigma_x^2-em\sigma_{x,y}+(\overline{y}-q-m\overline{x})^2\]
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=black, -latex, thin, solid] (-2.00,-2.00) -- (4.00,-2.00);
+		\draw[draw=black, -latex, thin, solid] (-2.00,-2.00) -- (-2.00,2.00);
+		\node[black, anchor=south west] at (3.94,-2.75) {x};
+		\node[black, anchor=south west] at (-3.06,1.25) {y};
+		\node[black, anchor=south west] at (-3.06,-2.75) {0};
+		\draw[draw=black, thin, solid] (-1.00,-1.50) circle (0.1);
+		\draw[draw=black, thin, solid] (-1.50,-1.00) circle (0.1);
+		\draw[draw=black, thin, solid] (-1.00,-0.50) circle (0.1);
+		\draw[draw=black, thin, solid] (0.00,-0.50) circle (0.1);
+		\draw[draw=black, thin, solid] (0.00,0.50) circle (0.1);
+		\draw[draw=black, thin, solid] (1.00,-0.50) circle (0.1);
+		\draw[draw=black, thin, solid] (1.00,1.50) circle (0.1);
+		\draw[draw=black, thin, solid] (2.00,0.50) circle (0.1);
+		\draw[draw=black, thin, solid] (2.00,2.00) circle (0.1);
+		\draw[draw=black, thin, solid] (2.50,1.00) circle (0.1);
+		\draw[draw=black, thin, solid] (-2.00,-2.00) -- (2.50,2.00);
+		\draw[draw=black, ultra thin, solid] (-1.50,-1.00) -- (-1.50,-1.50);
+		\draw[draw=black, ultra thin, solid] (-1.00,-1.50) -- (-1.00,-0.50);
+		\draw[draw=black, ultra thin, solid] (0.00,-0.50) -- (0.00,0.50);
+		\draw[draw=black, ultra thin, solid] (1.00,-0.50) -- (1.00,1.50);
+		\draw[draw=black, ultra thin, solid] (2.00,0.50) -- (2.00,2.00);
+		\draw[draw=black, ultra thin, solid] (2.50,1.00) -- (2.50,2.00);
+	\end{tikzpicture}
+\end{center}
+
+\osservazione{Sia $\overline{y}=m\overline{x}+q$, il punto $(\overline{x}, \overline{y}) \in $ retta è $S(m,q)=\sigma_y^2+m^2\sigma_x^2-2m\sigma_{x,y}\implies m=\frac{-b}{2a}=-\sigma_{x,y}\frac{1}{2\sigma_x^2}=\frac{\sigma_{x,y}}{\sigma_x^2}$.}

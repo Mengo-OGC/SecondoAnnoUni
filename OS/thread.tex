@@ -112,3 +112,12 @@ int main() {
 \end{verbatim}
 
 Nota: La creazione di un processo è più lenta della creazione di un thread perchè nella prima bisogna creare un intero file descriptor, mentre nella seconda parziale.
+
+\subsection{SJF}
+Calcolo approssimato CPU Bust: $T_{n+1}=\alpha t_n+(1-\alpha)T_n$.
+\begin{itemize}
+	\item $t_m$ tempo n-esimo CPU burst. Storia recente.
+	\item $T_{n}$ previsione prevista. Storia passata.
+	\item $\alpha$ peso storia recente e passata.
+\end{itemize}
+Calcolo Media esponensiale: $T_{n+1}=\sum_{j=0}^n\alpha(1-\alpha)^jt_{n-j}+(1-\alpha)^{n+1}T_0$.

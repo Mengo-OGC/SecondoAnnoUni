@@ -4,6 +4,7 @@
 	\riga{PATH}{Modificabile, sequenza di percorsi assoluti, divisi da ":", di directory contenenti eseguibili (lanciabili senza digitare path). Ricerca secondo ordine specificato in PATH, si ferma a primo eseguibile con nome uguale. Eventuale ErrorNotFoutd.
 
 	Altre variabili d'ambiente: \$HOME, \$USER, \$SHELL, \$TERM.}
+	\riga{\$?}{Modificato alla terminazione di ogni script, contiene l'\textit{exit status}.}
 	\riga{env}{Visualizza l'elenco delle variabili d'ambiente.}
 }
 
@@ -25,6 +26,7 @@
 		\item \textbf{-f} non fa chiedere le autorizzazioni di eliminazione.
 	\end{itemize}}
 	\riga{mv file1 file2\textbar dir}{Rinomina file1 in file2 o sposta file1 nella directory specificata.}
+	\riga{cp file1 dir}{Copia file1 nella directory specificata.}
 	\riga{ls [\textit{nomefile}]}{Visualizza i files/direcotry contenuti nella directory corrente. Parametri:
 	\begin{itemize}
 		\item \textbf{-a} mosta anche file nascosti (anche ., ..).
@@ -33,8 +35,7 @@
 		\item \textbf{-d} fa applicare il comando alla directory e non ai file.
 		\item \textbf{-R} mostra ricorsivamente contenuto sotto directory.
 	\end{itemize}
-	Se specifico un file mi dice se esiste e mi da informazioni solo di lui.
-	}
+	Se specifico un file mi dice se esiste e mi da informazioni solo di lui.}
 
 	\riga{pwd}{Visualizza il percorso assoluto, da / fino alla directory corrente.}
 }
@@ -66,8 +67,7 @@
 		\item \textbf{[:upper:]} un carattere maiuscolo.
 		\item \textbf{[:lower:]} un carattere minuscolo.
 	\end{itemize}
-	Annidabili
-	}
+	Annidabili.}
 }
 
 \tabella{Scripting}{
@@ -76,6 +76,12 @@
 	\riga{nome=\textit{valore}}{Simboli con nome e valore, stringa modificabile, alfanumerici casesensitive. No spazi prima o dopo "=". Sono d'ambiente o ex-novo locali.
 
 	Solo la bash in cui sono create le variabili le può usare. I programmi lanciati dalla bash hanno una speudocopia della bash.}
+
+	\riga{\$variabile}{Fa l'espanzione della variabile, ovvero la stostituisce con il suo contenuto.}
+	\riga{\$\{!variabile\}}{Fa l'espanzione della variabile che contiene il nome d'unaltra variabile con il valore di quest'ultima (riferimento indiretto).
+
+	Dalla versione 2 di bash.}
+
 	\riga{export nomevar \textbar nomevar=valore}{Variabile d'ambiente. Un shell figlia riceve una copia modificabile che non influenza variabile d'ambiente del padre.}
 	\riga{unset \textit{nomevariabile}}{Elimina una variabile esistente (vuota o no).
 
@@ -93,7 +99,19 @@
 		\item \textbf{\$n} Accede all'n-esimo parametro a partire da indice 0.
 		\item \textbf{\$*} Tutti argomenti concatenati e divisi da spazi.
 		\item \textbf{\$@} Vettore di argomenti quotati ("...").
-	\end{itemize}}
+	\end{itemize}
+	I parametri \$* e \$@ sono identici se non quotati (concatenazione di argomenti separati da " "). Se quotati \$* quota tutti gli argomenti assieme mentre \$@ quota singolarmente ogni argomento.
+
+	\$@ è usato per passare parametri a comandi dentro a degli script.}
+}
+
+\tabella{Espressioni aritmetica}{
+	\riga{((...))}{Valuta una stringa come un espressione aritmetica (+,-,*,/,\%, ()) di soli interi. Racchiude un espressione più eventualmente un assegnamento. Si possono usare variabili nell'espressione (\$variabile).
+
+	L'exit statuts 0 indica espressione true, diverso da 0 indica espressione false.
+
+	Per le operazioni in virgola mobile usare \textbf{bc}.}
+	\riga{\$((...))}{Come operatore ((...)) ma è concatenabile con stringhe tramite " ".}
 }
 
 \tabella{Tilde Expansion}{
@@ -131,6 +149,7 @@
 
 	Ignorata prima riga opzionale e eseguito con interprete corrente.}
 	\riga{exit}{Termina bash corrente, elimina l'ambiente e sale alla padre.}
+	\riga{exit \textit{exitStatus}}{Termina lo script restituendo un valore intero [0-255] per indicarne l'esito di terminazione. 0 indica esecuzione terminata senza errori, qualcosaltro indica un'errore. Viene restituito alla shell esecutrice. }
 	\riga{top}{Mostra in tempo reale processi in esecuzione e risorse di sistema usate.}
 	\riga{ps}{Mostra i processi in esecuzione.
 

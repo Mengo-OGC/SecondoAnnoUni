@@ -7,7 +7,15 @@
 \usepackage[table]{xcolor}  % permette di colorare righe/colonne.
 \usepackage{fancyhdr}		% stile impaginazione.
 \usepackage{tikz}			% per fare grafici
+\usepackage{tikz-cd}
 \usepackage{lastpage}
+
+\tikzcdset{
+	scale cd/.style={
+		every label/.append style={scale=#1},
+		cells={nodes={scale=#1}}
+	}
+}
 
 % link interni alle pagine e indice auto linkato.
 \usepackage[colorlinks=true, linkcolor=black]{hyperref}

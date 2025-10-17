@@ -246,7 +246,6 @@ La cardinalità dell'unione di $n$ insiemi:
 Definiamo l'insieme complementare con $(A_1,\dots,A_n)^C$. Permette di risolvere tanti quesiti più facilmente.
 
 Per convenzine definiamo $\bigcap_{i\in \emptyset}=U$, l'intero insieme.
-
 Quindi otteniamo che $|(A_1,\dots,A_n)^C|=|\bigcap_{i\in \emptyset}A_i|+\sum_{\emptyset\ne I \subseteq \{1,\dots,n\}}^n(-1)^{|I|-1}|\bigcap_{i \in I}A_i|$ che è come dire $\sum_{I \subseteq \{1,\dots,n\}}^n(-1)^{|I|}|\bigcap_{i \in I}A_i|$.
 
 \definizione{Sequenze k-piene}{Una sequenza k-piena è una sequenza in cui ogni numero da 1 a k compare almeno una volta. (non compaiono altri numeri).}{seqkpieno}
@@ -347,3 +346,22 @@ Contiamo ora quelle in cui $n$ non è in blocco da solo (procedendo per scelte s
 	\item Partizioniamo i numeri da 1 a $n-1$ in $k$ blocchi: $S_{n-1,k}$ scelte.
 	\item Scegliamo in quale blocco inserire $n$: $k$ scelte.
 \end{itemize}}
+
+\mysubsection{Triangolo di Stirling}
+Trucco per calcolare i numeri di Stirling:
+
+\begin{center}
+	\begin{tikzcd}[scale cd=0.8]
+		&              &              & {S_{1,1}}                                                       &                                                    &                                                                 &           \\
+		&              & {S_{2,1}}    &                                                                 & {S_{2,2}}                                          &                                                                 &           \\
+		& {S_{3,1}}    &              & {S_{3,2}}                                                       &                                                    & {S_{3,3}}                                                       &           \\
+		{S_{4,1}}                           &              & {S_{4,2}}    &                                                                 & {S_{4,3}}                                          &                                                                 & {S_{4,4}} \\
+		{} \arrow[d, dashed, bend right=60] &              &              & 1                                                               &                                                    &                                                                 &           \\
+		{}                                  &              & 1 \arrow[rd] &                                                                 & 1 \arrow[ld, shift left=2] \arrow[ld, shift right] &                                                                 &           \\
+		& 1 \arrow[rd] &              & 3 \arrow[ld, shift right=2] \arrow[ld, shift left=2] \arrow[rd] &                                                    & 1 \arrow[ld, shift left=2] \arrow[ld, shift right=2] \arrow[ld] &           \\
+		1                                   &              & 7            &                                                                 & 6                                                  &                                                                 & 1
+	\end{tikzcd}
+\end{center}
+
+
+Ogni numero è la somma di quello in alto a sinistra più quello in alto a destra moltiplicato per il numero di diagonale.

@@ -3,3 +3,57 @@
 \begin{quotation}
 	"Si occupa di prevedere quanto è facile/possibile che qualcosa accada. Consiste in passaggi logici rigorosi partendo da un modello fisso (spazio di probabilità)."
 \end{quotation}
+
+\definizione{Fenomeno}{Un fenomeno è qualcosa che acacde e che porta ad'un esito o risultato.}{d:fenomeno}
+
+Un fenomeno può essere:
+\begin{itemize}
+	\item \textbf{Deterministico} se il risultato può essere predetto con esattezza.
+	\item \textbf{Aleatorio} se il risultato è imprevedibile.
+\end{itemize}
+
+\definizione{Evento}{Un evento è un insieme di possibili risultati.}{d:evento}
+
+\definizione{Valutazione di probabilità}{La valutazione di probabilità è una funzione che ad'ogni evento associa un numero tanto più grande quanto riteniamo che l'evento possa accadere.}{d:valProb}
+
+\definizione{Evento "probabilistico"}{Sia $\Omega$ l'insieme dei risultati. Un evento è un sotto insieme di $\Omega$ di cui ha senso calcolare la valutazione di probabilità.
+
+Bisogna rispettare i presupposti:
+\begin{enumerate}
+	\item Se $A$ e $B$ sono eventi allora $A \cap B$ è un evento.
+	\item Se $A_1,\dots$ sono eventi allora $\bigcup A_i$ è un evento.
+	\item Se $A$ è un evento allora $A^C$ è un evento.
+	\item $\Omega$ è un evento.
+\end{enumerate}}{d:eventoProb}
+
+\osservazione{Una collezione di sotto insiemi di $\omega$ che soddisfa tutti i presupposti si dice \textbf{famiglia coerente d'eventi}.}
+
+\osservazione{Non tutti i sotto insiemi di $\Omega$ sono eventi.}
+
+La valutazione di probabilità, $P$, deve soddisfare le proprietà:
+\begin{enumerate}
+	\item $P(A)\geqslant0,\forall \ evento \ A$.
+	\item $P(\Omega)=1$.
+	\item Se $A_1,\dots$ sono eventi distinguibili allora \[P(\bigcup_{i=1}^\infty A_i)=\sum_{i=1}^\infty P(A_i)\]
+\end{enumerate}
+
+\osservazione{$P$ non ha dominio $\Omega$ ma l'insieme degli eventi. Non calcoliamo la $P$ di un risultato ma di un evento.}
+
+\definizione{Probabilità uniforme}{
+La probabilità è uniforme se:
+\begin{enumerate}
+	\item Se $\Omega$ è finito con $|\Omega|=n$.
+	\item Se ogni sotto insieme di $\Omega$ è un evento.
+	\item Se $\omega_1$ e $\omega_2$ sono due risultati allora $P(\{\omega_1\})=P(\{\omega_2\})$.
+\end{enumerate}
+
+Dalle proprietà della valutazione di probabilità deduciamo anche \[P(\omega_1)+\dots+P(\omega_n)=P(\Omega)=1\]
+
+In generale abbiamo quindi \[P(\omega)=\frac{1}{n}, \forall \omega \in \Omega\]
+}{d:probUnif}
+
+\definizione{Probabilità eventi}{Sia $A \in \Omega, A=\{\omega_1,\dots,\omega_k\}$ \[P(A)=\frac{|A|}{|\Omega|}=\frac{\#risultati favorevoli}{\#risultati possibili}\]}{d:probEv}
+
+Ragionamento: $P(A)=P(\omega_1)+\dots+P(\omega_k)=\frac{1}{n}+\dots+\frac{1}{n}=\frac{k}{n}$, se $|A|=k$.
+
+\osservazione{Vale uno spazio con proprietà uniforme.}

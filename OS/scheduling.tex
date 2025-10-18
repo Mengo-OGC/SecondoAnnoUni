@@ -1,0 +1,60 @@
+\section{Esercizi Scheduling}
+Procedura risolutiva di un esercizio di scheduling data la \textbf{durata del quanto di tempo} e una tabella dei processi del tipo:
+
+\rowcolors{2}{white}{white}
+
+\begin{center}
+	\begin{tabular}{lll}
+		Processi & Tempo di Arrivo & Tempo d'Esecuzione \\
+		\hline
+		... & ... & ...
+	\end{tabular}
+\end{center}
+
+\textbf{*Passo 1*}
+
+Fare una  tabella di scheduling come la seguente:
+
+\begin{center}
+	\begin{tabular}{l|llll}
+		Ready Queue & & & & \\
+		Running & & & & \\
+		Quanto d'Inizio/Fine & & & & \\
+		\hline
+		Tempo & 0 & 1 & ... & n \\
+		\hline
+		T.R. P1 & & & & \\
+		... & & & & \\
+		T.R. PN & & & & \\
+	\end{tabular}
+\end{center}
+
+Spiegazione delle righe della tabella:
+\begin{enumerate}
+	\item \textit{Ready Queue} specifica per ogni quando i processi pronti per esere eseguiti, tipicamente è FIFO.
+	\item \textit{Running} indica per ogni quanto di tempo il processo in esecuzione.
+	\item \textit{Quanto d'Inizio/Fine} evidenzia i quanti d'arrivo (A) e di termine (F) dei processi.
+	\item \textit{Tempo} sono i quanti del processore. Ogni colonna è un quanto.
+	\item \textit{Righe T.R.} tempo d'esecuzione rimante per ogni processo a ogni quanto di tempo dalla sua partenza.
+\end{enumerate}
+
+\textbf{*Passo 2*}
+
+Per rispondere alle statistiche richieste fare una tabella come la seguente:
+
+\begin{center}
+	\begin{tabular}{llll}
+	Processi & T. Turnaround & Intervalli di Ready & T. Attesa \\
+	\hline
+	...	& ... & [x1-x2], ... & ... \\
+	\hline
+	Medie: & ... & ... & ... \\\
+	\end{tabular}
+\end{center}
+
+Spiegazione delle colonne della tabella:
+\begin{enumerate}
+	\item \textit{Turnaround} = T. fine - T. arrivo.
+	\item \textit{Intervalli di Ready} sono i quanti in cui il processo è stato nella coda di ready (dal quanto in cui vi è entrato al quanto in cui vi è uscito).
+	\item \textit{T. Attesa} somma degli intervalli di ready.
+\end{enumerate}

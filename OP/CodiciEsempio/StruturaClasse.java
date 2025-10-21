@@ -1,7 +1,7 @@
 // prima public poi private.
-[modAccesso] class NomeDiUnaClasse {
+[modAccesso] class <NomeDiUnaClasse> {
 	// Costanti
-	static final <tipo> <NOME_COSTANTE>;
+	public static final <tipo> <NOME_COSTANTE>;
 	...
 	// Campi
 	private [final] <tipo> <nomeCampo>;

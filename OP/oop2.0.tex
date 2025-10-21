@@ -1,0 +1,62 @@
+\section{OOP2.0}
+Nella OOP1.0 abbiamo il riuso per composizione, estensione, poliformismo inclusivo (subtyping).
+
+La OOP2.0 aggiunge il poliformismo parametrico (generics), ???, con lo scopo di dare maggiore controllo al programmatore e espressività al linguaggio JAVA.
+
+\begin{center}
+	\begin{tikzcd}
+		{[.java]} \arrow[rr, "Compilatore"] \arrow[rr, "JavaNew \to JavaVintage"', dotted, bend right] &  & {[.class]} \arrow[rr, "JVM"] &  & {[.exe]}
+	\end{tikzcd}
+\end{center}
+
+Il compilatore risolve i costrutti della OOP2.0 trasformandoli in costrutti della OOP1.0 lasciando la JVM invariata.
+
+\subsection{Generics}
+\colTwo{\textbf{Scopo}: Creare funzionalità di lavorare uniformemente su oggetti indipendentemente dal loro tipo che diventa un parametro della funzionalità.}{\textbf{Vantaggio}: Fattorizzare, tramite astrazione, soluzioni/classi ricorrenti altamente simili in una unica soluzione/classe riusabile.}{45}{45}
+
+Concetti chiave:
+\begin{itemize}
+	\item La \textbf{type-variable}, solitamente "X", è una variabile che contiene il tipo dell'oggetto a run-time.
+	\item La type-variable è usabile ogni qualvolta si potrebbe scrivere un tipo.
+	\item Possono esserci più type-variable.
+	\item Tipi primiti non accettati, usare i Wrapper automaticamente risolti dall'autoboxing.
+	\item Non passare tutti type-variabile lato utente è errrore.
+\end{itemize}
+
+\multiline{}{}{CodiciEsempio/Generici.java}
+\textbf{Inferenza dei parametri}: Nella \inline{new} i type-variabile si omettono lasciando il \textit{diamond symbol} "$<>$". Alternativa usare la \inline{var}. In rari casi entrambi.
+
+\textbf{Non posso} fare array di generics in una classe generics, vanno fatti di \inline{object} con i dovuti cast.
+
+\bigskip
+
+Per creare contratti uniformi si fanno interfacce generiche:
+
+\oneline{... interface <nomeInterfaccia><X [, Y, ...] \{...\}}
+
+Le type-variable sono usate nei metodi defini e le classi implementative le deve istanziare.
+
+\bigskip
+
+Metodi che lavorano e restituiscono qualsiasi tipo:
+
+\oneline{def:... <X [, Y, ...]> <tipoRitorno> <nomeMetodo>(<parametri>) \{...\}}
+
+\oneline{call:... <X, [Y, ...]><nomeMetodo>(<parametri>)...}
+
+Inferiti automatica alla chiamata (non serve diamond symbol).
+
+\bigskip
+
+\textbf{Implementazione}: Il compilatore, in fase \textit{erasure}, sostituisce i generics usando il subtyping con object e facendo upcast implicito nelle classi che diventano monomorfiche, mentre lato utente usa autoboxing e downcast esplicito.
+
+\subsection{Wildcards}
+Tipi che permettono di esprimere un insieme di tipi accettati per un parametro, che usa generics, di metodo.
+
+\oneline{<tipo> <nomeMetodo>(Tipo<? extends | super tipoRiferimento> nome,...) \{...\}}
+
+solo \inline{?} indica qualsiasi type-variabile. Vantaggio da un codice leggero.
+
+\subsection{Classi innestate}
+
+\subsection{Lambda expression}

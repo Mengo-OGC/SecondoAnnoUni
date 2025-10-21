@@ -1,6 +1,10 @@
 package it.unibo.design.robot.test;
 
 import static it.unibo.design.robot.test.Assertions.assertEquals;
+import it.unibo.design.robot.api.*;
+import it.unibo.design.robot.environment.api.*;
+import it.unibo.design.robot.environment.impl.*;
+import it.unibo.design.robot.impl.*;
 
 /**
  * Utility class for testing componible robots
@@ -17,8 +21,6 @@ public final class TestRobotWithArms {
     }
 
     public static void main(final String[] args) {
-        // Uncomment the method
-        /*
         final RobotWithArms walle = new RobotWithTwoArms("Wall-e");
         final String wallePosition = walle + "'s position";
         final String walleItems = walle + "'s items carried";
@@ -54,6 +56,5 @@ public final class TestRobotWithArms {
         assertEquals(walleItems, 0, walle.getCarriedItemsCount());
         walle.dropDown();
         assertEquals(walleItems, 0, walle.getCarriedItemsCount());
-        */
     }
 }

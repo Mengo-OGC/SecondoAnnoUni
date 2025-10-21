@@ -84,6 +84,7 @@ Nota: L'interfaccia è il sopra tipo/insieme delle classi, è più generale, ma 
 
 Nota: La classe che rispeccia l'interfaccia si chiama \textit{impNnomeInterfaccia}.
 
+Nota: Le interfacce possono avere metodi statici ma non si fa.
 
 
 
@@ -164,8 +165,12 @@ Una classe estende sempre indirettamente la classe \inline{Object}.
 
 Fornisce metodi di uso generico:
 \begin{itemize}
-	\item \textbf{toString()} Restituisce una rappresentazione in stringa dell'oggetto (utile per il debug).Automaticamente chiamato dall'operatore "+" nelle concatenazioni tra stringhe e oggetti.
+	\item \textbf{toString() : String} Restituisce una rappresentazione in stringa dell'oggetto (utile per il debug).Automaticamente chiamato dall'operatore "+" nelle concatenazioni tra stringhe e oggetti.
 	Ogni classe deve sovrascriverlo.
+	\item \textbf{equals(Object obj) : boolean}: Dice se l'oggetto che lo invoca e quello passato come argomento sono uguali in base a criteri definiti da me.
+
+	Deve essere riflessivo, simmetrico, transitivo, stabile e restituire false se passo \inline{null}.
+	\item \textbf{hashCode() : int} Implementato insieme a equals().
 \end{itemize}
 
 \textbf{Vantaggio?} Fattorizza comportamento comune e crea funzionalità che lavorano su qualunque oggetto.
@@ -186,7 +191,7 @@ Classi dal comportamento parziale, fatte per raggruppare contratti+comportamenti
 	\oneline{abstract <tipo> <nomeMetodo>([<parametri>]);}
 	Metodi astratti si definiscono solo in classi astratte.
 
-	\item Possono contenere campi, costruttori.
+	\item Possono contenere campi, costruttori \inline{protected}.
 
 	\item Classi non istanziabili (no \inline{new}).
 	\item Una classe astratta può specializzare un'altra classe astratta o un interfaccia senza l'obbligo di specializzarne i metodi.

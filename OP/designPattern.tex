@@ -1,0 +1,19 @@
+\section{Design Pattern}
+Approccio fondamentale:
+
+\begin{center}
+	\begin{tikzcd}
+		Interfacce               &  & {} \arrow[ll, "concetto"', no head, maps to] \\
+		ClassiAstratte \arrow[u] &  & {} \arrow[ll, "condiceComune"', no head, maps to]              \\
+		ClassiConcrete \arrow[u] &  & {} \arrow[ll, "implementazioni"', no head, maps to]
+	\end{tikzcd}
+\end{center}
+
+Variabili, argomenti, tipi di ritorno sono interfacce mentre le \inline{new} sono solo di classi Concerete.
+
+\begin{itemize}
+	\item \textbf{Iteratore (Iterator)}: Oggetto usato per accedere ad'una sequenza d'elementi (presi da una sorgente di dati).
+	\multiline{}{}{CodiciEsempio/iterator.java}
+
+
+\end{itemize}

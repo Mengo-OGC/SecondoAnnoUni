@@ -259,15 +259,15 @@ Usando il principio di inclusione esclusione scopro che il numero di scombussola
 \definizione{Partizione}{Una partizione di $A$ è una suddivisione in sotto insiemi di $A$. Cioè un insieme di sotto insiemi detti blocchi della partizione $\{s_1,s_2,s_3,\dots\}$ tale che:
 \begin{enumerate}
 	\item $S_i\cap S_j=\emptyset, \forall i \ne j$
-	\item $\stackrel{\cup}{i}S_i=A$
-	\end{enumerate}}{d:partizione}
+	\item $\bigcup_iS_i=A$
+\end{enumerate}}{d:partizione}
 
 In altre parole la partizione è la suddivisione e i blocchi sono i pezzi della partizione.
 
 Nota: Le partizioni possono essere usate per "raggruppare" le permutazioni degli stessi elementi. Non è una fuzione biunivoca.
 
 \definizione{Numero di Bell}{Il numero di partizioni di $\{1,\dots,n\}$ si dice numero di Bell e si indica con $B_n$.
-Si calcola con la formula ricorsiva per $\forall n \geqslant 2$: \[B_n=\sum_{k=0}^{n-1}\binom{n-1}{k}B_n\] Si assume $B_n=1$ per convenzione.}{d:Bell}
+Si calcola con la formula ricorsiva per $\forall n \geqslant 2$: \[B_n=\sum_{k=0}^{n-1}\binom{n-1}{k}B_n\] Si assume $B_0=1$ per convenzione.}{d:Bell}
 
 \dimostrazione{d:Bell}{Poniamo $B_{n,k}$ come il numero di partizioni di $\{1,\dots,n\}$ in cui $n$ compare in un blocco con $k$ elementi.
 

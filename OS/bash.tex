@@ -42,7 +42,7 @@
 
 \tabella{Controllo Comandi}{
 	\riga{\textbackslash}{Disabila interpretazione per il carattere successivo, andata a capo, permettendo di stamparlo.}
-	\riga{"..."}{Delimita un argomento e non fa interpretare nessun comando a eccezzione dell'espansione di variabili (\$..).}
+	\riga{"..."}{Delimita un argomento e non fa interpretare nessun comando a eccezzione dell'espansione di variabili (\$..) e l'esecuzione di comandi.}
 	\riga{'...'}{Delimita un argomento e non fa interpretare nessun comando.}
 
 	\riga{pre\{s1,...\}post}{Stringa di testo racchiusa fra separatori (spazio, tab, a capo) con coppia di graffe (non precedute da \$) e senza separatori.
@@ -56,7 +56,14 @@
 			\item $a_1..a_2$ lettere da $a_1$ a $a_2$ nell'alfabeto.
 			\item $n_1..n_2$ numeri compresi tra $n_1$ e $n_2$.
 	\end{itemize}}
-	\riga{;}{Separatore di più comandi scritti sulla stessa riga di comando e eseguiti dopo la terminazione del precedente.}
+	\riga{\textit{cmd1} ; ...}{Separatore di più comandi, e dei rispettivi argomenti, scritti sulla stessa riga di comando e eseguiti dopo la terminazione del precedente (lista di comandi).
+
+	L'exit status è quello dell'ultimo comando lanciato.
+
+	Se racciusi da () eseguiti in una sub-schell.}
+	\riga{\textit{cmd1} \textbar\textbar \textit{cmd2}}{Esegue cmd1 e solo se cmd1 fallisce (exit status$\ne$0) esegue cmd2.}
+	\riga{\textit{cmd1} \&\& \textit{cmd2}}{Esegue cmd1 e solo se cmd1 ha successo (exit status=0) esegue cmd2.}
+	\riga{[[...]]}{Espressione condizionale, usa \&\& e \textbar\textbar, che restituisce 0=true, altro=false.}
 	\riga{*}{Sostituito con una qualsiasi sequenza di caratteri anche vuota.}
 	\riga{?}{Sostituito con un singolo carattere (no spazio vuoto).}
 	\riga{[c1c2...]}{Sostituito con solo uno dei caratteri specificati in elenco. Alternative:
@@ -89,7 +96,7 @@
 	\riga{\$\{nomeVar\}}{Fa sostituire il nome della variabile con il valore. graffe opzionali se nome variabile seguito da uno spazio.}
 	\riga{\#...}{Commeto.}
 	\riga{\#!...}{Se indicato nella prima riga indica quale interprete deve eseguire lo script. Se non specificato usato quello corrente.}
-	\riga{\textit{comando1} \textbar \textit{comando2}}{pipe (speudo-file temporaneo): collega automaticamente l'output di un comando all'input di un altro. Unidirezionale.}
+	\riga{\textit{comando1} \textbar \textit{comando2}}{pipe (speudo-file temporaneo): collega automaticamente l'output di un comando all'input di un altro. Unidirezionale sinDes.}
 	\riga{\textit{script.sh} c1...}{Sono un insieme ordinato di caratteri separati da spazi successivi al nome del programma. Sono immodificabili dopo la sostituzione dei metacaratteri (*, ?,ecc).
 
 	Riga di comando = nomeProgramma + parametri.
@@ -103,6 +110,7 @@
 	I parametri \$* e \$@ sono identici se non quotati (concatenazione di argomenti separati da " "). Se quotati \$* quota tutti gli argomenti assieme mentre \$@ quota singolarmente ogni argomento.
 
 	\$@ è usato per passare parametri a comandi dentro a degli script.}
+	\riga{`./script.sh`}{Sostituisce a run-time il comando con l'output (stdout) dello script specificato. Comando alternativo \$(./script.sh)}
 }
 
 \tabella{Espressioni aritmetica}{
@@ -177,15 +185,23 @@
 	\riga{history}{Visualizza comandi, numerati, precedentemente eseguiti, anche da shell precedentemente chiuse.
 
 	Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
+	\riga{greap \textit{stringa}}{Seleziona le righe contenenti la stringa passata (che sarà evidenziata) dal testo che sarà successivamente scritto. Lo si interrompe con "Ctrol+d".
+
+	Spesso usato come secondo comando di \textbar per filtrare output di altri comandi.}
+	\riga{wc}{Dice il testo passatogli il numero di righe, parole e caratteri.}
 }
 
 Directory "proc" info sui processi memorizzati con una dir. per ogni processo attivo, create e cancellate continuamente.
+Directory sulla ram "/prc/ sono i processi in esecuzione e nella directory "fd" ci sono i file descriptor dei file aperti.
 
-Istruzini di controllo di flusso:
-\begin{itemize}
-	\item \textbf{for <variabile> in <pool> ; do ... done} Dopo il for variabile è usabile.
-	\item while do done
-	\item if then elif then else if
-\end{itemize}
+\tabella{Costrutti controllo flusso}{
+	\riga{for varName in elencoParole ; do listCommand ; done}{Dopo il for variabile è usabile.}
+	\riga{for ((exp1 ; exp2 ; exp3)) ; do listCommand ; done}{Le exp sono espressioni valutate aritmeticamente. }
+	\riga{if listA ; then listB ; [elif listC ; then listD ; ...] ... [else listZ ;]}{...}
+	\riga{while list ; do list ; done}{...}
+}
+
+In tutti i costrutti l'exit value è o quello della lista do comandi o 0 se nessun comando viene eseguito.
+
 Espressioni condizionate su file o variabile: [ condizione di un file ].
 Valutazione di un espressione matematica applicata a variabili d'ambiente: (( istruzini con espressione ))

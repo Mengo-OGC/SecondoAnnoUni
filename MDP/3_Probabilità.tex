@@ -16,25 +16,22 @@ Un fenomeno può essere:
 
 \definizione{Valutazione di probabilità}{La valutazione di probabilità è una funzione che ad'ogni evento associa un numero tanto più grande quanto riteniamo che l'evento possa accadere.}{d:valProb}
 
-\definizione{Evento "probabilistico"}{Sia $\Omega$ l'insieme dei risultati. Un evento è un sotto insieme di $\Omega$ di cui ha senso calcolare la valutazione di probabilità.
-
-Bisogna rispettare i presupposti:
+\definizione{Evento coerente}{Sia $\Omega$ l'insieme dei risultati. Un evento è un sotto insieme di $\Omega$ di cui ha senso calcolare la valutazione di probabilità, ossia:
 \begin{enumerate}
-	\item Se $A$ e $B$ sono eventi allora $A \cap B$ è un evento.
-	\item Se $A_1,\dots$ sono eventi allora $\bigcup A_i$ è un evento.
+	\item Se $A_1,\dots$ sono eventi allora $\bigcup_i A_i$ è un evento.
 	\item Se $A$ è un evento allora $A^C$ è un evento.
-	\item $\Omega$ è un evento.
+	\item $\Omega$ è un evento ($\Omega \in \mathscr{A}$).
 \end{enumerate}}{d:eventoProb}
 
-\osservazione{Una collezione di sotto insiemi di $\omega$ che soddisfa tutti i presupposti si dice \textbf{famiglia coerente d'eventi}.}
+\osservazione{Una collezione di sotto insiemi di $\omega$ che soddisfa tutti i presupposti si dice \textbf{famiglia coerente d'eventi}, con simbolo $\mathscr{A}$.}
 
 \osservazione{Non tutti i sotto insiemi di $\Omega$ sono eventi.}
 
-La valutazione di probabilità, $P$, deve soddisfare le proprietà:
+La valutazione di probabilità, $P$, $P:\mathscr{A}\to\mathbb{R}_{\geqslant0}$, deve soddisfare le proprietà:
 \begin{enumerate}
-	\item $P(A)\geqslant0,\forall \ evento \ A$.
 	\item $P(\Omega)=1$.
-	\item Se $A_1,\dots$ sono eventi distinguibili allora \[P(\bigcup_{i=1}^\infty A_i)=\sum_{i=1}^\infty P(A_i)\]
+	\item $P(A)\geqslant0,\forall \ evento \ A$.
+	\item Se $A_1,\dots$ sono eventi disgiunti allora \[P(\bigcup_{i=1}^\infty A_i)=\sum_{i=1}^\infty P(A_i)\]
 \end{enumerate}
 
 \osservazione{$P$ non ha dominio $\Omega$ ma l'insieme degli eventi. Non calcoliamo la $P$ di un risultato ma di un evento.}
@@ -57,3 +54,27 @@ In generale abbiamo quindi \[P(\omega)=\frac{1}{n}, \forall \omega \in \Omega\]
 Ragionamento: $P(A)=P(\omega_1)+\dots+P(\omega_k)=\frac{1}{n}+\dots+\frac{1}{n}=\frac{k}{n}$, se $|A|=k$.
 
 \osservazione{Vale uno spazio con proprietà uniforme.}
+
+\definizione{Non-esempio}{Un non-esempio è qualcosa che non funziona.}{d:nonEsempio}
+
+\mysubsection{Considerazioni elementari}
+\begin{itemize}
+	\item Se $E$ è un evento allora $E^C$ è un evento.
+	\item $E\cup E^C=\Omega$ è un uninoe disguinta.
+	\item Se $P(E)+P(E^C)=1$ allora $P(E^C)=1-P(E)$.
+\end{itemize}
+
+\osservazione{Il principio di inclusione-esclusione vale anche per l'unione di più di due probabilità.}
+
+\definizione{Probabilità condizionata}{Chiamiamo probabilità condizionata la probabilità che accada l'evento $B$ sapendo che accade l'evento $A$ prima di $B$.\[P(B\mid A)=\frac{P(A\cap B)}{P(A)}\]}{d:probCond}
+
+In altre parole riparametiziamo la probabilità di $B$ da $\Omega$ al sotto insieme codiviso con $A$.
+
+\osservazione{Ponendo $P'(B)=P(B\mid A)$ allora $P'$ soddisfa le proprietà delle valutazioni di probabilità:
+\begin{itemize}
+	\item $P'(\Omega)=P(\Omega\mid A)=\frac{P(\Omega \cap A)}{P(A)}=1$.
+	\item $P'(A_1\cup A_2)=P'(A_1)+P'(A_2)$ se $A_1,A_2$ sono disgiunti.
+\end{itemize}}
+\osservazione{$P(A\cap B)=P(B\mid A)P(A)$.}
+
+\definizione{Formula delle probabilità totali}{Sia $\Omega$ partizionato. Voglio sapere la probabilità di un evento $B$ condizionato da un altro evento in tutti i modi possibili. \[P(B)=\sum_{i=1}^nP(B\cap A_i)\]}{formulaPorblTot}

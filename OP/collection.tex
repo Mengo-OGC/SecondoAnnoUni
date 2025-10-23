@@ -22,12 +22,14 @@ in java le collezioni sono tutte mutabili, ovvero si possono modificare gli elem
 
 tutte hanno add e toString().
 
-\subsection{Iterator e foreach}
-Il foreach può iterare qualunque oggetto che implementa l'interfaccia \inline{java.lang.Iterable<X>} che ha un metodo che genera e restituisce un oggetto che implementa \inline{Iterator} la quale definisce come scorrere gli elementi.
+\subsection{Iterable e Iterator}
+\colTwo{Una classe che implementa l'interfaccia \textbf{\inline{Iterable<X>}} può essere iterata.}{Una classe di supporto che implementa l'interfaccia \textbf{\inline{Iterator<X>}} dice come essere iterata.}{45}{45}
 
-Ciò è possibile perchè il foreach conosce i metodi di entrambe le interfacce.
+\multiline{}{}{CodiciEsempio/Iterable.java}
 
-\multiline{}{}{CodiciEsempio/collection.java}
+Le due classi usate insieme possono iterare collezioni.
+
+Esempio d'uso è nel foreach, che conosce le due interfacce, è può iterare qualunque oggetto di una classe che implementa \inline{Iterable<X>} e che usa un oggetto di una classe che implementa \inline{Iterator<T>}.
 
 \subsection{Collection}
 Interfaccia radice gerarchia interfacce di collezione (gruppi oggetti), estende \inline{Iterable}, e definisce:
@@ -61,14 +63,12 @@ Nota: Scandire quando possibile elemnti via iteratore e non indici.
 \subsection{Set}
 Collezione senza ordine e duplicati (\inline{Object.equals()} sempre \inline{false} e al massimo un \inline{null}). Non aggiunge metodi a Collection.
 
-\bigskip
-
 Per migliorare le prestazioni di \inline{contains()} si usa l'approccio \textbf{HashSet (O(1) aromtizzato)} che lega oggetto e posizione, o \textbf{TreeSet (O(logn))}.
 
 Nota: I costruttori di HashSet accettano la dimensione iniziale stimata e un fattore di crescità, se basso hashing veloce, se alto hashing risparmia memoria.
 
 \subsubsection{Ordinamento}
-TreeSet (altre classi) assume un criterio d'ordinamento fra gli oggetti:
+Per rendere gli oggetti di una classe ordinabili possiamo definire il criterio d'ordinamento:
 \begin{itemize}
 	\item \textbf{Interno} alla classe tramite l'implementazione dell'interfaccia \inline{Comparable<T>}.
 	\multiline{}{}{CodiciEsempio/Comparable.java}
@@ -86,3 +86,5 @@ TreeSet (altre classi) assume un criterio d'ordinamento fra gli oggetti:
 \end{itemize}
 
 Sia \inline{compareTo} che \inline{compare} restituiscono 0 se i due oggetti sono guali, un numero positivo se this o o1 è maggiore oppure un numero negativo se this o o1 è minore.
+
+TreeSet e tante altre classi sfruttano l'ordinamento tra gli oggetti.

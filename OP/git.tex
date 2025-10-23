@@ -118,3 +118,23 @@ Per fare delle eccezioni di file che vogliamo includere nello staging:
 
 
 Nota: La compatibilità tra le modalità di andata a capo (LF e CRLF), in parte compensata da git automaticamente, è risolta esplicitando in \textbf{.gitattributs} quale modalità usare in base al tipo del file. Tranne per i file di estensioni specifiche di windows il default è LF. Va inserito nella workTree root.
+
+\subsection{Branch}
+Le brach sono le linee/rami di sviluppo identificati da un'etichetta. Funzionano come etichette mobili allegati alla creazione al commit HEAD e si sposta insieme ad'esso l'etichetta.
+
+Per linkare la HEAD ai brach serve un \inline{checkout} esplicito.
+
+\oneline{git branch brach\_name}
+
+In modalità DETACHED\_HEAD possiamo creare un brach, farci modifiche per poi salvarle serve linkargi la HEAD (checout, add, commit).
+
+\textbf{brach one-shot}: \inline{git checkout -b new-branch-name}
+
+\subsection{Merging}
+I merge sono l'unificazione di più branch target con il branch corrente (quello a cui è linkato HEAD). Gl'ultimi commit dei branch verranno uniti in un nuovo commit che apparterrà al branch corrente.
+
+\oneline{git merge target}
+
+Il commit conclude la fase di merging. Commit precompilato di un merge corretto: \inline{git commit --no-edit}.
+
+\textbf{Avanzamento veloce}: Non è un'unione di branch ma uno spostamento per allineare due branch sulle modifiche. Uno dei due branch deve essere incluso nell'altro.

@@ -10,6 +10,7 @@
 \usepackage{tikz}			% per fare grafici
 \usepackage{tikz-cd}
 \usepackage{lastpage}
+\usepackage{needspace}
 
 \tikzcdset{
 	scale cd/.style={
@@ -44,6 +45,7 @@
 
 % definizione ambiente generico
 \newcommand{\bloccoTeorico}[6]{
+	\Needspace{4\baselineskip}
 	\begin{#1}[#2]
 		\label{#4}%
 		#3

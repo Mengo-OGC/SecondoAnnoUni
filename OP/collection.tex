@@ -48,20 +48,27 @@ Come argomento accetta \inline{Object} per poter confrontare oggetti anche non d
 \subsubsection{Collezioni immutabili}
 L'unico modo per creare una collezione di valori non modificabili ma solo leggibili.
 
-\oneline{final ... = Set.of|copyOf(...);}
+\oneline{final ... = Set.of| copyOf(...);}
+\oneline{final ... = List.of|  copyOf(...);}
 
 
-\inline{Set.of|copyOf()} permette che i valori non siano cambianti e \inline{final} fa si che la variabile non sia riassegnata, rendendo il tutto un blocco unico.
+\inline{Set | List.of| copyOf()} permette che i valori non siano cambianti e \inline{final} fa si che la variabile non sia riassegnata, rendendo il tutto un blocco unico.
 
 \subsection{List}
-Collezione sequenzializzata con indice. Aggiunge metodi per accesso elementi secondo posizione (O-based).
+Collezione estendibili sequenzializzata con indice. Aggiunge metodi per accesso elementi secondo posizione (O-based). Sono permesse ripetizioni di elementi (anche null).
 
-Estende l'interfaccia \inline{ListIterator<E>} che estende \inline{Iterator<T>}.
+Estende l'interfaccia \inline{ListIterator<E>} che estende \inline{Iterator<T>} permettendo di scorrere gli elementi sia "in avanti" che "in dietro".
+
+\medskip
 
 Nota: Scandire quando possibile elemnti via iteratore e non indici.
 
+\medskip
+
+Implementazioni sono ArrayList (O(1) tranne add O(n) ammortizzato), con \inline{trimToSize()| ensureCapacity()}, e LinkedList che implementa l'interfaccia Queue (FIFO o LIFO) e Deque.
+
 \subsection{Set}
-Collezione senza ordine e duplicati (\inline{Object.equals()} sempre \inline{false} e al massimo un \inline{null}). Non aggiunge metodi a Collection.
+Collezione estendibili senza ordine e duplicati (\inline{Object.equals()} sempre \inline{false} e al massimo un \inline{null}). Non aggiunge metodi a Collection.
 
 Per migliorare le prestazioni di \inline{contains()} si usa l'approccio \textbf{HashSet (O(1) aromtizzato)} che lega oggetto e posizione, o \textbf{TreeSet (O(logn))}.
 
@@ -88,3 +95,17 @@ Per rendere gli oggetti di una classe ordinabili possiamo definire il criterio d
 Sia \inline{compareTo} che \inline{compare} restituiscono 0 se i due oggetti sono guali, un numero positivo se this o o1 è maggiore oppure un numero negativo se this o o1 è minore.
 
 TreeSet e tante altre classi sfruttano l'ordinamento tra gli oggetti.
+
+\subsection{Moduli}
+Le classi statiche Array e Collections forniscono funzioni di base.
+
+Array ha varie versioni di metodi per supportare tutti i tipi mentre Collections ne ha una per tutti.
+
+\subsection{Map}
+Collezioen estendibile di funzioni che mappano  Key in Value.
+
+\oneline{public interface Map<K,V> {...}}
+
+Map è biunivoca, due Value diversi non possono avere la stessas Key.
+
+Implementazioni: HashMap, TreeMap.

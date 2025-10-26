@@ -1,0 +1,67 @@
+\section{Gestione degli errori}
+Gli errori in un programma si dividono in:
+\begin{itemize}
+	\item \textbf{compile-time}: Grossolani e intercettabili dal compilatore (se linguaggio strong typing) o dall'editor (edit-time). Non sono bug.
+	\item \textbf{run-time}: Condizioni anomale causate da dinamiche del sistema. Sono definibili, intercettabili e gestibili con costrutti dedicati. Sono i bug.
+\end{itemize}
+
+\textbf{Error-aware programming}: Gli oggetti richiedono condizioni di lavoro e al di fuori di esse devono fermarsi, effettuare azioni correttive e segnalare l'errore. L'utilizzatore degli oggetti deve saperli usare e intercettare/rimediare errori con un handler.
+
+Tipologie d'errori in Java:
+\begin{itemize}
+	\item Errori (\inline{java.lang.Error}): Errori seri non risolvibili della JVM.
+
+	Non si gestiscono.
+	\item Eccezioni unchecked (\inline{java.lang.RuntimeExepction}): Bug nella programmazione. Risolti in fase di debugging.
+	\item Eccezioni checked (\inline{java.lang.Throwable}): Prevedibili ma non rimediabili. Vanno dichiarati, intercettati e gestiti.
+
+	Eccezioni lanciate da \inline{trows} e gestita dal \inline{try-catch} o rilanciate da altre \inline{trows}.
+\end{itemize}
+
+Una classe estende Exception (checked) o RuntimeException (unchecked) per definire nuovi tipi d'eccezioni di eventi del dominio applicativo.
+
+\subsection{throw}
+Interrompe l'esecuzione del metodo, riporta l'oggetto creato al chiamante fino al main (exception chainig) e viene stampato sul \inline{System.err}.
+
+\oneline{throw <espressioneCheValutaUnOggettoThrowable>}
+
+Errori e eccezzioni unchecked sono lanciate da throw causando l'interruzine dell'applicazione e la stampa dell'errore e dello StackTrace\footnote{Sequenza di chiamate a metodo che aiutano a dedurre il punto di rottura del codice.}.
+
+\medskip
+
+\textbf{Interfaccia Trowable}: Sopra tipi di Exception e RumtimeException. Permette di "lanciare" le eccezzioni tramite oggeti.
+
+\medskip
+
+I messaggi d'errore si mettono come costanti private della classe.
+Riusare classi del JDK, non si definiscono di nuove.
+
+\subsubsection{throws}
+Dichiara che il metodo può lanciare delle eccezione checked (obbligatorio dichiararlo). Il chiamante deve usare il costrutto \inline{try-catch}.
+
+\oneline{<method-contract> throws <cheched-exception [, ...]> {...}}
+
+Nota: Eccezzioni checked lanchiate con \inline{throw} dentro \inline{try-cathc} non necessitano di \inline{throws}.
+
+\subsection{try-catch-finally}
+Costrutto che permette di gestire errori e ecezioni (checked e unchecked) senza interrompere l'esecuzione.
+
+\multiline{}{}{CodiciEsempio/trycatch.java}
+
+Nel body del \inline{try} c'è il codice che voglio eseguire e che può generare eccezzioni. Nel body del \inline{catch} c'è del codice che gestisce l'eccezione del tipo specificato, eseguito se questa si verifica.
+
+\begin{itemize}
+	\item I catch vengono controllati nell'ordine in cui sono inseriti e non possono eserci più \inline{catch} per la stessa eccezzione.
+
+	\item Per uno stesso \inline{try} posso definire più \inline{catch} e se voglio che più eccezzioni vengano gestite nello stesso modo posso fare:
+
+	\oneline{catch (<exp1> | exp2> | ... <var>) {...}}
+
+	\item Metodi di un oggetto eccezzione: \inline{e.getMessage()}, \inline{e.printStackexeption()}.
+\end{itemize}
+
+Nel \inline{finally} specifico codice che sarà eseguito se si verificano o meno delle eccezzioni.
+
+\bigskip
+
+Eccezzioni JDK del \inline{java.lang} comuni: NumericException, OperationNotSupportedException, StackOverFlowError, NullPinterException, ArrayStoreException, ClassCastException, ArrayIndexOutOfBoundsException, IllegalArgumentException, IndexUoutOfBoundsExecption, IllegalStateException.

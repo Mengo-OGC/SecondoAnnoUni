@@ -26,8 +26,6 @@ Concetti chiave:
 \multiline{}{}{CodiciEsempio/Generici.java}
 \textbf{Inferenza dei parametri}: Nella \inline{new} i type-variabile si omettono lasciando il \textit{diamond symbol} "$<>$". Alternativa usare la \inline{var}. In rari casi entrambi.
 
-\textbf{Non posso} fare array di generics in una classe generics, vanno fatti di \inline{object} con i dovuti cast.
-
 \bigskip
 
 Per creare contratti uniformi si fanno interfacce generiche:
@@ -46,16 +44,38 @@ Metodi che lavorano e restituiscono qualsiasi tipo:
 
 Inferiti automatica alla chiamata (non serve diamond symbol).
 
-\bigskip
+\subsubsection{Problema type-erasure}
+Il compilatore, in fase \textit{erasure}, sostituisce i generics usando il subtyping di object e facendo upcast implicito nelle classi che diventano monomorfiche, mentre lato utente usa autoboxing e downcast esplicito.
 
-\textbf{Implementazione}: Il compilatore, in fase \textit{erasure}, sostituisce i generics usando il subtyping con object e facendo upcast implicito nelle classi che diventano monomorfiche, mentre lato utente usa autoboxing e downcast esplicito.
+Limitazioni implementative:
+\begin{itemize}
+	\item Non si possono istanziare oggetti (\inline{new}) di tipo type-variabile.
+	\item Non è usabile \inline{instanceof type-variabile | nomeClasse<X>}.
+	\item Il downcast esplicito da unchecked warning\footnote{Non rompe il programma nel punto del warning ma lo diffonde altrove nel codice dove prima o poi si romperà.}.
+	\item Non posso fare array di generics. Vanno fatti array di \inline{object} con i dovuti cast oppure vanno usate le liste.
+\end{itemize}
 
 \subsection{Wildcards}
-Tipi che permettono di esprimere un insieme di tipi accettati per un parametro, che usa generics, di metodo.
+Le whidcards (poliformismo vincolare) permettono di esprimere un insieme di tipi accettati dai parametri di metodo che usa generics.
+
+Permettono di usare oltre ai metodi di Object anche quelli delle classi indicate.
 
 \oneline{<tipo> <nomeMetodo>(Tipo<? extends | super tipoRiferimento> nome,...) \{...\}}
 
-Solo \inline{?} indica qualsiasi type-variabile. Vantaggio da un codice leggero.
+\begin{itemize}
+	\item \textbf{extends X}: Bounded covariante. Accetta i sotto tipi di X oltre a X.
+
+	Non usare metodi set (read only).
+	\item \textbf{super X}: Boundend controvariante. Accetta i sovra tipi di X oltre a X.
+
+	Non usare metodi get (write only).
+	\item Solo \inline{?}, Unbounded, indica qualsiasi type-variabile. Come dire \inline{? extends Object}. Da un codice leggero.
+\end{itemize}
+
+\textbf{Importante}: Se due tipi sono sostituibili (covatianza e controvarianca) tra loro non è detto che sempre una classe generics che li implementa entrambi sia sostituibile (Unsafety).
+Gli array, simili a un tipo generic, sono unsafety perchè permettono covarianza.
+
+Le wildcards possono essere usate insieme ai generics.
 
 \subsection{Classi innestate}
 

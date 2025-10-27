@@ -4,7 +4,16 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage[colorlinks=true, linkcolor=black]{hyperref}
-\usepackage{tikz}
+\usepackage{tikz}			% per fare grafici
+\usepackage{tikz-cd}
+\usepackage{graphicx} % per includere immagini
+
+\tikzcdset{
+	scale cd/.style={
+		every label/.append style={scale=#1},
+		cells={nodes={scale=#1}}
+	}
+}
 
 \pagestyle{fancy}
 \fancyhf{}

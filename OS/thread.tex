@@ -121,3 +121,47 @@ Calcolo approssimato CPU Bust: $T_{n+1}=\alpha t_n+(1-\alpha)T_n$.
 	\item $\alpha$ peso storia recente e passata.
 \end{itemize}
 Calcolo Media esponensiale: $T_{n+1}=\sum_{j=0}^n\alpha(1-\alpha)^jt_{n-j}+(1-\alpha)^{n+1}T_0$.
+
+\subsection{Produttore e consumatore}
+\begin{center}
+	\begin{tikzcd}
+		{[producer]} \arrow[rr, "genera/trasferisce"] &  & <variable> &  & {[consumer]} \arrow[ll, "consuma/preleva"']
+	\end{tikzcd}
+\end{center}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/produttoreConsumatore.png} % nome file e larghezza
+\end{figure}
+
+\subsection{Buffer limitato}
+\begin{center}
+	\begin{tikzcd}
+		{[producer]} \arrow[rr, "genera/trasferisce", bend left] \arrow[rr, "front"', dashed, bend right] &  & <vettore> &  & {[consumer]} \arrow[ll, "consuma/preleva"', bend right] \arrow[ll, "rear", dashed, bend left]
+	\end{tikzcd}
+\end{center}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/bufferlimitato.png} % nome file e larghezza
+\end{figure}
+
+\subsection{Concorrenza in C}
+Usata la librerira POSIX  \textbf{semaphore.h} (API POSIX con semafori, lock mutex e variabili condizionali).
+
+Tipi di semaforo:
+\begin{itemize}
+	\item Con nome (\textbf{named}) utile a sincronizzare processi non correlati.
+	\item Senza nome (\textbf{unnamed}).
+\end{itemize}
+
+\tabella{Funzioni semafori}{
+	\riga{sem\_t *$<variabile>$}{Definisce una variabile di tipo puntatore a struttura Semaforo.}
+	\riga{sem\_ini(\&$<varSem>$, 0/altro, <valoreIniziale>)}{Crea un semaforo unnamed inizializzato al valaore passato e lo aseegna alla variabile d'indirizzo indicata.
+
+	Secondo parametro a 0 semaforo condiviso tra thread stesso processo, a $\ne0$ conviso tra processi.}
+	\riga{sem\_open("nomeSem", 0\_CREAT,0666, <valoreIniziale>)}{Crea e restituisce un semaforo named in R/W (3° parametro) inizializzato al valore passato.}
+	\riga{sem\_wait(\&varSem)}{Esegue l'operazione P (decrementa).}
+	\riga{sem\_post(\&varSem)}{Esegue l'operazione V (incrementa).}
+	\riga{sem\_destroy(\&varSem)}{Distrugge un semaforo.}
+}
+
+Le CS saranno contenute tra un wait e un post.

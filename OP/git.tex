@@ -25,7 +25,9 @@ Git usa il modello distribuito per la maggiore scalabilità e facilità di branc
 \subsection{Riferimenti ai commit}
 I riferimenti ai commit sono chiamati \textit{tree-ish} e sono validi il nome del commit, il suo id (full o short), il nome del branch che fa riferimento all'ultimo commit avvenuto su quel branch, e HEAD.
 
-HEAD è un nome speciale di commit che si riferisce al commit corrente ed'è linkata al branch del commit. Essenziale per muoversi nel workTree.
+\bigskip
+
+\textbf{HEAD}: Nome speciale di commit che si riferisce al commit corrente ed'è linkata al branch del commit. Essenziale per muoversi nel workTree.
 
 \begin{itemize}
 	\item \textbf{Riferimento assoluto}: Esplicito il tree-ish a cuoi voglio spostare la HEAD.
@@ -34,6 +36,10 @@ HEAD è un nome speciale di commit che si riferisce al commit corrente ed'è lin
 \end{itemize}
 
 A ogni nuovo commit la HEAD vi ci si sposta automaticamente.
+
+\bigskip
+
+\textbf{DETACHED\_HEAD}: Modalità in cui la Head è delinkata da ogni branch e i commit fatti saranno persi.
 
 \subsection{Operazioni base}
 \begin{itemize}
@@ -79,7 +85,7 @@ A ogni nuovo commit la HEAD vi ci si sposta automaticamente.
 
 	\oneline{checkout <tree-ish>}
 
-	Fatto checkout si è in modalità \textit{detached head} (HEAD delinkata dal branch) e i commit fatti saranno persi fino.
+	La HEAD va in DETACHED\_HEAD con \inline{checkout <commit>} e ne esce con \inline{checout <branch>}.
 
 	\item \textbf{Estrazione di file}: Altra funzione di checkout che permette di estrarre (riprisinare lo stato nella HEAD) da un tree-ish i file indicati.
 
@@ -120,13 +126,18 @@ Per fare delle eccezioni di file che vogliamo includere nello staging:
 Nota: La compatibilità tra le modalità di andata a capo (LF e CRLF), in parte compensata da git automaticamente, è risolta esplicitando in \textbf{.gitattributs} quale modalità usare in base al tipo del file. Tranne per i file di estensioni specifiche di windows il default è LF. Va inserito nella workTree root.
 
 \subsection{Branch}
-Le brach sono le linee/rami di sviluppo identificati da un'etichetta. Funzionano come etichette mobili allegati alla creazione al commit HEAD e si sposta insieme ad'esso l'etichetta.
+Le brach sono i rami di sviluppo identificati da etichette.
+L'etichetta di una branch è mobile e sempre linkata, dalla creazione, al commit HEAD.
 
-Per linkare la HEAD ai brach serve un \inline{checkout} esplicito.
+Creazione di una branch:
 
 \oneline{git branch brach\_name}
 
-In modalità DETACHED\_HEAD possiamo creare un brach, farci modifiche per poi salvarle serve linkargi la HEAD (checout, add, commit).
+Per linkare la HEAD ai brach serve un \inline{checkout} esplicito.
+
+\bigskip
+
+Se siamo in DETACHED\_HEAD possiamo creare un brach e linkare la HEAD:
 
 \textbf{brach one-shot}: \inline{git checkout -b new-branch-name}
 

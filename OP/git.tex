@@ -20,6 +20,10 @@ Git usa il modello distribuito per la maggiore scalabilità e facilità di branc
 	Meta dati di un commit: commit padre (assente=commit iniziale, multiplo=commit di fusione), autore, messaggio, id univoco.
 
 	\item \textbf{Branch}: Sequenza di commit con un nome. Usato nome di default al primo commit se non è stato indicato.
+
+	\item \textbf{Remotes}: Copie della repository remote conosciute dal repository locale. Ogniuna ha nome e URI.
+
+	I branch remoti possono essere identificati con \inline{remoteName/branchName}.
 \end{itemize}
 
 \subsection{Riferimenti ai commit}
@@ -51,7 +55,7 @@ A ogni nuovo commit la HEAD vi ci si sposta automaticamente.
 
 	\oneline{git config category.option value}
 
-	\item \textbf{Inizializzazione Repository}: Inizializza una repository nella directory corrente tramite il .git che esplicità la root directory.
+	\item \textbf{Inizializzazione Repository}: Inizializza una repository (vuota) nella directory corrente tramite il .git che esplicità la root directory. Il remote non è noto.
 
 	\oneline{git init}
 
@@ -91,9 +95,15 @@ A ogni nuovo commit la HEAD vi ci si sposta automaticamente.
 
 	\oneline{git checkout <tree-ish> -- file1 [file1 ...]}
 
-	\item \textbf{Visualizzazone Storia}: Per visualizzare di base i commit dal HEAD alla root:
+	\item \textbf{Visualizzazone Storia}: Per visualizzare di base i commit dal HEAD alla root.
 
 	\oneline{git log [--oneline] [--all] [--graph]}
+
+	Il parametro \inline{--all} mostra anche i branch fetched di \inline{clone}.
+
+	\item \textbf{Visualizzazione branch}: Visualizza tutti i branch locali e remoti.
+
+	\oneline{git branch -a}
 
 	\item \textbf{Differenze}: Visualizza le linee modificate dei file tra due commit.
 	\begin{itemize}
@@ -106,6 +116,26 @@ A ogni nuovo commit la HEAD vi ci si sposta automaticamente.
 \end{itemize}
 
 Alcuni category.option: user.name, user.email, core.editor, init.defaultbranch.
+
+\subsubsection{Operazioni remote}
+\begin{itemize}
+	\item Visualizza la lista delle remote conosciute dalla repository locale.
+
+	\oneline{git remote -v}
+
+	\item Mostra le informazioni di una remote.
+
+	\oneline{git remote show nomeRemote}
+
+	\item Aggiunge una remote a quelle conosciute alla repository locale.
+
+	\oneline{git remote add nomeRemote URI}
+
+	\item Fa "dimenticare" alla repository locale della remote.
+
+	\oneline{git remote remove nomeRemote}
+
+\end{itemize}
 
 \subsection{Ignoring files}
 Per escludere automaticamente alcuni file della repository locale in quella remota, senza farlo a mano, si usa il file \textbf{.gitignore}.
@@ -149,3 +179,90 @@ I merge sono l'unificazione di più branch target con il branch corrente (quello
 Il commit conclude la fase di merging. Commit precompilato di un merge corretto: \inline{git commit --no-edit}.
 
 \textbf{Avanzamento veloce}: Non è un'unione di branch ma uno spostamento per allineare due branch sulle modifiche. Uno dei due branch deve essere incluso nell'altro.
+
+\subsection{Upstream branches}
+Se branch remoti e locali sono associati (sono copie dello stesso branch) il branch remoto è l'\textbf{upstream branch}, configurabile con:
+
+\oneline{git branch --set-upstream-to=remote/branchName}
+
+\subsection{Clonazione Repository remote}
+Copia l'intera storia della repository remota (URI) nella destinazione indicata (opzionale), ma "abilita" (checked out) solo il branch con la HEAD attaccata.
+
+\oneline{git clone URI [destination]}
+
+\begin{itemize}
+	\item Se la destinazione non è vuota da errore.
+	\item Se la destinazione non è indicata viene creata una cartalla con nome l'ultimo segmento di URI.
+	\item L'URI può essere locale o remoto.
+	\item Viene creato un remote (nome=origin) automaticamente.
+\end{itemize}
+
+Il branch locale "abilitato" (checked out), detto default branch, ha lo stesso nome del branch remoto.
+
+\medskip
+
+Gl'altri branch (HEAD staccata) sono "fetched". Li posso successivamente "abilitare", con un nome nuovo (disolito lo stesso se non ci sono ambiguità).
+
+\oneline{git checkout -b nomeNuovoBranchLocale nomeRemote/nomeBranchRemoto}
+
+\oneline{git checkout -b nomeBranchRemoto}
+
+\medskip
+
+I branch remoti sono \textbf{upstream branch}.
+
+\bigskip
+
+Nota: Quando si lavora con più remote o remote e locale i branch vanno cambiati di nome quando serve (tipo i main) o in certe operazioni (merge) si può referenziare con \inline{nomeRemote/nomeBranch}.
+
+\subsection{Fetching}
+Controlla se una remote ha degli aggiornamenti (commit, branch, tag) disponibili e nel caso li scarica.
+
+\oneline{git fetch nomeRemote}
+
+Se HEAD è attaccata e il branch corrente ha un upstream, il controllo è sul remote/origin del branch.
+
+\oneline{git fetch}
+
+Per applicare gli aggiornamenti serve un merge (tra modifiche locali e quelle scaricate).
+
+\textbf{fast-forward}: Caso di merge dove in locale non ci sono aggiune rispetto alla remote (si copia solo).
+
+\subsubsection{pull}
+Unione di fetch e merge.
+\begin{itemize}
+	\item \oneline{git pull} fa fetch dal remote/origin e mergia nel branch attaccato alla HEAD.
+	\item \oneline{git pull nomeRemote} fa fetch dalla remote indicata nel branch attaccato alla HEAD.
+	\item \oneline{git pull nomeRemote nomeBanch} fa fetch della remote indicata nel branch indicato.
+\end{itemize}
+
+\subsection{push}
+Manda i cambiamenti locali al branch della remote, aggiornando la remote HEAD. Necessità privilegi di scrittura.
+
+\oneline{git push remote branch}
+
+Omettendo remote o branch viene usato.
+
+\oneline{git push}
+
+Si può impostare upstream a tempo di push.
+
+\oneline{git push -u myremote mybranch}
+
+Nota: \inline{git push --tags} manda i tag e \inline{git push --follow-tags} manda commit e poi tags.
+
+\bigskip
+
+\textbf{Fallimento}: se branch remote non è padre di branch locale, ossia: branch remote ha file non presentei in locale, branch remote non può fare fast-forward, branch remote non è sotto insieme di locale.
+
+\subsection{GitHub}
+Fornisce funzionalità come:
+\begin{itemize}
+	\item \textbf{Forks}: Copia di una repostiory associata a diversi utenti/organizzazioni.
+	\item \textbf{Richieste di pull/push}: Permette di estrarre aggiornamenti dai fork dei non "autorizzati":
+	\item \textbf{Monitoraggio dei problemi}.
+\end{itemize}
+
+Su github i repository remoti sono identificati univocamente da owner/repoName.
+
+\textbf{Autentificazione}: Via https con token o ssh (procedura slideGit3 pag.27).

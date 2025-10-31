@@ -85,6 +85,7 @@
 	Solo la bash in cui sono create le variabili le può usare. I programmi lanciati dalla bash hanno una speudocopia della bash.}
 
 	\riga{\$variabile}{Fa l'espanzione della variabile, ovvero la stostituisce con il suo contenuto.}
+	\riga{\#variabile}{Restituisce il numero di caratteri del contenuto della variabile.}
 	\riga{\$\{!variabile\}}{Fa l'espanzione della variabile che contiene il nome d'unaltra variabile con il valore di quest'ultima (riferimento indiretto).
 
 	Dalla versione 2 di bash.}
@@ -110,16 +111,45 @@
 	I parametri \$* e \$@ sono identici se non quotati (concatenazione di argomenti separati da " "). Se quotati \$* quota tutti gli argomenti assieme mentre \$@ quota singolarmente ogni argomento.
 
 	\$@ è usato per passare parametri a comandi dentro a degli script.}
-	\riga{`./script.sh`}{Sostituisce a run-time il comando con l'output (stdout) dello script specificato. Comando alternativo \$(./script.sh)}
+	\riga{`comando\textbar ./script.sh`}{\textbf{Command substitution}. Sostituisce (a run-time) nella riga in cui è specificato il comando o script con l'output (stdout). Comando alternativo \$(./script.sh)}
 }
 
 \tabella{Espressioni aritmetica}{
-	\riga{((...))}{Valuta una stringa come un espressione aritmetica (+,-,*,/,\%, ()) di soli interi. Racchiude un espressione più eventualmente un assegnamento. Si possono usare variabili nell'espressione (\$variabile).
+	\riga{((...))}{Valuta una stringa come un espressione aritmetica (+,-,*,/,\%, (), !, \&\&, \textbar\textbar) di soli interi. Racchiude un espressione più eventualmente un assegnamento. Si possono usare variabili nell'espressione (\$variabile).
+	Exit statuts 0=true, altro=false.
 
-	L'exit statuts 0 indica espressione true, diverso da 0 indica espressione false.
+	Non contiene espressioni condizionali e comandi.
 
 	Per le operazioni in virgola mobile usare \textbf{bc}.}
 	\riga{\$((...))}{Come operatore ((...)) ma è concatenabile con stringhe tramite " ".}
+}
+
+\tabella{Espressioni condizionali}{
+	\riga{[[ ... ]]}{Restituisce exit status 0=true, altro=false.
+		\begin{itemize}
+			\item Non può contenere conmandi, word splitting, brace expansion, pathname expansion.
+
+			Non esegue assegnamenti a variabile, annidamenti di espressioni condizionali.
+			\item Può contenere variable expansion, solo \$(()), command substitution (se non genera comandi), process substitution, quote removal. Questi solo per gli operandi.
+			\item Può andare a capo.
+			\item Si possono usare gli operatori logici !, \&\&, \textbar\textbar, ().
+		\end{itemize}
+
+		Operatori unari/binari non quotabili ne generaibili da command substitution:
+		\begin{itemize}
+			\item Operazioni sui file: -e (esistenza), -d (cartelle), -f (file), -h (link), -r (leggibile), -s (size>0), -t (fd open e riferisce un terminale), -w (scrivibile), -x (eseguibile), -O (possesso effettivo utente), -G (possesso effettivo gruppo), -L (=h).
+
+			Confronto date ultima modifica file: f1 -nt f2 (f1 nuovo o f2 inesistente), f1 -ot f2 (f1 veccio o inesistente).
+			\item Operatori aritmetici: -eq (==), -ne (!=), -le (<=), -lt (<), -ge (>=), -gt (>).
+			\item Operatori lessicografici: ==, =, !=, <, <=, >=, >, -z (size==0), -n (size!=0).
+
+			-o da vero se opzione è abilitata per la shell.
+		\end{itemize}
+
+		Versioni vecchie: [ .. ], test ... no a capo (semmai \\), -a, -o, no ().
+
+		Mettere sempre spazi prima e dopo.
+	}
 }
 
 \tabella{Tilde Expansion}{
@@ -197,7 +227,7 @@ Directory sulla ram "/prc/ sono i processi in esecuzione e nella directory "fd" 
 \tabella{Costrutti controllo flusso}{
 	\riga{for varName in elencoParole ; do listCommand ; done}{Dopo il for variabile è usabile.}
 	\riga{for ((exp1 ; exp2 ; exp3)) ; do listCommand ; done}{Le exp sono espressioni valutate aritmeticamente. }
-	\riga{if listA ; then listB ; [elif listC ; then listD ; ...] ... [else listZ ;]}{...}
+	\riga{if listA ; then listB ; [elif listC ; then listD ; ...] ... [else listZ ;] fi}{...}
 	\riga{while list ; do list ; done}{...}
 }
 

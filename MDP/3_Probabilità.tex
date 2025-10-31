@@ -89,8 +89,64 @@ Dato che $P(A\mid B)=\frac{P(A\cap B)}{P(B)}=P(A)$ allora $P(A\cap B)=P(A)P(B)$.
 
 \definizione{Variabili Aleatorie}{Sia $\Omega$ uno spazio di probabilità, $A$ un insieme coerente di eventi e $P$ la valutazione di probabilità.
 
-Una \textbf{variabile aleatoria} è una funzione $X:\Omega\to\mathbb{R}$ tale che $\forall a \in \mathbb{R}, \{\omega\in\Omega\mid X(\omega)\leqslant a\}$, oppure $X\leqslant a$, deve essere un evento.}{d:varAleatoria}
+Una \textbf{variabile aleatoria} è una funzione $X:\Omega\to\mathbb{R}$ tale che $\forall a \in \mathbb{R}, \{\omega\in\Omega\mid X(\omega)\leqslant a\}$, oppure $X\leqslant a$, deve essere un evento. (si scrive anche $\chi_A$).}{d:varAleatoria}
 
 Per una variabile aleatoria non ha senso scrivere $P(X)$, ma ha senso scrivere $P(X\leqslant a)$.
+Una variabile aleatoria può essere continua o discreta.
 
 \definizione{Funzione di ripartizione}{Sia $X$ una variabile aleatoria. La sua funzione di ripartizione $F_X$ è una funzione $F_X:\mathbb{R}\to\mathbb{R}$ definita come $F_X(t)=P(X\leqslant t)$.}{d:fRipartizione}
+
+\definizione{Densità concreta discreta}{Sia $X$ una variabile aleatoria discreta.
+La densità concreta discreta di $X$ è $dx:\mathbb{R}\to\mathbb{R}$ con \[dx(h)=P(X=h)
+\begin{cases}
+	a_1 \ se\ h=\dots \\
+	\dots \\
+	0 \ altrimenti
+\end{cases}\] La densità concreta discreta soddisfa le proprietà:
+\begin{enumerate}
+	\item $dx(h)\leqslant0,\forall h$.
+	\item $dx(h)\ne0$ per una quantità finita o numerabile di valori $h$.
+	\item $\sum_{h=0}^hdx(h)=1$.
+\end{enumerate}}{d:densConc}
+
+\osservazione{Una densità è valida se soddisfa le tre proprietà.}
+
+\definizione{Densità astratta discreta}{Sia $X$ una variabile aleatoria discreta. La densità astratta discreta è $d:\mathbb{R}\to\mathbb{R}$. La densità astratta discreta soddisfa le proprietà:
+\begin{enumerate}
+	\item $d(h)\leqslant0,\forall h$.
+	\item $d(h)\ne0$ per una quantità discreta di valori $h$.
+	\item $\sum_{h=0}^hd(h)=1$.
+\end{enumerate}}{d:denAst}
+
+\mysubsection{Approfondimento Serie Geometrica}
+Sia $0<a<1$ allora $1-a^n=(1-a)(1+\dots+a^{n-1})$ sapendo che $(1+\dots+a^{n-1}=\frac{1-a^n}{1-a}$ possiamo dire che \[\lim\limits_{h\to\infty}(1+\dots+a^{n-1})=\lim\limits_{h\to\infty}\frac{1-a^n}{1-a}=\frac{1}{1-a}=\sum_{h=0}^\infty a^h\]
+
+\definizione{Densità uniforme}{Sia $X$ una variabile aleatoria e si dice uniforme nell'insieme $A=\{a_1,\dots,a_n\}\subseteq\mathbb{R}$ se \[dx(h)=
+\begin{cases}
+	\frac{1}{n} \ se \ h=a_1,\dots,a_n\\
+	0 \ altrimenti
+\end{cases}\]
+
+Si scrive $X~U(\{\dots\})$.}{d:densUnif}
+
+\definizione{Densità di Bernulli}{Si dice densità di Bernulli se $X$ assume solo i valori 0 e 1. \[dx(h)=
+\begin{cases}
+	p \ se \ h=1\\
+	1-p \ se \ h=0\\
+	0 \ altrimenti
+\end{cases}\]
+
+Si scrive $X~B(1,p)$}{d:densBern}
+
+\osservazione{Si usa quando qualcosa può accadere o non accadere.}
+
+\definizione{Schema successo insuccesso}{Lo schema successo insuccesso è una sequenza di $n$ fenomeni aleatori ognuno dei quali da un successo oppure un insuccesso.}{d:ssi}
+
+\definizione{S.S.I. a prove indipendenti}{Uno schema successo insuccesso si dice a prove indipendenti se:
+\begin{enumerate}
+	\item Ogni prova ha la stessa probabilità di dare successo.
+	\item L'esito di ogni tentativo è indipendente da quello degl'altri.
+\end{enumerate}}{d:ssiProvInd}
+
+La variabile binomiale $X=\# successi$ la chiamiamo binomiale e scriviamo $X~B(h,p)$ con $h$ il numero di tentativi e $p$ la probabilità che ogni tentativo dia successo.
+

@@ -1,11 +1,12 @@
 \section{Bash}
 
-\tabella{Variabili Ambiente}{
-	\riga{PATH}{Modificabile, sequenza di percorsi assoluti, divisi da ":", di directory contenenti eseguibili (lanciabili senza digitare path). Ricerca secondo ordine specificato in PATH, si ferma a primo eseguibile con nome uguale. Eventuale ErrorNotFoutd.
+\tabella{Variabili}{
+	\riga{PATH}{V. Ambiente: Modificabile, sequenza di percorsi assoluti, divisi da ":", di directory contenenti eseguibili (lanciabili senza digitare path). Ricerca secondo ordine specificato in PATH, si ferma a primo eseguibile con nome uguale. Eventuale ErrorNotFoutd.
 
 	Altre variabili d'ambiente: \$HOME, \$USER, \$SHELL, \$TERM.}
-	\riga{\$?}{Modificato alla terminazione di ogni script, contiene l'\textit{exit status}.}
+
 	\riga{env}{Visualizza l'elenco delle variabili d'ambiente.}
+	\riga{IFS=\$' \textbackslash t \textbackslash n'}{Contiene caratteri separatori della parole negli elenchi.}
 }
 
 \tabella{File speciali}{
@@ -44,7 +45,9 @@
 	\riga{\textbackslash}{Disabila interpretazione per il carattere successivo, andata a capo, permettendo di stamparlo.}
 	\riga{"..."}{Delimita un argomento e non fa interpretare nessun comando a eccezzione dell'espansione di variabili (\$..) e l'esecuzione di comandi.}
 	\riga{'...'}{Delimita un argomento e non fa interpretare nessun comando.}
+	\riga{\$'...'}{Espande backslash-escaped direttamente nella stringa espansa in una single-qouted stringa.
 
+	Backslash-escaped: \textbackslash a, \textbackslash e, \textbackslash f, \textbackslash r, \textbackslash v, \textbackslash', \textbackslash b, \textbackslash E, \textbackslash n, \textbackslash t, \textbackslash \textbackslash, \textbackslash", \textbackslash nnn, \textbackslash xHH, \textbackslash cn.}
 	\riga{pre\{s1,...\}post}{Stringa di testo racchiusa fra separatori (spazio, tab, a capo) con coppia di graffe (non precedute da \$) e senza separatori.
 
 		Le stringhe racchiuse dalle graffe vengono composte con il preambolo (pre) e postscritto (post), che sono opzionali. Alternative:
@@ -112,6 +115,7 @@
 
 	\$@ è usato per passare parametri a comandi dentro a degli script.}
 	\riga{`comando\textbar ./script.sh`}{\textbf{Command substitution}. Sostituisce (a run-time) nella riga in cui è specificato il comando o script con l'output (stdout). Comando alternativo \$(./script.sh)}
+	\riga{\$?}{Modificato alla terminazione di ogni script, contiene l'\textit{exit status}.}
 }
 
 \tabella{Espressioni aritmetica}{
@@ -140,13 +144,13 @@
 			\item Operazioni sui file: -e (esistenza), -d (cartelle), -f (file), -h (link), -r (leggibile), -s (size>0), -t (fd open e riferisce un terminale), -w (scrivibile), -x (eseguibile), -O (possesso effettivo utente), -G (possesso effettivo gruppo), -L (=h).
 
 			Confronto date ultima modifica file: f1 -nt f2 (f1 nuovo o f2 inesistente), f1 -ot f2 (f1 veccio o inesistente).
-			\item Operatori aritmetici: -eq (==), -ne (!=), -le (<=), -lt (<), -ge (>=), -gt (>).
+			\item Operatori aritmetici: -eq (==), -ne (!=), -le ($<$=), -lt ($<$), -ge ($>$=), -gt ($>$).
 			\item Operatori lessicografici: ==, =, !=, <, <=, >=, >, -z (size==0), -n (size!=0).
 
 			-o da vero se opzione è abilitata per la shell.
 		\end{itemize}
 
-		Versioni vecchie: [ .. ], test ... no a capo (semmai \\), -a, -o, no ().
+		Versioni vecchie: [ .. ], test ... no a capo (semmai \textbackslash), -a, -o, no ().
 
 		Mettere sempre spazi prima e dopo.
 	}
@@ -199,6 +203,43 @@
 		\item \textbf{-a} Successive variabili create/modificate diverrano d'ambiente e ereditate da shell figlie. Per [ri]definire variabili locali usare \textbf{export -n \textit{variabile}}.
 		\item \textbf{+a} Successive variabili create/modificate diverrano locali e non ereditabili da shell figlie. (default).
 	\end{itemize}}
+}
+
+\tabella{Uso File Descriptor}{
+	\riga{\$\$}{Variabile con PID della shell corrente. Utile per esplofare /proc/ e fd vari processi.}
+	\riga{exec \textit{n$<$modalità$>$ file.estensione}}{Apre file e l'associa al fd scento dall'utente (n).
+
+	Modalità: $<$ (lettura), $>$ (scrittura), $>>$ (aggiungi in coda), $<>$ (lettura e scrittura).}
+	\riga{exec \textit{{var}$<$modalità$>$ file.estensione}}{Apre file e l'associa al fd scento dall'os inserito in var.}
+	\riga{exec n$>$\&-}{Chiusura di file con fd=n.}
+	\riga{exec {\textit{var}}$>$\&-}{Chiusura di file con fd contenuto in var.}
+	\riga{\textit{program} $<$modalità$>$ \textit{file}}{Ridirezionamento input/output.
+	Modalità: $<$ (strin da file), $>$ (strout sovrascrive file), $>>$ (srtout accoda a file), \textbar (output prog1 è input prog2)
+
+	Nota: Il fine file da tastiera si fa con "Ctrl+D".}
+}
+
+\tabella{Standard input e output}{
+	\riga{read \textit{var}}{Legge dallo stdin o file una sequenze di caratteri (fino all'INVIO o a capo) e la inserisce nella variabile passata. Ingnora spazi e tabultazioni inizio e fine riga (amenoche si setti IFS="").
+
+	Exit status 0=lettura eseguita, $>$0=eof (var="") o ultima riga senza \textbackslash n (var="ultimi caratteri"). Necessario controllo con \#var.
+
+	Parametri che considerano spazi e tabulazioni:
+	\begin{itemize}
+		\item \textbf{-n \textbf{numero}} Numero massimo di caratteri da leggere.
+
+		\item \textbf{-N \textit{numero}} Numero esattto di caratteri da leggere.
+
+		Considera \textbackslash n come semplice carattero. Usa prossime righe se attuale ha caratteri insufficente.
+	\end{itemize}
+	Una read parte dalla riga precedente, se non era stata finità di leggere (fino a \textbackslash n).
+
+	Il parametro \textbf{-u \${\textit{var}}} fa leggere dal file di file descriptor in var.}
+	\riga{read \textit{var1 ...}}{Alle variabili viene assegnata i-esima parola della riga tranne per l'ultima variabile che riceve la stringa rimanente.
+
+	Alle variabili in eccesso viene assegnato valore vuoto.}
+
+	\riga{echo "..." 1$>$\&\${var}}{Scrive sul file di file descriptor in var.}
 }
 
 \tabella{Vari}{

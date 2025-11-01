@@ -6,6 +6,11 @@ I record sono indiretti perchè puntano ai record della \textbf{tabella di siste
 
 Un processo/shell figlia eredità una copia della f.d. table, successivamente modificabile. Padre e figlio si devono sincronizzate sull'accesso ai file. Ciò permette un modo di comunicazione tra i processi.
 
+Rindizionamenti:
+\begin{itemize}
+	\item \textbf{Processi figlio}: Padre può cambiare le associazioni fd/stream passate al figlio.
+	\item \textbf{Auto-ridirezionamento}: fd viene associato a stream diverso.
+\end{itemize}
 
 \begin{center}
 	\begin{tikzpicture}

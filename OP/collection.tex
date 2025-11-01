@@ -109,3 +109,10 @@ Collezioen estendibile di funzioni che mappano  Key in Value.
 Map è biunivoca, due Value diversi non possono avere la stessas Key.
 
 Implementazioni: HashMap, TreeMap.
+
+\subsubsection{Map.Entry}
+La mappa, internamente, ha un Set di Entry (coppie chiave-valore). Entry è una StaticNested \inline{interface}.
+
+\multiline{}{}{CodiciEsempio/map.java}
+
+Quindi per iterare una mappa si usa $entrySet()$ e il tipo degli elementi è $Map.Entryz<K, V>$.

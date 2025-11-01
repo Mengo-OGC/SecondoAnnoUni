@@ -1,0 +1,9 @@
+class Outer {
+    ...
+    <firmalMetodo> {
+        ...
+        class LocalClass { ... }
+        LocalClass <var> = new LocalClass(...);
+        ...
+    }
+}

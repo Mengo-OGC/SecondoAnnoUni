@@ -77,6 +77,63 @@ Gli array, simili a un tipo generic, sono unsafety perchè permettono covarianza
 
 Le wildcards possono essere usate insieme ai generics.
 
-\subsection{Classi innestate}
+\subsection{Classi innestate stastiche}
+Dentro una classe\textbar inerfaccia A outer si innestra la definizione d'una classe\textbar inerfaccia B static nested.
+
+\multiline{}{}{CodiciEsempio/staticNested.java}
+
+Precisazioni:
+\begin{itemize}
+	\item Esternamente ad'A, B è un tipo richiamabile via A, \textbf{Outer.StaticNested}, secondo il modificatore d'accesso.
+	\item Internamente ad'A, B è accessibile direttamente con StaticNested.
+	\item Outer e StaticNested si vedono reciprocamente i membri \inline{private}\footnote{Vero significato di \inline{private} è "privato a livello della outerclass più esterna".}.
+	\item Se B è classe è instanziabile (\inline{new}).
+	\item Il nesting può essere multiplo e/o multilivello.
+	\item Per le interfacce innestate il \inline{public static} è implicito.
+\end{itemize}
+
+Approcci:
+\begin{enumerate}
+	\item Outer è la classe astratta e le StaticNested pubbliche sono le implementazioni.
+	\item StaticNested privata per sotto-comportamenti (implementaizone interfaccie o estensione classe) di Outer.
+	\item StaticNested sono sotto stati dell'Outer non usabili indipendentemente.
+\end{enumerate}
+
+\subsection{Inner Class}
+Dentro una classe A outer si inserisce la definizione d'una classe B inner (membro non-statico).
+
+\multiline{}{}{CodiciEsempio/innerClass.java}
+
+Precisazioni:
+\begin{itemize}
+	\item Inner si richiama su un instanza di Outer (enclosing instance), \textbf{Outer.InnerClass}, secondo il modificatore d'accesso.
+	\item Un oggetto Inner si crea da un'istanza di Outer, \textbf{... = OuterObj.new Inner(...);}, secondo il modificatore d'accesso.
+
+	Dentro Outer si fa \textbf{... = this.new Inner(...);}.
+	\item Inner accede al enclosing instance con \inline{Outher.this}.
+\end{itemize}
+
+Approccio: preferibile a classi innestate statiche quando \inline{private}.
+
+\subsubsection{Local Class}
+Dentro un metodo d'una classe A Outer si inserisce la definizione d'una classe B local class (Inne Class di fatto).
+
+\multiline{}{}{CodiciEsempio/localClass.java}
+
+Può usare direttamente (senza \inline{this}) variabili final/di fatto final del metodo.
+
+Approccio: Quando ho bisogno della classe solo dentro un metodo.
+
+\subsubsection{Classi anonime}
+Classi senza nome e costruttori creta al volo (Local Class di fatto) e da lì creta al volo un'istanza.
+
+\multiline{}{}{CodiciEsempio/classiAnonime.java}
+
+\begin{itemize}
+	\item Il metodo "contenitore" restituisce come tipo la classe anonima.
+	\item Può usare direttamente (senza \inline{this}) campi dell'Outer class.
+\end{itemize}
+
+Approccio: Utile per implementare interfacce e quando si deve creare un solo oggetto.
 
 \subsection{Lambda expression}

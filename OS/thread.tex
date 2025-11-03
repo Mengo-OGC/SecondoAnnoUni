@@ -144,6 +144,27 @@ Calcolo Media esponensiale: $T_{n+1}=\sum_{j=0}^n\alpha(1-\alpha)^jt_{n-j}+(1-\a
 	\includegraphics[width=0.5\textwidth]{img/bufferlimitato.png} % nome file e larghezza
 \end{figure}
 
+\newpage
+\subsection{Filosofi orientali a cena}
+\begin{center}
+	\begin{tikzcd}
+		pensa \arrow[r, dashed, shift right] & {[Filosofi]} \arrow[rr, "mangia"] \arrow[l, dashed, shift right] &  & <chopsticks>
+	\end{tikzcd}
+\end{center}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/filosofi.png} % nome file e larghezza
+\end{figure}
+Le battecche sono un vetore lungo 5 (0...4) e i filosofi accedono alle battecche i e i+1 in \%5.
+
+Rischio di deadklock!!!
+Esistono varie soluzioni, avere un filosofo mancino è la più semplice:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{img/filosofoMancino.png} % nome file e larghezza
+\end{figure}
+
+\newpage
 \subsection{Concorrenza in C}
 Usata la librerira POSIX  \textbf{semaphore.h} (API POSIX con semafori, lock mutex e variabili condizionali).
 

@@ -80,6 +80,7 @@ Simile a un metodo con nome il nome della classe, senza tipo di ritorno e opzion
 Se non si definisce il costruttore viene implicitamente inserito il costruttore di default (0 parametri) che inizializza i campi ai tipi di default.
 
 Nota: per fare una classe non istanziabile basta fare i costruttori \inline{private/protected}.
+
 \subsubsection{Overloading}
 Si possono definire più costruttori e metodi, ma non è una buona pratica.
 Nel caso devono essere \textbf{distinguibili dal numero e/o tipo} dei parametri.
@@ -87,6 +88,21 @@ Nel caso devono essere \textbf{distinguibili dal numero e/o tipo} dei parametri.
 I costruttori si possono \textbf{invocare a vicenda} (riuso codice). \inline{this(...)} deve essere la prima riga del corpo del costruttore.
 
 \multiline{riusocostruttori}{}{CodiciEsempio/RiusoCostruttori.java}
+
+\subsubsection{Initializer}
+\begin{center}
+	$staticInit(1)\to nonStaticInit(+)\to constructor(+)$
+\end{center}
+
+L'inizializzatore \textbf{statico} è eseguito al caricamento della classe (1 volta sola). Usato per inizializzare campi statici.
+
+\oneline{static {...}}
+
+L'inizializzatore \textbf{non statico} è eseguito a ogni istanziazione della classe prima del costruttore.
+
+\oneline{{...}}
+
+Di entrambi i tipi posso avere più inizializzatori per una classe, vengono eseguiti in'ordine di lettura una sola volta.
 
 \subsection{this}
 Variabile contenente il riferimento all'oggetto che sta gestendo il messaggio corrente. Si usa per rendere meno ambiguo il codice accedento tramite \textit{this} a campi o metodi. (Usare sempre).

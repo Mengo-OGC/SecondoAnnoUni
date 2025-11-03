@@ -81,7 +81,11 @@
 }
 
 \tabella{Scripting}{
-	\riga{echo \textit{testo}}{Visualizza a video la sequenza di caratteri passata fino al primo "INVIO". Se passo \textit{"testo"} si disabilità l'interpretazione dei caratteri speciali e andate a capo.}
+	\riga{echo \textit{testo}}{Visualizza a video la sequenza di caratteri passata fino al primo "INVIO". Se passo \textit{"testo"} si disabilità l'interpretazione dei caratteri speciali e andate a capo.
+	\begin{itemize}
+		\item \textbf{-e} Stampa i caratteri speciali ($\backslash...$).
+		\item \textbf{-n} Non fa andare a capo.
+		\end{itemize}}
 
 	\riga{nome=\textit{valore}}{Simboli con nome e valore, stringa modificabile, alfanumerici casesensitive. No spazi prima o dopo "=". Sono d'ambiente o ex-novo locali.
 
@@ -141,7 +145,7 @@
 
 		Operatori unari/binari non quotabili ne generaibili da command substitution:
 		\begin{itemize}
-			\item Operazioni sui file: -e (esistenza), -d (cartelle), -f (file), -h (link), -r (leggibile), -s (size>0), -t (fd open e riferisce un terminale), -w (scrivibile), -x (eseguibile), -O (possesso effettivo utente), -G (possesso effettivo gruppo), -L (=h).
+			\item Operazioni sui file: -e (esistenza), -d (cartelle), -f (file), -h (link), -r (leggibile), -s (size$>$0), -t (fd open e riferisce un terminale), -w (scrivibile), -x (eseguibile), -O (possesso effettivo utente), -G (possesso effettivo gruppo), -L (=h).
 
 			Confronto date ultima modifica file: f1 -nt f2 (f1 nuovo o f2 inesistente), f1 -ot f2 (f1 veccio o inesistente).
 			\item Operatori aritmetici: -eq (==), -ne (!=), -le ($<$=), -lt ($<$), -ge ($>$=), -gt ($>$).

@@ -1,0 +1,49 @@
+\section{Reflection}
+Approccio basato su librerie d'interazione con la JVM (\inline{java.lang}, \inline{java.lang.reflect} con \inline{Filed, Constructor, Method}). Fornisce:
+\begin{itemize}
+	\item Oggetti che rappresentano il contenuto d'una classi.
+	\item Istanziazione diretta oggetto con accesso a metodi e campi.
+	\item Forzare caricamento classi.
+\end{itemize}
+
+\colTwo{Lati negativi: lentezza, evità controlli compilatore (riscio sicurezza), da accesso a classi non note a priori.}{Lati positivi: estendibilità, ispezionare, stringhe come identificatori di linguaggio, chiamate di metodo e creazioni d'oggetto dinamiche.}{45}{45}
+
+\subsection{Approfondimento ClassFile}
+Un \inline{.java} produce il classFile \inline{.class} (Outer\$Inner.class o Outer\$$<numero>$.class per anonime) nel folder d'uscità innestato secondo package.
+Per ispezionare un classFile: \inline{javap -v <nomeFile>.class}
+
+Il \textbf{class-loader}, componente della JVM, cerca e "carica" i classFile.
+\begin{itemize}
+	\item La ricerca avviene nel file system, jar o rete tramite classpath dei pakage.
+
+	\item Il caricamento crea una struttura dati e inizializza i campi statici.
+
+	\textit{Caricamento by-need}: Al momento del primo utilizzo (prima \inline{new}, chiamata statica, uso sottoclasse). Solo le classi essenziali sono caricate all'avvio.
+	Vantaggi: avvio rapido, ottimizza scenari di rete, "scaricamento" dalla JVM, hot-swapping, classi plugin senza spegnere, ispezione classi.
+\end{itemize}
+
+\subsection{Classe Class}
+Classe \inline{java.lang.Class} il cui oggetto rappresenta un tipo qualsiasi (anche void e classi generiche, no i Generics) della JVM.
+
+Modi per ottenere un oggetto di Class:
+\begin{itemize}
+	\item \inline{String.class} (caso speciale, solitamente da \inline{Class<?>} che richiede cast).
+	\item \inline{... = new NomeClasse(<parametri>).getClass()}.
+	\item \inline{Class.forName("NomeClasse)}.
+\end{itemize}
+
+\subsubsection{Annotazioni}
+Meccanismo, usato a run-time grazie alla reflection, che "annota" (ignorate dal compilatore) pezzi di codice.
+
+Annotazioni di libreria:
+\begin{itemize}
+	\item \inline{@Override} Rigetto se nella super-classe/interfaccia non è presente questo metodono non \inline{final}.
+	\item \inline{SuppressWarnings()} Dichiara che il codice è corretto impedendo segnalazione del warning specificato.
+	\item Altre: \inline{@Deprecated}, \inline{FunctionalInterface}.
+\end{itemize}
+
+Ogni package può avere delle annotazioni custom per annotare classi, campi, metodi e costruttori.
+
+\multiline{}{}{CodiciEsempio/NomeAnnotazione.java}
+
+I valori di default sono usati se lato utente non si sipecificano: @NomeAnnotazione([prp1=val1, ...])

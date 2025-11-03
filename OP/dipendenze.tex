@@ -170,7 +170,8 @@ Fornisce metodi di uso generico:
 	\item \textbf{equals(Object obj) : boolean}: Dice se l'oggetto che lo invoca e quello passato come argomento sono uguali in base a criteri definiti da me.
 
 	Deve essere riflessivo, simmetrico, transitivo, stabile e restituire false se passo \inline{null}.
-	\item \textbf{hashCode() : int} Implementato insieme a equals().
+	\item \textbf{hashCode() : int} Genera un hash code dell'oggetto stesso. Implementato insieme a equals().
+	\item \textbf{getClass() : Class<?>} Restituisce un oggetto di Class che rappresenta la classe dell'oggetto stesso.
 \end{itemize}
 
 \textbf{Vantaggio?} Fattorizza comportamento comune e crea funzionalità che lavorano su qualunque oggetto.

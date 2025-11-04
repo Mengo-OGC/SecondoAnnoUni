@@ -132,6 +132,9 @@ Classi senza nome e costruttori creta al volo (Local Class di fatto) e da lì cr
 \begin{itemize}
 	\item Il metodo "contenitore" restituisce come tipo la classe anonima.
 	\item Può usare direttamente (senza \inline{this}) campi dell'Outer class.
+	\item Se vuole implementare un'interfaccia si fa:
+
+	\oneline{new NomeInterfaccia(<parametri>) { <implementazione> }}
 \end{itemize}
 
 Approccio: Utile per implementare interfacce e quando si deve creare un solo oggetto.

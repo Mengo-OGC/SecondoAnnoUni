@@ -121,13 +121,15 @@ La densità concreta discreta di $X$ è $dx:\mathbb{R}\to\mathbb{R}$ con \[dx(h)
 \mysubsection{Approfondimento Serie Geometrica}
 Sia $0<a<1$ allora $1-a^n=(1-a)(1+\dots+a^{n-1})$ sapendo che $(1+\dots+a^{n-1}=\frac{1-a^n}{1-a}$ possiamo dire che \[\lim\limits_{h\to\infty}(1+\dots+a^{n-1})=\lim\limits_{h\to\infty}\frac{1-a^n}{1-a}=\frac{1}{1-a}=\sum_{h=0}^\infty a^h\]
 
-\definizione{Densità uniforme}{Sia $X$ una variabile aleatoria e si dice uniforme nell'insieme $A=\{a_1,\dots,a_n\}\subseteq\mathbb{R}$ se \[dx(h)=
+\definizione{Densità uniforme}{Sia $X$ una variabile aleatoria.
+
+Si dice uniforme nell'insieme $A=\{a_1,\dots,a_n\}\subseteq\mathbb{R}$ se \[dx(h)=
 \begin{cases}
 	\frac{1}{n} \ se \ h=a_1,\dots,a_n\\
 	0 \ altrimenti
 \end{cases}\]
 
-Si scrive $X~U(\{\dots\})$.}{d:densUnif}
+Si scrive $X\sim U(\{\dots\})$.}{d:densUnif}
 
 \definizione{Densità di Bernulli}{Si dice densità di Bernulli se $X$ assume solo i valori 0 e 1. \[dx(h)=
 \begin{cases}
@@ -136,7 +138,7 @@ Si scrive $X~U(\{\dots\})$.}{d:densUnif}
 	0 \ altrimenti
 \end{cases}\]
 
-Si scrive $X~B(1,p)$}{d:densBern}
+Si scrive $X\sim B(1,p)$}{d:densBern}
 
 \osservazione{Si usa quando qualcosa può accadere o non accadere.}
 
@@ -146,7 +148,77 @@ Si scrive $X~B(1,p)$}{d:densBern}
 \begin{enumerate}
 	\item Ogni prova ha la stessa probabilità di dare successo.
 	\item L'esito di ogni tentativo è indipendente da quello degl'altri.
-\end{enumerate}}{d:ssiProvInd}
+\end{enumerate}
 
-La variabile binomiale $X=\# successi$ la chiamiamo binomiale e scriviamo $X~B(h,p)$ con $h$ il numero di tentativi e $p$ la probabilità che ogni tentativo dia successo.
+La variabile $X=\# successi$ la chiamiamo binomiale e scriviamo $X~B(h,p)$ con $h$ il numero di tentativi e $p$ la probabilità che ogni tentativo dia successo.
 
+\[dx(k)=
+\begin{cases}
+	\binom{h}{k}p^k(1-p)^{h-k} \ se \ k=1,\dots,n\\
+	0 \ altrimenti
+\end{cases}\]}{d:ssiProvInd}
+
+\definizione{S.S.I. senza rimpiazzo}{Sia $\Omega=$ combinazioni (sotto insiemi) di $n$ palline scelte tra le $b+r$ (blu e rosse) disponibili. \[|\Omega|=\binom{b+r}{n}\]
+Con probabilità uniforme.
+
+Uno schema successo insuccesso si dice senza rimpiazzo se:
+\begin{enumerate}
+	\item L'ordine delle estrazioni non è importate.
+	\item Ogni prova non ha la stessa probabilità di dare successo.
+	\item L'esito di ogni tentativo non è indipendente da quello degl'altri.
+\end{enumerate}
+
+La variabile $X=\# successi$ (estrazione pallina blu) la chiamiamo ipergeometrica e scriviamo $X\sim H(h,b,r)$ con $h$ il numero di tentativi.
+
+I risultati favorevoli a "$X=k$": $\binom{b}{k}\cdot\binom{r}{h-k}$:
+Ossia la scelta di $k$ palline blue per la scelta di $h-k$ palline rosse.
+
+\[P(X=k)=dx(k)=
+\begin{cases}
+	\frac{\binom{b}{k}\cdot\binom{r}{h-k}}{\binom{b+r}{h}} \ se \ k=0,\dots,n\\
+	0 \ altrimenti
+\end{cases}\]}{d:ssiSenzaRimpiazzo}
+
+\definizione{Variabili tempo di primo successo}{Sia $\Omega=$ combinazioni (sotto insiemi) di $n$ palline scelte tra le $b+r$ (blu e rosse) disponibili.
+
+Se estraiamo senza rimpiazzo (condizionati) fino ad'ottenere un successo, cioè un blu.
+Con $T=\# tentativi \ effettuati$. }{d:varTempPrimoSucc}
+
+Il tempo di primo successo in uno s.s.i. a prove indipendenti definisce:
+\begin{enumerate}
+	\item $T$=Tempo primo successo assume $\infty$ valori.
+	\item $p$=Probabilità di avere successo ad'ogni tentativo.
+\end{enumerate}
+
+\[p(T=k)=(1-p)^{k-1}p\]
+
+\[d_T(k)=
+\begin{cases}
+	(1-p)^{k-1}p \ se \ k=1,\dots\\
+	0 \ altrimenti
+\end{cases}\]
+
+Diciamo che $T$ ha densità geometrica modificata di probabilità $p$:
+
+\[T\sim \tilde{G}(p)\]
+
+Siccome $d_T$ è una densità abbiamo:
+
+\[\sum_{k=1}^\infty (1-p)^{k-1}p=1\]
+
+\definizione{Variabili geometrice non modificate}{In uno s.s.i. a prove indipendenti la variabile geometrica $X$ da il numero di fallimenti prima di un successo.
+
+$X+1=T$ è una variabile geometrica modificata con $X$ che assume vlaori da 0 a $+\infty$.
+
+$dx(k)=P(X=k)=P(T-1=k)=P(T=k+1)=d_T(k+1)=
+\begin{cases}
+	p(1-p)^k \ se \ k=0,\dots\\
+	0 \ altrimenti
+\end{cases}$
+
+Scriviamo $X\sim G(p)$.}{d:varGeom}
+
+\proprieta{Mancanza di memoria}{\[P(X\geqslant k+m\mid X\geqslant k)=P(X\geqslant m)\]}{d:mancMem}
+
+\dimostrazione{d:mancMem}{Sia $X\sim G(p)$. Perchè $P(X\geqslant k)$ è uguale a $(1-p)^k$, ossia i primi $k$ tentativi vanno male?
+$P(X\geqslant k+m\mid X\geqslant k)=\frac{P(X\geqslant k+m \cap X \geqslant k)}{P(X\geqslant k)}=\frac{(1-p)^{k+m}}{(1-p)^k}=(1-p)^m=P(X\geqslant m)$.}

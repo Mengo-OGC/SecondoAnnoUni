@@ -37,7 +37,9 @@ I messaggi d'errore si mettono come costanti private della classe.
 Riusare classi del JDK, non si definiscono di nuove.
 
 \subsubsection{throws}
-Dichiara che il metodo può lanciare delle eccezione checked (obbligatorio dichiararlo). Il chiamante deve usare il costrutto \inline{try-catch}.
+Dichiara che il metodo può lanciare una o più eccezzioni checked e delegarne la gestione al chiamante.
+
+Il chiamante o gestisce l'eccezione con \inline{try-catch} oppure "rimpalla" l'eccezione a sua volta con \inline{trows}.
 
 \oneline{<method-contract> throws <cheched-exception [, ...]> {...}}
 

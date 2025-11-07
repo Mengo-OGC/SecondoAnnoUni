@@ -1,0 +1,72 @@
+\section{GUI}
+In Java 1 e 2 per la gui si usava AWT (Abstract Window Toolkit) mentre dalla versione 5 si è passati a Swing (basato su AWT) e dalla versione 8 si è diffoso JavaFX e SWT.
+
+I package sono \inline{java.awt} e \inline{javax.swing} (classi con nome J*) le cui classi base sono:
+\begin{itemize}
+	\item \inline{JFrame}: Finestra con "cornice". Comporta la creazione di un EDT (Event Dispatch Thread).
+	\item \inline{Jpanel}: Pannello di componenti inseribili in un JFrame.
+	\item \inline{JComponent}: Componenti (dimensione "preferità" predefinità).
+	\item \inline{JDialog}: Finestra di dialogo.
+	\item \inline{JWindow}: Componente piazzabile nel desktop.
+\end{itemize}
+
+La definizione di una GUI si apre con la creazione di un oggetto JFrame e si chiude con il rendere visibile il JFrame tramite \inline{seVisible()}.
+
+Si fa un \inline{interface} in modo da separare le "azioni" dai dettagli implementativi delegando a una classe personalizzata la gestione del frame estendendo JFrame.
+
+\textbf{Il layout di un JPanel} è gestito dal un oggetto di classe \inline{LayoutManager} che incapsula la strategia d'inserimento dei componenti. Strategie:
+\begin{itemize}
+	\item \inline{FlowLayout (default)}: Affianca in riga i componenti finchè possibile, poi va a capo.
+
+	\item \inline{BorderLayout}: Dispone i componenti hai lati o al centro.
+
+	Metodi: \inline{setHgap(), setVgap()}.Modella una griglia flessibile.
+\end{itemize}
+Le strategie sono componibili tra loro.
+
+Quando si aggiunge un JComponent a un JPanel si può specificare in base al LayoutManager la "modalità".
+
+\textbf{Layout dinamico}: Si ottiene modificando i componenti di un pannello e aggiornandolo con \inline{JPanelObj.validate()}.
+
+\subsection{Eventi}
+\inline{EventListener} è una \inline{interface} (implementata come classe anonima) che cattura un'evento d'un compomente "connesso" e lo gestisce.
+
+Per connettere il componenti all'ActionListener.
+
+\oneline{JComponentObj.addActionListener(ActionListenerAnonimusClass);}
+
+Sotto interfacce: \inline{ActionListener, ComponentListener, ContainerListener, FocusListener, ItemListener, KeyListener, MouseListener, WindowListener, TextListener, MouseWheelListener}.
+
+\section{MVC}
+ Un pattern architetturare del sistema software è generico ma definisce: elementi software, relazioni tra elementi, proprietà degli elmenti e delle relazioni.
+ Il prodotto finale sarà facilmente modificabile e controllabile.
+
+ Il pattern architetturare \textbf{MVC (Model View Controller)}:
+
+ \begin{center}
+ 	\begin{tikzcd}
+ 		{[View]} \arrow[r, bend right] & {[Controller]} \arrow[r, bend right] \arrow[l, bend right] & {[Model]} \arrow[l, bend right]
+ 	\end{tikzcd}
+ \end{center}
+
+ \begin{itemize}
+ 	\item \textbf{Model}: Modello OO (dati e logica) del dominio applicativo.
+ 	\item \textbf{View}: Gestice interazione con l'utente (GUI e notifiche).
+ 	\item \textbf{Controller}: Gestisce coordinamento fra Model e View intercettando gli eventi di View, comandando il Model e aggiornando la View.
+ \end{itemize}
+
+ \begin{center}
+ 	 \begin{tikzcd}
+ 		V \arrow[rr, "azioni \ utente"', bend right] &  & C \arrow[rr, "Metodi \ di \ dominio"] \arrow[ll, "richieste \ valutazione"', bend right] &  & M
+ 	\end{tikzcd}
+ \end{center}
+
+ \textbf{Linee Guida}: Ogni componente strutturale richiede un interfaccia (ModelInterface, ViewObserver, ViewInteface). Bisogna terenere la massima indipendenza tra i componenti. Testare ogni componente separatamente.
+
+ \begin{center}
+ 	\begin{tikzcd}
+ 		{[ViewInteface]}                                      & {[ViewObserver]}                                                        & {[ModelInterface]}                          \\
+ 		{[ViewClass]} \arrow[u, two heads, dashed] \arrow[ru] & {[ControlClass]} \arrow[lu] \arrow[u, two heads, dashed] \arrow[ru]     & {[ModelClass]} \arrow[u, two heads, dashed] \\
+ 		& {[Application]} \arrow[lu, dashed] \arrow[u, dashed] \arrow[ru, dashed] &
+ 	\end{tikzcd}
+ \end{center}

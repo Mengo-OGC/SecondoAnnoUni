@@ -1,13 +1,13 @@
 \section{Enum}
-Tipo che può assumere solo un numero fissato e limitato di possibili valori.
+Tipo/Classe che può assumere solo un numero fissato e limitato di possibili valori (interi).
 
-\oneline{public enum NomeEnum {VAL1, ...;}}
+\oneline{public enum NomeEnum {VAL1, ...; <membri>}}
 
-Per avere valori di qualsiasi tipo.
+Si può definire il valore univorme dei valori assumibili. Bisogna defirne un campo dello stesso tipo e un costruttore.
 
-\oneline{public enum NomeEnum {VAL1(valore), ...;}}
+\oneline{public enum NomeEnum {VAL1(valore), ...; <campo> <costruttore> <membri>}}
 
-Uso: \inline{... NomeEnum.VALORE}
+Uso: \inline{NomeEnum.VALORE|Membro, NomeEnumObj.Membro}.
 
 Metodi: valueof("NOME\_VALORE"), values()[indice].
 

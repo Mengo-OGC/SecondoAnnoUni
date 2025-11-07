@@ -11,9 +11,15 @@ Approccio fondamentale:
 
 Variabili, argomenti, tipi di ritorno sono interfacce mentre le \inline{new} sono solo di classi Concerete.
 
-\begin{itemize}
-	\item \textbf{Iteratore (Iterator)}: Oggetto usato per accedere ad'una sequenza d'elementi (presi da una sorgente di dati).
+\begin{enumerate}
+	\item \textbf{Iterator}: Oggetto usato per accedere ad'una sequenza d'elementi (presi da una sorgente di dati).
 	\multiline{}{}{CodiciEsempio/iterator.java}
+	\item ne manca uno...
+	\item \textbf{Strategy}: Un oggetto A delega a un oggetto B l'implementazione d'una strategia che poi sarà usata dall'oggetto A tramite l'oggetto B.
+	\item \textbf{Observer}: Oggetto osservatore si registra (attach) alla sorgente degli eventi per reagire a un evento specifico. Quando tale evento avviene la sorgente aziona (notify) l'osservatore che reagisce con un comportamente programmato.
 
-
-\end{itemize}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{ObserverPattern.png}
+	\end{figure}
+\end{enumerate}

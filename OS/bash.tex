@@ -211,13 +211,13 @@
 
 \tabella{Uso File Descriptor}{
 	\riga{\$\$}{Variabile con PID della shell corrente. Utile per esplofare /proc/ e fd vari processi.}
-	\riga{exec \textit{n$<$modalità$>$ file.estensione}}{Apre file e l'associa al fd scento dall'utente (n).
+	\riga{exec \textit{\{n\}modalità file.estensione}}{Apre file e l'associa al fd scento dall'utente (n).
 
 	Modalità: $<$ (lettura), $>$ (scrittura), $>>$ (aggiungi in coda), $<>$ (lettura e scrittura).}
-	\riga{exec \textit{{var}$<$modalità$>$ file.estensione}}{Apre file e l'associa al fd scento dall'os inserito in var.}
-	\riga{exec n$>$\&-}{Chiusura di file con fd=n.}
-	\riga{exec {\textit{var}}$>$\&-}{Chiusura di file con fd contenuto in var.}
-	\riga{\textit{program} $<$modalità$>$ \textit{file}}{Ridirezionamento input/output.
+	\riga{exec \textit{\{var\}modalità file.estensione}}{Apre file e l'associa al fd scento dall'os inserito in var.}
+	\riga{exec \{n\}$>$\&-}{Chiusura di file con fd=n.}
+	\riga{exec \{\textit{var}\}$>$\&-}{Chiusura di file con fd contenuto in var.}
+	\riga{\textit{program} modalità \textit{file}}{Ridirezionamento input/output.
 	Modalità: $<$ (strin da file), $>$ (strout sovrascrive file), $>>$ (srtout accoda a file), \textbar (output prog1 è input prog2)
 
 	Nota: Il fine file da tastiera si fa con "Ctrl+D".}
@@ -238,7 +238,7 @@
 	\end{itemize}
 	Una read parte dalla riga precedente, se non era stata finità di leggere (fino a \textbackslash n).
 
-	Il parametro \textbf{-u \${\textit{var}}} fa leggere dal file di file descriptor in var.}
+	Il parametro \textbf{-u \$\{\textit{var}\}} fa leggere dal file di file descriptor in var.}
 	\riga{read \textit{var1 ...}}{Alle variabili viene assegnata i-esima parola della riga tranne per l'ultima variabile che riceve la stringa rimanente.
 
 	Alle variabili in eccesso viene assegnato valore vuoto.}

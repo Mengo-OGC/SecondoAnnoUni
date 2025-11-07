@@ -1,15 +1,18 @@
-\section{JUnit}
+\section{Strumenti}
+
+\subsection{JUnit}
 Crea classi di test tramite metodi annotati che testano scenari per asserire correttenza risultato rispetto a valore atteso.
 
 \multiline{}{}{CodiciEsempio/test.java}
 
 Metodi di asserzione: \inline{asserTrue(), assertEquals(), assertFalse(), assertThorws()}
 
-Per far fallire il test secondo una "nostra logica":\inline{fail()}
+Un test va a buon fine se non fallisce nessun assert (o è interrotto da \inline{return}).
+Per far fallire il test secondo una "nostra logica":\inline{fail()}.
 
 Per far eseguire un test per primo si usa l'annotazione \inline{@BeforeEach}.
 
-\subsection{Esecuzione}
+\subsubsection{Esecuzione}
 Eseguire il build comporta il check (controlli+test(compileTestJava+compileJava)) e asseble (jar+compileJava).
 
 \oneline{./gradlew build javadoc}

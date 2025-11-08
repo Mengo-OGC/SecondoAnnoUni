@@ -176,7 +176,6 @@
 	\riga{sudo \textit{comando}}{fa eseguire il comando come administratore, può essere chiesta userPass. Solo utenti gruppo sudo (gestito dall'admin) possono usarlo.}
 }
 
-
 \tabella{Subshell}{
 	\riga{bash}{Crea una shell figlia (interattiva non di login).
 
@@ -217,10 +216,16 @@
 	\riga{exec \textit{\{var\}modalità file.estensione}}{Apre file e l'associa al fd scento dall'os inserito in var.}
 	\riga{exec \{n\}$>$\&-}{Chiusura di file con fd=n.}
 	\riga{exec \{\textit{var}\}$>$\&-}{Chiusura di file con fd contenuto in var.}
-	\riga{\textit{program} modalità \textit{file}}{Ridirezionamento input/output.
+	\riga{program \textit{modalità file}}{Ridirezionamento input/output.
 	Modalità: $<$ (strin da file), $>$ (strout sovrascrive file), $>>$ (srtout accoda a file), \textbar (output prog1 è input prog2)
 
+	Per ridirezionare su uno specifico fd del programma si fa: $N>, N>>, <N$. Quando si omette si sottintende strin, strout, strerr.
+
 	Nota: Il fine file da tastiera si fa con "Ctrl+D".}
+	\riga{program \textit{modalità1 file1 modalità2 file2}}{Si possono fare contemporaneamente i ridirezionamenti I/O. L'ordine di specificazione non conta.}
+	\riga{program $0|1|2|\&>$ file \textbar $\&0|1|2$}{Ridireziona lo strin, strout e strerr del programma nel file indicato sovrascrivendo o in un altro str.
+
+	Ridirezionare simultanea in file separati: prog \textit{2$>$ fileErr $>$ fileOut}}
 }
 
 \tabella{Standard input e output}{
@@ -230,9 +235,9 @@
 
 	Parametri che considerano spazi e tabulazioni:
 	\begin{itemize}
-		\item \textbf{-n \textbf{numero}} Numero massimo di caratteri da leggere.
+		\item \textbf{-n numero} Numero massimo di caratteri da leggere.
 
-		\item \textbf{-N \textit{numero}} Numero esattto di caratteri da leggere.
+		\item \textbf{-N numero} Numero esattto di caratteri da leggere.
 
 		Considera \textbackslash n come semplice carattero. Usa prossime righe se attuale ha caratteri insufficente.
 	\end{itemize}
@@ -242,12 +247,10 @@
 	\riga{read \textit{var1 ...}}{Alle variabili viene assegnata i-esima parola della riga tranne per l'ultima variabile che riceve la stringa rimanente.
 
 	Alle variabili in eccesso viene assegnato valore vuoto.}
-
-	\riga{echo "..." 1$>$\&\${var}}{Scrive sul file di file descriptor in var.}
 }
 
 \tabella{Vari}{
-	\riga{./ \textit{conado}}{Esegue comando presente nella directory corrente (percorso relativo).
+	\riga{./ \textit{comado}}{Esegue comando presente nella directory corrente (percorso relativo).
 
 	Alternativa è inserire il percorso relativo o aggiungere il percorso assoluto alla variabile PATH.}
 	\riga{strace \textit{comando}}{Dice la sistem-call usata.}
@@ -260,14 +263,28 @@
 	\riga{history}{Visualizza comandi, numerati, precedentemente eseguiti, anche da shell precedentemente chiuse.
 
 	Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
-	\riga{greap \textit{stringa}}{Seleziona le righe contenenti la stringa passata (che sarà evidenziata) dal testo che sarà successivamente scritto. Lo si interrompe con "Ctrol+d".
-
+	\riga{grep \textit{stringa} [\textit{file}]}{Filtra le righe contenenti la stringa passata (che sarà evidenziata), anche se contenuta in altre parole, dal testo che sarà successivamente scritto (termina con "Ctrl+d") o dal file passato opzionalmente.
+	\begin{itemize}
+		\item \textbf{-v} Filtra righe senza parola da evidenziare.
+		\item \textbf{-i} Disabilità il caseSensitive.
+		\item \textbf{-h o -H} Disabilita la visualizzazione del nome del file dove è avvenuta la ricerca (nel caso si cerci in più file).
+	\end{itemize}
 	Spesso usato come secondo comando di \textbar per filtrare output di altri comandi.}
+	\riga{find \textit{file}}{Trova percorsi di file in sotto alberi della memoria.
+	\begin{itemize}
+		\item \textbf{-type d} Trova solo directory.
+		\item \textbf{-tipe f} Trova solo file.
+		\item \textbf{-maxdepth n} Limità la profondità di ricerca il numero di livelli indicato.
+		\item \textbf{-mindeph} Indica il livello minino di ricerca.
+		\item \textbf{-name "..."} Definisce un vincolo sul nome del file da trovare.
+		\item \textbf{-iname} Disabilità il caseSensitive.
+		\item \textbf{-exec ... '{}' ... $\backslash$;} Istruzioni da fare quando viene trovato un elemento. L'output di find viene messo al posto di '{}'.
+	\end{itemize}}
 	\riga{wc}{Dice il testo passatogli il numero di righe, parole e caratteri.}
 }
 
-Directory "proc" info sui processi memorizzati con una dir. per ogni processo attivo, create e cancellate continuamente.
-Directory sulla ram "/prc/ sono i processi in esecuzione e nella directory "fd" ci sono i file descriptor dei file aperti.
+Directory \texttt{/proc} : info sui processi, con una dir. per ogni processo attivo, create e cancellate continuamente.
+Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella sottodirectory \texttt{fd} i file descriptor aperti.
 
 \tabella{Costrutti controllo flusso}{
 	\riga{for varName in elencoParole ; do listCommand ; done}{Dopo il for variabile è usabile.}

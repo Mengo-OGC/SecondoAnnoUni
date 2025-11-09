@@ -37,7 +37,7 @@ Per connettere il componenti all'ActionListener.
 
 Sotto interfacce: \inline{ActionListener, ComponentListener, ContainerListener, FocusListener, ItemListener, KeyListener, MouseListener, WindowListener, TextListener, MouseWheelListener}.
 
-\section{MVC}
+\subsection{MVC}
  Un pattern architetturare del sistema software è generico ma definisce: elementi software, relazioni tra elementi, proprietà degli elmenti e delle relazioni.
  Il prodotto finale sarà facilmente modificabile e controllabile.
 
@@ -70,3 +70,35 @@ Sotto interfacce: \inline{ActionListener, ComponentListener, ContainerListener, 
  		& {[Application]} \arrow[lu, dashed] \arrow[u, dashed] \arrow[ru, dashed] &
  	\end{tikzcd}
  \end{center}
+
+\subsubsection{Come farlo?}
+\begin{itemize}
+	\item \inline{getProperty(p : String) : String} della classe  \inline{System} permette di accedere alle proprietà: \inline{file.separator, java.home, user.dir, user.home, user.name}.
+
+	Proprietà di sistema: \inline{java.version, os.arch, os.name, os.version}.
+
+	\item Per dimensionare relativamente al container la gui.
+
+	\item Il locale (lingua, regione, numeri, data, valuta, ...) in java si gestisce con \inline{i18n=international} che può essere localizzato con \inline{l10n=localization}.
+
+	\item \inline{UTF-8 (java), MacRoman, ISO-(OSI-8859-1} sono i ecoding più comuni.
+
+	\item Un oggetto di \inline{ClassLoader} secondo \textit{location-independent} carica le risorse del classpath:
+	\begin{itemize}
+		\item \inline{ClassLoader.getSystemClassLoader();}
+		\item \inline{ClassLoader.getSystemResourceAsStream("nomeRisorsa");}
+		\item \inline{ClassLoader.getSystemResource("nomeRisorsa");}
+		\item \inline{getResource();}
+	\end{itemize}
+
+	\item Le impostazioni untente si salvano in una cartella, \inline{.nomeProgramma}, dell' \textbf{home forlder}. Se non presente si deve inizializzare con quelle di default tramite \inline{getResource()}.
+
+	\item \inline{Apache Maven} definisce lo standard name per le librerie come \textbf{groupId:artifactId:version}.
+	\begin{itemize}
+		\item \textbf{groupId}: URL invertito che identifica un progetto.
+		\item \textbf{artifacId}: Nome in kebab-case per librerie o moduli.
+		\item \textbf{version}: Sequenza di numeri e lettere separate da .,-,+ per le librerie.
+	\end{itemize}
+
+	Sonatype OSSRH è la repository di librerie esterne (e dipendenze traversali) e proprie.
+\end{itemize}

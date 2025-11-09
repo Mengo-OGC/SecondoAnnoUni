@@ -69,7 +69,53 @@ File del wrapper: gradle/wrapper/gradle-wrapper.jar (wrapper in s'è), gradle/wr
 Per compilare:
 \oneline{./gradlew compileJava}
 
+\subsubsection{Uso librerie esterne}
+Per far scaricare, salvare nella home user directory, includere nel classpath a Gradle bisogna:
+\begin{enumerate}
+	\item Configurare in \inline{build.gradle.kts: repositories \{mavenCentral()\}}.
 
+	\item Indicare in \inline{build.gradle.kts: dependencies \{"scope(libStandardName)" ...\}}.
+
+	scope: \inline{implementation, testImplementation, testRunTimeOnly}.
+\end{enumerate}
+
+\subsubsection{Struttura gradle}
+\begin{center}
+	\begin{tikzpicture}[scale=0.5]
+		\node[black, anchor=south west] at (-2.06,0.25) {src};
+		\node[black, anchor=south west] at (-0.06,-1.75) {java};
+		\node[black, anchor=south west] at (-0.06,-2.75) {resources};
+		\node[black, anchor=south west] at (-1.06,-3.75) {test};
+		\node[black, anchor=south west] at (-0.06,-4.75) {java};
+		\node[black, anchor=south west] at (-0.06,-5.75) {resources};
+		\node[black, anchor=south west] at (-2.06,-7.75) {build.gradle.kts};
+		\node[black, anchor=south west] at (-2.06,-6.75) {settings.gradle.kts};
+		\node[black, anchor=south west] at (-2.06,-9.75) {LICENSE};
+		\node[black, anchor=south west] at (-2.06,-8.75) {README.md};
+		\node[black, anchor=south west] at (-1.06,-0.75) {main};
+		\draw[draw=black, thin, solid] (-2.00,-6.50) -- (-3.00,-6.50);
+		\draw[draw=black, thin, solid] (-2.00,-7.50) -- (-3.00,-7.50);
+		\draw[draw=black, thin, solid] (-2.00,-8.50) -- (-3.00,-8.50);
+		\draw[draw=black, thin, solid] (-2.00,-9.50) -- (-3.00,-9.50);
+		\draw[draw=black, thin, solid] (-2.00,0.50) -- (-3.00,0.50);
+		\draw[draw=black, thin, solid] (-3.00,-9.50) -- (-3.00,1.00);
+		\draw[draw=black, thin, solid] (-2.00,0.50) -- (-2.00,-3.50);
+		\draw[draw=black, thin, solid] (-2.00,-3.50) -- (-1.00,-3.50);
+		\draw[draw=black, thin, solid] (-2.00,-0.50) -- (-1.00,-0.50);
+		\draw[draw=black, thin, solid] (-1.00,-0.50) -- (-1.00,-2.50);
+		\draw[draw=black, thin, solid] (-1.00,-1.50) -- (0.00,-1.50);
+		\draw[draw=black, thin, solid] (-1.00,-2.50) -- (0.00,-2.50);
+		\draw[draw=black, thin, solid] (-1.00,-3.50) -- (-1.00,-5.50);
+		\draw[draw=black, thin, solid] (-1.00,-5.50) -- (0.00,-5.50);
+		\draw[draw=black, thin, solid] (-1.00,-4.50) -- (0.00,-4.50);
+	\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+	\item Per risorse s'intende tutto tranne librerie o sorgenti.
+	\item \inline{README.md} contiene descrizione, autori, guida all'uso, link, risorse.
+	\item \inline{LICENSE} per un progetto open source come MIT o similari.
+\end{itemize}
 
 \subsection{Convenzioni}
 \begin{itemize}

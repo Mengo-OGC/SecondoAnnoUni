@@ -165,6 +165,65 @@ Esistono varie soluzioni, avere un filosofo mancino è la più semplice:
 \end{figure}
 
 \newpage
+
+\subsection{Message Passing}
+\begin{center}
+	\begin{tikzpicture}
+		\node[black, anchor=south west] at (-3.06,0.25) {Mittente};
+		\node[black, anchor=south west] at (-3.06,-1.75) {Dati Originali};
+		\draw[draw=black, thin, solid] (-3.00,-1.00) rectangle (0.00,-2.00);
+		\draw[draw=black, thin, solid] (-3.50,1.50) rectangle (0.50,-2.50);
+		\node[black, anchor=south west] at (4.94,-1.75) {Dati Copiati};
+		\node[black, anchor=south west] at (4.94,0.25) {Destinatario};
+		\draw[draw=black, thin, solid] (5.00,-1.00) rectangle (8.00,-2.00);
+		\draw[draw=black, thin, solid] (4.50,1.50) rectangle (8.50,-2.50);
+		\draw[draw=black, thin, solid] (-4.00,2.00) rectangle (9.00,-3.00);
+		\node[black, anchor=south west] at (1.94,-1.75) {MSM};
+		\draw[draw=black, -latex, thin, solid] (3.00,-1.50) -- (5.00,-1.50);
+		\draw[draw=black, thin, solid] (0.00,-1.50) -- (2.00,-1.50);
+		\draw[draw=black, thin, solid] (2.00,-1.00) rectangle (3.00,-2.00);
+		\node[black, anchor=south west] at (0.94,0.25) {Sistema Operativo};
+	\end{tikzpicture}
+\end{center}
+
+Legenda: p=mittente, m=messaggio, q=destinatario.
+
+\textbf{Sincrono:}
+\begin{itemize}
+	\item Mittente attende l'ACK (Acknowledgement) del destinatario.
+
+	\texttt{ssend(m,q)}
+	\item Destinatario attende la spedizione di m da p o da un qualsiasi mittente (*). Poi manda l'ACK.
+
+	\texttt{m=sreceive(p|*)}
+\end{itemize}
+
+\textbf{Asincrono:}
+\begin{itemize}
+	\item Mittente non attende l'ACK del destinatario.
+
+	\texttt{asend(m,q)}
+
+	\item Destinatario attende la spedizione di m da p o da un qualsiasi mittente (*). Non manda l'ACK.
+
+	\texttt{m = areceive(p|*)}
+
+\end{itemize}
+
+\textbf{Completamente asincrono:}
+\begin{itemize}
+	\item Mittente non attende l'ACK del destinatario.
+
+	\texttt{asend(m,q)}
+	\item Destinatario non attende la spedizione di m da p o da un qualsiasi mittente (*). Non manda l'ACK.
+
+	\texttt{m = nb-receive(p|*)}
+
+	 Se non si riceve nulla restitusce \texttt{null}.
+\end{itemize}
+
+Nella pratica: lo scambio di messaggi avviene tra canali di comunazioni su cui mandare e ricevere. L'istruzione \texttt{replay(Thoth)} sblocca il mittente (e non la receive).
+
 \subsection{Concorrenza in C}
 Usata la librerira POSIX  \textbf{semaphore.h} (API POSIX con semafori, lock mutex e variabili condizionali).
 

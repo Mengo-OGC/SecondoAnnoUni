@@ -69,6 +69,29 @@ File del wrapper: gradle/wrapper/gradle-wrapper.jar (wrapper in s'è), gradle/wr
 Per compilare:
 \oneline{./gradlew compileJava}
 
+\subsubsection{Analisi Statica}
+Tramite \textbf{Sofware di analisi statica del codice} si corregge, migliora e uniforma stilisticamente il codice (auto per controllo versione).
+Modalità: Stand-alone, plug-in, plugin Gradle.
+
+La modalità \textbf{plugin Gradle} si compone di: SpotBugs, PMD e CPM, Checkstyle. Si configura in \inline{build.gradle.kts} con:
+
+\oneline{plugins \{ id("org.danilopianini.gradle-java-qa") version "1.75.0"\}}
+
+Falsi positivi/negativi si gestisce attuando la \textbf{sospensione} dello strumento:
+\begin{itemize}
+	\item \textbf{SpotBugs} si sospende con l'annotazione \inline{@SuppressFBWarnings(...)} della libreria che si include in \inline{build.gradle.kts}:
+
+	\oneline{dependencies \{ compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3") \}}
+
+	\item \textbf{PMD} si sospende con un commento in linea.
+
+	\oneline{... // NOPMD [spiegazione sospensione]}
+
+	\item \textbf{Checkstyle} si sospende una regola specifica.
+
+	\multiline{}{}{CodiciEsempio/checkstyle.java}
+\end{itemize}
+
 \subsubsection{Uso librerie esterne}
 Per far scaricare, salvare nella home user directory, includere nel classpath a Gradle bisogna:
 \begin{enumerate}

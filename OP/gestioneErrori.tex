@@ -36,15 +36,6 @@ Errori e eccezzioni unchecked sono lanciate da throw causando l'interruzine dell
 I messaggi d'errore si mettono come costanti private della classe.
 Riusare classi del JDK, non si definiscono di nuove.
 
-\subsubsection{throws}
-Dichiara che il metodo può lanciare una o più eccezzioni checked e delegarne la gestione al chiamante.
-
-Il chiamante o gestisce l'eccezione con \inline{try-catch} oppure "rimpalla" l'eccezione a sua volta con \inline{trows}.
-
-\oneline{<method-contract> throws <cheched-exception [, ...]> {...}}
-
-Nota: Eccezzioni checked lanchiate con \inline{throw} dentro \inline{try-cathc} non necessitano di \inline{throws}.
-
 \subsection{try-catch-finally}
 Costrutto che permette di gestire errori e ecezioni (checked e unchecked) senza interrompere l'esecuzione.
 
@@ -67,3 +58,12 @@ Nel \inline{finally} specifico codice che sarà eseguito se si verificano o meno
 \bigskip
 
 Eccezzioni JDK del \inline{java.lang} comuni: NumericException, OperationNotSupportedException, StackOverFlowError, NullPinterException, ArrayStoreException, ClassCastException, ArrayIndexOutOfBoundsException, IllegalArgumentException, IndexUoutOfBoundsExecption, IllegalStateException.
+
+\subsection{throws}
+Dichiara che il metodo può lanciare una o più eccezzioni checked e delegarne la gestione al chiamante.
+
+Il chiamante o gestisce l'eccezione con \inline{try-catch} oppure "rimpalla" l'eccezione a sua volta con \inline{trows}.
+
+\oneline{<method-contract> throws <cheched-exception [, ...]> {...}}
+
+Nota: Eccezzioni checked lanchiate con \inline{throw} dentro \inline{try-cathc} non necessitano di \inline{throws}.

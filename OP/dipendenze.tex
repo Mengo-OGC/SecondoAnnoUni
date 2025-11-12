@@ -200,3 +200,28 @@ Classi dal comportamento parziale, fatte per raggruppare contratti+comportamenti
 	\item Una classe non astratta è tenuta a specializzare i metodi astratti della classe astratta da cui eredità.
 \end{itemize}Intermedio tra ereditarietà tra classi e interfacce.
 
+\subsection{Design Pattern}
+Approccio fondamentale:
+
+\begin{center}
+	\begin{tikzcd}
+		Interfacce               &  & {} \arrow[ll, "concetto"', no head, maps to] \\
+		ClassiAstratte \arrow[u] &  & {} \arrow[ll, "condiceComune"', no head, maps to]              \\
+		ClassiConcrete \arrow[u] &  & {} \arrow[ll, "implementazioni"', no head, maps to]
+	\end{tikzcd}
+\end{center}
+
+Variabili, argomenti, tipi di ritorno sono interfacce mentre le \inline{new} sono solo di classi Concerete.
+
+\begin{enumerate}
+	\item \textbf{Iterator}: Oggetto usato per accedere ad'una sequenza d'elementi (presi da una sorgente di dati).
+	\multiline{}{}{CodiciEsempio/iterator.java}
+	\item ne manca uno...
+	\item \textbf{Strategy}: Un oggetto A delega a un oggetto B l'implementazione d'una strategia che poi sarà usata dall'oggetto A tramite l'oggetto B.
+	\item \textbf{Observer}: Oggetto osservatore si registra (attach) alla sorgente degli eventi per reagire a un evento specifico. Quando tale evento avviene la sorgente aziona (notify) l'osservatore che reagisce con un comportamente programmato.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{ObserverPattern.png}
+	\end{figure}
+\end{enumerate}

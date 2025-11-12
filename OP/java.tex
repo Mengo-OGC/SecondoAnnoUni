@@ -140,6 +140,61 @@ Per far scaricare, salvare nella home user directory, includere nel classpath a 
 	\item \inline{LICENSE} per un progetto open source come MIT o similari.
 \end{itemize}
 
+\subsection{JUnit}
+Crea classi di test tramite metodi annotati che testano scenari per asserire la correttezza del  risultato rispetto a un valore atteso.
+
+\multiline{}{}{CodiciEsempio/test.java}
+
+\begin{itemize}
+	\item Un test va a buon fine se non fallisce nessun assert (o è interrotto da \inline{return}).
+
+	\item \inline{fail()} fa fallire il test "forzatamente".
+
+	\item L'annotazione \inline{\@BeforeEach} fa eseguire un metodo prima di ogni test.
+\end{itemize}
+
+Eseguire \inline{./gradlew build} comporta il check (controlli + test(compileTestJava + compileJava)) e asseble (jar + compileJava).
+
+Le cartelle diventano: \inline{/build, /src/main, /src/test}.
+
+\subsection{JAR}
+JAR (Java ARchive) è il confezionamento di un progetto java (classi, risorse, Manifest) in un'unico file (ZIP).
+
+\textbf{Manifest}, \inline{META-INF/MANIFEST.MF}, è un file descrittivo dell'applicazione (classe con main del programma).
+
+Il JAR può essere eseguito da \inline{java} (se associato dall'os) e usato come libreria per altri progetti.
+
+\bigskip
+
+Un file JAR si crea con \inline{jar} e le opzioni \inline{c} (intenzione creare file jar), \inline{f} (indica file output, altrimenti default strout), \inline{m} (specifca MANIFEST, altrimenti default senza main start).
+
+\oneline{jar [c][f][m] nomeJar.jar [fileMANIFEST] [filesJava]}
+
+Per eseguire un JAR da CLI.
+
+\oneline{java -jar nomeJar.jar}
+
+Configurazione Gradle (\inline{build.gradle.kts}) per Fat-JAR slude 08 pag16-.
+
+\subsection{Javadoc}
+La documentazione semi-automatica (HTML) è generata dal componente \inline{javadoc} traminte una specifica sintassi dei commenti.
+
+\textbf{Sintassi}:
+I commenti del tipo \inline{/** ... */} e in testa a classi/interfacce/membri, possono contenere i tag:
+\begin{itemize}
+	\item \inline{\@param} Per costruttori/metodi/classi parametrice, ne descrive un parametro.
+	\item \inline{\@type-parameters} Per classi e metodi generici, ne descrive un parametro.
+	\item \inline{return} Per metodi, ne descrive il valore di ritorno.
+	\item  \inline{\@throws} Per costruttori/metodi, ne descrive le eccezzioni che possono essere lanciate e il loro motivo.
+	\item \inline{\@see} Linka altre entità che potrebbero interessare.
+	\item  \inline{\@deprecated} Da usare per entità deprecati (\inline{@Deprecated}).
+	\item \inline{\{\@link [nameClass]\#method\}} Link ipertestuali a entità della stesa classe o esterne.
+	\item  \inline{\{\@code ...\}} Formatta il testo monospazionandolo.
+	\item \inline{\{\@inheritDoc\}} Copia documentazione entità sovrascritta. Da usare se uso esterno rimane invariato.
+\end{itemize}
+
+\oneline{./gradlew build javadoc}
+
 \subsection{Convenzioni}
 \begin{itemize}
 	\item Linee max 90 caratteri e indenzazione 2-4 caratteri.
@@ -151,4 +206,5 @@ Per far scaricare, salvare nella home user directory, includere nel classpath a 
 	\bigskip
 	\item I metodi che returnano, senza parametri, si chiamano \inline{get...} oppure \inline{is/has...} se return boolean.
 	\item I metodi che returnano void, e accettano parametri, si chiamano \inline{set...}.
+	\item Commenti: \inline{//..., /*...*/, /** ... */}.
 \end{itemize}

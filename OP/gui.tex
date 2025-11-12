@@ -56,9 +56,9 @@ Sotto interfacce: \inline{ActionListener, ComponentListener, ContainerListener, 
  \end{itemize}
 
  \begin{center}
- 	 \begin{tikzcd}
- 		V \arrow[rr, "azioni \ utente"', bend right] &  & C \arrow[rr, "Metodi \ di \ dominio"] \arrow[ll, "richieste \ valutazione"', bend right] &  & M
- 	\end{tikzcd}
+	\begin{tikzcd}
+		V \arrow[rr, "azioni \ utente"', bend right] &  & C \arrow[rrr, "Metodi \ di \ dominio"] \arrow[ll, "richieste \ valutazione"', bend right] &  &  & M
+	\end{tikzcd}
  \end{center}
 
  \textbf{Linee Guida}: Ogni componente strutturale richiede un interfaccia (ModelInterface, ViewObserver, ViewInteface). Bisogna terenere la massima indipendenza tra i componenti. Testare ogni componente separatamente.
@@ -71,7 +71,7 @@ Sotto interfacce: \inline{ActionListener, ComponentListener, ContainerListener, 
  	\end{tikzcd}
  \end{center}
 
-\subsubsection{Come farlo?}
+\subsubsection{Roba slie BOH}
 \begin{itemize}
 	\item \inline{getProperty(p : String) : String} della classe  \inline{System} permette di accedere alle proprietà: \inline{file.separator, java.home, user.dir, user.home, user.name}.
 

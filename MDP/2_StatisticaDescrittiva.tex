@@ -126,7 +126,12 @@ In altre parole se $x$ e $y$ sono positivamente correlate allora $(x_i-\overline
 
 \osservazione{$\sigma_{x,x}=\sigma_x^2$.}
 
-\dimostrazione{d:covarianza}{$\sigma_{x,y}=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})=\frac{1}{n}\sum_{i=1}^n(x_iy_i)-x_i\overline{y}-\overline{x}y_i+\overline{xy}=\overline{xy}-\overline{x}\overline{y}-\overline{x}\overline{y}+\overline{x}\overline{y}=\overline{xy}-\overline{x}\overline{y}$.}
+\dimostrazione{d:covarianza}{\begin{align*}
+	\sigma_{x,y}&=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})\\
+	&=\frac{1}{n}\sum_{i=1}^n(x_iy_i)-x_i\overline{y}-\overline{x}y_i+\overline{xy}\\
+	&=\overline{xy}-\overline{x}\overline{y}-\overline{x}\overline{y}+\overline{x}\overline{y}\\
+	&=\overline{xy}-\overline{x}\overline{y}\\
+\end{align*}.}
 
 \definizione{Retta ai minimi quadrati}{La retta ai minimi quadratici è la retta che minizza i quadrati degli errori (cioè delle lunghezze dei segmenti verticali.)}{def:rettaMinQuad}
 

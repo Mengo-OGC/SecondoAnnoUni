@@ -212,7 +212,12 @@ Scriviamo $X\sim G(p)$.}{d:varGeom}
 \proprieta{Mancanza di memoria}{\[P(X\geqslant k+m\mid X\geqslant k)=P(X\geqslant m)\]}{d:mancMem}
 
 \dimostrazione{d:mancMem}{Sia $X\sim G(p)$. Perchè $P(X\geqslant k)$ è uguale a $(1-p)^k$, ossia i primi $k$ tentativi vanno male?
-$P(X\geqslant k+m\mid X\geqslant k)=\frac{P(X\geqslant k+m \cap X \geqslant k)}{P(X\geqslant k)}=\frac{(1-p)^{k+m}}{(1-p)^k}=(1-p)^m=P(X\geqslant m)$.}
+\begin{align*}
+	P(X\geqslant k+m\mid X\geqslant k)&=\frac{P(X\geqslant k+m \cap X \geqslant k)}{P(X\geqslant k)}\\
+	&=\frac{(1-p)^{k+m}}{(1-p)^k}\\
+	&=(1-p)^m\\
+	&=P(X\geqslant m)
+\end{align*}}
 
 \definizione{Variabili di Poisson}{Una variabile aleatoria $X$ si dice variabile di Poisson di parametro $\lambda>0$ se ha la seguente densità: \[d(k)=
 \begin{cases}
@@ -238,19 +243,20 @@ Per $n\to\infty$ la densità di $X$ tende alla densità di Poisson $P(\lambda)$.
 \dimostrazione{t:Poisson}{La densità di $X$ è
 
 \begin{align*}
-	d_x(k) &= \binom{n}{k}\left(\frac{\lambda}{n}\right)^k\left(1-\frac{\lambda}{n}\right)^{n-k}\\
+	d_X(k) &= \binom{n}{k}\left(\frac{\lambda}{n}\right)^k\left(1-\frac{\lambda}{n}\right)^{n-k}\\
 	&= \frac{n(n-1)(n-k+1)}{k!}\frac{\lambda^k}{n^k}\left(1-\frac{\lambda}{n}\right)^n\left(1-\frac{\lambda}{n}\right)^{-k}\\
-	&= \underbracket{\frac{\lambda^k}{k!}}_{e^k}\underbracket{\frac{n(n-1)\dots(n-k+1)}{n^k}}_1\underbracket{\left(1-\frac{\lambda}{n}\right)^n}_{e^{-\lambda}}\underbracket{\left(1-\frac{\lambda}{n}\right)^{-k}}_1\\
+	&=\underbracket{\frac{\lambda^k}{k!}}_{e^k}\underbracket{\frac{n(n-1)\dots(n-k+1)}{n^k}}_1\underbracket{\left(1-\frac{\lambda}{n}\right)^n}_{e^{-\lambda}}\underbracket{\left(1-\frac{\lambda}{n}\right)^{-k}}_1\\
 	&=e^\lambda e^{-\lambda}=1
 \end{align*}}
 
 \definizione{Variabili aleatorie multidimensionali}{Una v.a. n-dimensionale è data da $(X_1,\dots,X_n)$ dove $X_1,\dots,X_n$ sono variabili aleatorie.}{d:vam}
 
-\definizione{Variabile aleatoria bidimensionale}{Una variabile aleatoria bidimensionale $(X,Y)$ ha densità $d_{x,y}:\mathbb{R}^2\to\mathbb{R}$.
+\definizione{Variabile aleatoria bidimensionale}{Una variabile aleatoria bidimensionale $(X,Y)$ ha densità $d_{X,Y}:\mathbb{R}^2\to\mathbb{R}$.
 
-\[d_{x,y}(h,k)=P(X=h,Y=k)\]}{d:densitàVam2}
-La densità multi dimensionale $d_{x,y}$ si dice anche \textbf{densità congiunta}.
-La densità delle variabili $X$ e $Y$ , $d_x$ e $d_y$, si dicono \textbf{densità marginali}.
+\[d_{X,Y}(h,k)=P(X=h,Y=k)\]}{d:densitàVam2}
+La densità multi dimensionale $d_{X,Y}$ si dice anche \textbf{densità congiunta}.
+La densità delle variabili $X$ e $Y$ , $d_X$ e $d_Y$, si dicono \textbf{densità marginali}.
+
 \[
 \begin{array}{c|ccc}
 	X \backslash Y & 0 & \dots & n\\
@@ -259,17 +265,19 @@ La densità delle variabili $X$ e $Y$ , $d_x$ e $d_y$, si dicono \textbf{densit�
 	\vdots & \vdots & \ddots & \vdots\\
 	n & n_{n0} & \dots & n_{nn}\\
 \end{array}
-\begin{array}{cc}
+\quad
+\begin{aligned}
 	\\
-	=P(X=0)\\
-	=P(X=\vdots)\\
-	=P(X=n)\\
-\end{array}
+	&= P(X=0)\\
+	&= P(X=\dots)\\
+	&= P(X=n)
+\end{aligned}
 \]
 
+
 Le d.marginali sono univocamente determinabili dalla d.congiunta:
-\[d_x(h)=\sum_kd_{x,y}(h,k)\]
-\[d_y(k)=\sum_hd_{x,y}(h,k)\]
+\[d_X(h)=\sum_kd_{X,Y}(h,k)\]
+\[d_Y(k)=\sum_hd_{X,Y}(h,k)\]
 
 Le densità marginali non determinano la densità congiunta.
 
@@ -277,6 +285,52 @@ Le densità marginali non determinano la densità congiunta.
 
 \[P(X=h,Y=k)=P(X=h)P(Y=k)\]
 
-Ossia $d_{x,y}(h,k)=d_x(h)d_y(k), \forall h,k$.}{d:vaIndipendenti}
+Ossia $d_{X,Y}(h,k)=d_X(h)d_Y(k), \forall h,k\in\mathbb{R}$.}{d:vaIndipendenti}
 
-In altre parole $x$ e $y$ sono indipendenti se gli eventi $"X=h"$ e $"Y=k"$ sono indipendenti per ogni $h,k$.
+In altre parole $X$ e $Y$ sono indipendenti se gli eventi $"X=h"$ e $"Y=k"$ sono indipendenti per ogni $h,k$.
+
+\definizione{Trasformazioni di variabili}{Una trasformazione di una o più variabili aleatorie è data \[\Phi(X_1,X_2), \Phi\mathbb{R}^2\to\mathbb{R}\] oppure \[\Phi(X), \Phi\mathbb{R}\to\mathbb{R}\]}{d:trasfVart}
+
+\proprieta{F.r. di v.a. indipendenti}{Sia $X$ e $Y$ variabili indipendenti e $Z$ una trasformazione di variabile allora \[F_Z=F_X\cdot F_Y\]}{prop:frVAindip}
+Ricorda: La funzione di ripartizione di $X$, viariabile alealtoria, è $F_X(h)=P(X\leqslant h)$.
+
+\dimostrazione{prop:frVAindip}{Sia $Z=max(X,Y)$\begin{align*}
+	F_Z(k)&=P(Z\leqslant k)=P(max(X,Y)\leqslant k)\\
+	&=P(X\leqslant k, Y\leqslant k)\\
+	(indipendenza)&=P(X\leqslant k)P(Y\leqslant k)\\
+	&=F_X(k)F_Y(k)
+\end{align*}}
+
+\proprieta{Complementare f.r. di v.a. indipendenti}{Sia $X$ e $Y$ variabili indipendenti e $Z$ una trasformazione di variabile allora \[(1-F_Z(k))=(1-F_X(k))(1-F_Y(k))\]}{prop:comfrVAindp}
+
+\dimostrazione{prop:comfrVAindp}{Sia $Z=min(X,Y)$\begin{align*}
+	1-F_Z(k)&=1-P(Z\leqslant k)\\
+	&=P(Z>k)=P(min(X,Y)>k)\\
+	&=P(X>k, Y>k)\\
+	(indipendenza)&=P(X>k)P(Y>k)\\
+	&=(1-F_X(k))(1-F_Y(k))
+\end{align*}}
+
+\definizione{Densità di una Trasformazione}{Sia $X$ una variabile aleatoria e $\Phi(X), \Phi:\mathbb{R}\to\mathbb{R}$ allora la densità della trasformazione è \[d_{\Phi(X)}(k)=\sum_{h\mid \Phi(h)=k}d_X(h)\]
+
+Per una variabile bidimensionale: \[d_{\Phi(X,Y)}(k)=\sum_{i,j\mid\Phi(i,j)=k}d_{X,Y}(i,j)\]}{d:densTras}
+
+\definizione{Valore atteso}{Il valore atteso di $X$ è \[E[X]=\sum_hd_X(h)h\]
+
+Detto anche media o speranza matematica.}{d:valAtesso}
+
+\proprieta{Valore atteso}{Sia $X$ variabile aleatoria e $\Phi:\mathbb{R}\to\mathbb{R}$ allora \[E[\Phi(X)]=\sum_h\Phi(h)d_X(h)\]
+
+Analogamente \[E[\Phi(X,Y)]=\sum_{h,k}\Phi(h,k)d_{X,Y}(h,k)\]}{prop:valAtteso}
+
+\teorema{Linearità Valore Atteso}{Il valore atteso è lineare \[E[aX+bY]=aE[X]+bE[Y]\]}{teo:linVarAtt}
+
+\dimostrazione{teo:linVarAtt}{Sia $\Phi(X,Y)=aX+bY$ per la formula analoga della proprità del valore atteso.
+
+\begin{align*}
+	E[aX+bY]&=\sum_{h,k}(ah+bk)d_{X,Y}(h,k)\\
+	&=\sum_{h,k}ahd_{X,Y}(h,k)+\sum_{h,k}bkd_{X,Y}(h,k)\\
+	&=a\sum_hh\underbracket{\sum_kd_{X,Y}(h,k)}_{d_{X}(h)}+b\sum_kk\underbracket{\sum_hd_{X,Y}(h,k)}_{d_Y(k)}\\
+	&=a\sum_hhd_X(h)+b\sum_kkd_Y(k)\\
+	&=aE[X]+bE[Y]
+\end{align*}}

@@ -289,10 +289,10 @@ Ossia $d_{X,Y}(h,k)=d_X(h)d_Y(k), \forall h,k\in\mathbb{R}$.}{d:vaIndipendenti}
 
 In altre parole $X$ e $Y$ sono indipendenti se gli eventi $"X=h"$ e $"Y=k"$ sono indipendenti per ogni $h,k$.
 
-\definizione{Trasformazioni di variabili}{Una trasformazione di una o più variabili aleatorie è data \[\Phi(X_1,X_2), \Phi\mathbb{R}^2\to\mathbb{R}\] oppure \[\Phi(X), \Phi\mathbb{R}\to\mathbb{R}\]}{d:trasfVart}
+\definizione{Trasformazioni di variabili}{Una trasformazione di una o più variabili aleatorie è data \[\Phi(X_1,X_2), \Phi:\mathbb{R}^2\to\mathbb{R}\] oppure \[\Phi(X), \Phi:\mathbb{R}\to\mathbb{R}\]}{d:trasfVart}
 
 \proprieta{F.r. di v.a. indipendenti}{Sia $X$ e $Y$ variabili indipendenti e $Z$ una trasformazione di variabile allora \[F_Z=F_X\cdot F_Y\]}{prop:frVAindip}
-Ricorda: La funzione di ripartizione di $X$, viariabile alealtoria, è $F_X(h)=P(X\leqslant h)$.
+Ricorda: La funzione di ripartizione della viariabile alealtoria $X$ è $F_X(h)=P(X\leqslant h)$.
 
 \dimostrazione{prop:frVAindip}{Sia $Z=max(X,Y)$\begin{align*}
 	F_Z(k)&=P(Z\leqslant k)=P(max(X,Y)\leqslant k)\\
@@ -312,8 +312,7 @@ Ricorda: La funzione di ripartizione di $X$, viariabile alealtoria, è $F_X(h)=P
 \end{align*}}
 
 \definizione{Densità di una Trasformazione}{Sia $X$ una variabile aleatoria e $\Phi(X), \Phi:\mathbb{R}\to\mathbb{R}$ allora la densità della trasformazione è \[d_{\Phi(X)}(k)=\sum_{h\mid \Phi(h)=k}d_X(h)\]
-
-Per una variabile bidimensionale: \[d_{\Phi(X,Y)}(k)=\sum_{i,j\mid\Phi(i,j)=k}d_{X,Y}(i,j)\]}{d:densTras}
+per una variabile bidimensionale \[d_{\Phi(X,Y)}(k)=\sum_{i,j\mid\Phi(i,j)=k}d_{X,Y}(i,j)\]}{d:densTras}
 
 \definizione{Valore atteso}{Il valore atteso di $X$ è \[E[X]=\sum_hd_X(h)h\]
 
@@ -334,3 +333,52 @@ Analogamente \[E[\Phi(X,Y)]=\sum_{h,k}\Phi(h,k)d_{X,Y}(h,k)\]}{prop:valAtteso}
 	&=a\sum_hhd_X(h)+b\sum_kkd_Y(k)\\
 	&=aE[X]+bE[Y]
 \end{align*}}
+
+\corollario{1 - Linearità valore atteso}{Sia $X\sim B(n,p)$\[E[X]=np\]}{cor:linValAtt1}
+
+\dimostrazione{cor:linValAtt1}{Sia $X=X_1+\dots+X_n$ con $X_i\sim B(1,p), \forall i \in \{1,\dots,n\}$. Per esempio \[X_1=\begin{cases}
+		1 \ \text{se esistono tenteativi che danno successo}\\
+		0 \ \text{se da insuccesso}
+\end{cases}\]
+Per linearità $E[X]=E[X_1]+\dots+E[X_n]=p+\dots+p=np$.}
+
+\corollario{2 - Linearità valore atteso}{Sia $X\sim H(n,b,r)$\[E[X]=n\frac{b}{b+r}\]}{cor:linValAtt2}
+
+\dimostrazione{cor:linValAtt2}{Sia $X=X_1+\dots+X_n$ con $X_i\sim B(1,p), \forall i \in \{1,\dots,n\}$. Per esempio \[X_1=\begin{cases}
+	1 \ \text{se i-esima è blu}\\
+	0 \ \text{se i-esima è rossa}
+\end{cases}\]
+Per linearità $E[X]=E[X_1]+\dots+E[X_n]=\frac{b}{b+r}+\dots+\frac{b}{b+r}=n\frac{b}{b+r}$.}
+
+\corollario{3 - Linearità valore atteso}{Sia $X\sim P(\lambda)$\[E[X]=\lambda\]}{cor:linValAtt3}
+
+\definizione{Valore atteso di Variabile geometrica}{Sia $X\sim \tilde{G}(p)$.\[E[X]=\frac{1}{p}\]}{d:valAttVarGeom}
+
+\dimostrazione{d:valAttVarGeom}{Sapendo che $d_X(k)=p(1-p)^{k-1}$ e usando il "trucchetto" ($0<x<1$)
+
+\[\sum_{k=0}^\infty x^k=\frac{1}{1-x}\stackrel{derivo}{\to}\sum_{k=1}^\infty kx^{k-1}=\frac{1}{(1-x)^2}\]
+
+Ponendo $x=1-p$ ottengo
+
+\begin{align*}
+	E[X]&=\sum_{k=1}^\infty kp(1-p)^{k-1}\\
+	&=p\sum_{k=1}^\infty k(1-p)^{k-1}=p\frac{1}{(1-(1+p))^2}\\
+	&=\frac{1}{p}
+\end{align*}}
+
+\definizione{V.a. di Variabile geometrica modificabile}{Sia $X\sim G(p)$ ossia $X+1\sim \tilde{G}(p)$\[E[X+1]=E[X]+1=\frac{1-p}{p}\]}{d:valAttGeomMod}
+
+\definizione{Prodotto valore atteso di v.a. indipendenti}{Siano $X$ e $Y$ sono indipendenti allora \[E[XY]=E[X]E[Y]\]}{d:prodValAsoluto}
+Nota: Se $X\sim B(1,p)$ ho $E[XY]=E[X^2]=E[X]=p$. Perchè $X$ vale solo 0 o 1.
+
+\dimostrazione{d:prodValAsoluto}{Sia $\Phi(X,Y)=XY$.
+\begin{align*}
+	E[XY]&=\sum_{h,k}\Phi(h,k)d_{X,Y}(h,k)\\
+	&=\sum_{h,k}hkd_X(h)d_Y(k)\\
+	&=\sum_hhd_X(h)\sum_kkd_Y(k)\\
+	&=E[X]E[Y]
+\end{align*}}
+
+Attenzione non vale il viceversa.
+La definizione può valere anche se le v.a. non sono indipendenti ma \textbf{incorrelate}.
+

@@ -7,6 +7,7 @@
 
 	\riga{env}{Visualizza l'elenco delle variabili d'ambiente.}
 	\riga{IFS=\$' \textbackslash t \textbackslash n'}{Contiene caratteri separatori della parole negli elenchi.}
+	\riga{/dev/null}{File speciale che scarta tutto quello che gli viene scritto.}
 }
 
 \tabella{File speciali}{
@@ -216,16 +217,30 @@
 	\riga{exec \textit{\{var\}modalità file.estensione}}{Apre file e l'associa al fd scento dall'os inserito in var.}
 	\riga{exec \{n\}$>$\&-}{Chiusura di file con fd=n.}
 	\riga{exec \{\textit{var}\}$>$\&-}{Chiusura di file con fd contenuto in var.}
-	\riga{program \textit{modalità file}}{Ridirezionamento input/output.
+	\riga{program \textit{modalità file\textbar prog2 ...}}{Ridirezionamento input/output.
 	Modalità: $<$ (strin da file), $>$ (strout sovrascrive file), $>>$ (srtout accoda a file), \textbar (output prog1 è input prog2)
 
 	Per ridirezionare su uno specifico fd del programma si fa: $N>, N>>, <N$. Quando si omette si sottintende strin, strout, strerr.
 
-	Nota: Il fine file da tastiera si fa con "Ctrl+D".}
-	\riga{program \textit{modalità1 file1 modalità2 file2}}{Si possono fare contemporaneamente i ridirezionamenti I/O. L'ordine di specificazione non conta.}
-	\riga{program $0|1|2|\&>$ file \textbar $\&0|1|2$}{Ridireziona lo strin, strout e strerr del programma nel file indicato sovrascrivendo o in un altro str.
+	Nota: Il fine file da tastiera si fa con "Ctrl+D".
+
+	Si possono fare contemporaneamente i ridirezionamenti I/O. L'ordine di specificazione non conta.}
+	\riga{program $0/1/2\&>$ file \textbar $\&0/1/2$}{Ridireziona lo strin, strout e strerr del programma nel file indicato sovrascrivendo o in un altro str.
 
 	Ridirezionare simultanea in file separati: prog \textit{2$>$ fileErr $>$ fileOut}}
+	\riga{program N$>\&$M ...}{Fa puntare lo stream di N allo stesso stream di M (N e M sono fd).
+
+	Si possono fare più ridirezionamenti (fd e file, fd e fd) in simultanea. Sono eseguiti da sinistra a destra.}
+	\riga{prog1 \textbar\& prog2}{Ridireziona lo stderr nello stdout di prog1 e lo passa allo strdin di prog2.}
+	\riga{costrutto \textit{modalità file}}{Applica il ridirezionamento a tutti i comandi contenuti nel costrutto e alla condizione.}
+	\riga{program $<<$ \textit{word}}{Word specificata è delimitatore di fine input da passare al comando.
+
+	Nell'input la word deve essere a inizio di una riga con solo essa.}
+	\riga{program $<<<$ \textit{word}}{Ridireziona in input la word. Se si qouta ("...") si possono passare più dati.}
+	\riga{(cmd1;...)}{Comandi eseguiti in subshell con stdin/out/err condivisi e concatenati.
+	L'exit status è quello dell'ultimo comando eseguito.
+
+	Permette ridirigere più comandi simultaneamente.}
 }
 
 \tabella{Standard input e output}{
@@ -249,6 +264,32 @@
 	Alle variabili in eccesso viene assegnato valore vuoto.}
 }
 
+\tabella{Utilities}{
+	\riga{head -n \textit{n file}}{Mostra le prime n righe del file. Default 10.}
+	\riga{tail -n \textit{n file}}{Mostra le ultime n righe del file. Default 10.}
+	\riga{sed \textit{modlaità file}}{Modifica il testo secondo una regola. Modalità:
+	\begin{itemize}
+		\item \textbf{'s/originale/nuovo/g'} sostituisce il testo originale (o più testi orinali con [o1, o2, ...]) con quello nuovo. Con l'opzione g si dice di applicarlo per tutte le occorrenze trovate e non solo la prima.
+	\end{itemize}}
+	\riga{cut \textit{modalità file}}{Estrae colonne o intervalli di caratteri dalle righe. Modalità:
+	\begin{itemize}
+		\item \textbf{-c S-D} Prende i caratteri dall'indice S all'indice D (inclusi). S o D si possono omettere e si prende dall'inizio o dalla fine fino a S o D. L'indice parte da 1.
+
+		Posso concatenare più intervalli dividendoli con ",".
+		\item \textbf{-d '...' -fN} Divide la stringa in parole secondo il carattere delimitatore indicato poi seleziona la parola con lìindice f-ennesimo.
+	\end{itemize}}
+	\riga{cat \textit{nomeFile.estensione}}{Visualizza il contenuto del file.}
+	\riga{grep \textit{stringa} [\textit{file}]}{Filtra le righe contenenti la stringa passata (che sarà evidenziata), anche se contenuta in altre parole, dal testo che sarà successivamente scritto (termina con "Ctrl+d") o dal file passato opzionalmente.
+		\begin{itemize}
+			\item \textbf{-v} Filtra righe senza parola da evidenziare.
+			\item \textbf{-i} Disabilità il caseSensitive.
+			\item \textbf{-h o -H} Disabilita la visualizzazione del nome del file dove è avvenuta la ricerca (nel caso si cerci in più file).
+		\end{itemize}
+		Spesso usato come secondo comando di \textbar per filtrare output di altri comandi.}
+	\riga{tee}{...}
+}
+
+
 \tabella{Vari}{
 	\riga{./ \textit{comado}}{Esegue comando presente nella directory corrente (percorso relativo).
 
@@ -256,20 +297,13 @@
 	\riga{strace \textit{comando}}{Dice la sistem-call usata.}
 	\riga{clear}{Pulisce la CLI. Non modifica variabili create.}
 	\riga{which \textit{comando}}{Cerca in PATH il comando e se lo trova mostra il path in cui si trova.}
-	\riga{cat \textit{nomeFile.estensione}}{Visualizza il contenuto del file.}
 	\riga{lsmod}{Elenca tutti i moduli attivi.}
 	\riga{modinfo \textit{nomeModulo}}{Dice le informazioni sul modulo specificato.}
 	\riga{sudo modprobe \textit{nomeModulo}}{Carica il modulo specificato.}
 	\riga{history}{Visualizza comandi, numerati, precedentemente eseguiti, anche da shell precedentemente chiuse.
 
 	Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
-	\riga{grep \textit{stringa} [\textit{file}]}{Filtra le righe contenenti la stringa passata (che sarà evidenziata), anche se contenuta in altre parole, dal testo che sarà successivamente scritto (termina con "Ctrl+d") o dal file passato opzionalmente.
-	\begin{itemize}
-		\item \textbf{-v} Filtra righe senza parola da evidenziare.
-		\item \textbf{-i} Disabilità il caseSensitive.
-		\item \textbf{-h o -H} Disabilita la visualizzazione del nome del file dove è avvenuta la ricerca (nel caso si cerci in più file).
-	\end{itemize}
-	Spesso usato come secondo comando di \textbar per filtrare output di altri comandi.}
+
 	\riga{find \textit{file}}{Trova percorsi di file in sotto alberi della memoria.
 	\begin{itemize}
 		\item \textbf{-type d} Trova solo directory.

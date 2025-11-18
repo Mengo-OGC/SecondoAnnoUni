@@ -1,0 +1,98 @@
+\section{Input Output}
+
+La libreria \inline{java.io.*} fornisce il concetto di File, Stream di dati, accesso "random", Stream e serializzazione d'oggetti e lettura/scrittura di testi.
+
+\subsection{File}
+Un file è composto da contenuto informativo\footnote{Byte interpretabili come testo, programmi, strutture dati, dispositivi (nel caso si parla di file virtuale) o directory (tabelle di ID di file).} e meta-dati (id, nome, percorso (path), diritto accesso, dimensione, ecc.).
+
+La classe \inline{java.io.File} fa operare con il  file system e un file specifico (a livello di file system).
+
+Nota: Usare path relativo alla "user home", ottenibile con
+
+\oneline{System.getProperty("user.home")}
+
+Importante: \inline{File.separator} contiene il separatore di path specifico per il sistema.
+
+\subsection{Stream I/O}
+Le classe astratta \inline{java.io.InputStream, OutputStream} leggono o scrivono fulssi di byte.
+Raccolgono metodi comuni predefiniti e definiscono i metodi astratti:
+\begin{itemize}
+	\item \inline{read() : int} restituisce il byte letto (0-255) o -1 (EOF).
+	\item \inline{write(b : int) : void} considera gli 8 bit di ordine inferiore.
+\end{itemize}
+
+\subsubsection{try-with-resources}
+Costrutto che assicura chiusura oggetti \inline{AutoCloseable}. Può definire dei catch.
+
+\oneline{try (<AutoClosableObj>) \{...\} [catch (...) \{...\}]}
+
+Le classi di Stream implementano l'interfaccia \inline{Closeable}.
+
+\subsubsection{Specializzazioni Stream}
+Sono specializzabili con sotto-classi:
+\begin{itemize}
+	\item \textbf{FileInputStream, FileOutputStream}: Sotto classe Wrapper per la lettura o scrittura di file. Accettano come parametro un FileObj.
+
+	\item \textbf{ByteArrayInputStream, ByteArrayOutputStream}: Sotto classe Wrapper per la lettura o scrittura di array di byte. Accettano come parametro un array di byte.
+\end{itemize}
+
+Sono specializzabili tramite \textbf{decoration}. \inline{DataInputStream}, \inline{DataOutputStream} sono classi che implementono la rispettiva interfaccia e estendono e Wrappano le rispetti Stream.
+Permettono di leggere o scrivere tipi primitivi e stringhe.
+
+\oneline{... = new DataInputStream(InputStreamObj)}
+
+\oneline{... = new DataOutputStream(OutputStreamObj)}
+
+Le decorazioni \inline{BufferedInputStream, BufferedOutputStream} legge o scrive bufer (min 8KB) aumentando performance.
+
+\subsection{Serializzazione Oggetti}
+Un oggetto per essere serializzabile deve implementare \inline{java.io.Serializable} (non aggiunge metodi).
+
+Nota: Object non implementantdo Serializable implica che non tutti gli oggetti sono serializzabili.
+
+Le classi \inline{ObjectInputStream, ObjectOutputStream} leggono o scrivono oggetti.
+
+\oneline{... = new ObjectInputStream(InputStreamObj)}
+\oneline{... = new ObjectOutputStream(OutputStreamObj)}
+
+\begin{itemize}
+	\item \inline{writeObject(Obj)} Serializza l'oggetto scrivendo i campi, primitivi e serializzabili, sullo stream.
+
+	Non serializza oggetti già serializzati.
+	\item \inline{readObject() : Obj} Deserializza l'oggetto leggendo i campi sullo stream.
+
+	Crea l'oggetto chiamando il costruttore del primo padre non serializzabile.
+
+	Eccezioni: classe oggetto non disponibile o versione errata.
+\end{itemize}
+
+Eccezione comune: Oggetto o campo non serializzabile.
+
+\medskip
+
+\inline{transient}: modificatore applicabile hai campi che non si vuole serializzare. Il campo viene impostato col valore di default del tipo alla deserializzazione dell'oggetto.
+
+\medskip
+
+Un oggetto serializzabile può specificare la costatne \inline{serialVersionUID : long} per indicare la versione di serializzazione.
+
+\bigskip
+
+\textbf{RandomAccessFile}: Classe per modificare, aggiungere in coda, leggere specifiche porzioni di file.
+Fornisce metodi DataInput e DataOutput e altri specifici.
+
+\subsubsection{Serializzazione ad-hoc}
+Le classi serializzabili possono ridefinire/decorare la procedura di serializzazione e deserializzazione implementando
+
+\oneline{readObject(in : ObjectInputStream) : void}
+\oneline{writeObject(out : ObjectOutputStream) : void}
+
+\inline{in.defaultReadObject(), out.defaultWriteObject()} legge o scrive campi non-statici e non-transient secondo la logica di serializzazione/deserializzazione di default.
+
+Gli stream di oggetti chiameranno in automatico questi metodi.
+
+\subsection{File di testo}
+La serializzazione in testo implica una codifica (ASCII, UTP-8/16, Iso Latin) problmatica e un formato di codifica (JSON, TOML, YAML).
+
+Si usano Classi: \inline{Reader} \inline{StringReader}, \inline{BufferedReader}, \inline{InputStreamReader} e \inline{FileReader}.
+

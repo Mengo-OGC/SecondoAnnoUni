@@ -216,12 +216,22 @@ Variabili, argomenti, tipi di ritorno sono interfacce mentre le \inline{new} son
 \begin{enumerate}
 	\item \textbf{Iterator}: Oggetto usato per accedere ad'una sequenza d'elementi (presi da una sorgente di dati).
 	\multiline{}{}{CodiciEsempio/iterator.java}
-	\item ne manca uno...
 	\item \textbf{Strategy}: Un oggetto A delega a un oggetto B l'implementazione d'una strategia che poi sarà usata dall'oggetto A tramite l'oggetto B.
 	\item \textbf{Observer}: Oggetto osservatore si registra (attach) alla sorgente degli eventi per reagire a un evento specifico. Quando tale evento avviene la sorgente aziona (notify) l'osservatore che reagisce con un comportamente programmato.
 
-	\begin{figure}[h]
+	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.5\textwidth]{ObserverPattern.png}
 	\end{figure}
+	\item \textbf{Decorator}: Aggiunge/sovrascrive funzionalità di classi presistenti.
+
+	Sia A classe che implementa l'interfaccia I. Un decoratore D è una classe astratta che implementa e si compone di I.
+	D sarà implementato da più classi concrete.
+	\begin{figure}[H]
+		\centering
+	\includegraphics[width=0.5\textwidth]{patternDecorator.png}
+	\end{figure}
+	Si può usare D ogni volta che si userebbe A, ma con funzinalità in più (e comportamenti possibilmente modificati).
+
+	I decoratori si possono combinare, dando a D2 come parametro D1.
 \end{enumerate}

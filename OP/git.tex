@@ -181,7 +181,10 @@ Il commit conclude la fase di merging. Commit precompilato di un merge corretto:
 \textbf{Avanzamento veloce}: Non è un'unione di branch ma uno spostamento per allineare due branch sulle modifiche. Uno dei due branch deve essere incluso nell'altro.
 
 \subsection{Upstream branches}
-Se branch remoti e locali sono associati (sono copie dello stesso branch) il branch remoto è l'\textbf{upstream branch}, configurabile con:
+Per associare un branch remoto con uno locale (copie dello stesso branch).
+Si imposta il branch remoto come \textbf{upstream branch} del branch locale a cui punta la HEAD.
+
+Cosi possiamo vedere le morifiche avvenute in remoto su quel branch.
 
 \oneline{git branch --set-upstream-to=remote/branchName}
 

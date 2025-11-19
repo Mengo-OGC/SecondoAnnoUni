@@ -382,3 +382,134 @@ Nota: Se $X\sim B(1,p)$ ho $E[XY]=E[X^2]=E[X]=p$. Perchè $X$ vale solo 0 o 1.
 Attenzione non vale il viceversa.
 La definizione può valere anche se le v.a. non sono indipendenti ma \textbf{incorrelate}.
 
+\definizione{Varianza del valore atteso}{La varianza del valore atteso è il valore atteso dei quadrati degli scarti rispetto al valore atteso di $X$. \[\mathrm{Var}(X)=E[(X-E[X])^2]\]}{d:varValAtt}
+
+\proprieta{Semplificazione Varianza v.a.}{\[\mathrm{Var}(X)=E[X^2]-E[X]^2\]}{prop:semplvva}
+
+\dimostrazione{prop:semplvva}{
+\begin{align*}
+	\mathrm{Var}(X)&=E[(X-E[X])^2]\\
+	&=E[X^2-2E[X]X+E[X]^2]\\
+	&=E[X^2]-2E[X]E[X]+E[X]^2\\
+	&=E[X^2]-E[X]^2
+\end{align*}}
+
+\proprieta{Varianza 1}{\[\mathrm{Var}(aX)=a^2\mathrm{Var}(X)\]}{prop:var1}
+
+\dimostrazione{prop:var1}{
+\begin{align*}
+	\mathrm{Var}(aX)&=E[(aX)^2]-E[aX]^2\\
+	&=a^2E[X^2]-a^2E[X]^2\\
+	&=a^2(E[X^2]-E[X]^2)\\
+	&=a^2\mathrm{Var}(X)
+\end{align*}}
+
+\proprieta{Varianza 2}{Siano $X$ e $Y$ variabili aleatorie indipendenti. \[\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)\]}{prop:var2}
+
+\dimostrazione{prop:var2}{
+\begin{align*}
+	\mathrm{Var}(X+Y)&=E[(X+Y)^2]-E[X+Y]^2\\
+	&=E[X^2+2XY+Y^2]-(E[X]+E[Y])^2\\
+	&=\underline{E[X^2]}+\underbracket{\cancel{2E[XY]}}_{2E[X]E[Y]}+\uuline{E[Y^2]}-\underline{E[X]^2}-\cancel{2E[X]E[Y]}-\uuline{E[Y]^2}\\
+	&=\underline{\mathrm{Var}(X)}+\uuline{\mathrm{Var}(Y)}
+\end{align*}}
+
+\corollario{Varianza v.a. Binomiale}{Sia $X\sim B(n, p)$. \[\mathrm{Var}(X)=np(1-p)\]}{cor:varianza}
+
+\dimostrazione{cor:varianza}{Sia $X=X_1+\dots+X_n$ con $X_i\sim B(1,p), \forall i \in 1,\dots,N$ indipendenti. Sia la varianza di una variabile aleatoria di bernulli $p(1-p)$.
+
+\begin{align*}
+	\mathrm{Var}(X)&=\mathrm{Var}(X_1)+\dots+\mathrm{Var}(X_n)\\
+	&=p(1-p)+\dots+p(1-p)\\
+	&=np(1-p)
+\end{align*}}
+
+Attenzione: Questo ragionamento non vale per $X\sim H(n,b,r)$. Infatti in questo caso possiamo scrivere $X=X_1+\dots+X_n$ con $X\sim B(1, \frac{b}{b+r})$.
+Ma le $X_i$ sono indipendenti.
+
+Se $X\sim P(\lambda)$ ossia $X\sim B(n, \frac{\lambda}{n})$ per $n\to\infty$ si ha $\mathrm{Var}(X)=\lambda$.
+
+\teorema{Disuguaglianza di Chebyshev}{Sia $X$ una variabile aleatoria discreta, allora $\forall \epsilon>0$ \[P(|X-E[X]|>\epsilon)\leqslant\frac{\mathrm{Var}(X)}{\epsilon^2}\]}{teo:Chebyshev}
+
+\dimostrazione{teo:Chebyshev}{Sia $A="|X-E[X]|>\epsilon"$ la distanza di $X$ dal valore atteso di $\epsilon$. \[\chi_A=\begin{cases}
+	1 \ se \ A \ accade\\
+	0 \ se \ A \ non \ accade
+\end{cases}\]
+Siano $Y=\epsilon^2\chi_A$ e $Z=(X-E[X])^2$.
+Se $Y=\epsilon^2$ vuol dire che $\chi_A=1$ e quindi $|X-E[X]|>\epsilon$. Quindi $Y<Z$.
+Se $Y=0$ e quindi $Y\leqslant Z$. In tutti i casi $Y\leqslant Z$ si ha $E[Y]\leqslant E[Z]$.
+\[E[Y]=\epsilon^2P(|X-E[X]|>\epsilon)\]
+\[E[Z]=\mathrm{Var}(X)\]
+}
+
+\definizione{Convergenza}{Sia $X_1,\dots$ una successione di variabili aleatorie. Diciamo che questa successione converge in probabilità ad $l$ se $\forall \epsilon>0$\[\lim\limits_{n\to\infty}P(|X_n-l|>\epsilon)=0\]}{d:convergenza}
+
+\teorema{Legge dei grandi numeri}{Sia $X_1,\dots$ una successione di variabili aleatorie discrete aventi tutte la stessa densità e indipendenti.
+Sia $\mu=E[X_1]$.
+
+Poniamo $\overline{X_n}=\frac{X_1+\dots+X_n}{n}$. Allora la successione $\overline{X_n}$ converge in probabilità a $\mu$.}{teo:Gnum}
+
+Esempio: Lancio un dato $n$ volte e $k$ è il numero di volte in cui abbiamo ottenuto 6.
+Consideriamo $\frac{k}{n}$. Per $n$ piccolo questo rapporto può variare ma se $n$ è grande ci aspettiamo che sia vicino a $\frac{1}{6}$.
+
+\dimostrazione{teo:Gnum}{Applichiamo la disuguaglianza di Chebyshev alla variabile $\overline{X_n}$.
+\[P(|\overline{X_n}-E[\overline{X_n}]|>\epsilon)<\frac{\mathrm{Var}(\overline{X_n})}{\epsilon^2}\]
+Siano:
+\begin{enumerate}
+	\item \begin{align*}
+		E[\overline{X_n}]&=E\left[\frac{X_1+\dots+X_n}{n}\right]\\
+		&=\frac{1}{n}(E[X_1])+\dots+E[X_n]=\mu
+	\end{align*}
+	\item \begin{align*}
+		\mathrm{Var}(\overline{X_n})&=\mathrm{Var}\left(\frac{X_1+\dots+X_n}{n}\right)\\
+		&=\frac{1}{n^2}(\mathrm{Var}(X_1)+\dots+\mathrm{Var}(X_n))\\
+		&=\frac{1}{n^2}n\mathrm{Var}(X_1)=\frac{\mathrm{Var}(X_1)}{n}
+	\end{align*}
+\end{enumerate}
+
+
+Sostituendo otteniamo
+
+\[P(|\overline{X_n}-\mu|>\epsilon)<\frac{\mathrm{Var}(X_1)}{n\epsilon^2}\stackrel{n\to\infty}{\longrightarrow}0\]
+
+Ossia $\lim\limits_{n\to\infty}P(|\overline{X_n}-\mu|>\epsilon)=0$.
+}
+
+\definizione{Variabili aleatorie continue}{Una variabile aleatoria si dice continua se la funzione di ripartizione ($F_X(t)=P(X\leqslant t)$) è una funzione continua.}{d:vaContinue}
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=black, -latex, thin, solid] (-5.00,0.00) -- (5.00,0.00);
+		\node[black, anchor=south west] at (4.94,-0.75) {t};
+		\node[black, anchor=south west] at (-0.06,2.25) {1};
+		\draw[draw=black, thin, dashed] (-5.00,2.00) -- (5.00,2.00);
+		\draw[draw=lightgray, thin, solid] (-5.00,3.00) -- (-4.00,4.00);
+		\draw[draw=lightgray, thin, solid] (-5.00,2.00) -- (-3.00,4.00);
+		\draw[draw=lightgray, thin, solid] (-4.00,2.00) -- (-2.00,4.00);
+		\draw[draw=lightgray, thin, solid] (-3.00,2.00) -- (-1.00,4.00);
+		\draw[draw=lightgray, thin, solid] (-2.00,2.00) -- (0.00,4.00);
+		\draw[draw=lightgray, thin, solid] (-1.00,2.00) -- (1.00,4.00);
+		\draw[draw=lightgray, thin, solid] (0.00,2.00) -- (2.00,4.00);
+		\draw[draw=lightgray, thin, solid] (1.00,2.00) -- (3.00,4.00);
+		\draw[draw=lightgray, thin, solid] (2.00,2.00) -- (4.00,4.00);
+		\draw[draw=lightgray, thin, solid] (3.00,2.00) -- (5.00,4.00);
+		\draw[draw=lightgray, thin, solid] (4.00,2.00) -- (5.00,3.00);
+		\draw[draw=lightgray, thin, solid] (-5.00,-1.00) -- (-4.00,0.00);
+		\draw[draw=lightgray, thin, solid] (-5.00,-2.00) -- (-3.00,0.00);
+		\draw[draw=lightgray, thin, solid] (-4.00,-2.00) -- (-2.00,0.00);
+		\draw[draw=lightgray, thin, solid] (-3.00,-2.00) -- (-1.00,0.00);
+		\draw[draw=lightgray, thin, solid] (-2.00,-2.00) -- (0.00,0.00);
+		\draw[draw=lightgray, thin, solid] (-1.00,-2.00) -- (1.00,0.00);
+		\draw[draw=lightgray, thin, solid] (0.00,-2.00) -- (2.00,0.00);
+		\draw[draw=lightgray, thin, solid] (1.00,-2.00) -- (3.00,0.00);
+		\draw[draw=lightgray, thin, solid] (2.00,-2.00) -- (4.00,0.00);
+		\draw[draw=lightgray, thin, solid] (3.00,-2.00) -- (5.00,0.00);
+		\draw[draw=lightgray, thin, solid] (4.00,-2.00) -- (5.00,-1.00);
+		\draw[draw=black, -latex, thin, solid] (0.00,-2.00) -- (0.00,4.00);
+		\draw[draw=black, thin, -latex, solid] (-5.00,0.00) .. controls (-1.50, 0.00) and (1.50, 2.00) .. (5.00,2.00);
+		\node[black, anchor=south west] at (-0.06,0.25) {0};
+	\end{tikzpicture}
+\end{center}
+
+Non ci chiederemo la probabilità di valori esatti ma di intervalli.
+Nota: $F_X$ è debolmente monotona ossia $t_1<t_2, F_X(t_1)\leqslant F_X(t_2)$.

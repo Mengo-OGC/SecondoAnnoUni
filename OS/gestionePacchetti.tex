@@ -1,0 +1,96 @@
+\section{Gestione Pacchetti in Linux}
+
+\subsection{Concetti chiave}
+\begin{itemize}
+	\item \textbf{Package (.deb)}: archivio compresso di file descrivono programma e metadati del package.
+	\item \textbf{Dipendenze}: Librerie necessarie funzionamento programma.
+	\item \textbf{Repository}: Collezioni locali o remote di package in server centralizzati.
+	\item \textbf{Database locale di package}: Elenco locale dei metadati di package nei repository.
+\end{itemize}
+
+\subsection{Installazione Package}
+Interfaccia a CLI per download-installazione (risolve dipendenze e gestisce fonti), rimozione, aggiornamento, gestione di package.
+Usa \texttt{dpkg} per l'installazione vera e propria (disassembla package e installa in directory giuste) e \texttt{apt-cache} per la ricerca (usabili anche dall'utente).
+
+Assente di descrizione esecuzioni (ideale per script).
+
+\medskip
+\texttt{apt-get}
+\medskip
+
+\texttt{apt} fornisce una descrione testuale della procedura eseguita (user freandly).
+
+\begin{center}
+	\begin{tabularx}{\textwidth}{|lX|}
+		\hline
+		\rowcolor{gray!20}
+		\textbf{Comandi apt-get} & \textbf{Descrizione}\\
+		\hline
+		update & Aggiorna database locale di package. Da eseguire per primo.\\
+		upgade & Installa le nuove versioni dei package già installati.\\
+		install & Installa un package nuovo e le dipendenze.\\
+		remove & Rimuove package lasciando file configurazione.\\
+		purge & Rimuove package e file configurazione.\\
+		autoremove & Rimuove package, non più necessari, autoinstallati soddisfare dipendenze altri package.\\
+		dist-upgrade & Aggiorna la distribuzione (package e dipendenze).\\
+		clean & Cancella package dalla cache locale.\\
+		\hline
+	\end{tabularx}
+\end{center}
+Formato generico: \texttt{sudo apt-get "comando" "packageOpzionale"}
+
+Procedura Installazione Package:
+\begin{enumerate}
+	\item \texttt{sudo apt-get update} Aggiorna l'indice/database locale scaricando l'elenco aggiornato dei package e versioni dai repository.
+	\item \texttt{apt-get intall "package"} Installa il package cercandolo nel database locale e controllando le dipendenze.
+\end{enumerate}
+
+\subsubsection{Posizione Repository}
+I database locali di package sono contenuti in: \texttt{/etc/apt/sources.list} (principale), \texttt{/etc/apt/sources.list.d/} (aggiunte repository individuali).
+
+\bigskip
+
+\textbf{Formato one-line}: \texttt{deb [opzioni] URI distribuzione comp1 comp2 ...}
+\begin{itemize}
+	\item \textbf{Tipo}: Indica il tipo d'archivio.
+
+	\texttt{deb} indica package binari precompilati.
+
+	\texttt{deb-src} indica package di sorgenti.
+
+	\item \textbf{Opzioni}: La firma GPG si attua col campo dedicato che accettà il \textbf{keyring} con la public-key del mainteiner.
+
+	\texttt{signed-by="..."}
+	\item \textbf{URI}: Indirizzo del repository.
+	\item \textbf{Distribuzione}: Nome in codice della versione del OS.
+	\item \textbf{Componenti}: Definiscono il tipo di licenza (main, restricted, universe, multiverse).
+\end{itemize}
+
+Caratteristiche: chiarezza, leggibilità, facile da gestire e sicurezza esplicità.
+
+C'è anche un formato deb822 più leggibile.
+\bigskip
+
+Directory public-key: \texttt{/usr/share/keyrings/} (key di sistema), \texttt{/etc/apt/keyrings/} (key d'utente).
+
+\bigskip
+
+Il \texttt{keyrings, sources.list, sources.list.d/} sono editabili con editor con privilegio sudo o GUI specifiche.
+
+Aggiunta Manuale:
+\begin{enumerate}
+	\item Verificare esisetnza directory, scarica GPG-key (sopprime output e reindirizza allo stdout), comprimerla (ASCII in binario .gpg) e salvataggio nel keyring.
+
+	\texttt{sudo mkdir -p /etc/apt/keyrings}
+
+	\texttt{wget -qO- URI | sudo gpg --dearmor -o directory.gpg}
+
+	\item Aggiungere riferimento one-line con signed-by del repository alla directory.
+
+	\texttt{echo "FormatoOneLine" | sudo tee directory.list}
+
+	\item Aggiornamento e installazione: \texttt{sudo apt update}, \texttt{sudo apt install nomePackage}.
+\end{enumerate}
+
+
+

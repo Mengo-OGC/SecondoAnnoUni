@@ -8,6 +8,7 @@
 	\riga{env}{Visualizza l'elenco delle variabili d'ambiente.}
 	\riga{IFS=\$' \textbackslash t \textbackslash n'}{Contiene caratteri separatori della parole negli elenchi.}
 	\riga{/dev/null}{File speciale che scarta tutto quello che gli viene scritto.}
+	\riga{LC\_CTYPE}{Imposta il tipo locale dei caratteri. Usata da \texttt{cut} e \texttt{ws} per capire numero byte caratteri.}
 }
 
 \tabella{File speciali}{
@@ -267,10 +268,21 @@
 \tabella{Utilities}{
 	\riga{head -n \textit{n file}}{Mostra le prime n righe del file. Default 10.}
 	\riga{tail -n \textit{n file}}{Mostra le ultime n righe del file. Default 10.}
-	\riga{sed \textit{modlaità file}}{Modifica il testo secondo una regola. Modalità:
+
+	\riga{sed \textbf{'s/originale/nuovo/[g\textbar n];...' file}}{sostituisce il testo originale (o più testi orinali con [o1, o2, ...]) con quello nuovo, solo per la prima occorrenza. Può richiere l'opzione \texttt{-r}.
 	\begin{itemize}
-		\item \textbf{'s/originale/nuovo/g'} sostituisce il testo originale (o più testi orinali con [o1, o2, ...]) con quello nuovo. Con l'opzione g si dice di applicarlo per tutte le occorrenze trovate e non solo la prima.
-	\end{itemize}}
+		\item Con l'opzione g si applica per tutte le occorrenze in una riga oppure a "n" occorrenze.
+
+		Si possono  concatenare più sostituzione applicare sulla stessa riga.
+		\item \textbf{\^} significa inizio linea. Va all'inizio.
+		\item \textbf{\$} significa fine riga. Va alla fine.
+		\item \textbf{.} significa un carattere qualsiasi. \textbf{.\{n\}} significa n. caratteri qualsiasi. \textbf{.*} significa 0 o più caratteri qualsiasi.
+		\item \textbf{[...]} caratteri o insiemi di caratteri (a1-an) da sostituire.
+	\end{itemize}
+
+	backreference: In "originale" si specificano tra () stringhe riusabili in "nuovo" traminte \\i-esima backreference.
+	}
+
 	\riga{cut \textit{modalità file}}{Estrae colonne o intervalli di caratteri dalle righe. Modalità:
 	\begin{itemize}
 		\item \textbf{-c S-D} Prende i caratteri dall'indice S all'indice D (inclusi). S o D si possono omettere e si prende dall'inizio o dalla fine fino a S o D. L'indice parte da 1.
@@ -289,6 +301,71 @@
 	\riga{tee}{...}
 }
 
+\tabella{Process Identifier}{
+	\riga{\$\$}{Variabile espansa col PID (identificatore numerico univoco di processo) della shell corrente.
+
+	Col raggruppamento di comandi \texttt{(...; ...)} vieme espanso col PID della schell più esterna.
+	}
+	\riga{\$BASHPID}{Da in ogni caso il PID della shell corrente. Comando poco portabile.}
+	\riga{\textit{script} \&}{Lancia processo in background. Si omette ; (\& già terminatore comando).
+
+	\texttt{\$!} ha il pid del processo lanciato in bg (anche se sganciato). Non è aggiornata se faccio bg di un processo sospeso da \texttt{\^Z}.}
+	\riga{jobs}{Mostra lista procesi backgroud e sospesi con rispettivo indice di job.
+
+	Con \texttt{\%indiceJob} si gestisce il job.}
+	\riga{\^Z}{Sospende processo in foreground. Lancia il segnale SIGTSTP}
+	\riga{\^C}{Termina processo in foreground.  Lancia il segnale SIGINT.}
+	\riga{bg}{Riprende l'esecuzione di un processo sospesto ma in background. Lancia il segnale SIGCONT.}
+	\riga{fg \%n}{Riprende l'esecuzine in foreground il Job specificato. Lancia il segnale SIGCONT.}
+	\riga{kill [-valore] pid\textbar \%n [-1]}{Termina processso di PID o JobId indicato.
+
+	Manda un segnale (interruzione software per notificare evento asincrono), default SIGTERM=15. In generale un segnale è accettato solo se proviene dall'effective user e poi viene gestito/ignorato dal processo interessato. Segnale SIGKILL=9 non può essere ignorato. -l da tutti segnali lanciabili.
+
+	Con -1 si fanno terminare tutti i figli diretti della bash.
+	}
+	\riga{disown pid\textbar \%n, ...}{Sgancia jobs dalla shell. Viene sganciato ultimo job messo in bg se non si specifica nulla.
+
+	\begin{itemize}
+		\item \textbf{-r} Sgancia tutti job in running.
+		\item \textbf{-a} Sgancia tutti job in running e suspend.
+	\end{itemize}}
+	\riga{nohup \textit{script} \&}{Lancia in bg e sgancia ultimo processo messo in bg.}
+	\riga{\%\%\textbar \%+\textbar \%}{Riferisce job corrente (ultimo interrotto) in foreground o avviato in backgourd.}
+	\riga{\%-}{Riferisce penultimo job interrotto in foreground o avviato in backgourd.}
+	\riga{trap "funzione/listaComandi" segnale1,...}{Azione (funzione o lista comandi) da svolge alla ricezione di certi segnali predefiniti.
+
+	Funzione: \texttt{nomeFunzione()\{...\}}}
+	\riga{wait pid\textbar\%n, ...}{Fa attendere la shell la terminazione del processo figlio di pid o JobId indicato (o un insieme di processi). Ha exit status l'exit status dell'unico o dell'ultimo processo terminato da attendere.
+
+	Solo wait fa attendere tutti figli e da exit status 0.}
+}
+Terminologia:
+\begin{itemize}
+	\item \textbf{Processo}: Minima unità completa ed'autonoma d'elaborazione. Composto da più thread operanti in un contesto = spazio d'indirizzamento + tabella dei descrittori di file aperti.
+	\item \textbf{Gruppo di processi}: Insieme variabile di processi avviati da un processo padre.
+	\item \textbf{Terminale di controllo}: astrazione della console=video+tastiera (stdni, stdout, stderr) opzionale per un processo.
+	\item \textbf{T.c. del gruppo di processi}: terminale controllo padre ereditato dai figli, ameno di sganciamenti volontari.
+	\item  \textbf{Sessione}: Creata e legata a un terminale di controllo da una shell (leader sessione). sessionId=PID leader sessione.
+	Shell prende dal terminale di controllo stdin, stdout, stderr.
+
+	Processi figli apparteranno alla sessione, ameno di distacchi, e condividono terminale di controllo.
+
+	Un terminale è t.c. per una sola sessione alla volta. La ciusura del t.c. comporta la terminazione dei processi del gruppo (SIGHUP).
+	\item \textbf{Processo foregroud}: Controlla terminale da cui è stato lanciato (stdin collegato e impedisce esecuzione fino alla sua fine ad'altri programmi).
+
+	Uno processo foregroud alla volta.
+	\item \textbf{Processo backgroud}: Eseguito in parallelo rispetto bash madre (bash può leggere e eseguire indipendentemente). Hanno una copia fd della bash.
+
+	Terminati, ameno di sganciamento, alla chiusura del terminale della bash madre (stdin condiviso).
+
+	Più processi backgroud alla volta.
+	\item \textbf{Job control}: Componente che cambia stato processi da background a foreground e viceversa.
+	\item \textbf{Jobs}: Processi in background o figli sospesi di una shell
+	\item \textbf{Processo zombie}: Processo figlio terminato (risorse state rilasciate dall'os) di cui l'os mantiene il pcb (pid, exit status, ecc).
+
+	Del tutto eliminato quando padre fa la wait (rilascio pcb).
+	\item \textbf{Processo orfano}: Processo figlio di cui il padre è terminato senza fare wait. Viene adottato dal processo \texttt{init} (PID=1) di cui farà la wait periodicamente (rilascio pcb).
+\end{itemize}
 
 \tabella{Vari}{
 	\riga{./ \textit{comado}}{Esegue comando presente nella directory corrente (percorso relativo).

@@ -53,6 +53,7 @@ Nota: Object non implementantdo Serializable implica che non tutti gli oggetti s
 Le classi \inline{ObjectInputStream, ObjectOutputStream} leggono o scrivono oggetti.
 
 \oneline{... = new ObjectInputStream(InputStreamObj)}
+
 \oneline{... = new ObjectOutputStream(OutputStreamObj)}
 
 \begin{itemize}
@@ -85,6 +86,7 @@ Fornisce metodi DataInput e DataOutput e altri specifici.
 Le classi serializzabili possono ridefinire/decorare la procedura di serializzazione e deserializzazione implementando
 
 \oneline{readObject(in : ObjectInputStream) : void}
+
 \oneline{writeObject(out : ObjectOutputStream) : void}
 
 \inline{in.defaultReadObject(), out.defaultWriteObject()} legge o scrive campi non-statici e non-transient secondo la logica di serializzazione/deserializzazione di default.

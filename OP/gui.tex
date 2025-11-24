@@ -71,24 +71,22 @@ Sotto interfacce: \inline{ActionListener, ComponentListener, ContainerListener, 
  	\end{tikzcd}
  \end{center}
 
-\subsubsection{Roba slie BOH}
+\subsubsection{Caricamento risorse e altro}
 \begin{itemize}
 	\item \inline{getProperty(p : String) : String} della classe  \inline{System} permette di accedere alle proprietà: \inline{file.separator, java.home, user.dir, user.home, user.name}.
 
 	Proprietà di sistema: \inline{java.version, os.arch, os.name, os.version}.
 
-	\item Per dimensionare relativamente al container la gui.
-
 	\item Il locale (lingua, regione, numeri, data, valuta, ...) in java si gestisce con \inline{i18n=international} che può essere localizzato con \inline{l10n=localization}.
 
 	\item \inline{UTF-8 (java), MacRoman, ISO-(OSI-8859-1} sono i ecoding più comuni.
 
-	\item Un oggetto di \inline{ClassLoader} secondo \textit{location-independent} carica le risorse del classpath:
+	\item La classe \inline{ClassLoader} secondo \textit{location-independent} carica/legge le risorse dal classpath:
 	\begin{itemize}
-		\item \inline{ClassLoader.getSystemClassLoader();}
-		\item \inline{ClassLoader.getSystemResourceAsStream("nomeRisorsa");}
-		\item \inline{ClassLoader.getSystemResource("nomeRisorsa");}
-		\item \inline{getResource();}
+		\item \inline{ClassLoader.getSystemClassLoader() : ClassLoader} Da l'oggetto responsabile del caricamento di classi e risorse (figlio system class loader).
+		\item \inline{ClassLoader.getSystemResourceAsStream("nomeRisorsa") : InputStream} Argomento è il nome non il path.
+		\item \inline{ClassLoader.getSystemResource("nomeRisorsa") : URL} Argomento è il nome non il path.
+		\item \inline{getResource(String name) : URL}
 	\end{itemize}
 
 	\item Le impostazioni untente si salvano in una cartella, \inline{.nomeProgramma}, dell' \textbf{home forlder}. Se non presente si deve inizializzare con quelle di default tramite \inline{getResource()}.

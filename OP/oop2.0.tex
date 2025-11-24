@@ -140,3 +140,109 @@ Classi senza nome e costruttori creta al volo (Local Class di fatto) e da lì cr
 Approccio: Utile per implementare interfacce e quando si deve creare un solo oggetto.
 
 \subsection{Lambda expression}
+Funzione anonima con accesso a scope locale (non viene creato un \texttt{.class}). Prende 0, 1, più input e restituisce \inline{void} o un valore.
+
+\textbf{Dove usarla?} Dove ci si aspetta un'oggetto che implementa un'interfaccia funzionale è usabile una lambda come valore/oggetto.
+
+\oneline{(T1 x1,..., Tn xn) -> {<body>}}
+
+\oneline{(T1 x1,..., Tn xn) -> <exp>}
+
+\oneline{(x1,..., xn) -> {<body>}}
+
+\oneline{(x1,...,xn) -> <exp>}
+
+\oneline{() -> <exp>}
+
+\oneline{x -> <exp>}
+
+\subsubsection{Method reference}
+Rappresentano lambda che chiamano solamente un metodo (input=inputMetodo, output=ouputMetodo). Va specificato solo il nome del metodo.
+\begin{itemize}
+	\item \oneline{<class>::<static-method>} Metodo statico chiamato da classe.
+
+	\item \oneline{<obj>::<method>}	Metodo non statico chiamato da oggetto.
+
+	\item \oneline{<class>::<instance-method>} Metodo non statico chiamato da oggetto passato come primo parametro.
+
+	\item \oneline{<class>::new} Nuovo oggetto di classe indicata.
+\end{itemize}
+
+\subsubsection{Classe Optional}
+Classe Wrapper di T da usare ove ci si attende opzionalmente un oggetto di tipo T (collezione di 0 o 1 elementi).
+\begin{itemize}
+	\item \inline{Optional.empty()} Per impostare a 0 elementi. Usarlo per inizializzare campi potenzialmente nulli.
+
+	\item \inline{Optional.of(...)} Per impostare a un elemnto.
+
+	\item \inline{Optional.ofNullable(...)} Per impostare a un elemnto che potrebbe essere null.
+
+	\item \oneline{isPresent()} Dice se è presente o meno un elemento non null.
+
+	\item \oneline{ifPresent(...)} Esegue se è presente l'elemento.
+
+	\item \oneline{orElse(...)} Esegue se non è presente l'elemento.
+
+	\item \oneline{get()} Per ottenere l'elemento o l'eccezione uncheked NoSuchElementException o \inline{null}.
+\end{itemize}
+
+Usare \inline{Objects.requireNonNull(...)} per controllo su argomenti in ingresso.
+
+\subsubsection{Switch expressions}
+Variante dello \inline{switch} statement usabile come espressione con output il risultato del case eseguito.
+
+\multiline{}{}{CodiciEsempio/switch.java}
+
+\textbf{pattern matching}: Se \inline{var} è istanza del tipo specificato nel \inline{case} con \inline{tipo var}, posso usare \inline{var} nel corpo del \inline{case} riferendomi a \inline{var}.
+
+\subsection{Stream}
+\inline{java.util.stream} fornisce un approccio a flusso sequenziale di dati omogenei, usabili una volta sola, da cui si ottiene un'infomazione complessiva/aggregata.
+
+Interfaccie: \inline{Stream<T>}, \inline{BaseStream<X, B>}.
+
+Pipeline:
+\begin{enumerate}
+	\item Sorgente (Collection, array, I/O, funzione generatrice).
+	\begin{itemize}
+		\item \inline{Stream.empty()}
+		\item \inline{Stream.of(...)}
+		\item \inline{Stream.iterate(seedPartenza, UnaryOperatorIncremento)}
+		\item \inline{Stream.generate(Supplier)} Genera infini valori in base una regola specificata.
+		\item \inline{Stream.concat(Stream1, Stream2)}
+		\item \inline{collectionObj.stream()|parallelStream()}
+	\end{itemize}
+	\item Sequenza trasformazioni.
+	\begin{itemize}
+		\item \inline{filter(Predicate)} Fa passare solo elementi rispettano condizione.
+		\item \inline{map(Function)} Trasforma/sostituisce ogni elemento in/con un'altro.
+		\item \inline{flatMap(Function)} Trasforma ogni elemento in uno Stream e li unisce tutti.
+		\item \inline{distinct()} Elimina le ripetizioni d'elementi (non lazy).
+		\item \inline{sorted([Comparator])} Ordina crescentemente o secondo una condizione specifica (non lazy).
+		\item \inline{peek(Consumer)} Esegue un azione per ogni elemento.
+		\item \inline{limit(long)} Limita lo Stream a un numero prefissato di elementi.
+		\item \inline{skip(long)} Salta i primi n elementi.
+	\end{itemize}
+	\item Terminatore che aggrega i dati in un valore, Collection, array, Iteratore.
+	\begin{itemize}
+		\item \inline{forEach(Consumer)} Esegue un'operazione per ogni elemento.
+		\item \inline{reduce(binaryOperator)} Esegue un'operazione con tutti i valori e restituisce un'unico valore.
+		\item \inline{foreEachOrdered(Consumer)} Ordina gli elementi e poi esegue per ognuno un'operazione (non lazy).
+		\item \inline{max(Comparator)} Da il massimo elemento secondo un criterio.
+		\item \inline{min(Comparator)} Da il minimo elemento secondo un criterio.
+		\item \inline{count()} Restituisce il numero di elementi ottenuti.
+		\item \inline{anyMatch(Predicate)} Dice se un elemento è presente o no.
+		\item \inline{findAny()} Restituisce uno qualsiasi degli elementi.
+		\item \inline{collect(Collect)} Dice allo stream come raccogliere gli elementi.
+	\end{itemize}
+\end{enumerate}
+
+Caratteristiche:
+\begin{itemize}
+	\item \textbf{Dichiavarivo}: Non indica passo-passo come l'informazione viene processata.
+
+	\item \textbf{Lazy}: Dati procesati all'occorrenza e non sono memorizzati tutti assieme quando si può (no collezioni temporanee).
+
+	\item \textbf{Parallelizzabile}: Operazioni Automaticamente computabili separatamente da un set di Thread.
+\end{itemize}
+
+Nota: Stream di tipi specifici sono più performanti, ma non hanno tutte le funzionalità di uno Stream generico.

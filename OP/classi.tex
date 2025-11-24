@@ -229,3 +229,17 @@ Uso: \inline{NomeEnum.VALORE|Membro, NomeEnumObj.Membro}.
 Metodi: valueof("NOME\_VALORE"), values()[indice].
 
 Le enum possono essere innestate.
+
+\subsection{Records}
+Classe con campi immutabili, evitantdo boilerplate code\footnote{Campi privati final, costruttore a n argomenti, getters pubblici, equals, hashcode e toString usano tutti i campi}.
+
+Può implementare interfacce. Non ammette ereditarietà.
+Nel body sono ammessi metodi statici/non statici e costruttori (no campi instanza).
+
+\oneline{record nome(T1 x1, ..., Tn xn) [implements ...] {...}}
+
+\bigskip
+
+Per aggiungere istruzioni in coda al costruttore di default.
+
+\oneline{public nomeRecord {...}}

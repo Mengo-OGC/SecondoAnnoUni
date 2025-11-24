@@ -86,6 +86,14 @@ Nota: La classe che rispeccia l'interfaccia si chiama \textit{impNnomeInterfacci
 
 Nota: Le interfacce possono avere metodi statici ma non si fa.
 
+\textbf{Interfaccia funzionale}: Interfaccia con un singolo metodo non default (può avere più metodi default). \inline{@FunctionalInterface} annotazione opzionale.
+
+\subsubsection{Metodi default}
+Le interfacce possono fornire implementazioni di default, da non implementare nelle sotto classi, di metodi statici/non statici.
+
+\oneline{interface <name> \{... default <firmaMetodo>\{...\} ...\}}
+
+
 
 
 \subsection{Composizione/delegazione}

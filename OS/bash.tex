@@ -151,7 +151,7 @@
 
 			Confronto date ultima modifica file: f1 -nt f2 (f1 nuovo o f2 inesistente), f1 -ot f2 (f1 veccio o inesistente).
 			\item Operatori aritmetici: -eq (==), -ne (!=), -le ($<$=), -lt ($<$), -ge ($>$=), -gt ($>$).
-			\item Operatori lessicografici: ==, =, !=, <, <=, >=, >, -z (size==0), -n (size!=0).
+			\item Operatori lessicografici: ==, =, !=, $<$, $<$=, $>$=, $>$, -z (size==0), -n (size!=0).
 
 			-o da vero se opzione è abilitata per la shell.
 		\end{itemize}
@@ -309,12 +309,12 @@
 	\riga{\$BASHPID}{Da in ogni caso il PID della shell corrente. Comando poco portabile.}
 	\riga{\textit{script} \&}{Lancia processo in background. Si omette ; (\& già terminatore comando).
 
-	\texttt{\$!} ha il pid del processo lanciato in bg (anche se sganciato). Non è aggiornata se faccio bg di un processo sospeso da \texttt{\^Z}.}
+	\texttt{\$!} ha il pid del processo lanciato in bg (anche se sganciato). Non è aggiornata se faccio bg di un processo sospeso da \string^Z.}
 	\riga{jobs}{Mostra lista procesi backgroud e sospesi con rispettivo indice di job.
 
 	Con \texttt{\%indiceJob} si gestisce il job.}
-	\riga{\^Z}{Sospende processo in foreground. Lancia il segnale SIGTSTP}
-	\riga{\^C}{Termina processo in foreground.  Lancia il segnale SIGINT.}
+	\riga{\string^Z}{Sospende processo in foreground. Lancia il segnale SIGTSTP}
+	\riga{\string^C}{Termina processo in foreground.  Lancia il segnale SIGINT.}
 	\riga{bg}{Riprende l'esecuzione di un processo sospesto ma in background. Lancia il segnale SIGCONT.}
 	\riga{fg \%n}{Riprende l'esecuzine in foreground il Job specificato. Lancia il segnale SIGCONT.}
 	\riga{kill [-valore] pid\textbar \%n [-1]}{Termina processso di PID o JobId indicato.
@@ -323,6 +323,9 @@
 
 	Con -1 si fanno terminare tutti i figli diretti della bash.
 	}
+	\riga{killall 'nomeProc'}{Termina tutti processi con lo stesso nome o mandare a più processi uno stesso segnale. Manda SIGTERM di default.
+
+	\texttt{-r} Permette di usare le espressioni regolari.}
 	\riga{disown pid\textbar \%n, ...}{Sgancia jobs dalla shell. Viene sganciato ultimo job messo in bg se non si specifica nulla.
 
 	\begin{itemize}
@@ -339,6 +342,7 @@
 
 	Solo wait fa attendere tutti figli e da exit status 0.}
 }
+
 Terminologia:
 \begin{itemize}
 	\item \textbf{Processo}: Minima unità completa ed'autonoma d'elaborazione. Composto da più thread operanti in un contesto = spazio d'indirizzamento + tabella dei descrittori di file aperti.
@@ -367,6 +371,54 @@ Terminologia:
 	\item \textbf{Processo orfano}: Processo figlio di cui il padre è terminato senza fare wait. Viene adottato dal processo \texttt{init} (PID=1) di cui farà la wait periodicamente (rilascio pcb).
 \end{itemize}
 
+\tabella{Espansione Parametri}{
+	\riga{\$\{\textit{variabile}\%\%pattern\}}{Rimuove il più lungo suffisso.}
+	\riga{\$\{\textit{variabile}\%pattern\}}{Rimuove il più corto suffisso.}
+	\riga{\$\{\textit{variabile}\#\#pattern\}}{Rimuove il più lungo prefisso.}
+	\riga{\$\{\textit{variabile}\#pattern\}}{Rimuove il più corto prefisso.}
+	\riga{\$\{\#\textit{variabile}\}}{Restituisce il numero di byte della variabile.}
+	\riga{\$\{\textit{variabile}/pattern/string\}}{Sostituisce la prima occorrenza da sinistra del parttern con la stringa indicata.
+
+	Caratteri speciali da inserire dopo primo "/":
+	\begin{itemize}
+		\item \textbf{/}: Fa sostituire tutte sotto strighe e non solo la prima.
+		\item \textbf{\#}: Fa sostituzione solo se pattern è all'inizio.
+		\item \textbf{\%}: Fa sostituzione solo se pattern è alla fine.
+		\end{itemize}}
+	\riga{\$\{\textit{variabile}:ofset[:length]\}}{Restituisce la sotto stringa dal carattere i-esimo (ofset da 0). Opzionalmente si indica la lunghezza della sotto stringa da estrarre (length).
+
+	Sia ofset che length sono valutati aritmeticamente.}
+	\riga{\$\{!\textit{variabile}*\}}{Da le variabili il cui nome inizia col prefisso indicato.}
+}
+Danno una parte o una parte modificata (sostituiscono una parte in genere) del contenuto di una variabile. Il contenuto della variabile non viene modificato.
+
+Def. \textbf{pattern}: Stringa da matchare nel contenuto della variabile. Può contenere wildcard e variabili.
+
+\tabella{Gestione risorse}{
+	\riga{sudo apt-get update}{Aggiorna la lista locale dei pakage.}
+	\riga{sudo apt-get upgrade}{Aggiorna i package.}
+	\riga{sudo apt-get install \textit{nomepkg}}{Installa il package se è nella lista locale.
+
+	\textbf{--reinstall} Reinstalla il package sovrascrivendo l'attuale installazione.
+
+	\textbf{-y} Installa anche dipendenze necessarie.}
+	\riga{sudo apt-get purge \textit{nomepkg}}{Disinstalla il pakage e i file di configurazione.}
+	\riga{sudo apt-get autoremove}{Disinstalla package inutilizzati.}
+	\riga{aptitude search \textit{package}}{Cerca il package nella lista locale.}
+	\riga{wget \textit{risorsa}}{Scarica file dalla rete. Parametri:
+	\begin{itemize}
+		\item \textbf{-r} Scarica ricorsivamente le risorse seguendo i link.
+
+		\item \textbf{-l n} Indica di quanto addentrarsi al massimo ricorsivamente.
+
+		\item \textbf{-p} Fa scaricare tutte le risorse per visualizzazione corretta di una pagina.
+
+		\item \textbf{-k} Fa puntare i link alle pagine locali.
+
+		\item \textbf{-np} Non fa risalire alle directory superiori di quella specificata.
+	\end{itemize}}
+}
+
 \tabella{Vari}{
 	\riga{./ \textit{comado}}{Esegue comando presente nella directory corrente (percorso relativo).
 
@@ -381,10 +433,10 @@ Terminologia:
 
 	Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
 
-	\riga{find \textit{file}}{Trova percorsi di file in sotto alberi della memoria.
+	\riga{find \textit{file}}{Trova percorsi di file in sotto alberi della memoria. Parametri:
 	\begin{itemize}
 		\item \textbf{-type d} Trova solo directory.
-		\item \textbf{-tipe f} Trova solo file.
+		\item \textbf{-type f} Trova solo file.
 		\item \textbf{-maxdepth n} Limità la profondità di ricerca il numero di livelli indicato.
 		\item \textbf{-mindeph} Indica il livello minino di ricerca.
 		\item \textbf{-name "..."} Definisce un vincolo sul nome del file da trovare.

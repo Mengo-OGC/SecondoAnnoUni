@@ -130,3 +130,25 @@ Oggi firmato solo file indice di risorse  (Release.gpg) che ha versione e checks
 L'utente, scarica se non l'ha la chiave pubblica, scarica il package+firma cerifica firma con la chiave pubblica del mainteiner.
 
 Le chiavi pubbliche si possono trovare di default  nell'OS o si scaricano da canali ufficiali verificando a modo.
+
+\tabella{GPG}{
+	\riga{sha256sum \textit{nomefile[, ...]}}{Stampa una riga per ogni file pssato contenete il digest e il file separati da: '*' se file binario, ' ' se file di testo, 'U' se file universale, '\^' per bits.}
+	\riga{sha256sum -c \textit{nomeFile.sha256}}{Verifica correttezza del digest contenuto in nomeFile.sha256.
+
+	Il rispettivo nomeFile deve essere nella direcotry corrente.}
+	\riga{gpg --list-secret-keys}{Verifica disponibilità chiavi GPG.
+
+	Aggiungendo \texttt{--key-format long} si ha l'id delle chiavi.
+	}
+	\riga{gpg --gen-key}{Genera le chiavi GPG.
+
+	\texttt{gpg --full-generate-key} Maggiore configurazione.}
+	\riga{gpg --armor --detach-sign nomefile}{Crea file di firla nomefile.asc (firma detached).}
+	\riga{gpg --detach-sign nomefile}{Crea file binario nomefile.sig.}
+	\riga{gpg --clearsign nomefile}{Crea file nomefile.asc con testo e firma (firma inline).}
+	\riga{gpg --sign nomefile}{Crea file nomefile.gpg con testo e firma in binario (firma in-place).}
+	\riga{gpg --verify nomefile.arc nomefile}{Verifica firma detached.}
+	\riga{gpg --verify nomefile.gpg\textbar arc}{Verifica firma inline o incorporate.}
+	\riga{gpg --output nomefile.txt --decrypt nomefile.asc}{Verifica e estae in nomefile.txt il nomefile.asc firmato inline.}
+}
+Bisogna aver creato la cartella \texttt{.gnupg} nella home direcotry.

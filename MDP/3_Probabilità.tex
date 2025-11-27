@@ -510,5 +510,159 @@ Ossia $\lim\limits_{n\to\infty}P(|\overline{X_n}-\mu|>\epsilon)=0$.
 	\end{tikzpicture}
 \end{center}
 
-Non ci chiederemo la probabilità di valori esatti ma di intervalli.
-Nota: $F_X$ è debolmente monotona ossia $t_1<t_2, F_X(t_1)\leqslant F_X(t_2)$.
+\begin{itemize}
+	\item $F_X(t)$ è sempre debolmente monotona, ossia $t_1<t_2, F_X(t_1)\leqslant F_X(t_2)$.
+	\item Non ci chiederemo la probabilità di valori esatti ma di intervalli. \[P(a<x\leqslant b)=P(x\leqslant b)-P(x\leqslant a)\] Più $b$ è vicino ad'$a$ più la probabilità tende a 0, quindi $P(x=t)=0, \forall t \in \mathbb{R}$.
+\end{itemize}
+
+\definizione{Densità di variabile continua}{Sia $F_X(s)$ una funzione e si dice densità di $X$ se $\forall a,b\mid a<b$ si ha \[P(a<x<b)=\int_a^bf_X(s)ds\]}{d:densVarCont}
+
+L'area sotto il grafico tra $a$ e $b$ è la probabilità.
+
+\[\int_a^bf_X(s)ds=F_X(b)-F_X(a)\]
+
+$F$ è primitiva di $f$, quindi $F_X'=f_X$.
+
+\[F_X(t)=\int_{-\infty}^tf_X(s)ds\]
+
+\definizione{Densità continua uniforme}{$X$ si dice uniforme in un intervallo $[a,b]$ se la densità di $X$ è constante in $[a,b]$ e nulla al di fuori di $[a,b]$.
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=black, very thin, solid] (-1.00,0.00) -- (4.00,0.00);
+		\draw[draw=black, -latex, very thin, solid] (0.00,-1.00) -- (0.00,2.00);
+		\draw[draw=black, ultra thick, solid] (1.00,1.00) -- (3.00,1.00);
+		\draw[draw=black, ultra thick, solid] (-1.00,0.00) -- (1.00,0.00);
+		\draw[draw=black, -latex, ultra thick, solid] (3.00,0.00) -- (4.00,0.00);
+		\node[black, anchor=south west] at (0.94,-0.75) {a};
+		\node[black, anchor=south west] at (2.44,-0.75) {b};
+		\draw[draw=black, ultra thick, solid] (1.00,0.00) circle (0.1);
+		\draw[draw=black, ultra thick, solid] (3.00,0.00) circle (0.1);
+		\draw[draw=black, thin, dashed] (1.00,1.00) -- (1.00,0.00);
+		\draw[draw=black, thin, dashed] (3.00,1.00) -- (3.00,0.00);
+		\draw[draw=black, ultra thin, solid] (1.00,0.00) -- (2.00,1.00);
+		\draw[draw=black, ultra thin, solid] (2.00,0.00) -- (3.00,1.00);
+		\draw[draw=black, ultra thin, solid] (1.50,0.00) -- (2.50,1.00);
+		\draw[draw=black, ultra thin, solid] (1.00,0.50) -- (1.50,1.00);
+		\draw[draw=black, ultra thin, solid] (2.50,0.00) -- (3.00,0.50);
+		\draw[draw=black, very thin, dashed] (0.00,1.00) -- (1.00,1.00);
+		\node[black, anchor=south west] at (-1.06,1.25) {1/(b-a)};
+		\draw[draw=black, ultra thick, solid] (0.00,1.00) circle (0.1);
+		\node[black, anchor=south west] at (1.94,0.25) {1};
+	\end{tikzpicture}
+\end{center}}{d:densContUnif}
+
+\osservazione{Siccome $P(-\infty<x<+\infty)=1$ l'area compresa tra il grafico della densità e l'asse orrizontale è sempre 1.}
+
+\osservazione{$X$ è uniforme in $[a,b]$ nel senso che $\forall a_1, b_1, a_2, b_2$ con $b_1-a_1=b_2-a_2=l$. \[P(a_1<x<b_1)=P(a_2<x<b_2)=\frac{l}{b-a}\]}
+
+\mysubsection{Confronto Probabilità discretà e continua}
+\begin{align*}
+	X&\sim B(3,\frac{1}{2})\\
+	d_X(k&)=\begin{cases}
+		\frac{1}{8}\ se \ k=0,3\\
+		\frac{3}{8}\ se \ k=1,2\\
+		0\ altrimenti
+	\end{cases}
+\end{align*}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=black, -latex, thin, solid] (-6.00,0.00) -- (6.00,0.00);
+		\node[black, anchor=south west] at (5.94,-0.75) {t};
+		\draw[draw=black, -latex, thin, solid] (0.00,-2.00) -- (0.00,6.00);
+		\draw[draw=black, thin, dashed] (-6.00,4.00) -- (6.00,4.00);
+		\draw[draw=black, ultra thin, solid] (-6.00,5.00) -- (-5.00,6.00);
+		\draw[draw=black, ultra thin, solid] (-6.00,4.00) -- (-4.00,6.00);
+		\draw[draw=black, ultra thin, solid] (-5.00,4.00) -- (-3.00,6.00);
+		\draw[draw=black, ultra thin, solid] (-4.00,4.00) -- (-2.00,6.00);
+		\draw[draw=black, ultra thin, solid] (-3.00,4.00) -- (-1.00,6.00);
+		\draw[draw=black, ultra thin, solid] (-2.00,4.00) -- (0.00,6.00);
+		\draw[draw=black, ultra thin, solid] (-1.00,4.00) -- (1.00,6.00);
+		\draw[draw=black, ultra thin, solid] (0.00,4.00) -- (2.00,6.00);
+		\draw[draw=black, ultra thin, solid] (1.00,4.00) -- (3.00,6.00);
+		\draw[draw=black, ultra thin, solid] (2.00,4.00) -- (4.00,6.00);
+		\draw[draw=black, ultra thin, solid] (3.00,4.00) -- (5.00,6.00);
+		\draw[draw=black, ultra thin, solid] (4.00,4.00) -- (6.00,6.00);
+		\draw[draw=black, ultra thin, solid] (5.00,4.00) -- (6.00,5.00);
+		\draw[draw=black, ultra thin, solid] (-6.00,-1.00) -- (-5.00,0.00);
+		\draw[draw=black, ultra thin, solid] (-6.00,-2.00) -- (-4.00,0.00);
+		\draw[draw=black, ultra thin, solid] (-5.00,-2.00) -- (-3.00,0.00);
+		\draw[draw=black, ultra thin, solid] (-4.00,-2.00) -- (-2.00,0.00);
+		\draw[draw=black, ultra thin, solid] (-2.00,-2.00) -- (0.00,0.00);
+		\draw[draw=black, ultra thin, solid] (-1.00,-2.00) -- (1.00,0.00);
+		\draw[draw=black, ultra thin, solid] (0.00,-2.00) -- (2.00,0.00);
+		\draw[draw=black, ultra thin, solid] (1.00,-2.00) -- (3.00,0.00);
+		\draw[draw=black, ultra thin, solid] (2.00,-2.00) -- (4.00,0.00);
+		\draw[draw=black, ultra thin, solid] (3.00,-2.00) -- (5.00,0.00);
+		\draw[draw=black, ultra thin, solid] (4.00,-2.00) -- (6.00,0.00);
+		\draw[draw=black, ultra thin, solid] (5.00,-2.00) -- (6.00,-1.00);
+		\draw[draw=black, ultra thin, solid] (-3.00,-2.00) -- (-1.00,0.00);
+		\node[black, anchor=south west] at (-0.56,-0.75) {0};
+		\node[black, anchor=south west] at (0.44,-0.75) {1};
+		\node[black, anchor=south west] at (1.44,-0.75) {2};
+		\node[black, anchor=south west] at (2.44,-0.75) {3};
+		\node[black, anchor=south west] at (3.44,-0.75) {4};
+		\node[black, anchor=south west] at (4.44,-0.75) {5};
+		\node[black, anchor=south west] at (5.44,-0.75) {6};
+		\node[black, anchor=south west] at (-0.56,0.25) {1/8};
+		\node[black, anchor=south west] at (-0.56,1.25) {1/2};
+		\node[black, anchor=south west] at (-0.56,2.25) {7/8};
+		\node[black, anchor=south west] at (-0.56,3.25) {1};
+		\draw[draw=black, ultra thick, solid] (-6.00,0.00) -- (0.00,0.00);
+		\draw[draw=black, ultra thick, solid] (0.00,1.00) -- (1.00,1.00);
+		\draw[draw=black, ultra thick, solid] (1.00,2.00) -- (2.00,2.00);
+		\draw[draw=black, ultra thick, solid] (2.00,3.00) -- (3.00,3.00);
+		\draw[draw=black, ultra thick, solid] (3.00,4.00) -- (6.00,4.00);
+		\node[black, anchor=south west] at (0.94,0.25) {+1/8};
+		\node[black, anchor=south west] at (1.94,1.25) {+3/8};
+		\node[black, anchor=south west] at (2.94,2.25) {+3/8};
+		\node[black, anchor=south west] at (3.94,3.25) {+1/8};
+	\end{tikzpicture}
+\end{center}
+\begin{align*}
+	P(x\leqslant a)&=\int_{-\infty}^af_X(s)ds=0\\
+	P(x\leqslant1)&=1\\
+	F_X(t)&=P(X\leqslant t)=\int_a^t\frac{1}{b-a}ds=\frac{t-a}{b-a}
+\end{align*}
+\begin{center}
+		\begin{tikzpicture}
+			\draw[draw=black, -latex, thin, solid] (-7.00,0.00) -- (6.00,0.00);
+			\draw[draw=black, -latex, thin, solid] (0.00,-2.00) -- (0.00,6.00);
+			\draw[draw=black, very thin, dashed] (6.00,4.00) -- (-7.00,4.00);
+			\draw[draw=black, ultra thin, solid] (-7.00,5.00) -- (-6.00,6.00);
+			\draw[draw=black, ultra thin, solid] (-7.00,4.00) -- (-5.00,6.00);
+			\draw[draw=black, ultra thin, solid] (-6.00,4.00) -- (-4.00,6.00);
+			\draw[draw=black, ultra thin, solid] (-5.00,4.00) -- (-3.00,6.00);
+			\draw[draw=black, ultra thin, solid] (-4.00,4.00) -- (-2.00,6.00);
+			\draw[draw=black, ultra thin, solid] (-3.00,4.00) -- (-1.00,6.00);
+			\draw[draw=black, ultra thin, solid] (-2.00,4.00) -- (0.00,6.00);
+			\draw[draw=black, ultra thin, solid] (-1.00,4.00) -- (1.00,6.00);
+			\draw[draw=black, ultra thin, solid] (0.00,4.00) -- (2.00,6.00);
+			\draw[draw=black, ultra thin, solid] (1.00,4.00) -- (3.00,6.00);
+			\draw[draw=black, ultra thin, solid] (-7.00,-1.00) -- (-6.00,0.00);
+			\draw[draw=black, ultra thin, solid] (-7.00,-2.00) -- (-5.00,0.00);
+			\draw[draw=black, ultra thin, solid] (-6.00,-2.00) -- (-4.00,0.00);
+			\draw[draw=black, ultra thin, solid] (-5.00,-2.00) -- (-3.00,0.00);
+			\draw[draw=black, ultra thin, solid] (-4.00,-2.00) -- (-2.00,0.00);
+			\draw[draw=black, ultra thin, solid] (-3.00,-2.00) -- (-1.00,0.00);
+			\draw[draw=black, ultra thin, solid] (-2.00,-2.00) -- (0.00,0.00);
+			\draw[draw=black, ultra thin, solid] (-1.00,-2.00) -- (1.00,0.00);
+			\draw[draw=black, ultra thin, solid] (0.00,-2.00) -- (2.00,0.00);
+			\draw[draw=black, ultra thin, solid] (1.00,-2.00) -- (3.00,0.00);
+			\draw[draw=black, ultra thin, solid] (2.00,4.00) -- (4.00,6.00);
+			\draw[draw=black, ultra thin, solid] (3.00,4.00) -- (5.00,6.00);
+			\draw[draw=black, ultra thin, solid] (4.00,4.00) -- (6.00,6.00);
+			\draw[draw=black, ultra thin, solid] (5.00,4.00) -- (6.00,5.00);
+			\draw[draw=black, ultra thin, solid] (2.00,-2.00) -- (4.00,0.00);
+			\draw[draw=black, ultra thin, solid] (3.00,-2.00) -- (5.00,0.00);
+			\draw[draw=black, ultra thin, solid] (4.00,-2.00) -- (6.00,0.00);
+			\draw[draw=black, ultra thin, solid] (5.00,-2.00) -- (6.00,-1.00);
+			\draw[draw=black, ultra thick, solid] (0.00,0.00) circle (0.1);
+			\draw[draw=black, ultra thick, solid] (3.00,4.00) circle (0.1);
+			\draw[draw=black, ultra thick, solid] (0.00,0.00) -- (3.00,4.00);
+			\draw[draw=black, ultra thick, solid] (3.00,4.00) -- (6.00,4.00);
+			\draw[draw=black, ultra thick, solid] (-7.00,0.00) -- (0.00,0.00);
+			\node[black, anchor=south west] at (-0.56,-0.75) {0};
+			\node[black, anchor=south west] at (2.44,-0.75) {3};
+		\end{tikzpicture}
+\end{center}

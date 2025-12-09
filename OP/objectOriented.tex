@@ -3,11 +3,42 @@ Un Programma (algoritmo) risolve una classe di problemi.
 
 Un Sistema sofware fornisce varie funzionalità grazie alla cooperazione di componenti di diversa natura.
 
-Fasi processo sviluppo: \textbf{1 Analisi} che fare?, \textbf{2 Design} come farlo?, \textbf{3 Implementazione/codifica} Quale algoritmo?, \textbf{4 Post-coficia}.
-Fasi 1-2 fatte dai senior e fase 3 junior (2-3 oggi unificate). La fase 4 più impiegare fino 70\% se fase precedenti fatte male/sbrigativamente (Software crisis).
+Fasi processo sviluppo:
+\begin{enumerate}
+	\item \textbf{Analisi}: che fare?. Definisce precisamente il problema, ingegnerizza i requisiti, modellizza il dominio.
+
+	Sotto fase è interazioni col committente produce un contratto (aspetto e funzionalità).
+
+	Un analisi è corretta se persone diverse giungono alla stessa soluzione.
+	\item \textbf{Design}: come farlo? Definisce struttura software/soluzione.
+
+	\begin{itemize}
+		\item Design architetturale: Progettazione struttura complessiva dei moduli e macro relazioni.
+
+		Come per OPP? Unico diagramma di 5-12 interfacce non isolate, accompagnato da prosa dei ruoli e relazioni.
+		Seguendo Pattern MVC (thread vanno in C).
+		\item Progetto di dettaglio: Progettazione più precisa forma moduli e relazioni più importanti.
+
+		Ulteriori UML documentano progettazioni di dettaglio.
+	\end{itemize}
+
+	\item \textbf{Implementazione/codifica}: Quale algoritmo? Si realizza il sofware scegliendo le tecnologie adeguate.
+	\item \textbf{Post-coficia}: Collaudo, Manutenzione, Deployment.
+
+	Può impiegare fino 70\% se fasi precedenti fatte male/sbrigativamente (riscio Software crisis).
+\end{enumerate}
+Fasi 1-2 fatte dai senior e fase 3 junior (2-3 oggi unificate).
 Tutte fasi fattibili dalla stessa persona.
 
-Un analisi è corretta se persone diverse giungono alla stessa soluzione.
+Approcci di sviluppo:
+\begin{itemize}
+	\item \textbf{Cascata}: Fasi eseguite in ordine temporale.
+	\item \textbf{Spirale}: Fasi svolte in ordine ciclicamente.
+	\item \textbf{Fontata}: Si oscilla temporaneamente tra fase successiva/precedente.
+	\item \textbf{Agile}.
+\end{itemize}
+
+Per piccoli progetti: Porre obbietivi intermedi incrementali (prototipo, avanzato, definitivo), con approccio a cascata per ognuno.
 
 \subsection{Problem space vs Solution space}
 \begin{itemize}

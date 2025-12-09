@@ -1,0 +1,223 @@
+\section{Programmazione Multithread}
+Un applicazione \textbf{multithread} è un processo con più \textbf{thread} ossia attività di diverso tipo in esecuzione concorrente.
+
+\bigskip
+
+Benefici: Reattività, Condivisione risorse (senza replicazione), Performance, Sfruttamento architetture multiprocessore.
+
+\bigskip
+
+\textbf{Thread (filo) nel OS}: Entità leggera che rappresenta attività (Flusso di controllo) in CPU.  Caratterizzato da threadID, PC, registri, stack privato. Condivide codice, dati, risorse (del processo) con altri thread creati/eseguiti concorremente dallo stesso processo. Context switch di thread è leggero.
+
+\bigskip
+
+\textbf{Task}: Compito, a livello logico, eseguibile parzialmente/completamente concorrentamente ad'altri compiti. Associabile a un Thread. I Task possono avere dipendenze che portano la sincronizzazione tra i Thread. Un Task è decomponibile in sotto-task (\textbf{division of labor}).
+
+\bigskip
+
+\textbf{Target thread}: Thread di cui si vuole terminare l'attività prima del suo completamento. Si può fare \textbf{asynchronous cancellation} da parte di un altro thread (riscioso) oppure \textbf{deferred cancellation} da parte del thread stesso.
+
+Terminologie:
+\begin{itemize}
+	\item \textbf{Esecuzione Concorrente}: Attività in esecuzione si sovrappongono nel tempo ($a$ inizia prima che $b$ termini).
+	Possono essere eseguiti su processori diversi (logici/fisici) o lo stesso (scheduling).
+
+	\begin{itemize}
+		\item \textbf{Programmazione multithread}: Quando attività eseguite in concorrenza sono rappresentate da thread.
+	\end{itemize}
+
+	Ne deriva la Programmazione Concorrente di programmi o parti di un programma.
+	\item \textbf{Esecuzione Parallela}: Come esecuzione concorrente ma esclusivamente su processori fisicamente distinti.
+
+	Ne deriva la Programmazione Parallela di programmi o parti di un programma.
+	\item \textbf{Esecuzione Distribuita}: Come esecuzione parallela ma processori non condividono memoria (pc differenti) e comunicano via rete.
+
+	Ne deriva la Programmazione Distribuita di programmi o parti di un programma.
+	\item \textbf{Programmazione Asincrona}: Computazioni eseguite in modo asincrono (non si bloccano/attendo tra di loro).
+\end{itemize}
+
+Livelli di multithread:
+\begin{itemize}
+	\item \textbf{User thread}: Thread simulati mediante librerie apposite senza supporto diretto kernel.
+	\item \textbf{Kernel/Platform thread}: Thread forniti direttamente dal kernel.
+\end{itemize}
+
+Metodologie mappatura di User in Kernel thread:
+\begin{itemize}
+	\item \textbf{Many-to-One}: Più User associati a un Kernel thread. Gestione efficente ma rende system-call bloccanti.
+	\item \textbf{One-to-One}: Un User associato a un Kernel thread.
+	\item \textbf{Many-to-Many}: $n$ User sono associati a $m$ Kernel thread, con $n>=m$.
+\end{itemize}
+
+\subsection{Concorrenza e OOP}
+Modalità: OOP pura più Librerie multithreading, OOP estesa con astrazione di prima classe, ibrido di meccanismi abilitanti e librerie (Java).
+
+La JVM tipicamente fa un One-to-One. Con \inline{java.util.concurrent} si ha supporto esteeso per multiprogrammazione.
+
+Un programma java ha diversi, almeno uno, thread in esecuzione: main, garbage collector, profiler, debugger, ecc.
+
+Un Thread (classe/oggetto) è l'estensione della classe astratta \inline{Thread} (\inline{java.lang}) con metodo astratto \inline{run} che col pattern strategy definisce la Task del Thread.
+
+Un thread ha un nome identificativo o un id di default. Componente Attivo (non passivo come normali oggetti OOP) che incapsula stato, comportamento e controllo.
+
+Un thread può essere CPU-bound oppure I/O bound.
+
+\oneline{Thread threadObj = new EstensioneThread(["nomeThread"]);}
+
+Avvio del Tread oggetto (alloca memoria per il thread e esegue \inline{run}).
+
+\oneline{threadObj.start();}
+
+\begin{center}
+	\begin{tikzcd}
+		{} \arrow[r, "new"] & new \arrow[rr, "{start(),run()}"] &  & runnable \arrow[d, "{sleep(), wait(), I/O}"', bend right] \arrow[rr, "exit \ run()"] &  & dead \\
+		&                                   &  & blocked \arrow[u, "{end \ sleep(), wait() \ o \ I/O \ avaliable}"', bend right]      &  &
+	\end{tikzcd}
+\end{center}
+
+Per far attendere al thread corrente la terminazione di un thread.
+
+\oneline{threadDaAspettareObj.join();}
+
+Sblocca il thread corrente da metodi bloccanti lanciando l'ecezione InterruptedException.
+
+\oneline{interrupt();}
+
+Metodi utili: \inline{Thread.Sleep(ms)}, \inline{getNmae()}, \inline{isAlive()}, \inline{isInterrupted()}, \inline{Thread.currentThread()}.
+
+Per sapere numero di processori.
+
+\oneline{Runtime.getRuntime().availableProcessors();}
+
+\subsubsection{Runnable}
+Interfaccia funzionale implementabile da classi già parti di gerarchie (che quindi non può estendere \inline{Thread}).
+
+\oneline{... class MyRun implements Runnable \{ ... run() \{...\} \}}
+
+\oneline{Thread th = new Thread(new MyRun() | lambda);}
+
+Tool monitoraggio Threads: JConsole, VisualVM.
+
+\subsubsection{Volatile}
+Modificare di campo che fa leggere hai thread l'effettivo valore in memoria e non un valore in cache/stack (ottimizzazioni).
+
+\oneline{... volatile ...;}
+
+I campi \inline{int, boolean} sono atomici a livello di JVM sia in lettura che scrittura.
+
+\subsubsection{GUI reattive}
+Una GUI reattiva è gestita da un thread (EDT per Swing) in event-loop (eventi dei componenti della gui sono processati in coda).
+
+Il thread EDT deve eseguire computazioni leggere relative solo alla GUI. Si delega a nuovi thread o thread esistenti dedicati (consumatori) le computazioni.
+
+\bigskip
+
+\textbf{GUI senza corse critiche}: I componenti delle GUI sono non thread safe perchè l'EDT (unico thread che vi accede) è thread-safe. Bisogna delegare al EDT ogni interazione con la GUI.
+
+Come? Con \inline{SwingUtilities.invokeLater}, \inline{SwingUtilities.invokeAndWait} accodano il parametro \inline{Runnable} alla event-loop del EDT.
+
+\subsection{Interazione e coordinazione}
+\begin{itemize}
+	\item \textbf{Competizione}: Interazioni non volute ma necessario per corretto funzionametno Thread.
+
+	La mutua esclusione è l'accesso mutuamente esclusivo alle risorse.
+
+	La sezione critica è un blocco d'azioni da eseguire in modo mutuamente esclusivo.
+
+	\item \textbf{Cooperazione}: Interazioni volute e necessarie per corretto funzionamento Thread.
+
+	La comunicazione è lo scambio d'informazioni.
+
+	La sincronizzazione è attuata da meccanismi per forzare l'ordine temporale fra le azioni dei thread.
+\end{itemize}
+
+Nota: In Java l'accesso in memoria non da garanzie consistenza (accesso atomico) dell'accesso concorrente in R/W o solo W delle variabili (solo R non da problemi).
+Solo boolean, char, int, riferimenti ad'oggetti sono gestiti atomicamente.
+
+\subsubsection{Mutua esclusione (sincronizzazione implicità)}
+\textbf{Metodi Synchronized}: Modificare che vincola l'esecuzione ad'un solo thread per volta.
+
+\oneline{... synchronized ...}
+
+Thread automaticamente sospesi dalla JVM se richiedono esecuzione di un metodo gia in esecuzione.
+
+I metodi synchronized (dello stesso oggetto) sono mutualmente esclusivi.
+
+Implementazione: Lock associato nativamente ad ogni oggetto. Un metodo synchronized deve acquisire il lock per essere eseguito, casi:
+\begin{itemize}
+	\item Lock gia posseduto, Il richiedente viene sospende e inserisce nella entry set.
+
+	Dall'entry set secondo FIFO verrà rimosso e assegnato il lock (rilasciato per terminazione o wait del possessore) al richiedente.
+	\item Lock disponibile si acquisisce e esegue.
+\end{itemize}
+
+\bigskip
+
+\textbf{classi thread-safe}: Danno corretto comportamento sia in contesti sequenziali che multithread (no corse critiche). Come? Ogni accesso d'istanza deve essere mutualmente esclusivo, ossia ogni metodo pubblico è synchronized.
+
+Le classi non thread-sase danno un comportamento corretto solo in contesti sequenziali (riscio corse critiche in contesto multithread).
+
+\bigskip
+
+\textbf{Blocchi Synchronized}: Meccanismo dei metodi synchronized ma più fine.
+
+\oneline{synchronized (myLockObject) \{...\}}
+
+Si ha un entry set per ogni myLockObject usato (non uno d'oggetto).
+
+\subsubsection{Sincronizzazione e coordinazione}
+Si attua tramite i metodi pubblici di \inline{java.lang.Object}:
+\begin{itemize}
+	\item \textbf{wait()} Sospende il thread corrente (rilasciando il lock) fino a che un altro thread esegua, riferendosi al thread sospeso, \inline{notify()} o \inline{notifyAll()}.
+
+	wait set è l'insieme dei thread sospesi.
+
+	\item \textbf{notify()}, Risveglia uno dei thread sospesi con la wait sullo stesso oggeto.
+
+	\item \textbf{notifyAll()}, Risveglia tutti i thread sospesi con la wait sullo stesso oggetto.
+\end{itemize}
+
+Si usano se si ha il lock sull'oggetto, quindi nei metodi synchronized.
+
+\subsection{Monitor Pattern}
+Oggetto gode di mutua esclusione (metodi eseguiti solo da un thread alla volta) e sincronizzazione fra metodi tramite condition variables.
+
+Implementazioni:
+\begin{itemize}
+	\item Costrutti base = synchronized (metodi pubblici) + wait/notify/notifyAll (sincronizzare flussi metodi).
+
+
+	\item Classi libreria \inline{java.util.concurrent} = \inline{ReentrantLock} (mutua esclusione) + Condition (condition variable).
+
+	Fornisce anche: concurrent collections, synchronizers\footnote{Oggetto passivo per coordinare flusso controllo thread utilizzatori. Più usati sono Locks, Semaphores, Latches, Barriers.
+
+	Incapsulano uno stato (prosegui/bloccati) manipolabile con metodi efficenti (blocco flusso thread chiamanti).}.
+\end{itemize}
+
+\subsection{Tecniche avanzate}
+Framework \inline{Executors} permette di definire i Task tramite classi che implementano \inline{Runnnable} e \inline{Callable}.
+
+\textbf{Task}: Un executor ha il compito di eseguire i Taske e mappa più Task su 1 o più thread.
+
+\bigskip
+
+\textbf{Virtual Thread}: Implementa gli user thread, gestiti parzialmente dalla JVM (oggetti con stak). Sono usati i thread fisici come \textit{carrier} dei thread virtuali (la JVM li monta/smonta efficentemente).
+
+Vantaggio: Si possono avere un numero superiore di thread virtuali. Si disaccoppia costrutto logico progettuale dall'aspetto fisico.
+
+La JVM monta/smonta thread virtuali solo se/quando richiedono operazioni bloccanti.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{Vthread.png}
+\end{figure}
+
+\oneline{Thread.ofVirtual(...);}
+
+\bigskip
+
+\textbf{Structured Concurrency}: Da struttura alla programmazione multithread trattando gruppi di task correlati, in esecuzione su thread diversi, come unica unità lavorativa.
+
+Usa il pattern fork-join.
+
+\textbf{Programmazione ad'attori}: Interazioni sono scambi di messaggi asincroni. Un attore è un'entità attiva o autonoma e reattiva (oggetto + concorrenza).

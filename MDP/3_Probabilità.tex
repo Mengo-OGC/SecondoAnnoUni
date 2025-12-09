@@ -382,7 +382,7 @@ Nota: Se $X\sim B(1,p)$ ho $E[XY]=E[X^2]=E[X]=p$. Perchè $X$ vale solo 0 o 1.
 Attenzione non vale il viceversa.
 La definizione può valere anche se le v.a. non sono indipendenti ma \textbf{incorrelate}.
 
-\definizione{Varianza del valore atteso}{La varianza del valore atteso è il valore atteso dei quadrati degli scarti rispetto al valore atteso di $X$. \[\mathrm{Var}(X)=E[(X-E[X])^2]\]}{d:varValAtt}
+\definizione{ del valore atteso}{La varianza del valore atteso è il valore atteso dei quadrati degli scarti rispetto al valore atteso di $X$. \[\mathrm{Var}(X)=E[(X-E[X])^2]\]}{d:varValAtt}
 
 \proprieta{Semplificazione Varianza v.a.}{\[\mathrm{Var}(X)=E[X^2]-E[X]^2\]}{prop:semplvva}
 
@@ -666,3 +666,99 @@ $F$ è primitiva di $f$, quindi $F_X'=f_X$.
 			\node[black, anchor=south west] at (2.44,-0.75) {3};
 		\end{tikzpicture}
 \end{center}
+
+\definizione{Funzione di ripartizione astratta}{Una funzione $F:\mathbb{R}\to\mathbb{R}$ si dice funzione di ripartizione astratta se:
+\begin{enumerate}
+	\item $F$ è una funzione continua.
+	\item $\lim\limits_{t\to-\infty}F(t)=0, \lim\limits_{t\to+\infty}F(t)=1$.
+	\item $F_X$ è debolmente crescente, cioé $\forall t_1<t_2, F(t_1)\leqslant F(t_2)$.
+\end{enumerate}}{d:funzRipAstr}
+
+\definizione{Densità continua}{Una funzione $f_X(s)$ si dice densità continua di $X$ se $\forall a,b$ con $a<b$ si ha \[P(a<X<b)=\int_{a}^{b}f_X(s)ds\]}{d:densCont}
+
+\definizione{Densità continua astratta}{Una funzione $f:\mathbb{R}\to\mathbb{R}$ si dice densità continua astratta se:
+\begin{enumerate}
+	\item $f(s)\geqslant0,\forall s \in \mathbb{R}$.
+	\item $\int_{-\infty}^{\infty}f(s)ds=1$.
+\end{enumerate}}{d:densContAstr}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/confronto.png}
+	\caption{Descrizione}
+\end{figure}
+
+\definizione{Valore atteso di V.A. Contimua}{Il valore atteso di una variabile aletoria continua $X$ è \[E[X]=\int_{-\infty}^{\infty}sf_X(s)ds\]}{d:valAttVaCont}
+
+\osservazione{Il valore atteso di $X\sim U\{[a,b]\}$ è $\frac{a+b}{2}$.}
+
+\proprieta{Valore Atteso V.A. Continua}{
+\begin{enumerate}
+	\item E' sempre lineare \[E[aX+bY]=aE[X]+bE[y]\]
+	\item Siano $X,Y$ indipendenti, allora \[E[XY]=E[X]E[Y]\].
+	\item Sia $\Phi:\mathbb{R}\to\mathbb{R}$ una trasformazione allora \[E[\Phi(X)]=\int_{-\infty}^{\infty}\Phi(s)f_X(s)ds\].
+\end{enumerate}}{prop:vac}
+
+\definizione{Varianza V.A. Continua}{Sia $X$ una variabile aleatoria continua, allora \[\mathrm{Var}(X)=E[(X-E[X])^2]\] \[\mathrm{Var}(X)=E[X^2]-E[X]^2\]}{def:varVac}
+
+\osservazione{La varianza dipende dall'ampiezza dell'interallo.}
+
+\proprieta{Varianza V.A. Continua}{
+\begin{enumerate}
+	\item $\mathrm{Var}(aX)=a^2\mathrm{Var}(X)$.
+	\item Siano $X,Y$ indipendenti, allora \[\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)\]
+\end{enumerate}}{prop:varVac}
+
+\definizione{Variabile esponenziale}{Sia $a>0$, allora $X\sim Exp(a)$ si definisce \[f(s)=\begin{cases}
+		0 \ se \ s<0\\
+		ae^{-as} \ se \ s>0
+\end{cases}\]
+$f(s)$ è una densità continua astratta.}{d:varEsp}
+
+\[f(s)\geqslant0,\forall s\]
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=black, -latex, thin, solid] (-5.00,0.00) -- (5.00,0.00);
+		\draw[draw=black, -latex, thin, solid] (0.00,-1.00) -- (0.00,4.00);
+		\draw[draw=magenta, thin, solid] (0.00,3.00) .. controls (0.50, 0.50) and (0.50, 0.50) .. (5.00,0.00);
+		\node[black, anchor=south west] at (-0.56,-0.75) {0};
+		\node[black, anchor=south west] at (-0.56,2.25) {a};
+		\node[black, anchor=south west] at (4.44,-0.75) {t};
+		\draw[draw=black, thin, solid] (0.00,0.00) circle (0.1);
+		\draw[draw=black, thin, solid] (0.00,3.00) circle (0.1);
+		\draw[draw=magenta, thin, solid] (-5.00,0.00) -- (0.00,0.00);
+	\end{tikzpicture}
+\end{center}
+
+La funzione di ripartizione è \[F_X(t)=\int_{-\infty}^{t}f(s)ds=\begin{cases}
+	0 \ se \ t\leqslant0\\
+	1-e^{-at} \ se \ t>0
+\end{cases}\]
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=black, -latex, thin, solid] (-5.00,0.00) -- (5.00,0.00);
+		\draw[draw=black, -latex, thin, solid] (0.00,-1.00) -- (0.00,4.00);
+		\draw[draw=black, thin, dashed] (-5.00,3.00) -- (5.00,3.00);
+		\node[black, anchor=south west] at (-0.56,-0.75) {0};
+		\node[black, anchor=south west] at (-0.56,2.25) {1};
+		\draw[draw=black, thin, dashed] (0.00,0.00) circle (0.1);
+		\draw[draw=red, thin, solid] (0.00,0.00) .. controls (0.50, 2.50) and (0.50, 2.50) .. (5.00,3.00);
+		\draw[draw=red, thin, solid] (-5.00,0.00) -- (0.00,0.00);
+		\node[red, anchor=south west] at (4.44,-0.75) {t};
+	\end{tikzpicture}
+\end{center}
+
+Le variabili esponenziali hanno \textbf{mancanza di memoria} \[P(X\geqslant t+s\mid X\geqslant t)=P(X\geqslant s)\]
+
+Sapendo che $P(X\geqslant t)=1-P(X\leqslant t)=1-(1-e^{-at})=e^{-at}$ per $(t>0)$.
+
+Dimostrazione:
+\begin{align*}
+	P(X\geqslant t+s\mid X \geqslant t)&=\frac{P(X\geqslant t+s, X\geqslant t)}{P(X\geqslant t)}\\
+	&= \frac{e^{-a(t+s)}}{e^{-at}}=e^{-as}=P(X\geqslant s)
+\end{align*}
+
+Questa proprietà comporta che le variabili esponenziali modellizzano il tempo d'attesa di un fenomeno naturale.
+
+Il valore atteso è $E[X]=\frac{1}{a}$. La varianza è $\mathrm{Var}(X)=\frac{1}{a^2}$.

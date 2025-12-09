@@ -7,7 +7,9 @@
 \usepackage{tikz-cd}
 \usepackage{graphicx} % per includere immagini
 \usepackage{adjustbox}
-\usepackage[a4paper, margin=15mm]{geometry}
+\usepackage[a4paper,left=25mm, right=25mm, top=15mm, bottom=15mm]{geometry}
+\usepackage{enumitem}
+
 
 \tikzcdset{
 	scale cd/.style={
@@ -16,11 +18,11 @@
 	}
 }
 
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\hyperref[toc]{$\leftarrow$Indice}}
-\fancyhead[C]{\leftmark}
-\fancyhead[R]{\thepage/\pageref{LastPage}}
+%\pagestyle{fancy}
+%\fancyhf{}
+%\fancyhead[L]{\hyperref[toc]{$\leftarrow$Indice}}
+%\fancyhead[C]{\leftmark}
+%\fancyhead[R]{\thepage/\pageref{LastPage}}
 
 \rowcolors{2}{gray!10}{white}
 

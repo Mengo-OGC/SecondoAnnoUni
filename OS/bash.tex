@@ -1,4 +1,5 @@
 \section{Bash}
+{\small
 
 \tabella{Variabili}{
 	\riga{PATH}{V. Ambiente: Modificabile, sequenza di percorsi assoluti, divisi da ":", di directory contenenti eseguibili (lanciabili senza digitare path). Ricerca secondo ordine specificato in PATH, si ferma a primo eseguibile con nome uguale. Eventuale ErrorNotFoutd.
@@ -9,6 +10,7 @@
 	\riga{IFS=\$' \textbackslash t \textbackslash n'}{Contiene caratteri separatori della parole negli elenchi.}
 	\riga{/dev/null}{File speciale che scarta tutto quello che gli viene scritto.}
 	\riga{LC\_CTYPE}{Imposta il tipo locale dei caratteri. Usata da \texttt{cut} e \texttt{ws} per capire numero byte caratteri.}
+	\riga{strace \textit{comando}}{Dice la sistem-call usata.}
 }
 
 \tabella{File speciali}{
@@ -19,126 +21,93 @@
 }
 
 \tabella{Directory}{
-	\riga{cd \textit{percorso}}{Sposta logicamente in una diversa directory, secondo un path asssoluto o relativo.}
+	\riga{cd \textit{percorso}}{Sposta logicamente la directory corrente in quella specificata, secondo un path asssoluto o relativo.}
 	\riga{mkdir \textit{nomeDir}}{Crea una nuova directory.}
 	\riga{touch \textit{nomeFile.estensione}}{Crea un file vuoto nella dyrectory corrente.}
-	\riga{rmdir \textit{nomeDir}}{Rimuove una directory solo se è vuota.}
-	\riga{rm \textit{file\textbar dir}}{Rimuove una directory vuota o un file. Parametri:
-	\begin{itemize}
-		\item \textbf{-r} elimina ricorsivamente sotto cartelle e file.
-		\item \textbf{-f} non fa chiedere le autorizzazioni di eliminazione.
-	\end{itemize}}
+	\riga{rmdir \textit{nomeDir}}{Rimuove una directory, solo se è vuota.}
+
+	\riga{rm \textit{file\textbar dir}}{Rimuove una directory vuota o un file.}
+	\riga{rm \textit{-r file\textbar dir}}{Elimina ricorsivamente sotto cartelle e file.}
+	\riga{rm \textit{-f file\textbar dir}}{Non fa chiedere le autorizzazioni di eliminazione.}
+
 	\riga{mv file1 file2\textbar dir}{Rinomina file1 in file2 o sposta file1 nella directory specificata.}
 	\riga{cp file1 dir}{Copia file1 nella directory specificata.}
-	\riga{ls [\textit{nomefile}]}{Visualizza i files/direcotry contenuti nella directory corrente. Parametri:
-	\begin{itemize}
-		\item \textbf{-a} mosta anche file nascosti (anche ., ..).
-		\item \textbf{-l} mostra più informazioni sui files.
-		\item \textbf{-h} rende i dati più leggibili.
-		\item \textbf{-d} fa applicare il comando alla directory e non ai file.
-		\item \textbf{-R} mostra ricorsivamente contenuto sotto directory.
-	\end{itemize}
-	Se specifico un file mi dice se esiste e mi da informazioni solo di lui.}
+
+	\riga{ls [\textit{nomefile}]}{Visualizza i files/direcotry contenuti nella directory corrente.
+
+	Se specifico un file mi dice se esiste e applica le opzioni su di lui.}
+	\riga{ls -a}{Mosta anche file nascosti (anche ., ..).}
+	\riga{ls -l}{Mostra informazioni file e relativi permessi nel formato: 1°carattere tipo file (- file, d dyrectory, c collegamento seriale, b device a blocchi), 9 caratteri successivi terzine di permessi (r read,w write,x/s execute) per proprietario, gruppo, altri utenti.}
+	\riga{ls -h}{Rende i dati più leggibili.}
+	\riga{ls -d}{Fa applicare il comando alla directory stessa/specificata e non ai file.}
+	\riga{ls -R}{Mostra ricorsivamente contenuto sotto directory.}
 
 	\riga{pwd}{Visualizza il percorso assoluto, da / fino alla directory corrente.}
+	\riga{which \textit{comando}}{Cerca in PATH il comando e se lo trova mostra il path in cui si trova.}
+}
+Directory \texttt{/proc} : info sui processi, con una dir. per ogni processo attivo, create e cancellate continuamente.
+Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella sottodirectory \texttt{fd} i file descriptor aperti.
+
+\tabella{Tilde Expansion}{
+	\riga{~/...}{Tilde espansa con il percorso assoluto della home directory dell'effective user. Valido caso con solo \textbf{~} e solo \textbf{~/}.}
+	\riga{~userName/...}{Tilde e userName espansi con il percorso assoluto della home directory dell'utente specificato. Valido caso con solo \textbf{~userName/}.}
+}
+
+\tabella{Privilegi}{
+	\riga{chmod \textit{privilegi} \textit{script.sh}}{Modifica permessi file mediante formato numerico (terna 0-7). Ogni numero è la somma dei valori associati hai permessi di r(4), w(2), x/s(1). Ordine: proprietario, gruppo, altri utenti.
+
+		Può diventare un quartetto aggiungendo per primo l'identificatore numero dei privilegi di \textit{setuid, setgid, sticky bit}.}
+
+	\riga{chgrp \textit{nuovoGruppo file}}{Modifica il gruppo di appartenenza di un file.}
+
+	\riga{chown \textit{newOwner nameFile}}{Modifica il proprietario (e anche gruppo) di un file.}
+	\riga{whoami}{Dice all'utente corrente le sue informazioni.}
+	\riga{sudo \textit{comando}}{fa eseguire il comando come administratore, può essere chiesta userPass. Solo utenti gruppo sudo (gestito dall'admin) possono usarlo.}
 }
 
 \tabella{Controllo Comandi}{
-	\riga{\textbackslash}{Disabila interpretazione per il carattere successivo, andata a capo, permettendo di stamparlo.}
-	\riga{"..."}{Delimita un argomento e non fa interpretare nessun comando a eccezzione dell'espansione di variabili (\$..) e l'esecuzione di comandi.}
+	\riga{\textbackslash}{Disabila interpretazione per il carattere successivo (ex: andata a capo) permettendo di stamparlo.}
+	\riga{"..."}{Delimita un argomento e non fa interpretare nessun comando a eccezzione espansione di variabili e esecuzione di comandi.}
 	\riga{'...'}{Delimita un argomento e non fa interpretare nessun comando.}
 	\riga{\$'...'}{Espande backslash-escaped direttamente nella stringa espansa in una single-qouted stringa.
-
 	Backslash-escaped: \textbackslash a, \textbackslash e, \textbackslash f, \textbackslash r, \textbackslash v, \textbackslash', \textbackslash b, \textbackslash E, \textbackslash n, \textbackslash t, \textbackslash \textbackslash, \textbackslash", \textbackslash nnn, \textbackslash xHH, \textbackslash cn.}
+
 	\riga{pre\{s1,...\}post}{Stringa di testo racchiusa fra separatori (spazio, tab, a capo) con coppia di graffe (non precedute da \$) e senza separatori.
+	Le stringhe racchiuse dalle graffe vengono composte con il preambolo (pre) e postscritto (post), che sono opzionali.
 
-		Le stringhe racchiuse dalle graffe vengono composte con il preambolo (pre) e postscritto (post), che sono opzionali. Alternative:
+	Sono annidabili (quelle più esterne eseguite per prime).
+	Vengono eseguite prima le brace expansions delle variable expansions.}
+	\riga{pre\{$a_1..a_2$\}post}{Lettere da $a_1$ a $a_2$ nell'alfabeto.}
+	\riga{pre\{$n_1..n_2$\}post}{Numeri compresi tra $n_1$ e $n_2$.}
 
-		Sono annidabili (quelle più esterne eseguite per prime).
-		Vengono eseguite prima le brace expansions delle variable expansions.
-
-	\begin{itemize}
-			\item $a_1..a_2$ lettere da $a_1$ a $a_2$ nell'alfabeto.
-			\item $n_1..n_2$ numeri compresi tra $n_1$ e $n_2$.
-	\end{itemize}}
-	\riga{\textit{cmd1} ; ...}{Separatore di più comandi, e dei rispettivi argomenti, scritti sulla stessa riga di comando e eseguiti dopo la terminazione del precedente (lista di comandi).
-
-	L'exit status è quello dell'ultimo comando lanciato.
-
-	Se racciusi da () eseguiti in una sub-schell.}
-	\riga{\textit{cmd1} \textbar\textbar \textit{cmd2}}{Esegue cmd1 e solo se cmd1 fallisce (exit status$\ne$0) esegue cmd2.}
-	\riga{\textit{cmd1} \&\& \textit{cmd2}}{Esegue cmd1 e solo se cmd1 ha successo (exit status=0) esegue cmd2.}
-	\riga{[[...]]}{Espressione condizionale, usa \&\& e \textbar\textbar, che restituisce 0=true, altro=false.}
 	\riga{*}{Sostituito con una qualsiasi sequenza di caratteri anche vuota.}
 	\riga{?}{Sostituito con un singolo carattere (no spazio vuoto).}
-	\riga{[c1c2...]}{Sostituito con solo uno dei caratteri specificati in elenco. Alternative:
-	\begin{itemize}
-		\item $a_1..a_2$ lettere da $a_1$ a $a_2$ nell'alfabeto.
-		\item $n_1..n_2$ numeri compresi tra $n_1$ e $n_2$.
-		\item \textbf{[:digit:]} una cifra.
-		\item \textbf{[:upper:]} un carattere maiuscolo.
-		\item \textbf{[:lower:]} un carattere minuscolo.
-	\end{itemize}
-	Annidabili.}
+
+	\riga{[c1c2...]}{Sostituito con solo uno dei caratteri specificati in elenco. Annidabili.}
+	\riga{[$a_1..a_2$]}{Sostituisce con solo una lettere da $a_1$ a $a_2$ nell'alfabeto.}
+	\riga{[$n_1..n_2$]}{Sostituisce con solo un numero dei numeri compresi tra $n_1$ e $n_2$.}
+	\riga{[:digit:]}{Sostituisce con una cifra.}
+	\riga{[:upper:]}{Sostituisce con un carattere maiuscolo.}
+	\riga{[:lower:]}{Sostituisce con un carattere minuscolo.}
+	\riga{history}{Visualizza comandi, numerati, precedentemente eseguiti, anche da shell precedentemente chiuse.
+
+	Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
 }
 
-\tabella{Scripting}{
-	\riga{echo \textit{testo}}{Visualizza a video la sequenza di caratteri passata fino al primo "INVIO". Se passo \textit{"testo"} si disabilità l'interpretazione dei caratteri speciali e andate a capo.
-	\begin{itemize}
-		\item \textbf{-e} Stampa i caratteri speciali ($\backslash...$).
-		\item \textbf{-n} Non fa andare a capo.
-		\end{itemize}}
-
-	\riga{nome=\textit{valore}}{Simboli con nome e valore, stringa modificabile, alfanumerici casesensitive. No spazi prima o dopo "=". Sono d'ambiente o ex-novo locali.
-
-	Solo la bash in cui sono create le variabili le può usare. I programmi lanciati dalla bash hanno una speudocopia della bash.}
-
-	\riga{\$variabile}{Fa l'espanzione della variabile, ovvero la stostituisce con il suo contenuto.}
-	\riga{\#variabile}{Restituisce il numero di caratteri del contenuto della variabile.}
-	\riga{\$\{!variabile\}}{Fa l'espanzione della variabile che contiene il nome d'unaltra variabile con il valore di quest'ultima (riferimento indiretto).
-
-	Dalla versione 2 di bash.}
-
-	\riga{export nomevar \textbar nomevar=valore}{Variabile d'ambiente. Un shell figlia riceve una copia modificabile che non influenza variabile d'ambiente del padre.}
-	\riga{unset \textit{nomevariabile}}{Elimina una variabile esistente (vuota o no).
-
-	Quotare ("...") sempre variabili per evitare errori con variabili vuote o inesistenti.}
-	\riga{\$\{nomeVar\}}{Fa sostituire il nome della variabile con il valore. graffe opzionali se nome variabile seguito da uno spazio.}
-	\riga{\#...}{Commeto.}
-	\riga{\#!...}{Se indicato nella prima riga indica quale interprete deve eseguire lo script. Se non specificato usato quello corrente.}
-	\riga{\textit{comando1} \textbar \textit{comando2}}{pipe (speudo-file temporaneo): collega automaticamente l'output di un comando all'input di un altro. Unidirezionale sinDes.}
-	\riga{\textit{script.sh} c1...}{Sono un insieme ordinato di caratteri separati da spazi successivi al nome del programma. Sono immodificabili dopo la sostituzione dei metacaratteri (*, ?,ecc).
-
-	Riga di comando = nomeProgramma + parametri.
-	Nella riga di comando gli elementi sono indicizzati da 0 (nomeProgramma).
-	\begin{itemize}
-		\item \textbf{\$\#} Contiene il numero di parametri passati.
-		\item \textbf{\$n} Accede all'n-esimo parametro a partire da indice 0.
-		\item \textbf{\$*} Tutti argomenti concatenati e divisi da spazi.
-		\item \textbf{\$@} Vettore di argomenti quotati ("...").
-	\end{itemize}
-	I parametri \$* e \$@ sono identici se non quotati (concatenazione di argomenti separati da " "). Se quotati \$* quota tutti gli argomenti assieme mentre \$@ quota singolarmente ogni argomento.
-
-	\$@ è usato per passare parametri a comandi dentro a degli script.}
-	\riga{`comando\textbar ./script.sh`}{\textbf{Command substitution}. Sostituisce (a run-time) nella riga in cui è specificato il comando o script con l'output (stdout). Comando alternativo \$(./script.sh)}
-	\riga{\$?}{Modificato alla terminazione di ogni script, contiene l'\textit{exit status}.}
-}
-
-\tabella{Espressioni aritmetica}{
+\tabella{EXP aritmetica}{
 	\riga{((...))}{Valuta una stringa come un espressione aritmetica (+,-,*,/,\%, (), !, \&\&, \textbar\textbar) di soli interi. Racchiude un espressione più eventualmente un assegnamento. Si possono usare variabili nell'espressione (\$variabile).
-	Exit statuts 0=true, altro=false.
+		Exit statuts 0=true, altro=false.
 
-	Non contiene espressioni condizionali e comandi.
+		Non contiene espressioni condizionali e comandi.
 
-	Per le operazioni in virgola mobile usare \textbf{bc}.}
+		Per le operazioni in virgola mobile usare \textbf{bc}.}
 	\riga{\$((...))}{Come operatore ((...)) ma è concatenabile con stringhe tramite " ".}
 }
 
-\tabella{Espressioni condizionali}{
+\tabella{Conditional EXP}{
 	\riga{[[ ... ]]}{Restituisce exit status 0=true, altro=false.
-		\begin{itemize}
+		\begin{itemize}[noitemsep, topsep=0pt]
 			\item Non può contenere conmandi, word splitting, brace expansion, pathname expansion.
-
 			Non esegue assegnamenti a variabile, annidamenti di espressioni condizionali.
 			\item Può contenere variable expansion, solo \$(()), command substitution (se non genera comandi), process substitution, quote removal. Questi solo per gli operandi.
 			\item Può andare a capo.
@@ -146,7 +115,7 @@
 		\end{itemize}
 
 		Operatori unari/binari non quotabili ne generaibili da command substitution:
-		\begin{itemize}
+		\begin{itemize}[noitemsep, topsep=0pt]
 			\item Operazioni sui file: -e (esistenza), -d (cartelle), -f (file), -h (link), -r (leggibile), -s (size$>$0), -t (fd open e riferisce un terminale), -w (scrivibile), -x (eseguibile), -O (possesso effettivo utente), -G (possesso effettivo gruppo), -L (=h).
 
 			Confronto date ultima modifica file: f1 -nt f2 (f1 nuovo o f2 inesistente), f1 -ot f2 (f1 veccio o inesistente).
@@ -158,165 +127,211 @@
 
 		Versioni vecchie: [ .. ], test ... no a capo (semmai \textbackslash), -a, -o, no ().
 
-		Mettere sempre spazi prima e dopo.
+		Mettere sempre spazi prima e dopo quadre.
 	}
+
+	\riga{\textit{cmd1} \textbar\textbar \textit{cmd2}}{Esegue cmd1 e solo se cmd1 fallisce (exit status$\ne$0) esegue cmd2.}
+
+	\riga{\textit{cmd1} \&\& \textit{cmd2}}{Esegue cmd1 e solo se cmd1 ha successo (exit status=0) esegue cmd2.}
 }
 
-\tabella{Tilde Expansion}{
-	\riga{~/...}{Tilde espansa con il percorso assoluto della home directory dell'effective user. Valido caso con solo \textbf{~} e solo \textbf{~/}.}
-	\riga{~userName/...}{Tilde e userName espansi con il percorso assoluto della home directory dell'utente specificato. Valido caso con solo \textbf{~userName/}.}
-}
+\tabella{Scripting}{
+	\riga{clear}{Pulisce la CLI. Non modifica variabili create.}
+	\riga{./ \textit{comado}}{Esegue comando presente nella directory corrente (percorso relativo).
+	Alternativa è inserire il percorso relativo o aggiungere il percorso assoluto alla variabile PATH.}
 
-\tabella{Privilegi}{
-	\riga{chmod u+x \textit{script.sh}}{Modifica permessi file mediante formato numerico: u+x terna 0-7. Ogni numero è la somma dei valori associati hai permessi di r(4), w(2), x/s(1). Ordine: proprietario, gruppo, altri utenti.
+	\riga{nome=\textit{valore}}{Simboli con nome e valore, stringa modificabile, alfanumerici casesensitive. No spazi prima o dopo "=". Sono d'ambiente o ex-novo locali.
 
-	Può diventare un quartetto aggiungendo per primo l'identificatore numero dei privilegi di \textit{setuid, setgid, sticky bit}.}
-	\riga{chgrp ???}{Modifica il gruppo di appartenenza di un file.}
-	\riga{chown \textit{newOwner nameFile}}{Modifica il proprietario (e anche gruppo) di un file.}
-	\riga{ls -al \textit{nomeFile.estensione}}{Mostra permessi, anche dei file nascosti. Interpretazione: 1°carattere tipo file (- file, d dyrectory, c collegamento seriale, b device a blocchi), 9 caratteri successivi terzine di permessi (r read,w write,x/s execute) per proprietario, gruppo, altri utenti.}
-	\riga{whoami}{Dice all'utente corrente le sue informazioni.}
-	\riga{sudo \textit{comando}}{fa eseguire il comando come administratore, può essere chiesta userPass. Solo utenti gruppo sudo (gestito dall'admin) possono usarlo.}
+	Solo la bash in cui sono create le variabili le può usare. I programmi lanciati dalla bash hanno una speudocopia della bash.}
+	\riga{unset \textit{nomevariabile}}{Elimina una variabile esistente (vuota o no).
+
+	Quotare ("...") sempre variabili per evitare errori con variabili vuote o inesistenti.}
+
+	\riga{\$\{variabile\}}{Espanzione di variabile, ovvero la stostituisce con il suo contenuto. Graffe opzionali se nome variabile seguito da uno spazio.}
+	\riga{\$\{\#variabile\}}{Restituisce il numero di caratteri del contenuto della variabile.}
+	\riga{\$\{!variabile\}}{Fa l'espanzione della variabile che contiene il nome d'un altra variabile con il valore di quest'ultima (riferimento indiretto).
+
+	Dalla versione 2 di bash.}
+	\riga{\textit{cmd1} ; ...}{Separatore di più comandi, e dei rispettivi argomenti, scritti sulla stessa riga di comando e eseguiti dopo la terminazione del precedente (lista di comandi).
+
+	L'exit status è quello dell'ultimo comando lanciato.
+
+	Se racciusi da () eseguiti in una sub-schell.}
+
+	\riga{\#...}{Commeto.}
+	\riga{\#!...}{Scritto nella prima riga indica quale interprete deve eseguire lo script. Se non specificato viene usato quello corrente.}
+
+	\riga{\textit{script.sh} c1...}{I parametri sono un'insieme ordinato di caratteri separati da spazi successivi al nome del programma. Sono immodificabili dopo la sostituzione dei metacaratteri (*, ?,ecc).
+
+	Riga di comando = nomeProgramma + parametri.
+	Nella riga di comando gli elementi sono indicizzati da 0 (nomeProgramma):
+	\begin{itemize}[noitemsep, topsep=0pt]
+		\item \textbf{\$\#} Contiene il numero di parametri passati.
+		\item \textbf{\$n} Accede all'n-esimo parametro a partire da indice 0.
+		\item \textbf{\$*} Tutti argomenti concatenati e divisi da spazi.
+		\item \textbf{\$@} Vettore di argomenti quotati ("...").
+	\end{itemize}
+	I parametri \$* e \$@ sono identici se non quotati (concatenazione di argomenti separati da " "). Se quotati \$* quota tutti gli argomenti assieme mentre \$@ quota singolarmente ogni argomento.
+
+	\$@ è usato per passare parametri a comandi dentro a degli script.}
+
+	\riga{\`comando\textbar ./script.sh\`}{\textbf{Command substitution}. Sostituisce (a run-time) nella riga in cui è specificato il comando o script con l'output (stdout). Comando alternativo \$(./script.sh)}
+
+	\riga{\$?}{Modificato alla terminazione di ogni script, contiene l'\textit{exit status}.}
 }
 
 \tabella{Subshell}{
 	\riga{bash}{Crea una shell figlia (interattiva non di login).
-
 	Eredita dal padre: dir. corrente, copia variabili d'ambiente.  Non sono ereditate le variabili locali.
 
-	Creata in automatico per comandi raggruppati, script, processi in background. I comandi built-in sono  eseguiti in shell corrente/padre.
-	\begin{itemize}
-		\item \textbf{-c \textit{script.sh}} non interattiva.
-		\item \textbf{-l \textbar --login} interattiva di login.
-	\end{itemize}}
+	Creata in automatico per comandi raggruppati, script, processi in background. I comandi built-in sono  eseguiti in shell corrente/padre.}
+	\riga{bash \textit{-c script.sh}}{Crea shell non interattiva.Vi si può far eseguire uno script specificato.}
+	\riga{bash \textit{-l \textbar --login script.sh}}{Crea shell interattiva di login. Vi si può far eseguire uno script specificato.}
+	\riga{export nomevar \textbar nomevar=valore}{Crea una variabile d'ambiente. Una shell figlia ne riceve una copia modificabile che non influenza la variabile d'ambiente del padre.}
 
-	\riga{var=val comando}{Scrivendo le assegnazioni prima dell'esecuzione di un comando si creano delle var. d'ambiente solo per l'imminente subshell. Non saranno ereditate da successive subshell.}
+	\riga{var=val ... comando}{Scrivendo delle assegnazioni prima dell'esecuzione di un comando si creano delle var. d'ambiente solo per l'imminente subshell. Non saranno ereditate da successive subshell.}
 	\riga{. \textbar source \textit{script.sh}}{Esegue lo script nella shell corrente.
-
 	Utile a impostare/modificare variabili shell.
-
 	Ignorata prima riga opzionale e eseguito con interprete corrente.}
+
 	\riga{exit}{Termina bash corrente, elimina l'ambiente e sale alla padre.}
 	\riga{exit \textit{exitStatus}}{Termina lo script restituendo un valore intero [0-255] per indicarne l'esito di terminazione. 0 indica esecuzione terminata senza errori, qualcosaltro indica un'errore. Viene restituito alla shell esecutrice. }
 	\riga{top}{Mostra in tempo reale processi in esecuzione e risorse di sistema usate.}
-	\riga{ps}{Mostra i processi in esecuzione.
 
-	Con l'opzione \textit{-all} vedo più informazioni (PID, PPID,ecc).}
-	\riga{set}{Visualizza sia variabili locali che d'ambiente della shell corrente (anche funzioni di shell). I parametri [re]settano dei comportamenti della shell:
-	\begin{itemize}
-		\item \textbf{+o \textit{comando}} Disalibilita il comando (tipo history).
-		\item \textbf{-o \textit{comando}} Abilita il comando (tipo history).
-		\item \textbf{-a} Successive variabili create/modificate diverrano d'ambiente e ereditate da shell figlie. Per [ri]definire variabili locali usare \textbf{export -n \textit{variabile}}.
-		\item \textbf{+a} Successive variabili create/modificate diverrano locali e non ereditabili da shell figlie. (default).
-	\end{itemize}}
+	\riga{ps}{Mostra i processi in esecuzione.}
+	\riga{ps -all}{Mostra i processi in esecuzione con informazioni aggiuntive (PID, PPID,ecc).}
+
+	\riga{set}{Visualizza sia variabili locali che d'ambiente della shell corrente (anche funzioni di shell). I parametri [re]settano dei comportamenti della shell:}
+	\riga{set +o \textit{comando}}{Disalibilita il comando (tipo history).}
+	\riga{set -o \textit{comando}}{Abilita il comando (tipo history).}
+	\riga{set -a}{Successive variabili create/modificate diverrano d'ambiente e ereditate da shell figlie. Per [ri]definire variabili locali usare \textbf{export -n \textit{variabile}}.}
+	\riga{set +a}{Successive variabili create/modificate diverrano locali (non ereditabili da shell figlie), modalità di default.}
+}
+
+\tabella{File Descriptor}{
+	\riga{\$\$}{Variabile con PID della shell corrente. Utile per esplorare /proc/ e fd vari processi.}
+	\riga{exec \textit{\{n\}modalità file.est}}{Apre file e l'associa al fd scento dall'utente (n). Modalità: $<$ (lettura), $>$ (scrittura), $>>$ (aggiungi in coda), $<>$ (lettura e scrittura).}
+	\riga{exec \textit{\{var\}modalità file.est}}{Apre file e l'associa al fd scento dall'os inserito in var.}
+	\riga{exec \{n\}$>$\&-}{Chiusura di file con fd=n.}
+	\riga{exec \{\textit{var}\}$>$\&-}{Chiusura di file con fd contenuto in var.}
 }
 
 \tabella{Uso File Descriptor}{
-	\riga{\$\$}{Variabile con PID della shell corrente. Utile per esplofare /proc/ e fd vari processi.}
-	\riga{exec \textit{\{n\}modalità file.estensione}}{Apre file e l'associa al fd scento dall'utente (n).
+	\riga{program \textit{modalità file\textbar prog2 ...}}{Ridirezionamento std di program.
+	Modalità: $<$ (strin da file), $>$ (strout sovrascrive file), $>>$ (srtout accoda a file).
 
-	Modalità: $<$ (lettura), $>$ (scrittura), $>>$ (aggiungi in coda), $<>$ (lettura e scrittura).}
-	\riga{exec \textit{\{var\}modalità file.estensione}}{Apre file e l'associa al fd scento dall'os inserito in var.}
-	\riga{exec \{n\}$>$\&-}{Chiusura di file con fd=n.}
-	\riga{exec \{\textit{var}\}$>$\&-}{Chiusura di file con fd contenuto in var.}
-	\riga{program \textit{modalità file\textbar prog2 ...}}{Ridirezionamento input/output.
-	Modalità: $<$ (strin da file), $>$ (strout sovrascrive file), $>>$ (srtout accoda a file), \textbar (output prog1 è input prog2)
+	Possibili più ridirezionamenti contemporaneamente (ordine non conta).
+	Il fine file da tastiera si fa con "Ctrl+D".}
+	\riga{program \textit{modalità}+fs file\textbar prog2 ...}{Ridirezionare su specifico fd N del program.
+		Modalità: N$>$, N$>>$, $<$N.
+	}
 
-	Per ridirezionare su uno specifico fd del programma si fa: $N>, N>>, <N$. Quando si omette si sottintende strin, strout, strerr.
+	\riga{program 0/1/2/\&$>$ file\textbar\&0/1/2}{Ridireziona lo std (\&=stdout+stderr) indicato di program nel file indicato sovrascrivendo o in un altro str.}
 
-	Nota: Il fine file da tastiera si fa con "Ctrl+D".
-
-	Si possono fare contemporaneamente i ridirezionamenti I/O. L'ordine di specificazione non conta.}
-	\riga{program $0/1/2\&>$ file \textbar $\&0/1/2$}{Ridireziona lo strin, strout e strerr del programma nel file indicato sovrascrivendo o in un altro str.
-
-	Ridirezionare simultanea in file separati: prog \textit{2$>$ fileErr $>$ fileOut}}
-	\riga{program N$>\&$M ...}{Fa puntare lo stream di N allo stesso stream di M (N e M sono fd).
-
+	\riga{program N$>$\&M ...}{Fa puntare lo stream di N allo stesso stream di M (N e M sono fd).
 	Si possono fare più ridirezionamenti (fd e file, fd e fd) in simultanea. Sono eseguiti da sinistra a destra.}
+	\riga{\textit{prog1}\textbar \textit{prog2}}{pipe: collega stdout di prog1 allo stdin di prog2 (usa speudo-file temporaneo). Unidirezionale sinDes.}
 	\riga{prog1 \textbar\& prog2}{Ridireziona lo stderr nello stdout di prog1 e lo passa allo strdin di prog2.}
 	\riga{costrutto \textit{modalità file}}{Applica il ridirezionamento a tutti i comandi contenuti nel costrutto e alla condizione.}
 	\riga{program $<<$ \textit{word}}{Word specificata è delimitatore di fine input da passare al comando.
-
 	Nell'input la word deve essere a inizio di una riga con solo essa.}
 	\riga{program $<<<$ \textit{word}}{Ridireziona in input la word. Se si qouta ("...") si possono passare più dati.}
 	\riga{(cmd1;...)}{Comandi eseguiti in subshell con stdin/out/err condivisi e concatenati.
 	L'exit status è quello dell'ultimo comando eseguito.
-
 	Permette ridirigere più comandi simultaneamente.}
 }
 
 \tabella{Standard input e output}{
-	\riga{read \textit{var}}{Legge dallo stdin o file una sequenze di caratteri (fino all'INVIO o a capo) e la inserisce nella variabile passata. Ingnora spazi e tabultazioni inizio e fine riga (amenoche si setti IFS="").
+	\riga{read \textit{var}}{Legge dallo stdin o file una sequenze di caratteri (fino all'INVIO o a capo) e la inserisce nella variabile passata. Ingnora spazi e tabultazioni inizio e fine riga (ameno che si setti IFS="").
 
 	Exit status 0=lettura eseguita, $>$0=eof (var="") o ultima riga senza \textbackslash n (var="ultimi caratteri"). Necessario controllo con \#var.
 
-	Parametri che considerano spazi e tabulazioni:
-	\begin{itemize}
-		\item \textbf{-n numero} Numero massimo di caratteri da leggere.
+	Una read parte dalla riga precedente, se non era stata finità di leggere (fino a \textbackslash n).}
 
-		\item \textbf{-N numero} Numero esattto di caratteri da leggere.
+	\riga{read \textit{-u \$\{\textit{var1}\} var}}{Leggere dal file descriptor var1.}
 
-		Considera \textbackslash n come semplice carattero. Usa prossime righe se attuale ha caratteri insufficente.
-	\end{itemize}
-	Una read parte dalla riga precedente, se non era stata finità di leggere (fino a \textbackslash n).
+	\riga{read \textit{-n numero var}}{Numero massimo di caratteri da leggere.(Considera spazi e tabulazioni).}
+	\riga{read \textit{-N numero var}}{Numero esatto di caratteri da leggere.(Considera spazi e tabulazioni).
+	Considera \textbackslash n come semplice carattero. Usa prossime righe se attuale ha caratteri insufficente.}
 
-	Il parametro \textbf{-u \$\{\textit{var}\}} fa leggere dal file di file descriptor in var.}
 	\riga{read \textit{var1 ...}}{Alle variabili viene assegnata i-esima parola della riga tranne per l'ultima variabile che riceve la stringa rimanente.
 
 	Alle variabili in eccesso viene assegnato valore vuoto.}
+	\riga{echo \textit{testo}}{Visualizza a video la sequenza di caratteri passata fino al primo "INVIO". Se quoto l'input si disabilità l'interpretazione dei caratteri speciali e andate a capo.}
+	\riga{echo \textit{-e testo}}{Stampa i caratteri speciali ($\backslash...$).}
+	\riga{echo \textit{-n testo}}{Non fa andare a capo.}
 }
 
 \tabella{Utilities}{
 	\riga{head -n \textit{n file}}{Mostra le prime n righe del file. Default 10.}
 	\riga{tail -n \textit{n file}}{Mostra le ultime n righe del file. Default 10.}
 
-	\riga{sed \textbf{'s/originale/nuovo/[g\textbar n];...' file}}{sostituisce il testo originale (o più testi orinali con [o1, o2, ...]) con quello nuovo, solo per la prima occorrenza. Può richiere l'opzione \texttt{-r}.
-	\begin{itemize}
+	\riga{sed \textbf{'s/old/new/[g\textbar n];...' file}}{sostituisce il testo old (o più testi orinali con [o1, o2, ...]) con quello new, solo per la prima occorrenza. Può richiere l'opzione \texttt{-r}.
+	\begin{itemize}[noitemsep, topsep=0pt]
 		\item Con l'opzione g si applica per tutte le occorrenze in una riga oppure a "n" occorrenze.
 
-		Si possono  concatenare più sostituzione applicare sulla stessa riga.
+		Si possono  concatenare più sostituzioni d'applicare sulla stessa riga.
 		\item \textbf{\^} significa inizio linea. Va all'inizio.
 		\item \textbf{\$} significa fine riga. Va alla fine.
-		\item \textbf{.} significa un carattere qualsiasi. \textbf{.\{n\}} significa n. caratteri qualsiasi. \textbf{.*} significa 0 o più caratteri qualsiasi.
+		\item \textbf{.} significa un carattere qualsiasi. \textbf{.\{n\}} significa n caratteri qualsiasi. \textbf{.*} significa 0 o più caratteri qualsiasi.
 		\item \textbf{[...]} caratteri o insiemi di caratteri (a1-an) da sostituire.
 	\end{itemize}
 
-	backreference: In "originale" si specificano tra () stringhe riusabili in "nuovo" traminte \\i-esima backreference.
+	backreference: In "originale" si specificano tra () stringhe riusabili in "nuovo" traminte i-esima backreference.
 	}
 
-	\riga{cut \textit{modalità file}}{Estrae colonne o intervalli di caratteri dalle righe. Modalità:
-	\begin{itemize}
-		\item \textbf{-c S-D} Prende i caratteri dall'indice S all'indice D (inclusi). S o D si possono omettere e si prende dall'inizio o dalla fine fino a S o D. L'indice parte da 1.
+	\riga{cut \textit{-c S-D} file}{Estrae colonna/intervallo di caratteri, da ogni riga, dall'indice S all'indice D (inclusi). S o D si possono omettere e si prende dall'inizio o dalla fine fino a S o D. L'indice parte da 1.
+	Posso concatenare più intervalli dividendoli con ",".}
+	\riga{cut \textit{-d '...' -fN} file}{Divide le righe in parole secondo il carattere delimitatore indicato poi seleziona la parola con l'indice f-ennesimo di ogni riga.}
 
-		Posso concatenare più intervalli dividendoli con ",".
-		\item \textbf{-d '...' -fN} Divide la stringa in parole secondo il carattere delimitatore indicato poi seleziona la parola con lìindice f-ennesimo.
-	\end{itemize}}
 	\riga{cat \textit{nomeFile.estensione}}{Visualizza il contenuto del file.}
-	\riga{grep \textit{stringa} [\textit{file}]}{Filtra le righe contenenti la stringa passata (che sarà evidenziata), anche se contenuta in altre parole, dal testo che sarà successivamente scritto (termina con "Ctrl+d") o dal file passato opzionalmente.
-		\begin{itemize}
-			\item \textbf{-v} Filtra righe senza parola da evidenziare.
-			\item \textbf{-i} Disabilità il caseSensitive.
-			\item \textbf{-h o -H} Disabilita la visualizzazione del nome del file dove è avvenuta la ricerca (nel caso si cerci in più file).
-		\end{itemize}
-		Spesso usato come secondo comando di \textbar per filtrare output di altri comandi.}
-	\riga{tee}{...}
+	\riga{grep \textit{stringa} [\textit{file}]}{Filtra le righe contenenti la stringa passata (che sarà evidenziata), anche se contenuta in altre parole, dal testo che sarà successivamente scritto (terminato da "Ctrl+d") o dal file passato opzionalmente.
+
+	Spesso usato come secondo comando di \textbar per filtrare output di altri comandi.}
+	\riga{grep -v \textit{stringa} [\textit{file}]}{Filtra righe senza parola da evidenziare.}
+	\riga{grep -i \textit{stringa} [\textit{file}]}{Disabilità il caseSensitive.}
+	\riga{grep -h \textit{stringa} [\textit{file}]}{Disabilita la visualizzazione del nome del file dove è avvenuta la ricerca (nel caso si cerci in più file). (-H è equivalente).}
+
+	\riga{find \textit{file}}{Trova percorsi di file in sotto alberi della memoria.}
+	\riga{fnid -type d \textit{file}}{Trova solo directory.}
+	\riga{fnid -type f \textit{file}}{Trova solo file.}
+	\riga{fnid -maxdepth n \textit{file}}{Limità la profondità di ricerca il numero di livelli indicato.}
+	\riga{fnid -mindeph \textit{file}}{Indica il livello minino di ricerca.}
+	\riga{fnid -name "..." \textit{file}}{Definisce un vincolo sul nome del file da trovare.}
+	\riga{fnid -iname \textit{file}}{Disabilità il caseSensitive.}
+	\riga{fnid \textit{file} -exec ... '\{\}' ... $\backslash$;}{Istruzioni da fare quando viene trovato un elemento. L'output di find viene messo al posto di '\{\}'.}
+
+	\riga{wc}{Dice il testo passatogli il numero di righe (-l), parole (-w) e caratteri (-c).}
+
+	\riga{tee file}{Stampa a video e salva l'output di un comando (che gli manda l'input, tipo con |), sul file indicato.}
 }
+
+\tabella{Costrutti controllo flusso}{
+	\riga{for varName in elencoParole ; do listCommand ; done}{Dopo il for variabile è usabile.}
+	\riga{for ((exp1 ; exp2 ; exp3)) ; do listCommand ; done}{Le exp sono espressioni valutate aritmeticamente automaticamente. }
+	\riga{if listA ; then listB ; [elif listC ; then listD ; ...] ... [else listZ ;] fi}{}
+	\riga{while list ; do list ; done}{}
+}
+In tutti i costrutti l'exit value è o quello della lista do comandi o 0 se nessun comando viene eseguito.
+Espressioni condizionate su file o variabile: [ condizione di un file ].
+Valutazione di un espressione matematica applicata a variabili d'ambiente: (( istruzini con espressione )).
 
 \tabella{Process Identifier}{
 	\riga{\$\$}{Variabile espansa col PID (identificatore numerico univoco di processo) della shell corrente.
 
-	Col raggruppamento di comandi \texttt{(...; ...)} vieme espanso col PID della schell più esterna.
+	Col raggruppamento di comandi \texttt{(...; ...)} viene espanso col PID della shell più esterna.
 	}
 	\riga{\$BASHPID}{Da in ogni caso il PID della shell corrente. Comando poco portabile.}
 	\riga{\textit{script} \&}{Lancia processo in background. Si omette ; (\& già terminatore comando).
 
-	\texttt{\$!} ha il pid del processo lanciato in bg (anche se sganciato). Non è aggiornata se faccio bg di un processo sospeso da \string^Z.}
+	\texttt{\$!} ha il pid del processo lanciato in bg (anche se sganciato). Non è aggiornato se faccio bg di un processo sospeso da \string^Z.}
 	\riga{jobs}{Mostra lista procesi backgroud e sospesi con rispettivo indice di job.
 
 	Con \texttt{\%indiceJob} si gestisce il job.}
 	\riga{\string^Z}{Sospende processo in foreground. Lancia il segnale SIGTSTP}
 	\riga{\string^C}{Termina processo in foreground.  Lancia il segnale SIGINT.}
-	\riga{bg}{Riprende l'esecuzione di un processo sospesto ma in background. Lancia il segnale SIGCONT.}
-	\riga{fg \%n}{Riprende l'esecuzine in foreground il Job specificato. Lancia il segnale SIGCONT.}
+	\riga{bg [\%n]}{Riprende l'esecuzione in background di un Job sospesto/del Job specificato. Lancia il segnale SIGCONT.}
+	\riga{fg [\%n]}{Riprende l'esecuzione in foreground di un Job sospesto/del Job specificato. Lancia il segnale SIGCONT.}
 	\riga{kill [-valore] pid\textbar \%n [-1]}{Termina processso di PID o JobId indicato.
 
 	Manda un segnale (interruzione software per notificare evento asincrono), default SIGTERM=15. In generale un segnale è accettato solo se proviene dall'effective user e poi viene gestito/ignorato dal processo interessato. Segnale SIGKILL=9 non può essere ignorato. -l da tutti segnali lanciabili.
@@ -326,25 +341,25 @@
 	\riga{killall 'nomeProc'}{Termina tutti processi con lo stesso nome o mandare a più processi uno stesso segnale. Manda SIGTERM di default.
 
 	\texttt{-r} Permette di usare le espressioni regolari.}
-	\riga{disown pid\textbar \%n, ...}{Sgancia jobs dalla shell. Viene sganciato ultimo job messo in bg se non si specifica nulla.
 
-	\begin{itemize}
-		\item \textbf{-r} Sgancia tutti job in running.
-		\item \textbf{-a} Sgancia tutti job in running e suspend.
-	\end{itemize}}
+	\riga{disown pid\textbar \%n, ...}{Sgancia jobs dalla shell. Viene sganciato l'ultimo job messo in bg se non si specifica nulla.}
+	\riga{disown -r}{Sgancia tutti job in running.}
+	\riga{disown -a}{Sgancia tutti job in running e suspend.}
+
 	\riga{nohup \textit{script} \&}{Lancia in bg e sgancia ultimo processo messo in bg.}
+
 	\riga{\%\%\textbar \%+\textbar \%}{Riferisce job corrente (ultimo interrotto) in foreground o avviato in backgourd.}
 	\riga{\%-}{Riferisce penultimo job interrotto in foreground o avviato in backgourd.}
-	\riga{trap "funzione/listaComandi" segnale1,...}{Azione (funzione o lista comandi) da svolge alla ricezione di certi segnali predefiniti.
+	\riga{trap "azione" segnale1,...}{Azione (funzione o lista comandi) da svolge alla ricezione di certi segnali predefiniti.
 
 	Funzione: \texttt{nomeFunzione()\{...\}}}
 	\riga{wait pid\textbar\%n, ...}{Fa attendere la shell la terminazione del processo figlio di pid o JobId indicato (o un insieme di processi). Ha exit status l'exit status dell'unico o dell'ultimo processo terminato da attendere.
 
-	Solo wait fa attendere tutti figli e da exit status 0.}
+	\texttt{wait} senza parametri fa attendere tutti figli e da exit status 0.}
 }
 
 Terminologia:
-\begin{itemize}
+\begin{itemize}[noitemsep, topsep=0pt]
 	\item \textbf{Processo}: Minima unità completa ed'autonoma d'elaborazione. Composto da più thread operanti in un contesto = spazio d'indirizzamento + tabella dei descrittori di file aperti.
 	\item \textbf{Gruppo di processi}: Insieme variabile di processi avviati da un processo padre.
 	\item \textbf{Terminale di controllo}: astrazione della console=video+tastiera (stdni, stdout, stderr) opzionale per un processo.
@@ -380,7 +395,7 @@ Terminologia:
 	\riga{\$\{\textit{variabile}/pattern/string\}}{Sostituisce la prima occorrenza da sinistra del parttern con la stringa indicata.
 
 	Caratteri speciali da inserire dopo primo "/":
-	\begin{itemize}
+	\begin{itemize}[noitemsep, topsep=0pt]
 		\item \textbf{/}: Fa sostituire tutte sotto strighe e non solo la prima.
 		\item \textbf{\#}: Fa sostituzione solo se pattern è all'inizio.
 		\item \textbf{\%}: Fa sostituzione solo se pattern è alla fine.
@@ -391,72 +406,31 @@ Terminologia:
 	\riga{\$\{!\textit{variabile}*\}}{Da le variabili il cui nome inizia col prefisso indicato.}
 }
 Danno una parte o una parte modificata (sostituiscono una parte in genere) del contenuto di una variabile. Il contenuto della variabile non viene modificato.
-
 Def. \textbf{pattern}: Stringa da matchare nel contenuto della variabile. Può contenere wildcard e variabili.
 
 \tabella{Gestione risorse}{
 	\riga{sudo apt-get update}{Aggiorna la lista locale dei pakage.}
 	\riga{sudo apt-get upgrade}{Aggiorna i package.}
-	\riga{sudo apt-get install \textit{nomepkg}}{Installa il package se è nella lista locale.
 
-	\textbf{--reinstall} Reinstalla il package sovrascrivendo l'attuale installazione.
+	\riga{sudo apt-get install \textit{nomepkg}}{Installa il package se è nella lista locale.}
+	\riga{sudo apt-get install --reinstall \textit{nomepkg}}{Reinstalla il package sovrascrivendo l'attuale installazione.}
+	\riga{sudo apt-get install -y \textit{nomepkg}}{Installa anche dipendenze necessarie.}
 
-	\textbf{-y} Installa anche dipendenze necessarie.}
 	\riga{sudo apt-get purge \textit{nomepkg}}{Disinstalla il pakage e i file di configurazione.}
 	\riga{sudo apt-get autoremove}{Disinstalla package inutilizzati.}
 	\riga{aptitude search \textit{package}}{Cerca il package nella lista locale.}
-	\riga{wget \textit{risorsa}}{Scarica file dalla rete. Parametri:
-	\begin{itemize}
-		\item \textbf{-r} Scarica ricorsivamente le risorse seguendo i link.
+	\riga{wget \textit{risorsa}}{Scarica file dalla rete.}
+	\riga{wget -r \textit{risorsa}}{Scarica ricorsivamente le risorse seguendo i link.}
+	\riga{wget -l n \textit{risorsa}}{Indica di quanto addentrarsi al massimo ricorsivamente.}
+	\riga{wget -p \textit{risorsa}}{Fa scaricare tutte le risorse per visualizzazione corretta di una pagina.}
+	\riga{wget -k \textit{risorsa}}{Fa puntare i link alle pagine locali.}
+	\riga{wget -np \textit{risorsa}}{Non fa risalire alle directory superiori di quella specificata.}
+	\riga{sudo fdisk}{Crea le partizioni stabilendo intervallo blocchi da usare, il tipo di filesystem.}
+	\riga{mkfs.\textit{itpoFileSystem}}{Crea il file system dentro una partizione.}
 
-		\item \textbf{-l n} Indica di quanto addentrarsi al massimo ricorsivamente.
-
-		\item \textbf{-p} Fa scaricare tutte le risorse per visualizzazione corretta di una pagina.
-
-		\item \textbf{-k} Fa puntare i link alle pagine locali.
-
-		\item \textbf{-np} Non fa risalire alle directory superiori di quella specificata.
-	\end{itemize}}
-}
-
-\tabella{Vari}{
-	\riga{./ \textit{comado}}{Esegue comando presente nella directory corrente (percorso relativo).
-
-	Alternativa è inserire il percorso relativo o aggiungere il percorso assoluto alla variabile PATH.}
-	\riga{strace \textit{comando}}{Dice la sistem-call usata.}
-	\riga{clear}{Pulisce la CLI. Non modifica variabili create.}
-	\riga{which \textit{comando}}{Cerca in PATH il comando e se lo trova mostra il path in cui si trova.}
 	\riga{lsmod}{Elenca tutti i moduli attivi.}
 	\riga{modinfo \textit{nomeModulo}}{Dice le informazioni sul modulo specificato.}
 	\riga{sudo modprobe \textit{nomeModulo}}{Carica il modulo specificato.}
-	\riga{history}{Visualizza comandi, numerati, precedentemente eseguiti, anche da shell precedentemente chiuse.
 
-	Con !NUMERO lancio il comando corrispondente nell'elenco di history. Con !STRINGA lancio il comando più recente che corrisponde alla stringa.}
-
-	\riga{find \textit{file}}{Trova percorsi di file in sotto alberi della memoria. Parametri:
-	\begin{itemize}
-		\item \textbf{-type d} Trova solo directory.
-		\item \textbf{-type f} Trova solo file.
-		\item \textbf{-maxdepth n} Limità la profondità di ricerca il numero di livelli indicato.
-		\item \textbf{-mindeph} Indica il livello minino di ricerca.
-		\item \textbf{-name "..."} Definisce un vincolo sul nome del file da trovare.
-		\item \textbf{-iname} Disabilità il caseSensitive.
-		\item \textbf{-exec ... '{}' ... $\backslash$;} Istruzioni da fare quando viene trovato un elemento. L'output di find viene messo al posto di '{}'.
-	\end{itemize}}
-	\riga{wc}{Dice il testo passatogli il numero di righe, parole e caratteri.}
 }
-
-Directory \texttt{/proc} : info sui processi, con una dir. per ogni processo attivo, create e cancellate continuamente.
-Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella sottodirectory \texttt{fd} i file descriptor aperti.
-
-\tabella{Costrutti controllo flusso}{
-	\riga{for varName in elencoParole ; do listCommand ; done}{Dopo il for variabile è usabile.}
-	\riga{for ((exp1 ; exp2 ; exp3)) ; do listCommand ; done}{Le exp sono espressioni valutate aritmeticamente. }
-	\riga{if listA ; then listB ; [elif listC ; then listD ; ...] ... [else listZ ;] fi}{...}
-	\riga{while list ; do list ; done}{...}
 }
-
-In tutti i costrutti l'exit value è o quello della lista do comandi o 0 se nessun comando viene eseguito.
-
-Espressioni condizionate su file o variabile: [ condizione di un file ].
-Valutazione di un espressione matematica applicata a variabili d'ambiente: (( istruzini con espressione ))

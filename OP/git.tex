@@ -265,3 +265,19 @@ Fornisce funzionalità come:
 Su github i repository remoti sono identificati univocamente da owner/repoName.
 
 \textbf{Autentificazione}: Via https con token o ssh (procedura slideGit3 pag.27).
+
+\subsection{Teamwork}
+Nomenclatura branch dividendo in gruppi: \inline{feature/feature-name} oppure \inline{fix/bug-name}.
+
+Si usa anche nel nome del branch il separatore "/". Si può specificare nome autore, responsabile, l'issue/tiket, id di un task o user story.
+
+\bigskip
+
+\textbf{Modello}: Un \textit{branch Develop} (funzionante e compatibile) e diversi \textit{Feature branch} (indipendenti, sviluppo funzionalità).
+I branch Feature vanno sincrunizzati (pull) frequentemente col Develop per minimizzare i conflitti.
+
+Ciclo vità Freature branch:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{feature.png}
+\end{figure}

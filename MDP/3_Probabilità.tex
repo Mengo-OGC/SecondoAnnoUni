@@ -762,3 +762,73 @@ Dimostrazione:
 Questa proprietà comporta che le variabili esponenziali modellizzano il tempo d'attesa di un fenomeno naturale.
 
 Il valore atteso è $E[X]=\frac{1}{a}$. La varianza è $\mathrm{Var}(X)=\frac{1}{a^2}$.
+
+\definizione{Trasformazioni di Variabili Aleatorie Continue}{Sia $\Phi:\mathbb{R}\to\mathbb{R}$ una trasformazione e $X$ una variabile aleatoria continua, allora $\Phi(X)$ è la trasformazione della variabile aleatoria continua $X$.
+
+La funzione di ripartizione sarà \[F_{\Phi(X)}(t)=P(\Phi(X)\leqslant t)\]}{d:trasVAC}
+
+Negli esercizi si risolve la diseguaglianza e si esprime la $F_{\Phi(X)}$ in $F_X$.
+
+\definizione{Variabili normali (Gaussiane)}{Siano l'integrale di Gauss e la rispettiva densità astratta.
+Non esiste una formula per $F(s)$ (funzione di ripartizione), quindi per $0<t<4$ si usano valori noti detti $\phi(t)$.
+\[\int_{-\infty}^{\infty}e^{\frac{-s^2}{2}}ds=\sqrt{2\pi}\]
+\[f(s)=\frac{1}{\sqrt{2\pi}}e^{\frac{-s^2}{2}}\]
+Una variabile con questa densità la chiamiamo normale standard e la indichiamo $ \zeta_0$. Scriviamo $\zeta_0\sim N(0,1)$.}{def:varGaussiane}
+
+Densità di $\zeta_0$:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/gauss.png}
+	\caption{Descrizione}
+\end{figure}
+
+\mysubsection{Somma opposti}
+Chiamiamo $\Phi(t)=F_{\zeta_o}(t)$. Siano $\Phi(t)\cong1$ se $t>4$ e $\Phi(t)\cong0$ se $t<-4$, allora \[\Phi(t)+\Phi(-t)=1\]
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/sommaOpposti.png}
+	\caption{Descrizione}
+\end{figure}
+
+\mysubsection{Valore atteso e Varianza Variabile Normale}
+Per simmetria della densità si ha valore atteso 0. \[E[\zeta_0]=0\]
+
+La varianza vale 1 dato che il valore atteso del quadrato vale 1. \[\mathrm{Var}(\zeta_0)=1\]
+
+\definizione{Variabili Normali non Standard}{Dati $\mu$ e $\delta>0$ la variabile $\zeta\sim N(\mu,\delta^2)$ è data da \[\zeta=\mu+\delta\zeta_0\].
+
+$E[\zeta]=\mu$, $\mathrm{Var}(\zeta)=\delta^2$.}{d:varNormNonStand}
+
+In pratica $\mu>0$ slide a destra, $\mu<0$ slide a sinistra, $\sigma>1$ funzione "spanciata", $\delta<0$ funzione "compatta".
+
+\textbf{Standardizzazione}: Dato $\zeta\sim N(a,b)$ si ottiene $\zeta=a+\sqrt{b}\zeta_0$ di cui si calcola la probabilità $P(\zeta\gtrless c)=P(\zeta_0>\frac{c-a}{b})=1+\Phi(\frac{c-a}{b})$.
+
+\bigskip
+
+\textbf{Scopo?} Le variabili normali sono quelle che si presentano solitamente quando abbiamo a che fare con misurazioni.
+
+\teorema{Teorema Centrale del limite}{Siano $X_1,\dots,X_n$ variabili aleatorie (discrete o continue) aventi la stessa funzione di ripartizione di valore atteso $\mu$ e varianza $\delta^2$ e indipendenti. Allora $X_1+\dots+X_n$ è approssimativamente una variabile normale $N(n\mu,n\delta^2)$. Se $n$ è abbastanza grande.
+}{teo:centLim}
+
+\dimostrazione{teo:centLim}{Consideriamo $X\sim U([-1,1])$ di densità:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/teoCentLim1.png}
+	\caption{Descrizione}
+\end{figure}
+Siano ora $X_1,X_2\sim U([-1,1])$ indipendenti, allora $X_1+X-2$ assume valori tra $[-2,2]$:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/teoCentLim2.png}
+	\caption{Descrizione}
+\end{figure}
+Analogamente con $X_1,X_2,X_3\sim U([-1,1])$ indipendneti, allora $X_1+X_2+X_3$ assume valori tra $[-3,3]$. (3 rami di parabola).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{img/teoCentLim3.png}
+	\caption{Descrizione}
+\end{figure}
+E cosi facendo...}
+
+\definizione{Correzione di Continuità}{Se le variabili $X_1,\dots,X_n$ assumono valori interi, anche la loro somma darà un valore intero. In questo caso si usa la correzione di continuità in cui un numero intero $n$ viene pensato come l'intervallo \[\left[n-\frac{1}{2}, n+\frac{1}{2}\right]\]}{def:correzioneContinuita}

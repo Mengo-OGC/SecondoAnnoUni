@@ -232,7 +232,6 @@ Pipeline:
 		\item \inline{count()} Restituisce il numero di elementi ottenuti.
 		\item \inline{anyMatch(Predicate)} Dice se un elemento è presente o no.
 		\item \inline{findAny()} Restituisce uno qualsiasi degli elementi.
-		\item \inline{collect(Collect)} Dice allo stream come raccogliere gli elementi.
 	\end{itemize}
 \end{enumerate}
 
@@ -246,3 +245,21 @@ Caratteristiche:
 \end{itemize}
 
 Nota: Stream di tipi specifici sono più performanti, ma non hanno tutte le funzionalità di uno Stream generico.
+
+\subsubsection{Collect}
+Permette accumulare/trasformare/combinare gli oggetti di uno Stream in'un nuovo Stream. I pareametri sono tutti lambda.
+
+Per ogni elemento delo Stream crea un collettore, vi aggiunge il valore e più lo unisce con i collettori già creati.
+
+\oneline{.collect("newCollettore", "addElementi", "joinCollettori")}
+
+Collettore general-purpose.
+
+\oneline{.collect(Collector.of("newCollettore", "addElementi", "joinCollettori"))}
+
+Metodi della classe \inline{Collectors}: \inline{toList()}, \inline{toSet()}, \inline{toCollection(collezione::new)}, \inline{minBy(Tipo::compare)}, \inline{summingInt(Tipo::intValue)}, \inline{joining("charSeparatore", "charApertura", "charChiusura")}.
+\begin{itemize}
+	\item \inline{groupingBy(x -> ...)} Raggruppa in una mappa (K=risultato condizione, V=elem.lista) gli elementi in base alla condizione passata come parametro.
+	\item \inline{groupingBy(x -> ..., Lambda-exp)} Raggruppa elmenti Stream in una mappa con K il risultato di una lambda con parametro il valore della Stream e V il risultato di una lambda-expression.
+	\item \inline{toMap(x-> ..., x-> ...)} Mapppa una lambda expression (tipico \inline{x->x})in un altra lambda expression.
+\end{itemize}

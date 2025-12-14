@@ -11,6 +11,7 @@
 	\riga{/dev/null}{File speciale che scarta tutto quello che gli viene scritto.}
 	\riga{LC\_CTYPE}{Imposta il tipo locale dei caratteri. Usata da \texttt{cut} e \texttt{ws} per capire numero byte caratteri.}
 	\riga{strace \textit{comando}}{Dice la sistem-call usata.}
+	\riga{\$RANDOM}{Restituisce un numero intero casuale tra 0 e 32767.}
 }
 
 \tabella{File speciali}{
@@ -304,6 +305,8 @@ Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella 
 	\riga{wc}{Dice il testo passatogli il numero di righe (-l), parole (-w) e caratteri (-c).}
 
 	\riga{tee file}{Stampa a video e salva l'output di un comando (che gli manda l'input, tipo con |), sul file indicato.}
+	\riga{sort -k n}{Ordina le righe alfabeticamente secondo la colona di stringhe specificata.}
+	\riga{uniq \textit{file}}{Rimuove le righe duplicate consecutive.}
 }
 
 \tabella{Costrutti controllo flusso}{
@@ -332,12 +335,12 @@ Valutazione di un espressione matematica applicata a variabili d'ambiente: (( is
 	\riga{\string^C}{Termina processo in foreground.  Lancia il segnale SIGINT.}
 	\riga{bg [\%n]}{Riprende l'esecuzione in background di un Job sospesto/del Job specificato. Lancia il segnale SIGCONT.}
 	\riga{fg [\%n]}{Riprende l'esecuzione in foreground di un Job sospesto/del Job specificato. Lancia il segnale SIGCONT.}
-	\riga{kill [-valore] pid\textbar \%n [-1]}{Termina processso di PID o JobId indicato.
-
-	Manda un segnale (interruzione software per notificare evento asincrono), default SIGTERM=15. In generale un segnale è accettato solo se proviene dall'effective user e poi viene gestito/ignorato dal processo interessato. Segnale SIGKILL=9 non può essere ignorato. -l da tutti segnali lanciabili.
+	\riga{kill [-valore] pid\textbar \%n [-1]}{Usato per termina il processso di PID o JobId indicato.
+	In generale manda un segnale (interruzione software per notificare evento asincrono), default SIGTERM=15. In generale un segnale è accettato solo se proviene dall'effective user e poi viene gestito/ignorato dal processo interessato (SIGKILL=9 non può essere ignorato).
 
 	Con -1 si fanno terminare tutti i figli diretti della bash.
 	}
+	\riga{kill -l}{Da tutti segnali lanciabili.}
 	\riga{killall 'nomeProc'}{Termina tutti processi con lo stesso nome o mandare a più processi uno stesso segnale. Manda SIGTERM di default.
 
 	\texttt{-r} Permette di usare le espressioni regolari.}
@@ -350,12 +353,13 @@ Valutazione di un espressione matematica applicata a variabili d'ambiente: (( is
 
 	\riga{\%\%\textbar \%+\textbar \%}{Riferisce job corrente (ultimo interrotto) in foreground o avviato in backgourd.}
 	\riga{\%-}{Riferisce penultimo job interrotto in foreground o avviato in backgourd.}
-	\riga{trap "azione" segnale1,...}{Azione (funzione o lista comandi) da svolge alla ricezione di certi segnali predefiniti.
+	\riga{trap "azione" segnale1,...}{Imposta "solamente" l'azione (funzione o lista comandi) da svolge alla ricezione di certi segnali predefiniti.
 
 	Funzione: \texttt{nomeFunzione()\{...\}}}
 	\riga{wait pid\textbar\%n, ...}{Fa attendere la shell la terminazione del processo figlio di pid o JobId indicato (o un insieme di processi). Ha exit status l'exit status dell'unico o dell'ultimo processo terminato da attendere.
 
 	\texttt{wait} senza parametri fa attendere tutti figli e da exit status 0.}
+	\riga{sleep n}{Fa attendere n secondi al programma.}
 }
 
 Terminologia:

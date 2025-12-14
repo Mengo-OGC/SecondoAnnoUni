@@ -100,3 +100,75 @@ Sotto interfacce: \inline{ActionListener, ComponentListener, ContainerListener, 
 
 	Sonatype OSSRH è la repository di librerie esterne (e dipendenze traversali) e proprie.
 \end{itemize}
+
+\subsection{JavaFX}
+Libreria stand-alone opensource per GUI (Java APIs, FXML e CSS, Graphics API, supporto schermi multi-touch e HI-DPI, interoperabilità Swing).
+
+\bigskip
+
+\begin{itemize}
+	\item \textbf{Stage (javafx.stage.Stage)}: Contenitore esterno della GUI (corrisponde JFrame). Sotto classe di \inline{Window}.
+
+	Uno Stage mostra una Scena alla volta. Si imposta con: \inline{Stage#setScene(Scene)}.
+
+	Si mostra con \inline{show()}.
+	\item \textbf{Scene (javafx.scene.Scene)}: Contenuto/pagina visualizzabile sullo Stage.
+
+	Contiene il scene graph impostabile con: \inline{Scene#setRoot(Parent)}
+\end{itemize}
+
+La classe principale di un'applicazione JavaFX estende \inline{javafx.appplication.Application}. Definisce metodi hook sul ciclo di vita dell'applicazione e in \inline{start(Stage)} si definisce e riceve lo stage primario.
+
+AVVIO: Il main deve essere in una classe separata da quella dell'applicazione JavaFX e contenere \inline{Application.lauch(App.class, args);} con \inline{App} la classe che implementa \inline{Application}.
+
+\bigskip
+
+\textbf{Ciclo vita Applicazione}: avvio thread -> installazione di \inline{App} -> invocazione \inline{init()} poi \inline{start(javafx.stage.Stage)} -> attesa fine \inline{Platform.exit()} e \inline{Platform.isImplicitExit()} -> invocazione \inline{stop()}.
+
+\bigskip
+
+\textbf{Node}: Elemento/Componente (sia aspetto (view) che comportamento (controller)) della scena, con proprietà (ha un id, coordinate locali, classe \inline{Property<T>}) e eventi.
+
+Ordinabili gerarchicamente, sottoclasse \inline{Parent} con \inline{getChildern()}. Ogni scena ha il \textit{root node} relativo alla gerarchia di nodi.
+
+\bigskip
+
+\textbf{Layout}: Contenitore, \inline{Parent}, che regola posizione e dimensione nodi figli:
+\begin{itemize}
+	\item \textbf{Group}: Applica stesse trasformazioni/effetti all'intero insieme di figli. I figli hanno posizioni fisse (non-resizable).
+	\item \textbf{Region}: Classe base per tutti layout general purpose (resizable).
+
+	\inline{GetChildren()} usa \inline{get()} e \inline{addAll()} lavorando con \inline{ObservableList<Node}.
+
+	Forniti metodi d'istanza/statici per il posizionamento contenuti.
+\end{itemize}
+I \textit{bound} definiscono posizione e dimensione, secondo un \textit{bounding rectangle}, per le Scene/Stage/node.
+
+\bigskip
+
+\textbf{Eventi}: Un \inline{Event} ha una \textit{source}, \textit{target} e \textit{type}. Si consuma con \textbf{consume()} da un event handlers che implementa \inline{handle(T)}. Un nodo gestisce più event handler con \inline{setOn...()}.
+
+\bigskip
+
+\textbf{Concorrenzza}: JFXAT (JavaFX Application Thread) è il thread di gestione della GUI. Con Platform.rumLater(Runnable) si accoda il runnable nella coda degli eventi.
+
+\bigskip
+
+\inline{Screen.getPrimary()} da accesso a \inline{getDpi()}, \inline{getBounds()}, \inline{getVisualBounds()}, \inline{Screen.getScreens()} per gestire lo schermo.
+
+\bigskip
+
+Si può integrare JavaFX in Swing e vice versa medinate \inline{SwingNode} e \inline{JFXPanel} del modulo \inline{javafx.swing} (attenzione a \inline{runLater()} e \inline{invokeLater()}).
+
+\subsubsection{Binding e proprietà}
+Collegamento di due proprietà fra loro, in modo unidirezionale o bidirezionale.
+
+Una proprietà JavaFX \inline{Property<T>} è un \inline{ObservableValue<T>}\footnote{Valore ottenibile con \inline{getValue()} a cui possono essere associati dei \inline{ChangeListener} via \inline{remove/addListener}.} scrivibile e collegabile ad'altri osservatori o proprietà:
+\begin{itemize}
+	\item \inline{bind(observableObj)} Collega unidirezionalmente dalla VEW al Model.
+
+	Per scollegare usare \inline{unbind()}.
+	\item \inline{bindBidirectional(other)} Collega bidirezionalmente la VEW al Model.
+
+	Per scollegare usare \inline{unbindBidirectional(other)}.
+\end{itemize}

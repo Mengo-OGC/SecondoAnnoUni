@@ -242,7 +242,7 @@ Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella 
 	Permette ridirigere più comandi simultaneamente.}
 }
 
-\tabella{Standard input e output}{
+\tabella{stdin e stdout}{
 	\riga{read \textit{var}}{Legge dallo stdin o file una sequenze di caratteri (fino all'INVIO o a capo) e la inserisce nella variabile passata. Ingnora spazi e tabultazioni inizio e fine riga (ameno che si setti IFS="").
 
 	Exit status 0=lettura eseguita, $>$0=eof (var="") o ultima riga senza \textbackslash n (var="ultimi caratteri"). Necessario controllo con \#var.
@@ -269,11 +269,11 @@ Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella 
 
 	\riga{sed \textbf{'s/old/new/[g\textbar n];...' file}}{sostituisce il testo old (o più testi orinali con [o1, o2, ...]) con quello new, solo per la prima occorrenza. Può richiere l'opzione \texttt{-r}.
 	\begin{itemize}[noitemsep, topsep=0pt]
-		\item Con l'opzione g si applica per tutte le occorrenze in una riga oppure a "n" occorrenze.
+		\item Con l'opzione g si applica per tutte le occorrenze in una riga oppure all'n-esima occorrenza.
 
 		Si possono  concatenare più sostituzioni d'applicare sulla stessa riga.
-		\item \textbf{\^} significa inizio linea. Va all'inizio.
-		\item \textbf{\$} significa fine riga. Va alla fine.
+		\item \textbf{\^} significa inizio linea. Va all'inizio di new.
+		\item \textbf{\$} significa fine riga. Va alla fine di new.
 		\item \textbf{.} significa un carattere qualsiasi. \textbf{.\{n\}} significa n caratteri qualsiasi. \textbf{.*} significa 0 o più caratteri qualsiasi.
 		\item \textbf{[...]} caratteri o insiemi di caratteri (a1-an) da sostituire.
 	\end{itemize}
@@ -396,7 +396,7 @@ Terminologia:
 	\riga{\$\{\textit{variabile}\#\#pattern\}}{Rimuove il più lungo prefisso.}
 	\riga{\$\{\textit{variabile}\#pattern\}}{Rimuove il più corto prefisso.}
 	\riga{\$\{\#\textit{variabile}\}}{Restituisce il numero di byte della variabile.}
-	\riga{\$\{\textit{variabile}/pattern/string\}}{Sostituisce la prima occorrenza da sinistra del parttern con la stringa indicata.
+	\riga{\$\{\textit{variabile}/pattern/string\}}{Sostituisce la prima occorrenza da sinistra del pattern con la stringa indicata.
 
 	Caratteri speciali da inserire dopo primo "/":
 	\begin{itemize}[noitemsep, topsep=0pt]

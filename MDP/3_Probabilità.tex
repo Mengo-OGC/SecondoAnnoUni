@@ -796,7 +796,7 @@ Per simmetria della densità si ha valore atteso 0. \[E[\zeta_0]=0\]
 
 La varianza vale 1 dato che il valore atteso del quadrato vale 1. \[\mathrm{Var}(\zeta_0)=1\]
 
-\definizione{Variabili Normali non Standard}{Dati $\mu$ e $\delta>0$ la variabile $\zeta\sim N(\mu,\delta^2)$ è data da \[\zeta=\mu+\delta\zeta_0\].
+\definizione{Variabili Normali non Standard}{Dati $\mu$ e $\delta>0$ la variabile $\zeta\sim N(\mu,\delta^2)$ è data da \[\zeta=\mu+\delta\zeta_0\]
 
 $E[\zeta]=\mu$, $\mathrm{Var}(\zeta)=\delta^2$.}{d:varNormNonStand}
 
@@ -809,6 +809,8 @@ In pratica $\mu>0$ slide a destra, $\mu<0$ slide a sinistra, $\sigma>1$ funzione
 \textbf{Scopo?} Le variabili normali sono quelle che si presentano solitamente quando abbiamo a che fare con misurazioni.
 
 \teorema{Teorema Centrale del limite}{Siano $X_1,\dots,X_n$ variabili aleatorie (discrete o continue) aventi la stessa funzione di ripartizione di valore atteso $\mu$ e varianza $\delta^2$ e indipendenti. Allora $X_1+\dots+X_n$ è approssimativamente una variabile normale $N(n\mu,n\delta^2)$. Se $n$ è abbastanza grande.
+
+In generale considerando $\overline{X_n}=\frac{X_1+\dots+X_n}{n}$ si ha $E[\overline{X_n}]=\mu$ e $\mathrm{Var}(\overline{X_n})=\frac{\delta^2}{n}$. Ottenendo cosi $X_n\sim N(\mu, \frac{\delta^2}{n})$.
 }{teo:centLim}
 
 \dimostrazione{teo:centLim}{Consideriamo $X\sim U([-1,1])$ di densità:
@@ -830,5 +832,11 @@ Analogamente con $X_1,X_2,X_3\sim U([-1,1])$ indipendneti, allora $X_1+X_2+X_3$ 
 	\caption{Descrizione}
 \end{figure}
 E cosi facendo...}
+
+\bigskip
+
+Dato $c$ con $0<c<1$. La denstià normale standard è data da $P(-Z_c<\zeta_0<Z_c)=\Phi(Z_c)-\Phi(-Z_c)=\Phi(Z_c)-(1-\Phi(Z_c))=2\Phi(Z_c)-1-c=\Phi(Z_c)=\frac{c+1}{2}$.
+
+Sostituendo $\zeta_0$ con $\frac{\overline{X_n}-\mu}{\delta/\sqrt{n}}$ abbiamo $P(-Z_c<\frac{\overline{X_n}-\mu}{\delta/\sqrt{n}}<Z_c)=c$.
 
 \definizione{Correzione di Continuità}{Se le variabili $X_1,\dots,X_n$ assumono valori interi, anche la loro somma darà un valore intero. In questo caso si usa la correzione di continuità in cui un numero intero $n$ viene pensato come l'intervallo \[\left[n-\frac{1}{2}, n+\frac{1}{2}\right]\]}{def:correzioneContinuita}

@@ -227,7 +227,7 @@ Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella 
 		Modalità: N$>$, N$>>$, $<$N.
 	}
 
-	\riga{program 0/1/2/\&$>$ file\textbar\&0/1/2}{Ridireziona lo std (\&=stdout+stderr) indicato di program nel file indicato sovrascrivendo o in un altro str.}
+	\riga{program 0/1/2/\&$>$ file\textbar\&0/1/2}{Ridireziona lo std (\&=stdout+stderr) indicato di program nel file indicato sovrascrivendo o in un altro str. \&$>$ ridireziona solo in fle.}
 
 	\riga{program N$>$\&M ...}{Fa puntare lo stream di N allo stesso stream di M (N e M sono fd).
 	Si possono fare più ridirezionamenti (fd e file, fd e fd) in simultanea. Sono eseguiti da sinistra a destra.}

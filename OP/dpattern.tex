@@ -119,6 +119,8 @@ Il subject con \inline{attach()} aggancia i listener di cui si compone (ha un ca
 \subsection{Creazionali}
 Permenettono il disaccopiamento della creazione degli oggetto dalle classi d'appartenenza.
 
+Idea: Fare le \inline{new} in modo controllato usando dei metodi muniti di nome esplicativo di ciò che vanno a creare.
+
 \bigskip
 
 \textbf{Singleton (Oggetto)}: Garantisce un'unica istanza della classe. Tale istanza è ccessibile globalmente e facilmente ad'altre classi (senza fornire riferimenti).
@@ -145,13 +147,13 @@ Usare se necessario unica istanza e riferimenti troppo impegnativi.
 
 \bigskip
 
-\textbf{Famiglia D.P. Factory}: Il costruttore deve essere privato.
+\textbf{Famiglia Factory (Oggetto)}: Risolve il problema di decidere quale oggetto creare.
 \begin{itemize}
-	\item \textbf{Static Factory}: Classe con metodo statico che genera sua istanza o di sue specializzazioni.
+	\item \textbf{Static Factory}: Classe con metodo statico che restituisce un'istanza della classe stessa o di una sua specializzazione.
 
 	\item \textbf{Simple Factory}: Classe con metodo non statico che genera instasnza d'un altra calsse Target.
 
-	\item \textbf{Factory Method}: Classe con metodo non statico che genera instanze delle sotto classi dell'interfaccia d'appartenenza.
+	\item \textbf{Factory Method}: Classe, implementa interfaccia con metodono non statico, che genera instanze delle sotto classi dell'interfaccia target.
 
 	\begin{center}
 		\begin{tikzcd}
@@ -160,8 +162,34 @@ Usare se necessario unica istanza e riferimenti troppo impegnativi.
 		\end{tikzcd}
 	\end{center}
 
-	L'inerfaccia fornisce il metodo \inline{factory()} che crea e restituisce l'oggetto. Gli oggett che implementano l'interfaccia la specializzano definendo la logica di creazione.
+	Creator fornisce il metodo \inline{factory()} che restituisce istanze di Product. L'implementazione di Creator definisce la logica di creazione del'implementazione di Product.
 
-	\item \textbf{Abstract Method}: come Factory method ma costruisce più oggetti correlati.
+	\item \textbf{Abstract Method}: Come Factory method ma consente di costruire più oggetti tra loro correlati.
+
+	Creator fornisce più metodi \inline{factory()} che restituisce istanze di Product. Le implementazioni di Creator definiscono la logica di creazione delle implementazioni di Product.
+
 \end{itemize}
 
+Nota: Il costruttore deve essere di package.
+
+\bigskip
+
+\textbf{Builder (Oggetto)}: Definisce approccio di creazione step-by-step dell'oggetto.
+Scopo: Evitare proliferazione costruttori in una classe.
+
+Vantaggi: Facile creare oggetti immutabili. Esplicito quali parametri sto impostando. Non c'è un ordine in cui specificare i parametri.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{builder.png}
+\end{figure}
+
+Una classe Builder ha il costruttore per impostare opzionalmente i pochi parametri obbligatori, dei metodi per settare le proprietà opzionali dell'oggetto target e un metodo build che crea l'istanza dell'oggetto target (e fa controlli). Si adotta un'interfaccia \textit{fluet} (setter restituiscono \inline{this} e il tipo di ritorno è la classe stessa).
+
+Uso se implementata come classe statica innestata.
+
+\oneline{new Classe.Builder([...]).selettori(...).build();}
+
+\medskip
+
+Specializzazione: \inline{StringBuilder} crea dinamicamente strighe immutabili tramite i metodi \inline{append()} e \inline{toString()}.

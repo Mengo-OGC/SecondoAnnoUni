@@ -50,8 +50,8 @@ Directory \texttt{/proc} : info sui processi, con una dir. per ogni processo att
 Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella sottodirectory \texttt{fd} i file descriptor aperti.
 
 \tabella{Tilde Expansion}{
-	\riga{~/...}{Tilde espansa con il percorso assoluto della home directory dell'effective user. Valido caso con solo \textbf{~} e solo \textbf{~/}.}
-	\riga{~userName/...}{Tilde e userName espansi con il percorso assoluto della home directory dell'utente specificato. Valido caso con solo \textbf{~userName/}.}
+	\riga{$\sim$/...}{Tilde espansa con il percorso assoluto della home directory dell'effective user. Valido caso con solo \textbf{$\sim$} e solo \textbf{$\sim$/}.}
+	\riga{$\sim$userName/...}{Tilde e userName espansi con il percorso assoluto della home directory dell'utente specificato. Valido caso con solo \textbf{$\sim$userName/}.}
 }
 
 \tabella{Privilegi}{
@@ -302,11 +302,13 @@ Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella 
 	\riga{find -iname \textit{file}}{Disabilità il caseSensitive.}
 	\riga{find \textit{file} -exec ... '\{\}' ... $\backslash$;}{Istruzioni da fare quando viene trovato un elemento. L'output di find viene messo al posto di '\{\}'.}
 
-	\riga{wc}{Dice il testo passatogli il numero di righe (-l), parole (-w) e caratteri (-c).}
+	\riga{wc}{Dice del testo passato il numero di righe (-l), parole (-w) e caratteri (-c).}
 
 	\riga{tee file}{Stampa a video e salva l'output di un comando (che gli manda l'input, tipo con |), sul file indicato.}
+	\riga{sort \textit{file}}{Ordina alfabeticamente le righe del file.}
 	\riga{sort -k n}{Ordina le righe alfabeticamente secondo la colona di stringhe specificata.}
-	\riga{uniq \textit{file}}{Rimuove le righe duplicate consecutive.}
+	\riga{uniq \textit{file}}{Rimuove le righe duplicate consecutive. (Bisogna sortare prima).}
+	\riga{uniq -c \textit{file}}{Rimuove le righe duplicate consecutive e conta quante sono.}
 }
 
 \tabella{Costrutti controllo flusso}{

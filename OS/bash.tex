@@ -37,11 +37,11 @@
 	\riga{ls [\textit{nomefile}]}{Visualizza i files/direcotry contenuti nella directory corrente.
 
 	Se specifico un file mi dice se esiste e applica le opzioni su di lui.}
-	\riga{ls -a}{Mosta anche file nascosti (anche ., ..).}
-	\riga{ls -l}{Mostra informazioni file e relativi permessi nel formato: 1°carattere tipo file (- file, d dyrectory, c collegamento seriale, b device a blocchi), 9 caratteri successivi terzine di permessi (r read,w write,x/s execute) per proprietario, gruppo, altri utenti.}
-	\riga{ls -h}{Rende i dati più leggibili.}
-	\riga{ls -d}{Fa applicare il comando alla directory stessa/specificata e non ai file.}
-	\riga{ls -R}{Mostra ricorsivamente contenuto sotto directory.}
+	\riga{ls -a [\textit{nomefile}]}{Mosta anche file nascosti (anche ., ..).}
+	\riga{ls -l [\textit{nomefile}]}{Mostra informazioni file e relativi permessi nel formato: 1°carattere tipo file (- file, d dyrectory, c collegamento seriale, b device a blocchi), 9 caratteri successivi terzine di permessi (r read,w write,x/s execute) per proprietario, gruppo, altri utenti.}
+	\riga{ls -h [\textit{nomefile}]}{Rende i dati più leggibili.}
+	\riga{ls -d [\textit{nomefile}]}{Fa applicare il comando alla directory stessa/specificata e non ai file.}
+	\riga{ls -R [\textit{nomefile}]}{Mostra ricorsivamente contenuto sotto directory.}
 
 	\riga{pwd}{Visualizza il percorso assoluto, da / fino alla directory corrente.}
 	\riga{which \textit{comando}}{Cerca in PATH il comando e se lo trova mostra il path in cui si trova.}
@@ -267,7 +267,7 @@ Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella 
 	\riga{head -n \textit{n file}}{Mostra le prime n righe del file. Default 10.}
 	\riga{tail -n \textit{n file}}{Mostra le ultime n righe del file. Default 10.}
 
-	\riga{sed \textbf{'s/old/new/[g\textbar n];...' file}}{sostituisce il testo old (o più testi orinali con [o1, o2, ...]) con quello new, solo per la prima occorrenza. Può richiere l'opzione \texttt{-r}.
+	\riga{sed \textit{'s/old/new/[g\textbar n];...' file}}{Sostituisce il testo old (o più testi orinali con [o1, o2, ...]) con quello new, solo per la prima occorrenza. Può richiere l'opzione \texttt{-r}.
 	\begin{itemize}[noitemsep, topsep=0pt]
 		\item Con l'opzione g si applica per tutte le occorrenze in una riga oppure all'n-esima occorrenza.
 

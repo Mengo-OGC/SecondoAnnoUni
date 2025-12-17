@@ -294,12 +294,12 @@ Directory sulla RAM \texttt{/proc/} : contiene i processi in esecuzione e nella 
 	\riga{grep -h \textit{stringa} [\textit{file}]}{Disabilita la visualizzazione del nome del file dove è avvenuta la ricerca (nel caso si cerci in più file). (-H è equivalente).}
 
 	\riga{find \textit{file}}{Trova percorsi di file in sotto alberi della memoria.}
-	\riga{find -type d \textit{file}}{Trova solo directory.}
-	\riga{find -type f \textit{file}}{Trova solo file.}
-	\riga{find -maxdepth n \textit{file}}{Limità la profondità di ricerca il numero di livelli indicato.}
-	\riga{find -mindeph \textit{file}}{Indica il livello minino di ricerca.}
-	\riga{find -name "..." \textit{file}}{Definisce un vincolo sul nome del file da trovare.}
-	\riga{find -iname \textit{file}}{Disabilità il caseSensitive.}
+	\riga{find  \textit{file} -type d}{Trova solo directory.}
+	\riga{find \textit{file} -type f}{Trova solo file.}
+	\riga{find \textit{file} -maxdepth n}{Limità la profondità di ricerca il numero di livelli indicato.}
+	\riga{find \textit{file} -mindepth n}{Indica il livello minino di ricerca.}
+	\riga{find \textit{file} -name "..."}{Definisce un vincolo sul nome del file da trovare.}
+	\riga{find \textit{file} -iname}{Disabilità il caseSensitive.}
 	\riga{find \textit{file} -exec ... '\{\}' ... $\backslash$;}{Istruzioni da fare quando viene trovato un elemento. L'output di find viene messo al posto di '\{\}'.}
 
 	\riga{wc}{Dice del testo passato il numero di righe (-l), parole (-w) e caratteri (-c).}

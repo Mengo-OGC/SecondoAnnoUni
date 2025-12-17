@@ -18,16 +18,19 @@ Un fenomeno può essere:
 
 \definizione{Evento coerente}{Sia $\Omega$ l'insieme dei risultati. Un evento è un sotto insieme di $\Omega$ di cui ha senso calcolare la valutazione di probabilità, ossia:
 \begin{enumerate}
+	\item Se $A$ e $B$ sono eventi allora $A\cap B$ è un evento.
 	\item Se $A_1,\dots$ sono eventi allora $\bigcup_i A_i$ è un evento.
 	\item Se $A$ è un evento allora $A^C$ è un evento.
-	\item $\Omega$ è un evento ($\Omega \in \mathscr{A}$).
+	\item $\Omega$ è un evento.
 \end{enumerate}}{d:eventoProb}
 
-\osservazione{Una collezione di sotto insiemi di $\omega$ che soddisfa tutti i presupposti si dice \textbf{famiglia coerente d'eventi}, con simbolo $\mathscr{A}$.}
+\osservazione{Una collezione di sotto insiemi di $\Omega$ che soddisfa tutti i presupposti si dice \textbf{famiglia coerente d'eventi}, con simbolo $\mathscr{A}$, ($\mathscr{A} \in \Omega$).}
 
 \osservazione{Non tutti i sotto insiemi di $\Omega$ sono eventi.}
 
-La valutazione di probabilità, $P$, $P:\mathscr{A}\to\mathbb{R}_{\geqslant0}$, deve soddisfare le proprietà:
+\bigskip
+
+La valutazione di probabilità, $P:\mathscr{A}\to\mathbb{R}_{\geqslant0}$, deve soddisfare le proprietà:
 \begin{enumerate}
 	\item $P(\Omega)=1$.
 	\item $P(A)\geqslant0,\forall \ evento \ A$.
@@ -60,7 +63,7 @@ Ragionamento: $P(A)=P(\omega_1)+\dots+P(\omega_k)=\frac{1}{n}+\dots+\frac{1}{n}=
 \mysubsection{Considerazioni elementari}
 \begin{itemize}
 	\item Se $E$ è un evento allora $E^C$ è un evento.
-	\item $E\cup E^C=\Omega$ è un uninoe disguinta.
+	\item $E\cup E^C=\Omega$ è un uninone disguinta.
 	\item Se $P(E)+P(E^C)=1$ allora $P(E^C)=1-P(E)$.
 \end{itemize}
 
@@ -80,6 +83,7 @@ In altre parole riparametrizziamo la probabilità di $B$ da $\Omega$ al sotto in
 \definizione{Formula delle probabilità totali}{Sia $\Omega$ partizionato in $\{A_1,A_2,\dots\}$. Per sapere la probabilità d'un evento $B$ condizionato da un qualsiasi altro evento. \[P(B)=\sum_{i=1}^nP(B\cap A_i)=\sum_{i=1}^nP(B\mid A)P(A)\]}{formulaPorblTot}
 
 \definizione{Formula di Bayes}{Siano $A,B$ eventi. \[P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A)}\]}{d:fBaeys}
+È una formula di inversione della condizione, $P(B\mid A)\leftrightarrow  P(A\mid B)$.
 
 \dimostrazione{d:fBaeys}{Siano $P(A\mid B)=\frac{P(A\cap B)}{P(B)}$ e $P(B\mid A)=\frac{P(A\cap B)}{P(A)}$. Allora $P(A\cap B)=P(A\mid B)P(B)=P(B\mid A)P(A)=P(A  \cap B)$.}
 
@@ -97,15 +101,15 @@ Una variabile aleatoria può essere continua o discreta.
 \definizione{Funzione di ripartizione}{Sia $X$ una variabile aleatoria. La sua funzione di ripartizione $F_X$ è una funzione $F_X:\mathbb{R}\to\mathbb{R}$ definita come $F_X(t)=P(X\leqslant t)$.}{d:fRipartizione}
 
 \definizione{Densità concreta discreta}{Sia $X$ una variabile aleatoria discreta.
-La densità concreta discreta di $X$ è $dx:\mathbb{R}\to\mathbb{R}$ con \[dx(h)=P(X=h)=
+La densità concreta discreta di $X$ è $dx:\mathbb{R}\to\mathbb{R}$ con \[d_X(h)=P(X=h)=
 \begin{cases}
 	a_1 \ se\ h=0,\dots \\
 	\dots \\
 	0 \ altrimenti
 \end{cases}\] La densità concreta discreta soddisfa le proprietà:
 \begin{enumerate}
-	\item $dx(h)\geqslant0,\forall h$.
-	\item $dx(h)\ne0$ per una quantità finita o numerabile di valori $h$.
+	\item $d_X(h)\geqslant0,\forall h$.
+	\item $d_X(h)\ne0$ per una quantità finita o numerabile di valori $h$.
 	\item $\sum_hdx(h)=1$.
 \end{enumerate}}{d:densConc}
 
@@ -119,23 +123,21 @@ La densità concreta discreta di $X$ è $dx:\mathbb{R}\to\mathbb{R}$ con \[dx(h)
 \end{enumerate}}{d:denAst}
 
 \mysubsection{Approfondimento Serie Geometrica}
-Sia $0<a<1$ allora $1-a^n=(1-a)(1+\dots+a^{n-1})$ sapendo che $(1+\dots+a^{n-1}=\frac{1-a^n}{1-a}$ possiamo dire che \[\lim\limits_{h\to\infty}(1+\dots+a^{n-1})=\lim\limits_{h\to\infty}\frac{1-a^n}{1-a}=\frac{1}{1-a}=\sum_{h=0}^\infty a^h\]
+Sia $0<a<1$ allora $1-a^n=(1-a)(1+\dots+a^{n-1})$ sapendo che $(1+\dots+a^{n-1})=\frac{1-a^n}{1-a}$ possiamo dire che \[\lim\limits_{h\to\infty}(1+\dots+a^{n-1})=\lim\limits_{h\to\infty}\frac{1-a^n}{1-a}=\frac{1}{1-a}=\sum_{h=0}^\infty a^h\]
 
-\definizione{Densità uniforme}{Sia $X$ una v.a., si dice uniforme nell'insieme $A=\{a_1,\dots,a_n\}\subseteq\mathbb{R}$ se \[dx(h)=
+\definizione{Densità uniforme}{Sia $X$ una v.a., si dice uniforme nell'insieme $A=\{a_1,\dots,a_n\}\subseteq\mathbb{R}$ se \[d_X(h)=
 \begin{cases}
 	\frac{1}{n} \ se \ h=a_1,\dots,a_n\\
 	0 \ altrimenti
 \end{cases}\]
-
 Si scrive $X\sim U(\{\dots\})$.}{d:densUnif}
 
-\definizione{Densità di Bernulli}{Si dice densità di Bernulli se $X$ assume solo i valori 0 e 1. \[dx(h)=
+\definizione{Densità di Bernulli}{Si dice densità di Bernulli se $X$ assume solo i valori 0 e 1. \[d_X(h)=
 \begin{cases}
 	p \ se \ h=1\\
 	1-p \ se \ h=0\\
 	0 \ altrimenti
 \end{cases}\]
-
 Si scrive $X\sim B(1,p)$.}{d:densBern}
 
 \osservazione{Si usa quando qualcosa può accadere o non accadere.}
@@ -150,18 +152,18 @@ Si scrive $X\sim B(1,p)$.}{d:densBern}
 
 La variabile $X=\# successi$ la chiamiamo binomiale e scriviamo $X\sim B(h,p)$ con $h$ il numero di tentativi e $p$ la probabilità che ogni tentativo dia successo.
 
-\[dx(k)=
+\[d_X(k)=
 \begin{cases}
 	\binom{h}{k}p^k(1-p)^{h-k} \ se \ k=1,\dots,n\\
 	0 \ altrimenti
 \end{cases}\]}{d:ssiProvInd}
 
-\definizione{S.S.I. senza rimpiazzo}{Sia $\Omega=$ le combinazioni, con probabilità uniforme, di $n$ palline tra blu e rosse, $|\Omega|=\binom{b+r}{n}$.
+\definizione{S.S.I. senza rimpiazzo}{Sia $\Omega$ le combinazioni, con probabilità uniforme, di $n$ palline tra blu e rosse, $|\Omega|=\binom{b+r}{n}$.
 Uno s.s.i. si dice senza rimpiazzo se:
 \begin{enumerate}
 	\item L'ordine delle estrazioni non è importate.
 	\item Ogni prova non ha la stessa probabilità di dare successo.
-	\item L'esito di ogni tentativo non è indipendente da quello degl'altri.
+	\item L'esito di ogni tentativo non è indipendente da quello degli altri.
 \end{enumerate}
 
 La variabile $X=\# successi$ (estrazione pallina blu) la chiamiamo ipergeometrica. Scriviamo $X\sim H(h,b,r)$ con $h$ il numero di tentativi.
@@ -174,33 +176,25 @@ I risultati favorevoli a "$X=k$" sono $\binom{b}{k}\cdot\binom{r}{h-k}$ ossia la
 	0 \ altrimenti
 \end{cases}\]}{d:ssiSenzaRimpiazzo}
 
-\definizione{Variabili tempo di primo successo}{Sia $\Omega=$ le combinazioni, con probabilità uniforme, di $n$ palline tra blu e rosse, $|\Omega|=\binom{b+r}{n}$.
+\definizione{Variabili tempo di primo successo}{Sia $\Omega$ le combinazioni, con probabilità uniforme, di $n$ palline tra blu e rosse, $|\Omega|=\binom{b+r}{n}$.
+
 Si parla di variabile tempo di primo successo quando estraiamo senza rimpiazzo fino ad'ottenere un successo (blu).
-
 Definiamo $T=\#$tentativi effettuati.
-Il tempo di primo successo in uno s.s.i. a prove indipendenti definisce:
-\begin{enumerate}
-	\item $T$=Tempo primo successo che assume $\infty$ valori.
-	\item $p$=Probabilità di avere successo ad'ogni tentativo.
-\end{enumerate}
 
-\[p(T=k)=(1-p)^{k-1}p\]
-
-\[d_T(k)=
+Il tempo di primo successo in uno s.s.i. a prove indipendenti definisce $T$ come Tempo primo successo che assume $\infty$ valori e $p$ come Probabilità di avere successo ad'ogni tentativo.
+\[p(T=k)=(1-p)^{k-1}p, d_T(k)=
 \begin{cases}
 	(1-p)^{k-1}p \ se \ k=1,\dots\\
 	0 \ altrimenti
 \end{cases}\]
-
 Diciamo $T\sim \tilde{G}(p)$, ossia $T$ ha densità geometrica modificata di parametro $p$.
 Siccome $d_T$ è una densità abbiamo:
-
-\[\sum_{k=1}^\infty (1-p)^{k-1}p=1\]
+$\sum_{k=1}^\infty (1-p)^{k-1}p=1$.
 }{d:varTempPrimoSucc}
 
 \definizione{Variabili geometrice non modificate}{In uno s.s.i. a prove indipendenti la variabile geometrica $X$ da il numero di fallimenti prima di un successo.
 
-$X+1=T$ è una variabile geometrica modificata con $X$ che assume vlaori da 0 a $+\infty$. Quindi
+$X+1=T$ è una variabile geometrica modificata con $X$ che assume valori da 0 a $+\infty$. Quindi
 $dx(k)=P(X=k)=P(T-1=k)=P(T=k+1)=d_T(k+1)=
 \begin{cases}
 	p(1-p)^k \ se \ k=0,\dots\\
@@ -214,9 +208,7 @@ Scriviamo $X\sim G(p)$.}{d:varGeom}
 \dimostrazione{d:mancMem}{Sia $X\sim G(p)$. Perchè $P(X\geqslant k)$ è uguale a $(1-p)^k$, ossia i primi $k$ tentativi vanno male?
 \begin{align*}
 	P(X\geqslant k+m\mid X\geqslant k)&=\frac{P(X\geqslant k+m \cap X \geqslant k)}{P(X\geqslant k)}\\
-	&=\frac{(1-p)^{k+m}}{(1-p)^k}\\
-	&=(1-p)^m\\
-	&=P(X\geqslant m)
+	&=\frac{(1-p)^{k+m}}{(1-p)^k}=(1-p)^m=P(X\geqslant m)
 \end{align*}}
 
 \definizione{Variabili di Poisson}{Una variabile aleatoria $X$ si dice variabile di Poisson di parametro $\lambda>0$ se ha la seguente densità: \[d(k)=
@@ -224,7 +216,6 @@ Scriviamo $X\sim G(p)$.}{d:varGeom}
 	e^{-\lambda}\frac{\lambda^k}{k!}\ k=0,\dots\\
 	0 \ altrimenti
 \end{cases}\]
-
 Scriviamo $X\sim P(\lambda)$.}{d:varPoisson}
 
 \osservazione{$d(k)$ è una densità discreta astratta:
@@ -275,7 +266,7 @@ La densità delle variabili $X$ e $Y$ , $d_X$ e $d_Y$, si dicono \textbf{densit�
 \]
 
 
-Le d.marginali sono univocamente determinabili dalla d.congiunta:
+Le dens.marginali sono univocamente determinabili dalla dens.congiunta:
 \[d_X(h)=\sum_kd_{X,Y}(h,k)\]
 \[d_Y(k)=\sum_hd_{X,Y}(h,k)\]
 
@@ -289,7 +280,7 @@ Ossia $d_{X,Y}(h,k)=d_X(h)d_Y(k), \forall h,k\in\mathbb{R}$.}{d:vaIndipendenti}
 
 In altre parole $X$ e $Y$ sono indipendenti se gli eventi $"X=h"$ e $"Y=k"$ sono indipendenti per ogni $h,k$.
 
-\definizione{Trasformazioni di variabili}{Una trasformazione di una o più variabili aleatorie è data \[\Phi(X_1,X_2), \Phi:\mathbb{R}^2\to\mathbb{R}\] oppure \[\Phi(X), \Phi:\mathbb{R}\to\mathbb{R}\]}{d:trasfVart}
+\definizione{Trasformazioni di variabili}{Una trasformazione di una o più variabili aleatorie è data da \[\Phi(X_1,X_2), \Phi:\mathbb{R}^2\to\mathbb{R}\ oppure \ \Phi(X), \Phi:\mathbb{R}\to\mathbb{R}\]}{d:trasfVart}
 
 \proprieta{F.r. di v.a. indipendenti}{Sia $X$ e $Y$ variabili indipendenti e $Z$ una trasformazione di variabile allora \[F_Z=F_X\cdot F_Y\]}{prop:frVAindip}
 Ricorda: La funzione di ripartizione della viariabile alealtoria $X$ è $F_X(h)=P(X\leqslant h)$.

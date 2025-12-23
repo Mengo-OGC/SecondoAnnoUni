@@ -10,30 +10,28 @@
 
 \begin{itemize}
 	\item \textbf{Carattere Quantitativo} se assumiamo valori numerici che esprimono una misura.
-	\item \textbf{Carattere Qualitativo} se non è qualitativo.
+	\item \textbf{Carattere Qualitativo} se non è quantitativo.
 \end{itemize}
 
 I caratteri sarebbero distinguibili anche in \textbf{discreti e continui}.
 
 \definizione{Unità (Statistica)}{Un unità (statistica) è un elemento della popolazione.}{d:uniStatistica}
 
-\definizione{Campione}{Un campione è un sotto insieme (rappresentativo) della popolazione del quale possiamo determinare il valore del campione.}{d:campione}
+\definizione{Campione}{Un campione è un sotto insieme (rappresentativo) della popolazione del quale possiamo determinare il valore.}{d:campione}
 
 \definizione{Modalità}{La modalità sono i valori che può assumere il carattere.}{d:modalità}
 
-\definizione{Classi}{Se le modalità sono molto numerose (o infinite) è conveniente raggrupparle in \textbf{classi}.
-
-Una classe, solitamente, è determinata dal \textbf{confine inferiore e superiore}.
+\definizione{Classi}{Una classe, solitamente, è determinata dal \textbf{confine inferiore e superiore}.
 Il \textbf{valore centrale} di una classe è la media dei confini.
 
 Se abbiamo un solo confine chi fa l'indagine può decidere un valore rappresentativo come valore centrale.}{d:classi}
+Se le modalità sono molto numerose (o infinite) è conveniente raggrupparle in \textbf{classi}.
 
 \definizione{Frequenza (assoluta)}{La frequenza (assoluta) di una modalità è il numero di volte in cui compare nel campione.}{d.freqAss}
 
 \definizione{Frequenza relativa}{La frequenza relativa è il rapporto fra la frequenza assoluta e la cardinalità del campione. \[F_R=\frac{F_A}{|campione|}\]}{d:freqRel}
 
 \definizione{Istogramma}{L'istogramma è un grafico che rappresenta i risultati di un'indagine.
-
 Ad'ogni modalità (classe) è associato un rettangolo con base proporzionale all'ampiezza e area proporzionale alla frequenza.}{d:istogramma}
 
 \begin{center}
@@ -78,7 +76,6 @@ Ad'ogni modalità (classe) è associato un rettangolo con base proporzionale all
 \end{center}
 
 \definizione{Media Campionaria}{La media campionaria si effettua su un carattere quantitativo su un campione di $n$ elementi. \[\overline{x}=\overline{x}_n=\frac{1}{n}(x_1+\dots+x_n)\]}{d:medCamp}
-
 Ricordiamo delle proprietà delle sommatorie:
 \begin{itemize}
 	\item $\sum_{i=1}^n(a_i+b_i)=\sum_{i=1}^na_i+\sum_{i=1}^nb_i$
@@ -87,33 +84,34 @@ Ricordiamo delle proprietà delle sommatorie:
 	\item $\sum_{i=1}^n(\sum_{j=1}^n(a_ib_j))=(\sum_{i=1}^na_i)\cdot(\sum_{i=1}^nb_i)$
 \end{itemize}
 
-\definizione{Linearità della media}{Siano $x,y,z$ tre caratteri legati dalla relazione $z=ax+by$ con costanti $a,b$. \[\overline{z}=a\overline{x}+b\overline{y}\]}{d:linMed}
-
-Caso particolare è con $y=1$ ottenendo così $z=ax+b$ e quindi $\overline{z}=a\overline{x}+b$. Può essere usato per semplificare i conti.
+\definizione{Linearità della media}{Siano $x,y,z$ tre caratteri legati dalla relazione $z=ax+by$ con costanti $a,b$. Allora \[\overline{z}=a\overline{x}+b\overline{y}\]}{d:linMed}
+Caso particolare è con $y=1$ ottenendo così $z=ax+b$ e quindi $\overline{z}=a\overline{x}+b$. (Può essere usato per semplificare i conti).
 
 \dimostrazione{d:linMed}{\[\overline{z}=\frac{1}{n}\sum_{i=1}^nz_i=\frac{1}{n}\sum_{i=1}^n(ax_i+by_i)=\frac{1}{n}a\sum_{i=1}^nx_i+\frac{1}{n}b\sum_{i=1}^ny_i=a\overline{x}+b\overline{y}\]}
 
-\definizione{Media Ponderata}{La media ponderata si usa per dare diversa importanza (peso) ai vari elementi d'un campione. \[\overline{x_w}=\frac{x_1w_1+\dots+x_nw_n}{w_1+\dots+w_n}\]}{d:medPond}
-
+\definizione{Media Ponderata}{La media ponderata si usa per dare diversa importanza (peso) ai vari elementi di un campione. \[\overline{x_w}=\frac{x_1w_1+\dots+x_nw_n}{w_1+\dots+w_n}\]}{d:medPond}
 \osservazione{La media campionaria si ottiene dando peso 1 a tutti gli elementi.}
 
 \definizione{Varianza}{La varianza di $x$ è la media dei quadrati della distanza da $\overline{x}$. \[\sigma_x^2=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})^2\]}{d:varianza}
 In altre parole indica la dispersione dei valori, ovvero da una misura di qunato i dati sono lontanti tra dolo.
 
 \dimostrazione{d:varianza}{Ricordiamo la formula della parabola $at^2+bt+c=0, a>0$ e con vertice d'ascissa $-b/2a$.
-
-Possiamo fissare un punto a caso $t$. Consideriamo la media dei quadrati delle distanze date come: \[\frac{(x_1-t)^2+\dots+(x_n-t)^2}{n}\] Per quale $t$ questa quantità è minima? $\frac{1}{n}\sum_{i=1}^n(x_i-t)^2=\frac{1}{n}(\sum_{i=1}^n(t^2-2x_1t+x_1^2))=t^2-\frac{2t}{n}\sum_{i=1}^nx_i+\frac{1}{n}\sum_{i=1}^nx_i^2=t^2-2\overline{x}t+\frac{1}{n}\sum_{i=1}^nx_i^2$.
+Possiamo fissare un punto a caso $t$. Consideriamo la media dei quadrati delle distanze date come: \[\frac{(x_1-t)^2+\dots+(x_n-t)^2}{n}\] Per quale $t$ questa quantità è minima?
+\begin{align*}
+	\frac{1}{n}\sum_{i=1}^n(x_i-t)^2&=\frac{1}{n}(\sum_{i=1}^n(t^2-2x_1t+x_1^2))\\
+	&=t^2-\frac{2t}{n}\sum_{i=1}^nx_i+\frac{1}{n}\sum_{i=1}^nx_i^2\\
+	&=t^2-2\overline{x}t+\frac{1}{n}\sum_{i=1}^nx_i^2
+\end{align*}
 Il valore minimo lo otteniamo per $t=\frac{-(-2\overline{x})}{2 \cdot 1}=\overline{x}$.}
-
 \osservazione{Dal calcolo precedente con $\overline{x}, \sigma_x^2=\overline{x}^2-2\overline{x}\overline{x}-\overline{x^2}=\overline{x^2}-\overline{x}^2$.}
-
 \osservazione{La varianza è sempre positiva.}
 
-\proprieta{1° varianza}{La varianza rimane invariata per traslazioni di costanti. \[\sigma_y^2=\sigma_x^2\]}{prop:var1}
+\proprieta{Prima proprietà varianza}{La varianza rimane invariata per traslazioni di costanti. \[\sigma_y^2=\sigma_x^2\]}{prop:var1}
 
-\dimostrazione{prop:var1}{Sia $y=x+c$ con $c$ costante. Otteniamo $\overline{y}=\overline{x}+c$ ovvero $\overline{y^2}=\overline{x^2+2cx+c^2}=\overline{x^2}+2c\overline{x}+c^2$ che ci da $\sigma_y^2=\overline{y^2}-\overline{y}^2=\overline{x^2}+2c\overline{x}+c^2-(\overline{x}^2+2c\overline{x}+c^2)=\sigma_x^2$.}
+\dimostrazione{prop:var1}{Sia $y=x+c$ con $c$ costante. Otteniamo $\overline{y}=\overline{x}+c$ ovvero $\overline{y^2}=\overline{x^2+2cx+c^2}=\overline{x^2}+2c\overline{x}+c^2$ che ci da
+\[\sigma_y^2=\overline{y^2}-\overline{y}^2=\overline{x^2}+2c\overline{x}+c^2-(\overline{x}^2+2c\overline{x}+c^2)=\sigma_x^2\]}
 
-\proprieta{2° varianza}{La varianza aumenta per prodotto con costanti. \[\sigma_y^2=a^2\sigma_x^2\]}{prop:var2}
+\proprieta{Seconda proprietà varianza}{La varianza aumenta per prodotto con costanti. \[\sigma_y^2=a^2\sigma_x^2\]}{prop:var2}
 
 \dimostrazione{prop:var2}{Sia $y=ax$ con $a$ costante. Otteniamo $\overline{y}=a\overline{x}$ ovvero $\overline{y^2}=\overline{a^2x^2}=a^2\overline{x^2}$ che ci da $\sigma_y^2=\overline{y^2}-\overline{y}^2=a^2\overline{x^2}-a^2\overline{x}^2=a^2\sigma_x^2$.}
 

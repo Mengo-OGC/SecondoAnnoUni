@@ -353,8 +353,8 @@ Ponendo $x=1-p$ ottengo
 
 \begin{align*}
 	E[X]&=\sum_{k=1}^\infty kp(1-p)^{k-1}\\
-	&=p\sum_{k=1}^\infty k(1-p)^{k-1}=p\frac{1}{(1-(1+p))^2}\\
-	&=\frac{1}{p}
+	&=p\sum_{k=1}^\infty k(1-p)^{k-1}\\
+	&=p\frac{1}{(1-(1+p))^2}=\frac{1}{p}
 \end{align*}}
 
 \definizione{V.a. di Variabile geometrica modificabile}{Sia $X\sim G(p)$ ossia $X+1\sim \tilde{G}(p)$\[E[X+1]=E[X]+1=\frac{1-p}{p}\]}{d:valAttGeomMod}
@@ -445,17 +445,11 @@ Consideriamo $\frac{k}{n}$. Per $n$ piccolo questo rapporto può variare ma se $
 \dimostrazione{teo:Gnum}{Applichiamo la disuguaglianza di Chebyshev alla variabile $\overline{X_n}$.
 \[P(|\overline{X_n}-E[\overline{X_n}]|>\epsilon)<\frac{\mathrm{Var}(\overline{X_n})}{\epsilon^2}\]
 Siano:
-\begin{enumerate}
-	\item \begin{align*}
-		E[\overline{X_n}]&=E\left[\frac{X_1+\dots+X_n}{n}\right]\\
-		&=\frac{1}{n}(E[X_1])+\dots+E[X_n]=\mu
-	\end{align*}
-	\item \begin{align*}
-		\mathrm{Var}(\overline{X_n})&=\mathrm{Var}\left(\frac{X_1+\dots+X_n}{n}\right)\\
-		&=\frac{1}{n^2}(\mathrm{Var}(X_1)+\dots+\mathrm{Var}(X_n))\\
-		&=\frac{1}{n^2}n\mathrm{Var}(X_1)=\frac{\mathrm{Var}(X_1)}{n}
-	\end{align*}
-\end{enumerate}
+\[E[\overline{X_n}]=E\left[\frac{X_1+\dots+X_n}{n}\right]=\frac{1}{n}(E[X_1])+\dots+E[X_n]=\mu\]
+\begin{align*}
+	\mathrm{Var}(\overline{X_n})&=\mathrm{Var}\left(\frac{X_1+\dots+X_n}{n}\right)=\frac{1}{n^2}(\mathrm{Var}(X_1)+\dots+\mathrm{Var}(X_n))\\
+	&=\frac{1}{n^2}n\mathrm{Var}(X_1)=\frac{\mathrm{Var}(X_1)}{n}
+\end{align*}
 
 
 Sostituendo otteniamo
@@ -467,39 +461,7 @@ Ossia $\lim\limits_{n\to\infty}P(|\overline{X_n}-\mu|>\epsilon)=0$.
 
 \definizione{Variabili aleatorie continue}{Una variabile aleatoria si dice continua se la funzione di ripartizione ($F_X(t)=P(X\leqslant t)$) è una funzione continua.}{d:vaContinue}
 
-\begin{center}
-	\begin{tikzpicture}
-		\draw[draw=black, -latex, thin, solid] (-5.00,0.00) -- (5.00,0.00);
-		\node[black, anchor=south west] at (4.94,-0.75) {t};
-		\node[black, anchor=south west] at (-0.06,2.25) {1};
-		\draw[draw=black, thin, dashed] (-5.00,2.00) -- (5.00,2.00);
-		\draw[draw=lightgray, thin, solid] (-5.00,3.00) -- (-4.00,4.00);
-		\draw[draw=lightgray, thin, solid] (-5.00,2.00) -- (-3.00,4.00);
-		\draw[draw=lightgray, thin, solid] (-4.00,2.00) -- (-2.00,4.00);
-		\draw[draw=lightgray, thin, solid] (-3.00,2.00) -- (-1.00,4.00);
-		\draw[draw=lightgray, thin, solid] (-2.00,2.00) -- (0.00,4.00);
-		\draw[draw=lightgray, thin, solid] (-1.00,2.00) -- (1.00,4.00);
-		\draw[draw=lightgray, thin, solid] (0.00,2.00) -- (2.00,4.00);
-		\draw[draw=lightgray, thin, solid] (1.00,2.00) -- (3.00,4.00);
-		\draw[draw=lightgray, thin, solid] (2.00,2.00) -- (4.00,4.00);
-		\draw[draw=lightgray, thin, solid] (3.00,2.00) -- (5.00,4.00);
-		\draw[draw=lightgray, thin, solid] (4.00,2.00) -- (5.00,3.00);
-		\draw[draw=lightgray, thin, solid] (-5.00,-1.00) -- (-4.00,0.00);
-		\draw[draw=lightgray, thin, solid] (-5.00,-2.00) -- (-3.00,0.00);
-		\draw[draw=lightgray, thin, solid] (-4.00,-2.00) -- (-2.00,0.00);
-		\draw[draw=lightgray, thin, solid] (-3.00,-2.00) -- (-1.00,0.00);
-		\draw[draw=lightgray, thin, solid] (-2.00,-2.00) -- (0.00,0.00);
-		\draw[draw=lightgray, thin, solid] (-1.00,-2.00) -- (1.00,0.00);
-		\draw[draw=lightgray, thin, solid] (0.00,-2.00) -- (2.00,0.00);
-		\draw[draw=lightgray, thin, solid] (1.00,-2.00) -- (3.00,0.00);
-		\draw[draw=lightgray, thin, solid] (2.00,-2.00) -- (4.00,0.00);
-		\draw[draw=lightgray, thin, solid] (3.00,-2.00) -- (5.00,0.00);
-		\draw[draw=lightgray, thin, solid] (4.00,-2.00) -- (5.00,-1.00);
-		\draw[draw=black, -latex, thin, solid] (0.00,-2.00) -- (0.00,4.00);
-		\draw[draw=black, thin, -latex, solid] (-5.00,0.00) .. controls (-1.50, 0.00) and (1.50, 2.00) .. (5.00,2.00);
-		\node[black, anchor=south west] at (-0.06,0.25) {0};
-	\end{tikzpicture}
-\end{center}
+\foto{img/valAleatoriaContinua.png}{0.7}
 
 \begin{itemize}
 	\item $F_X(t)$ è sempre debolmente monotona, ossia $t_1<t_2, F_X(t_1)\leqslant F_X(t_2)$.
@@ -517,146 +479,32 @@ $F$ è primitiva di $f$, quindi $F_X'=f_X$.
 \[F_X(t)=\int_{-\infty}^tf_X(s)ds\]
 
 \definizione{Densità continua uniforme}{$X$ si dice uniforme in un intervallo $[a,b]$ se la densità di $X$ è constante in $[a,b]$ e nulla al di fuori di $[a,b]$.
-
-\begin{center}
-	\begin{tikzpicture}
-		\draw[draw=black, very thin, solid] (-1.00,0.00) -- (4.00,0.00);
-		\draw[draw=black, -latex, very thin, solid] (0.00,-1.00) -- (0.00,2.00);
-		\draw[draw=black, ultra thick, solid] (1.00,1.00) -- (3.00,1.00);
-		\draw[draw=black, ultra thick, solid] (-1.00,0.00) -- (1.00,0.00);
-		\draw[draw=black, -latex, ultra thick, solid] (3.00,0.00) -- (4.00,0.00);
-		\node[black, anchor=south west] at (0.94,-0.75) {a};
-		\node[black, anchor=south west] at (2.44,-0.75) {b};
-		\draw[draw=black, ultra thick, solid] (1.00,0.00) circle (0.1);
-		\draw[draw=black, ultra thick, solid] (3.00,0.00) circle (0.1);
-		\draw[draw=black, thin, dashed] (1.00,1.00) -- (1.00,0.00);
-		\draw[draw=black, thin, dashed] (3.00,1.00) -- (3.00,0.00);
-		\draw[draw=black, ultra thin, solid] (1.00,0.00) -- (2.00,1.00);
-		\draw[draw=black, ultra thin, solid] (2.00,0.00) -- (3.00,1.00);
-		\draw[draw=black, ultra thin, solid] (1.50,0.00) -- (2.50,1.00);
-		\draw[draw=black, ultra thin, solid] (1.00,0.50) -- (1.50,1.00);
-		\draw[draw=black, ultra thin, solid] (2.50,0.00) -- (3.00,0.50);
-		\draw[draw=black, very thin, dashed] (0.00,1.00) -- (1.00,1.00);
-		\node[black, anchor=south west] at (-1.06,1.25) {1/(b-a)};
-		\draw[draw=black, ultra thick, solid] (0.00,1.00) circle (0.1);
-		\node[black, anchor=south west] at (1.94,0.25) {1};
-	\end{tikzpicture}
-\end{center}}{d:densContUnif}
+\foto{img/densContUniforme.png}{0.35}}{d:densContUnif}
 
 \osservazione{Siccome $P(-\infty<x<+\infty)=1$ l'area compresa tra il grafico della densità e l'asse orrizontale è sempre 1.}
 
 \osservazione{$X$ è uniforme in $[a,b]$ nel senso che $\forall a_1, b_1, a_2, b_2$ con $b_1-a_1=b_2-a_2=l$. \[P(a_1<x<b_1)=P(a_2<x<b_2)=\frac{l}{b-a}\]}
 
 \mysubsection{Confronto Probabilità discretà e continua}
-\begin{align*}
-	X&\sim B(3,\frac{1}{2})\\
-	d_X(k&)=\begin{cases}
-		\frac{1}{8}\ se \ k=0,3\\
-		\frac{3}{8}\ se \ k=1,2\\
-		0\ altrimenti
-	\end{cases}
-\end{align*}
-\begin{center}
-	\begin{tikzpicture}
-		\draw[draw=black, -latex, thin, solid] (-6.00,0.00) -- (6.00,0.00);
-		\node[black, anchor=south west] at (5.94,-0.75) {t};
-		\draw[draw=black, -latex, thin, solid] (0.00,-2.00) -- (0.00,6.00);
-		\draw[draw=black, thin, dashed] (-6.00,4.00) -- (6.00,4.00);
-		\draw[draw=black, ultra thin, solid] (-6.00,5.00) -- (-5.00,6.00);
-		\draw[draw=black, ultra thin, solid] (-6.00,4.00) -- (-4.00,6.00);
-		\draw[draw=black, ultra thin, solid] (-5.00,4.00) -- (-3.00,6.00);
-		\draw[draw=black, ultra thin, solid] (-4.00,4.00) -- (-2.00,6.00);
-		\draw[draw=black, ultra thin, solid] (-3.00,4.00) -- (-1.00,6.00);
-		\draw[draw=black, ultra thin, solid] (-2.00,4.00) -- (0.00,6.00);
-		\draw[draw=black, ultra thin, solid] (-1.00,4.00) -- (1.00,6.00);
-		\draw[draw=black, ultra thin, solid] (0.00,4.00) -- (2.00,6.00);
-		\draw[draw=black, ultra thin, solid] (1.00,4.00) -- (3.00,6.00);
-		\draw[draw=black, ultra thin, solid] (2.00,4.00) -- (4.00,6.00);
-		\draw[draw=black, ultra thin, solid] (3.00,4.00) -- (5.00,6.00);
-		\draw[draw=black, ultra thin, solid] (4.00,4.00) -- (6.00,6.00);
-		\draw[draw=black, ultra thin, solid] (5.00,4.00) -- (6.00,5.00);
-		\draw[draw=black, ultra thin, solid] (-6.00,-1.00) -- (-5.00,0.00);
-		\draw[draw=black, ultra thin, solid] (-6.00,-2.00) -- (-4.00,0.00);
-		\draw[draw=black, ultra thin, solid] (-5.00,-2.00) -- (-3.00,0.00);
-		\draw[draw=black, ultra thin, solid] (-4.00,-2.00) -- (-2.00,0.00);
-		\draw[draw=black, ultra thin, solid] (-2.00,-2.00) -- (0.00,0.00);
-		\draw[draw=black, ultra thin, solid] (-1.00,-2.00) -- (1.00,0.00);
-		\draw[draw=black, ultra thin, solid] (0.00,-2.00) -- (2.00,0.00);
-		\draw[draw=black, ultra thin, solid] (1.00,-2.00) -- (3.00,0.00);
-		\draw[draw=black, ultra thin, solid] (2.00,-2.00) -- (4.00,0.00);
-		\draw[draw=black, ultra thin, solid] (3.00,-2.00) -- (5.00,0.00);
-		\draw[draw=black, ultra thin, solid] (4.00,-2.00) -- (6.00,0.00);
-		\draw[draw=black, ultra thin, solid] (5.00,-2.00) -- (6.00,-1.00);
-		\draw[draw=black, ultra thin, solid] (-3.00,-2.00) -- (-1.00,0.00);
-		\node[black, anchor=south west] at (-0.56,-0.75) {0};
-		\node[black, anchor=south west] at (0.44,-0.75) {1};
-		\node[black, anchor=south west] at (1.44,-0.75) {2};
-		\node[black, anchor=south west] at (2.44,-0.75) {3};
-		\node[black, anchor=south west] at (3.44,-0.75) {4};
-		\node[black, anchor=south west] at (4.44,-0.75) {5};
-		\node[black, anchor=south west] at (5.44,-0.75) {6};
-		\node[black, anchor=south west] at (-0.56,0.25) {1/8};
-		\node[black, anchor=south west] at (-0.56,1.25) {1/2};
-		\node[black, anchor=south west] at (-0.56,2.25) {7/8};
-		\node[black, anchor=south west] at (-0.56,3.25) {1};
-		\draw[draw=black, ultra thick, solid] (-6.00,0.00) -- (0.00,0.00);
-		\draw[draw=black, ultra thick, solid] (0.00,1.00) -- (1.00,1.00);
-		\draw[draw=black, ultra thick, solid] (1.00,2.00) -- (2.00,2.00);
-		\draw[draw=black, ultra thick, solid] (2.00,3.00) -- (3.00,3.00);
-		\draw[draw=black, ultra thick, solid] (3.00,4.00) -- (6.00,4.00);
-		\node[black, anchor=south west] at (0.94,0.25) {+1/8};
-		\node[black, anchor=south west] at (1.94,1.25) {+3/8};
-		\node[black, anchor=south west] at (2.94,2.25) {+3/8};
-		\node[black, anchor=south west] at (3.94,3.25) {+1/8};
-	\end{tikzpicture}
-\end{center}
-\begin{align*}
-	P(x\leqslant a)&=\int_{-\infty}^af_X(s)ds=0\\
-	P(x\leqslant1)&=1\\
-	F_X(t)&=P(X\leqslant t)=\int_a^t\frac{1}{b-a}ds=\frac{t-a}{b-a}
-\end{align*}
-\begin{center}
-		\begin{tikzpicture}
-			\draw[draw=black, -latex, thin, solid] (-7.00,0.00) -- (6.00,0.00);
-			\draw[draw=black, -latex, thin, solid] (0.00,-2.00) -- (0.00,6.00);
-			\draw[draw=black, very thin, dashed] (6.00,4.00) -- (-7.00,4.00);
-			\draw[draw=black, ultra thin, solid] (-7.00,5.00) -- (-6.00,6.00);
-			\draw[draw=black, ultra thin, solid] (-7.00,4.00) -- (-5.00,6.00);
-			\draw[draw=black, ultra thin, solid] (-6.00,4.00) -- (-4.00,6.00);
-			\draw[draw=black, ultra thin, solid] (-5.00,4.00) -- (-3.00,6.00);
-			\draw[draw=black, ultra thin, solid] (-4.00,4.00) -- (-2.00,6.00);
-			\draw[draw=black, ultra thin, solid] (-3.00,4.00) -- (-1.00,6.00);
-			\draw[draw=black, ultra thin, solid] (-2.00,4.00) -- (0.00,6.00);
-			\draw[draw=black, ultra thin, solid] (-1.00,4.00) -- (1.00,6.00);
-			\draw[draw=black, ultra thin, solid] (0.00,4.00) -- (2.00,6.00);
-			\draw[draw=black, ultra thin, solid] (1.00,4.00) -- (3.00,6.00);
-			\draw[draw=black, ultra thin, solid] (-7.00,-1.00) -- (-6.00,0.00);
-			\draw[draw=black, ultra thin, solid] (-7.00,-2.00) -- (-5.00,0.00);
-			\draw[draw=black, ultra thin, solid] (-6.00,-2.00) -- (-4.00,0.00);
-			\draw[draw=black, ultra thin, solid] (-5.00,-2.00) -- (-3.00,0.00);
-			\draw[draw=black, ultra thin, solid] (-4.00,-2.00) -- (-2.00,0.00);
-			\draw[draw=black, ultra thin, solid] (-3.00,-2.00) -- (-1.00,0.00);
-			\draw[draw=black, ultra thin, solid] (-2.00,-2.00) -- (0.00,0.00);
-			\draw[draw=black, ultra thin, solid] (-1.00,-2.00) -- (1.00,0.00);
-			\draw[draw=black, ultra thin, solid] (0.00,-2.00) -- (2.00,0.00);
-			\draw[draw=black, ultra thin, solid] (1.00,-2.00) -- (3.00,0.00);
-			\draw[draw=black, ultra thin, solid] (2.00,4.00) -- (4.00,6.00);
-			\draw[draw=black, ultra thin, solid] (3.00,4.00) -- (5.00,6.00);
-			\draw[draw=black, ultra thin, solid] (4.00,4.00) -- (6.00,6.00);
-			\draw[draw=black, ultra thin, solid] (5.00,4.00) -- (6.00,5.00);
-			\draw[draw=black, ultra thin, solid] (2.00,-2.00) -- (4.00,0.00);
-			\draw[draw=black, ultra thin, solid] (3.00,-2.00) -- (5.00,0.00);
-			\draw[draw=black, ultra thin, solid] (4.00,-2.00) -- (6.00,0.00);
-			\draw[draw=black, ultra thin, solid] (5.00,-2.00) -- (6.00,-1.00);
-			\draw[draw=black, ultra thick, solid] (0.00,0.00) circle (0.1);
-			\draw[draw=black, ultra thick, solid] (3.00,4.00) circle (0.1);
-			\draw[draw=black, ultra thick, solid] (0.00,0.00) -- (3.00,4.00);
-			\draw[draw=black, ultra thick, solid] (3.00,4.00) -- (6.00,4.00);
-			\draw[draw=black, ultra thick, solid] (-7.00,0.00) -- (0.00,0.00);
-			\node[black, anchor=south west] at (-0.56,-0.75) {0};
-			\node[black, anchor=south west] at (2.44,-0.75) {3};
-		\end{tikzpicture}
-\end{center}
+\colDue{
+	\foto{img/probDis.png}{0.9}
+	{\small\begin{align*}
+			X&\sim B(3,\frac{1}{2})\\
+			d_X(k&)=\begin{cases}
+				\frac{1}{8}\ se \ k=0,3\\
+				\frac{3}{8}\ se \ k=1,2\\
+				0\ altrimenti
+			\end{cases}
+\end{align*}}
+}{
+	\foto{img/probCont.png}{0.9}
+	{\small\begin{align*}
+		P(x\leqslant a)&=\int_{-\infty}^af_X(s)ds=0\\
+		P(x\leqslant1)&=1\\
+		F_X(t)&=P(X\leqslant t)\\
+		&=\int_a^t\frac{1}{b-a}ds=\frac{t-a}{b-a}
+	\end{align*}}
+}
 
 \definizione{Funzione di ripartizione astratta}{Una funzione $F:\mathbb{R}\to\mathbb{R}$ si dice funzione di ripartizione astratta se:
 \begin{enumerate}
@@ -673,11 +521,7 @@ $F$ è primitiva di $f$, quindi $F_X'=f_X$.
 	\item $\int_{-\infty}^{\infty}f(s)ds=1$.
 \end{enumerate}}{d:densContAstr}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{img/confronto.png}
-	\caption{Descrizione}
-\end{figure}
+\foto{img/confronto.png}{0.7}
 
 \definizione{Valore atteso di V.A. Contimua}{Il valore atteso di una variabile aletoria continua $X$ è \[E[X]=\int_{-\infty}^{\infty}sf_X(s)ds\]}{d:valAttVaCont}
 
@@ -686,8 +530,8 @@ $F$ è primitiva di $f$, quindi $F_X'=f_X$.
 \proprieta{Valore Atteso V.A. Continua}{
 \begin{enumerate}
 	\item E' sempre lineare \[E[aX+bY]=aE[X]+bE[y]\]
-	\item Siano $X,Y$ indipendenti, allora \[E[XY]=E[X]E[Y]\].
-	\item Sia $\Phi:\mathbb{R}\to\mathbb{R}$ una trasformazione allora \[E[\Phi(X)]=\int_{-\infty}^{\infty}\Phi(s)f_X(s)ds\].
+	\item Siano $X,Y$ indipendenti, allora \[E[XY]=E[X]E[Y]\]
+	\item Sia $\Phi:\mathbb{R}\to\mathbb{R}$ una trasformazione allora \[E[\Phi(X)]=\int_{-\infty}^{\infty}\Phi(s)f_X(s)ds\]
 \end{enumerate}}{prop:vac}
 
 \definizione{Varianza V.A. Continua}{Sia $X$ una variabile aleatoria continua, allora \[\mathrm{Var}(X)=E[(X-E[X])^2]\] \[\mathrm{Var}(X)=E[X^2]-E[X]^2\]}{def:varVac}
@@ -706,44 +550,20 @@ $F$ è primitiva di $f$, quindi $F_X'=f_X$.
 \end{cases}\]
 $f(s)$ è una densità continua astratta.}{d:varEsp}
 
-\[f(s)\geqslant0,\forall s\]
-\begin{center}
-	\begin{tikzpicture}
-		\draw[draw=black, -latex, thin, solid] (-5.00,0.00) -- (5.00,0.00);
-		\draw[draw=black, -latex, thin, solid] (0.00,-1.00) -- (0.00,4.00);
-		\draw[draw=magenta, thin, solid] (0.00,3.00) .. controls (0.50, 0.50) and (0.50, 0.50) .. (5.00,0.00);
-		\node[black, anchor=south west] at (-0.56,-0.75) {0};
-		\node[black, anchor=south west] at (-0.56,2.25) {a};
-		\node[black, anchor=south west] at (4.44,-0.75) {t};
-		\draw[draw=black, thin, solid] (0.00,0.00) circle (0.1);
-		\draw[draw=black, thin, solid] (0.00,3.00) circle (0.1);
-		\draw[draw=magenta, thin, solid] (-5.00,0.00) -- (0.00,0.00);
-	\end{tikzpicture}
-\end{center}
+\colDue{\[f(s)\geqslant0,\forall s\]}{\foto{img/1.png}{0.7}}
 
-La funzione di ripartizione è \[F_X(t)=\int_{-\infty}^{t}f(s)ds=\begin{cases}
-	0 \ se \ t\leqslant0\\
-	1-e^{-at} \ se \ t>0
-\end{cases}\]
-
-\begin{center}
-	\begin{tikzpicture}
-		\draw[draw=black, -latex, thin, solid] (-5.00,0.00) -- (5.00,0.00);
-		\draw[draw=black, -latex, thin, solid] (0.00,-1.00) -- (0.00,4.00);
-		\draw[draw=black, thin, dashed] (-5.00,3.00) -- (5.00,3.00);
-		\node[black, anchor=south west] at (-0.56,-0.75) {0};
-		\node[black, anchor=south west] at (-0.56,2.25) {1};
-		\draw[draw=black, thin, dashed] (0.00,0.00) circle (0.1);
-		\draw[draw=red, thin, solid] (0.00,0.00) .. controls (0.50, 2.50) and (0.50, 2.50) .. (5.00,3.00);
-		\draw[draw=red, thin, solid] (-5.00,0.00) -- (0.00,0.00);
-		\node[red, anchor=south west] at (4.44,-0.75) {t};
-	\end{tikzpicture}
-\end{center}
+\colDue{La funzione di ripartizione è
+\begin{align*}
+	F_X(t)&=\int_{-\infty}^{t}f(s)ds\\
+	&=\begin{cases}
+		0 \ se \ t\leqslant0\\
+		1-e^{-at} \ se \ t>0
+	\end{cases}
+\end{align*}}{\foto{img/3.png}{0.7}}
 
 Le variabili esponenziali hanno \textbf{mancanza di memoria} \[P(X\geqslant t+s\mid X\geqslant t)=P(X\geqslant s)\]
 
 Sapendo che $P(X\geqslant t)=1-P(X\leqslant t)=1-(1-e^{-at})=e^{-at}$ per $(t>0)$.
-
 Dimostrazione:
 \begin{align*}
 	P(X\geqslant t+s\mid X \geqslant t)&=\frac{P(X\geqslant t+s, X\geqslant t)}{P(X\geqslant t)}\\
@@ -767,35 +587,29 @@ Non esiste una formula per $F(s)$ (funzione di ripartizione), quindi per $0<t<4$
 Una variabile con questa densità la chiamiamo normale standard e la indichiamo $ \zeta_0$. Scriviamo $\zeta_0\sim N(0,1)$.}{def:varGaussiane}
 
 Densità di $\zeta_0$:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{img/gauss.png}
-	\caption{Descrizione}
-\end{figure}
+\foto{img/4.png}{0.4}
 
 \mysubsection{Somma opposti}
-Chiamiamo $\Phi(t)=F_{\zeta_o}(t)$. Siano $\Phi(t)\cong1$ se $t>4$ e $\Phi(t)\cong0$ se $t<-4$, allora \[\Phi(t)+\Phi(-t)=1\]
+Chiamiamo $\Phi(t)=F_{\zeta_o}(t)$. Siano $\Phi(t)\cong1$ se $t>4$ e $\Phi(t)\cong0$ se $t<-4$, allora $\Phi(t)+\Phi(-t)=1$.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{img/sommaOpposti.png}
-	\caption{Descrizione}
-\end{figure}
+\foto{img/5.png}{0.5}
 
 \mysubsection{Valore atteso e Varianza Variabile Normale}
-Per simmetria della densità si ha valore atteso 0. \[E[\zeta_0]=0\]
+\begin{itemize}
+	\item Per simmetria della densità si ha valore atteso 0. $E[\zeta_0]=0$.
 
-La varianza vale 1 dato che il valore atteso del quadrato vale 1. \[\mathrm{Var}(\zeta_0)=1\]
+	\item La varianza vale 1 dato che il valore atteso del quadrato vale 1. Ossia $\mathrm{Var}(\zeta_0)=1$.
+\end{itemize}
 
-\definizione{Variabili Normali non Standard}{Dati $\mu$ e $\delta>0$ la variabile $\zeta\sim N(\mu,\delta^2)$ è data da \[\zeta=\mu+\delta\zeta_0\]
+\definizione{Variabili Normali non Standard}{Dati $\mu$ e $\delta>0$ la variabile $\zeta\sim N(\mu,\delta^2)$ è data da $\zeta=\mu+\delta\zeta_0$.
 
 $E[\zeta]=\mu$, $\mathrm{Var}(\zeta)=\delta^2$.}{d:varNormNonStand}
 
 In pratica $\mu>0$ slide a destra, $\mu<0$ slide a sinistra, $\sigma>1$ funzione "spanciata", $\delta<0$ funzione "compatta".
 
-\textbf{Standardizzazione}: Dato $\zeta\sim N(a,b)$ si ottiene $\zeta=a+\sqrt{b}\zeta_0$ di cui si calcola la probabilità $P(\zeta\gtrless c)=P(\zeta_0>\frac{c-a}{b})=1+\Phi(\frac{c-a}{b})$.
-
 \bigskip
+
+\textbf{Standardizzazione}: Dato $\zeta\sim N(a,b)$ si ottiene $\zeta=a+\sqrt{b}\zeta_0$ di cui si calcola la probabilità $P(\zeta\gtrless c)=P(\zeta_0>\frac{c-a}{b})=1+\Phi(\frac{c-a}{b})$.
 
 \textbf{Scopo?} Le variabili normali sono quelle che si presentano solitamente quando abbiamo a che fare con misurazioni.
 
@@ -804,29 +618,24 @@ In pratica $\mu>0$ slide a destra, $\mu<0$ slide a sinistra, $\sigma>1$ funzione
 In generale considerando $\overline{X_n}=\frac{X_1+\dots+X_n}{n}$ si ha $E[\overline{X_n}]=\mu$ e $\mathrm{Var}(\overline{X_n})=\frac{\delta^2}{n}$. Ottenendo cosi $X_n\sim N(\mu, \frac{\delta^2}{n})$.
 }{teo:centLim}
 
-\dimostrazione{teo:centLim}{Consideriamo $X\sim U([-1,1])$ di densità:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{img/teoCentLim1.png}
-	\caption{Descrizione}
-\end{figure}
-Siano ora $X_1,X_2\sim U([-1,1])$ indipendenti, allora $X_1+X-2$ assume valori tra $[-2,2]$:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{img/teoCentLim2.png}
-	\caption{Descrizione}
-\end{figure}
-Analogamente con $X_1,X_2,X_3\sim U([-1,1])$ indipendneti, allora $X_1+X_2+X_3$ assume valori tra $[-3,3]$. (3 rami di parabola).
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{img/teoCentLim3.png}
-	\caption{Descrizione}
-\end{figure}
-E cosi facendo...}
+\dimostrazione{teo:centLim}{Tramite un esempio pratico.
 
-\bigskip
+	\colDue{Consideriamo $X\sim U([-1,1])$ di densità.}{\foto{img/dim1.png}{0.7}}
 
-Dato $c$ con $0<c<1$. La denstià normale standard è data da $P(-Z_c<\zeta_0<Z_c)=\Phi(Z_c)-\Phi(-Z_c)=\Phi(Z_c)-(1-\Phi(Z_c))=2\Phi(Z_c)-1-c=\Phi(Z_c)=\frac{c+1}{2}$.
+	\colDue{Siano ora $X_1,X_2\sim U([-1,1])$ indipendenti, allora $X_1+X-2$ assume valori tra $[-2,2]$.}{\foto{img/dim2.png}{0.7}}
+
+	\colDue{Analogamente con $X_1,X_2,X_3\sim U([-1,1])$ indipendneti, allora $X_1+X_2+X_3$ assume valori tra $[-3,3]$. (3 rami di parabola).}{\foto{img/dim3.png}{0.7}}
+
+	E cosi facendo...
+}
+
+Dato $c$ con $0<c<1$. La denstià normale standard è data da
+\begin{align*}
+	 P(-Z_c<\zeta_0<Z_c)&=\Phi(Z_c)-\Phi(-Z_c)\\
+	 &=\Phi(Z_c)-(1-\Phi(Z_c))\\
+	 &=2\Phi(Z_c)-1-c\\
+	 &=\Phi(Z_c)=\frac{c+1}{2}
+\end{align*}
 
 Sostituendo $\zeta_0$ con $\frac{\overline{X_n}-\mu}{\delta/\sqrt{n}}$ abbiamo $P(-Z_c<\frac{\overline{X_n}-\mu}{\delta/\sqrt{n}}<Z_c)=c$.
 

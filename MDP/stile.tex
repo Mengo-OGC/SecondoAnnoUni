@@ -104,3 +104,21 @@
 	\subsection*{#1}
 	\addcontentsline{toc}{subsection}{#1}
 }
+
+\newcommand{\foto}[2]{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=#2\textwidth]{#1}
+	\end{figure}
+}
+
+\newcommand{\colDue}[2]{
+	\begin{minipage}{0.45\textwidth}
+		#1
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\textwidth}
+		#2
+	\end{minipage}
+	\bigskip
+}

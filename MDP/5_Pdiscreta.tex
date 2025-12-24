@@ -1,0 +1,320 @@
+\section{Probabilità Discreta}
+\definizione{Variabili Aleatorie}{Sia $\Omega$ uno spazio di probabilità, $A$ un insieme coerente di eventi e $P$ la valutazione di probabilità.
+
+Una \textit{variabile aleatoria} è una funzione $X:\Omega\to\mathbb{R}$ tale che $\forall a \in \mathbb{R}, \{\omega\in\Omega\mid X(\omega)\leqslant a\}$, oppure $X\leqslant a$, e deve essere un evento. (si scrive anche $\chi_A$).}{d:varAleatoria}
+Per una variabile aleatoria non ha senso scrivere $P(X)$, ma ha senso scrivere $P(X\leqslant a)$.
+Una variabile aleatoria può essere continua o discreta.
+
+\definizione{Funzione di ripartizione}{Sia $X$ una variabile aleatoria. La sua funzione di ripartizione $F_X$ è una funzione $F_X:\mathbb{R}\to\mathbb{R}$ definita come \[F_X(t)=P(X\leqslant t)\]}{d:fRipartizione}
+
+\definizione{Densità concreta discreta}{Sia $X$ una variabile aleatoria discreta. La densità concreta discreta di $X$ è $d_X:\mathbb{R}\to\mathbb{R}$ con \[d_X(h)=P(X=h)=
+	\begin{cases}
+		a_1 \ se\ h=0,\dots \\
+		\dots \\
+		0 \ altrimenti
+	\end{cases}\] La densità concreta discreta soddisfa le proprietà:
+	\begin{enumerate}
+		\item $d_X(h)\geqslant0,\forall h$.
+		\item $d_X(h)\ne0$ per una quantità finita o numerabile di valori $h$.
+		\item $\sum_hdx(h)=1$.
+\end{enumerate}}{d:densConc}
+\osservazione{Una densità è valida se soddisfa le tre proprietà.}
+
+\definizione{Densità astratta discreta}{Sia $X$ una variabile aleatoria discreta. La densità astratta discreta è $d:\mathbb{R}\to\mathbb{R}$ e soddisfa le proprietà:
+	\begin{enumerate}
+		\item $d(h)\geqslant0,\forall h$.
+		\item $d(h)\ne0$ per una quantità discreta di valori $h$.
+		\item $\sum_hd(h)=1$.
+\end{enumerate}}{d:denAst}
+
+\mysubsection{Approfondimento Serie Geometrica}
+Sia $0<a<1$ allora $1-a^n=(1-a)(1+\dots+a^{n-1})$ sapendo che $(1+\dots+a^{n-1})=\frac{1-a^n}{1-a}$ possiamo dire che \[\lim\limits_{h\to\infty}(1+\dots+a^{n-1})=\lim\limits_{h\to\infty}\frac{1-a^n}{1-a}=\frac{1}{1-a}=\sum_{h=0}^\infty a^h\]
+
+\definizione{Densità uniforme}{Sia $X$ una v.a., si dice uniforme nell'insieme $A=\{a_1,\dots,a_n\}\subseteq\mathbb{R}$ se \[d_X(h)=
+	\begin{cases}
+		\frac{1}{n} \ se \ h=a_1,\dots,a_n\\
+		0 \ altrimenti
+	\end{cases}\]
+	Si scrive $X\sim U(\{\dots\})$.}{d:densUnif}
+
+\definizione{Densità di Bernulli}{Si dice densità di Bernulli se $X$ assume solo i valori 0 e 1. \[d_X(h)=
+	\begin{cases}
+		p \ se \ h=1\\
+		1-p \ se \ h=0\\
+		0 \ altrimenti
+	\end{cases}\]
+Si scrive $X\sim B(1,p)$.}{d:densBern}
+\osservazione{Si usa quando qualcosa può accadere o non accadere.}
+
+\definizione{Schema successo insuccesso}{Lo schema successo insuccesso è una sequenza di $n$ fenomeni aleatori ognuno dei quali da un successo oppure un insuccesso.}{d:ssi}
+
+\definizione{Ssi a prove indipendenti}{Uno schema successo insuccesso si dice a prove indipendenti se:
+	\begin{enumerate}
+		\item Ogni prova ha la stessa probabilità di dare successo.
+		\item L'esito di ogni tentativo è indipendente da quello degl'altri.
+	\end{enumerate}
+	La variabile $X=\# successi$ la chiamiamo binomiale. Scriviamo $X\sim B(n,p)$ con $h$ il numero di tentativi e $p$ la probabilità che ogni tentativo dia successo.
+	\[d_X(k)=
+	\begin{cases}
+		\binom{n}{k}p^k(1-p)^{n-k} \ se \ k=1,\dots,n\\
+		0 \ altrimenti
+	\end{cases}\]}{d:ssiProvInd}
+
+\definizione{Ssi senza rimpiazzo}{Uno schema successo insuccesso si dice senza rimpiazzo se:
+	\begin{enumerate}
+		\item L'ordine delle estrazioni non è importate.
+		\item Ogni prova non ha la stessa probabilità di dare successo.
+		\item L'esito di ogni tentativo non è indipendente da quello degli altri.
+	\end{enumerate}
+	Sia $\Omega$ le combinazioni, con probabilità uniforme, di $n$ palline tra blu e rosse, $|\Omega|=\binom{b+r}{n}$.
+	La variabile $X=\# successi$ (estrazione pallina blu) la chiamiamo ipergeometrica. Scriviamo $X\sim H(h,b,r)$ con $h$ il numero di tentativi.
+	\[P(X=k)=d_X(k)=
+	\begin{cases}
+		\frac{\binom{b}{k}\cdot\binom{r}{h-k}}{\binom{b+r}{h}} \ se \ k=0,\dots,n\\
+		0 \ altrimenti
+	\end{cases}\]
+	I risultati favorevoli a "$X=k$" sono $\binom{b}{k}\cdot\binom{r}{h-k}$ ossia la scelta di $k$ palline blue per la scelta di $h-k$ palline rosse.}{d:ssiSenzaRimpiazzo}
+
+\definizione{Variabili tempo di primo successo}{Sia $\Omega$ le combinazioni, con probabilità uniforme, di $n$ palline tra blu e rosse, $|\Omega|=\binom{b+r}{n}$.	Si parla di variabile tempo di primo successo quando estraiamo senza rimpiazzo fino ad'ottenere un successo (blu).
+
+Definiamo $T=\#$tentativi effettuati. Il tempo di primo successo in uno s.s.i. a prove indipendenti definisce $T$ come Tempo primo successo che assume $\infty$ valori e $p$ come Probabilità di avere successo ad'ogni tentativo.
+	\[p(T=k)=(1-p)^{k-1}p, d_T(k)=
+	\begin{cases}
+		(1-p)^{k-1}p \ se \ k=1,\dots\\
+		0 \ altrimenti
+	\end{cases}\]
+Diciamo $T\sim \tilde{G}(p)$, ossia $T$ ha densità geometrica modificata di parametro $p$. Siccome $d_T$ è una densità abbiamo: $\sum_{k=1}^\infty (1-p)^{k-1}p=1$.
+}{d:varTempPrimoSucc}
+
+\definizione{Variabili geometrice non modificate}{In uno s.s.i. a prove indipendenti la variabile geometrica $X$ da il numero di fallimenti prima di un successo. $X+1=T$ è una variabile geometrica modificata con $X$ che assume valori da 0 a $+\infty$. Quindi
+\begin{align*}
+	d_X(k)&=P(X=k)=P(T-1=k)=P(T=k+1)\\
+	&=d_T(k+1)=
+	\begin{cases}
+		p(1-p)^k \ se \ k=0,\dots\\
+		0 \ altrimenti
+	\end{cases}
+\end{align*}
+Scriviamo $X\sim G(p)$.}{d:varGeom}
+
+\proprieta{Mancanza di memoria V.g.n.M.}{\[P(X\geqslant k+m\mid X\geqslant k)=P(X\geqslant m)\]}{d:mancMem}
+
+\dimostrazione{d:mancMem}{Sia $X\sim G(p)$. Perchè $P(X\geqslant k)$ è uguale a $(1-p)^k$, ossia i primi $k$ tentativi vanno male?
+	\begin{align*}
+		P(X\geqslant k+m\mid X\geqslant k)&=\frac{P(X\geqslant k+m \cap X \geqslant k)}{P(X\geqslant k)}\\
+		&=\frac{(1-p)^{k+m}}{(1-p)^k}=(1-p)^m=P(X\geqslant m)
+\end{align*}}
+
+\definizione{Variabili di Poisson}{Una variabile aleatoria $X$ si dice variabile di Poisson di parametro $\lambda>0$ se ha la seguente densità: \[d(k)=
+	\begin{cases}
+		e^{-\lambda}\frac{\lambda^k}{k!}\ k=0,\dots\\
+		0 \ altrimenti
+	\end{cases}\]
+	Scriviamo $X\sim P(\lambda)$.}{d:varPoisson}
+\osservazione{$d(k)$ è una densità discreta astratta:
+	\begin{itemize}
+		\item $d(k)\geqslant0,\forall k$.
+		\item $d(k)\ne0,\forall k \in \mathbb{N}$.
+		\item $\sum_{k=0}^\infty d(k)=\sum_{k=0}^\infty e^{-\lambda}\frac{\lambda^k}{k!}=e^{-\lambda}\sum_{k=0}^\infty \frac{\lambda^k}{k!}=e^{-\lambda}e^\lambda=1$.
+
+		Ricorda: $e^x=\sum_{k=0}^\infty\frac{x^k}{k!},\forall x \in \mathbb{R}$.
+\end{itemize}}
+
+\teorema{Variabile di Poisson}{Sia $X$ una variabile binomiale, $X\sim B(n,p)$, e poniamo $\lambda=pn$ ottentendo $X\sim B(n, \lambda n)$.
+	Per $n\to\infty$ la densità di $X$ tende alla densità di Poisson $P(\lambda)$.}{t:Poisson}
+
+\dimostrazione{t:Poisson}{La densità di $X$ è
+\begin{align*}
+	d_X(k) &= \binom{n}{k}\left(\frac{\lambda}{n}\right)^k\left(1-\frac{\lambda}{n}\right)^{n-k}\\
+	&= \frac{n(n-1)(n-k+1)}{k!}\frac{\lambda^k}{n^k}\left(1-\frac{\lambda}{n}\right)^n\left(1-\frac{\lambda}{n}\right)^{-k}\\
+	&=\underbracket{\frac{\lambda^k}{k!}}_{e^k}\underbracket{\frac{n(n-1)\dots(n-k+1)}{n^k}}_1\underbracket{\left(1-\frac{\lambda}{n}\right)^n}_{e^{-\lambda}}\underbracket{\left(1-\frac{\lambda}{n}\right)^{-k}}_1\\
+	&=e^\lambda e^{-\lambda}=1
+\end{align*}}
+
+\definizione{Variabili aleatorie multidimensionali}{Una v.a. n-dimensionale è data da $(X_1,\dots,X_n)$ dove $X_1,\dots,X_n$ sono variabili aleatorie.}{d:vam}
+
+\definizione{Variabile aleatoria bidimensionale}{Una variabile aleatoria bidimensionale $(X,Y)$ ha densità $d_{X,Y}:\mathbb{R}^2\to\mathbb{R}$. \[d_{X,Y}(h,k)=P(X=h,Y=k)\]}{d:densitàVam2}
+La densità bidimensionale $d_{X,Y}$ si chiama \textbf{densità congiunta}.
+Le densità delle variabili $X$ e $Y$ , $d_X$ e $d_Y$, si chiamano \textbf{densità marginali}.
+\[\begin{array}{c|ccc}
+	X \backslash Y & 0 & \dots & n\\
+	\hline
+	0 & n_{00} & \dots & n_{0n}\\
+	\vdots & \vdots & \ddots & \vdots\\
+	n & n_{n0} & \dots & n_{nn}\\
+\end{array}
+\begin{aligned}
+	\\
+	&= P(X=0)\\
+	&= P(X=\dots)\\
+	&= P(X=n)
+\end{aligned}\]
+Le marginali sono univocamente determinabili dalla congiunta:
+\[d_X(h)=\sum_kd_{X,Y}(h,k)\quad d_Y(k)=\sum_hd_{X,Y}(h,k)\]
+Le densità marginali non determinano la densità congiunta.
+
+\definizione{Variabili aleatorie indipendenti}{Due variabili aleatorie $X,Y$ si dicono indipendenti se \[P(X=h,Y=k)=P(X=h)P(Y=k)\] Ossia $d_{X,Y}(h,k)=d_X(h)d_Y(k), \forall h,k\in\mathbb{R}$.}{d:vaIndipendenti}
+In altre parole $X$ e $Y$ sono indipendenti se gli eventi $"X=h"$ e $"Y=k"$ sono indipendenti per ogni $h,k$.
+
+\definizione{Trasformazioni di variabili}{Una trasformazione di una o più variabili aleatorie è data da \[\Phi(X_1,X_2), \Phi:\mathbb{R}^2\to\mathbb{R}\ oppure \ \Phi(X), \Phi:\mathbb{R}\to\mathbb{R}\]}{d:trasfVart}
+
+\proprieta{F.r. di v.a. indipendenti}{Sia $X$ e $Y$ variabili indipendenti e $Z$ una trasformazione di variabile allora \[F_Z=F_X\cdot F_Y\]}{prop:frVAindip}
+Ricorda: La funzione di ripartizione della viariabile alealtoria $X$ è $F_X(h)=P(X\leqslant h)$.
+
+\dimostrazione{prop:frVAindip}{Sia $Z=max(X,Y)$\begin{align*}
+		F_Z(k)&=P(Z\leqslant k)=P(max(X,Y)\leqslant k)\\
+		&=P(X\leqslant k, Y\leqslant k)\\
+		(indipendenza)&=P(X\leqslant k)P(Y\leqslant k)\\
+		&=F_X(k)F_Y(k)
+\end{align*}}
+
+\proprieta{Complementare f.r. di v.a. indipendenti}{Sia $X$ e $Y$ variabili indipendenti e $Z$ una trasformazione di variabile allora \[(1-F_Z(k))=(1-F_X(k))(1-F_Y(k))\]}{prop:comfrVAindp}
+
+\dimostrazione{prop:comfrVAindp}{Sia $Z=min(X,Y)$
+\begin{align*}
+		1-F_Z(k)&=1-P(Z\leqslant k)\\
+		&=P(Z>k)=P(min(X,Y)>k)\\
+		&=P(X>k, Y>k)\\
+		(indipendenza)&=P(X>k)P(Y>k)\\
+		&=(1-F_X(k))(1-F_Y(k))
+\end{align*}}
+
+\definizione{Densità di una Trasformazione}{Sia $X$ una variabile aleatoria e $\Phi(X), \Phi:\mathbb{R}\to\mathbb{R}$ allora la densità della trasformazione è \[d_{\Phi(X)}(k)=\sum_{h\mid \Phi(h)=k}d_X(h)\] per una variabile bidimensionale \[d_{\Phi(X,Y)}(k)=\sum_{i,j\mid\Phi(i,j)=k}d_{X,Y}(i,j)\]}{d:densTras}
+
+\definizione{Valore atteso}{Il valore atteso di $X$ è \[E[X]=\sum_hd_X(h)h\] detto anche media o speranza matematica.}{d:valAtesso}
+
+\proprieta{Valore atteso}{Sia $X$ variabile aleatoria e $\Phi:\mathbb{R}\to\mathbb{R}$ allora \[E[\Phi(X)]=\sum_h\Phi(h)d_X(h)\] Analogamente $E[\Phi(X,Y)]=\sum_{h,k}\Phi(h,k)d_{X,Y}(h,k)$.}{prop:valAtteso}
+
+\teorema{Linearità Valore Atteso}{Il valore atteso è lineare \[E[aX+bY]=aE[X]+bE[Y]\]}{teo:linVarAtt}
+
+\dimostrazione{teo:linVarAtt}{Sia $\Phi(X,Y)=aX+bY$ per la formula analoga della proprità del valore atteso.
+
+	\begin{align*}
+		E[aX+bY]&=\sum_{h,k}(ah+bk)d_{X,Y}(h,k)\\
+		&=\sum_{h,k}ahd_{X,Y}(h,k)+\sum_{h,k}bkd_{X,Y}(h,k)\\
+		&=a\sum_hh\underbracket{\sum_kd_{X,Y}(h,k)}_{d_{X}(h)}+b\sum_kk\underbracket{\sum_hd_{X,Y}(h,k)}_{d_Y(k)}\\
+		&=a\sum_hhd_X(h)+b\sum_kkd_Y(k)\\
+		&=aE[X]+bE[Y]
+\end{align*}}
+
+\corollario{1 - Linearità valore atteso}{Sia $X\sim B(n,p)$\[E[X]=np\]}{cor:linValAtt1}
+
+\dimostrazione{cor:linValAtt1}{Sia $X=X_1+\dots+X_n$ con $X_i\sim B(1,p), \forall i \in \{1,\dots,n\}$. Per esempio \[X_1=\begin{cases}
+		1 \ \text{se esistono tenteativi che danno successo}\\
+		0 \ \text{se da insuccesso}
+	\end{cases}\] per linearità $E[X]=E[X_1]+\dots+E[X_n]=p+\dots+p=np$.}
+
+\corollario{2 - Linearità valore atteso}{Sia $X\sim H(n,b,r)$\[E[X]=n\frac{b}{b+r}\]}{cor:linValAtt2}
+
+\dimostrazione{cor:linValAtt2}{Sia $X=X_1+\dots+X_n$ con $X_i\sim B(1,p), \forall i \in \{1,\dots,n\}$. Per esempio \[X_1=\begin{cases}
+		1 \ \text{se i-esima è blu}\\
+		0 \ \text{se i-esima è rossa}
+	\end{cases}\]
+	Per linearità $E[X]=E[X_1]+\dots+E[X_n]=\frac{b}{b+r}+\dots+\frac{b}{b+r}=n\frac{b}{b+r}$.}
+
+\corollario{3 - Linearità valore atteso}{Sia $X\sim P(\lambda)$\[E[X]=\lambda\]}{cor:linValAtt3}
+
+\definizione{Valore atteso di Variabile geometrica}{Sia $X\sim \tilde{G}(p)$.\[E[X]=\frac{1}{p}\]}{d:valAttVarGeom}
+
+\dimostrazione{d:valAttVarGeom}{Sapendo che $d_X(k)=p(1-p)^{k-1}$ e usando il "trucchetto" ($0<x<1$)
+	\[\sum_{k=0}^\infty x^k=\frac{1}{1-x}\stackrel{derivo}{\to}\sum_{k=1}^\infty kx^{k-1}=\frac{1}{(1-x)^2}\]
+	Ponendo $x=1-p$ ottengo
+	\[E[X]=\sum_{k=1}^\infty kp(1-p)^{k-1}=p\sum_{k=1}^\infty k(1-p)^{k-1}=p\frac{1}{(1-(1+p))^2}=\frac{1}{p}\]}
+
+\definizione{V.a. di Variabile geometrica modificabile}{Sia $X\sim G(p)$ ossia $X+1\sim \tilde{G}(p)$\[E[X+1]=E[X]+1=\frac{1-p}{p}\]}{d:valAttGeomMod}
+
+\definizione{Prodotto valore atteso di v.a. indipendenti}{Siano $X$ e $Y$ sono indipendenti allora \[E[XY]=E[X]E[Y]\]}{d:prodValAsoluto}
+Nota: Se $X\sim B(1,p)$ ho $E[XY]=E[X^2]=E[X]=p$. Perchè $X$ vale solo 0 o 1.
+
+\dimostrazione{d:prodValAsoluto}{Sia $\Phi(X,Y)=XY$.
+	\begin{align*}
+		E[XY]&=\sum_{h,k}\Phi(h,k)d_{X,Y}(h,k)=\sum_{h,k}hkd_X(h)d_Y(k)\\
+		&=\sum_hhd_X(h)\sum_kkd_Y(k)\\
+		&=E[X]E[Y]
+\end{align*}}
+Attenzione non vale il viceversa.
+La definizione può valere anche se le v.a. non sono indipendenti ma \textbf{incorrelate}.
+
+\definizione{Varianza del valore atteso}{La varianza del valore atteso è il valore atteso dei quadrati degli scarti rispetto al valore atteso di $X$. \[\mathrm{Var}(X)=E[(X-E[X])^2]\]}{d:varValAtt}
+
+\proprieta{Semplificazione Varianza v.a.}{\[\mathrm{Var}(X)=E[X^2]-E[X]^2\]}{prop:semplvva}
+
+\dimostrazione{prop:semplvva}{
+	\begin{align*}
+		\mathrm{Var}(X)&=E[(X-E[X])^2]\\
+		&=E[X^2-2E[X]X+E[X]^2]\\
+		&=E[X^2]-2E[X]E[X]+E[X]^2\\
+		&=E[X^2]-E[X]^2
+\end{align*}}
+
+\proprieta{Prima della Varianza}{\[\mathrm{Var}(aX)=a^2\mathrm{Var}(X)\]}{prop:var1}
+
+\dimostrazione{prop:var1}{
+	\begin{align*}
+		\mathrm{Var}(aX)&=E[(aX)^2]-E[aX]^2\\
+		&=a^2E[X^2]-a^2E[X]^2\\
+		&=a^2(E[X^2]-E[X]^2)\\
+		&=a^2\mathrm{Var}(X)
+\end{align*}}
+
+\proprieta{Seconda della Varianza}{Siano $X$ e $Y$ variabili aleatorie indipendenti. \[\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)\]}{prop:var2}
+
+\dimostrazione{prop:var2}{
+	\begin{align*}
+		\mathrm{Var}(X+Y)&=E[(X+Y)^2]-E[X+Y]^2\\
+		&=E[X^2+2XY+Y^2]-(E[X]+E[Y])^2\\
+		&=\underline{E[X^2]}+\underbracket{\cancel{2E[XY]}}_{2E[X]E[Y]}+\uuline{E[Y^2]}-\underline{E[X]^2}-\cancel{2E[X]E[Y]}-\uuline{E[Y]^2}\\
+		&=\underline{\mathrm{Var}(X)}+\uuline{\mathrm{Var}(Y)}
+\end{align*}}
+
+\corollario{Varianza v.a. Binomiale}{Sia $X\sim B(n, p)$. \[\mathrm{Var}(X)=np(1-p)\]}{cor:varianza}
+
+\dimostrazione{cor:varianza}{Sia $X=X_1+\dots+X_n$ con $X_i\sim B(1,p), \forall i \in 1,\dots,N$ indipendenti. Sia la varianza di una variabile aleatoria di bernulli $p(1-p)$.
+\begin{align*}
+		\mathrm{Var}(X)&=\mathrm{Var}(X_1)+\dots+\mathrm{Var}(X_n)\\
+		&=p(1-p)+\dots+p(1-p)\\
+		&=np(1-p)
+\end{align*}}
+Attenzione: Questo ragionamento non vale per $X\sim H(n,b,r)$. Infatti in questo caso possiamo scrivere $X=X_1+\dots+X_n$ con $X\sim B(1, \frac{b}{b+r})$.
+Ma le $X_i$ sono indipendenti.
+
+Se $X\sim P(\lambda)$ ossia $X\sim B(n, \frac{\lambda}{n})$ per $n\to\infty$ si ha $\mathrm{Var}(X)=\lambda$.
+
+\teorema{Disuguaglianza di Chebyshev}{Sia $X$ una variabile aleatoria discreta, allora $\forall \epsilon>0$ \[P(|X-E[X]|>\epsilon)\leqslant\frac{\mathrm{Var}(X)}{\epsilon^2}\]}{teo:Chebyshev}
+
+\dimostrazione{teo:Chebyshev}{Sia $A="|X-E[X]|>\epsilon"$ la distanza di $X$ dal valore atteso di $\epsilon$. \[\chi_A=\begin{cases}
+		1 \ se \ A \ accade\\
+		0 \ se \ A \ non \ accade
+	\end{cases}\]
+	Siano $Y=\epsilon^2\chi_A$ e $Z=(X-E[X])^2$.
+	Se $Y=\epsilon^2$ vuol dire che $\chi_A=1$ e quindi $|X-E[X]|>\epsilon$. Quindi $Y<Z$.
+	Se $Y=0$ e quindi $Y\leqslant Z$. In tutti i casi $Y\leqslant Z$ si ha $E[Y]\leqslant E[Z]$.
+	\[E[Y]=\epsilon^2P(|X-E[X]|>\epsilon)\]
+	\[E[Z]=\mathrm{Var}(X)\]
+}
+
+\definizione{Convergenza}{Sia $X_1,\dots$ una successione di variabili aleatorie. Diciamo che questa successione converge in probabilità ad $l$ se $\forall \epsilon>0$\[\lim\limits_{n\to\infty}P(|X_n-l|>\epsilon)=0\]}{d:convergenza}
+
+\teorema{Legge dei grandi numeri}{Sia $X_1,\dots$ una successione di variabili aleatorie discrete aventi tutte la stessa densità e indipendenti.
+	Sia $\mu=E[X_1]$.
+
+	Poniamo $\overline{X_n}=\frac{X_1+\dots+X_n}{n}$. Allora la successione $\overline{X_n}$ converge in probabilità a $\mu$.}{teo:Gnum}
+Esempio: Lancio un dato $n$ volte e $k$ è il numero di volte in cui abbiamo ottenuto 6.
+Consideriamo $\frac{k}{n}$. Per $n$ piccolo questo rapporto può variare ma se $n$ è grande ci aspettiamo che sia vicino a $\frac{1}{6}$.
+
+\dimostrazione{teo:Gnum}{Applichiamo la disuguaglianza di Chebyshev alla variabile $\overline{X_n}$.
+	\[P(|\overline{X_n}-E[\overline{X_n}]|>\epsilon)<\frac{\mathrm{Var}(\overline{X_n})}{\epsilon^2}\]
+	Siano:
+	\[E[\overline{X_n}]=E\left[\frac{X_1+\dots+X_n}{n}\right]=\frac{1}{n}(E[X_1])+\dots+E[X_n]=\mu\]
+	\begin{align*}
+		\mathrm{Var}(\overline{X_n})&=\mathrm{Var}\left(\frac{X_1+\dots+X_n}{n}\right)=\frac{1}{n^2}(\mathrm{Var}(X_1)+\dots+\mathrm{Var}(X_n))\\
+		&=\frac{1}{n^2}n\mathrm{Var}(X_1)=\frac{\mathrm{Var}(X_1)}{n}
+	\end{align*}
+
+
+	Sostituendo otteniamo
+
+	\[P(|\overline{X_n}-\mu|>\epsilon)<\frac{\mathrm{Var}(X_1)}{n\epsilon^2}\stackrel{n\to\infty}{\longrightarrow}0\]
+
+	Ossia $\lim\limits_{n\to\infty}P(|\overline{X_n}-\mu|>\epsilon)=0$.
+}

@@ -1,0 +1,170 @@
+\section{Probabilità Continua}
+\definizione{Variabili aleatorie continue}{Una variabile aleatoria si dice continua se la funzione di ripartizione ($F_X(t)=P(X\leqslant t)$) è una funzione continua.}{d:vaContinue}
+
+\foto{img/valAleatoriaContinua.png}{0.7}
+
+\begin{itemize}
+	\item $F_X(t)$ è sempre debolmente monotona, ossia $t_1<t_2, F_X(t_1)\leqslant F_X(t_2)$.
+	\item Non ci chiederemo la probabilità di valori esatti ma di intervalli. \[P(a<x\leqslant b)=P(x\leqslant b)-P(x\leqslant a)\] Più $b$ è vicino ad'$a$ più la probabilità tende a 0, quindi $P(x=t)=0, \forall t \in \mathbb{R}$.
+\end{itemize}
+
+\definizione{Densità di variabile continua}{Sia $F_X(s)$ una funzione e si dice densità di $X$ se $\forall a,b\mid a<b$ si ha \[P(a<x<b)=\int_a^bf_X(s)ds\]}{d:densVarCont}
+
+L'area sotto il grafico tra $a$ e $b$ è la probabilità.
+
+\[\int_a^bf_X(s)ds=F_X(b)-F_X(a)\]
+
+$F$ è primitiva di $f$, quindi $F_X'=f_X$.
+
+\[F_X(t)=\int_{-\infty}^tf_X(s)ds\]
+
+\definizione{Densità continua uniforme}{$X$ si dice uniforme in un intervallo $[a,b]$ se la densità di $X$ è constante in $[a,b]$ e nulla al di fuori di $[a,b]$.
+	\foto{img/densContUniforme.png}{0.35}}{d:densContUnif}
+
+\osservazione{Siccome $P(-\infty<x<+\infty)=1$ l'area compresa tra il grafico della densità e l'asse orrizontale è sempre 1.}
+
+\osservazione{$X$ è uniforme in $[a,b]$ nel senso che $\forall a_1, b_1, a_2, b_2$ con $b_1-a_1=b_2-a_2=l$. \[P(a_1<x<b_1)=P(a_2<x<b_2)=\frac{l}{b-a}\]}
+
+\mysubsection{Confronto Probabilità discretà e continua}
+\colDue{
+	\foto{img/probDis.png}{0.9}
+	{\small\begin{align*}
+			X&\sim B(3,\frac{1}{2})\\
+			d_X(k&)=\begin{cases}
+				\frac{1}{8}\ se \ k=0,3\\
+				\frac{3}{8}\ se \ k=1,2\\
+				0\ altrimenti
+			\end{cases}
+	\end{align*}}
+}{
+	\foto{img/probCont.png}{0.9}
+	{\small\begin{align*}
+			P(x\leqslant a)&=\int_{-\infty}^af_X(s)ds=0\\
+			P(x\leqslant1)&=1\\
+			F_X(t)&=P(X\leqslant t)\\
+			&=\int_a^t\frac{1}{b-a}ds=\frac{t-a}{b-a}
+	\end{align*}}
+}
+
+\definizione{Funzione di ripartizione astratta}{Una funzione $F:\mathbb{R}\to\mathbb{R}$ si dice funzione di ripartizione astratta se:
+	\begin{enumerate}
+		\item $F$ è una funzione continua.
+		\item $\lim\limits_{t\to-\infty}F(t)=0, \lim\limits_{t\to+\infty}F(t)=1$.
+		\item $F_X$ è debolmente crescente, cioé $\forall t_1<t_2, F(t_1)\leqslant F(t_2)$.
+\end{enumerate}}{d:funzRipAstr}
+
+\definizione{Densità continua}{Una funzione $f_X(s)$ si dice densità continua di $X$ se $\forall a,b$ con $a<b$ si ha \[P(a<X<b)=\int_{a}^{b}f_X(s)ds\]}{d:densCont}
+
+\definizione{Densità continua astratta}{Una funzione $f:\mathbb{R}\to\mathbb{R}$ si dice densità continua astratta se:
+	\begin{enumerate}
+		\item $f(s)\geqslant0,\forall s \in \mathbb{R}$.
+		\item $\int_{-\infty}^{\infty}f(s)ds=1$.
+\end{enumerate}}{d:densContAstr}
+
+\foto{img/confronto.png}{0.7}
+
+\definizione{Valore atteso di V.A. Contimua}{Il valore atteso di una variabile aletoria continua $X$ è \[E[X]=\int_{-\infty}^{\infty}sf_X(s)ds\]}{d:valAttVaCont}
+\osservazione{Il valore atteso di $X\sim U\{[a,b]\}$ è $\frac{a+b}{2}$.}
+
+\proprieta{Valore Atteso V.A. Continua}{
+	\begin{enumerate}
+		\item E' sempre lineare \[E[aX+bY]=aE[X]+bE[y]\]
+		\item Siano $X,Y$ indipendenti, allora \[E[XY]=E[X]E[Y]\]
+		\item Sia $\Phi:\mathbb{R}\to\mathbb{R}$ una trasformazione allora \[E[\Phi(X)]=\int_{-\infty}^{\infty}\Phi(s)f_X(s)ds\]
+\end{enumerate}}{prop:vac}
+
+\definizione{Varianza V.A. Continua}{Sia $X$ una variabile aleatoria continua, allora \[\mathrm{Var}(X)=E[(X-E[X])^2]\] \[\mathrm{Var}(X)=E[X^2]-E[X]^2\]}{def:varVac}
+\osservazione{La varianza dipende dall'ampiezza dell'interallo.}
+
+\proprieta{Varianza V.A. Continua}{
+	\begin{enumerate}
+		\item $\mathrm{Var}(aX)=a^2\mathrm{Var}(X)$.
+		\item Siano $X,Y$ indipendenti, allora $\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)$.
+\end{enumerate}}{prop:varVac}
+
+\definizione{Variabile esponenziale}{Sia $a>0$, allora $X\sim Exp(a)$ si definisce \[f(s)=\begin{cases}
+		0 \ se \ s<0\\
+		ae^{-as} \ se \ s>0
+	\end{cases}\]
+	$f(s)$ è una densità continua astratta.}{d:varEsp}
+\colDue{\[f(s)\geqslant0,\forall s\]}{\foto{img/1.png}{0.7}}
+\colDue{La funzione di ripartizione è
+	\begin{align*}
+		F_X(t)&=\int_{-\infty}^{t}f(s)ds\\
+		&=\begin{cases}
+			0 \ se \ t\leqslant0\\
+			1-e^{-at} \ se \ t>0
+		\end{cases}
+\end{align*}}{\foto{img/3.png}{0.7}}
+
+\noindent Le variabili esponenziali hanno \textbf{mancanza di memoria}, $P(X\geqslant t+s\mid X\geqslant t)=P(X\geqslant s)$. Sapendo che $P(X\geqslant t)=1-P(X\leqslant t)=1-(1-e^{-at})=e^{-at}$ per $(t>0)$.
+Dimostrazione:
+\begin{align*}
+	P(X\geqslant t+s\mid X \geqslant t)&=\frac{P(X\geqslant t+s, X\geqslant t)}{P(X\geqslant t)}\\
+	&= \frac{e^{-a(t+s)}}{e^{-at}}=e^{-as}=P(X\geqslant s)
+\end{align*}
+Questa proprietà comporta che le variabili esponenziali modellizzano il tempo d'attesa di un fenomeno naturale.
+Il valore atteso è $E[X]=\frac{1}{a}$. La varianza è $\mathrm{Var}(X)=\frac{1}{a^2}$.
+
+\definizione{Trasformazioni di Variabili Aleatorie Continue}{Sia $\Phi:\mathbb{R}\to\mathbb{R}$ una trasformazione e $X$ una variabile aleatoria continua, allora $\Phi(X)$ è la trasformazione della variabile aleatoria continua $X$. La funzione di ripartizione sarà \[F_{\Phi(X)}(t)=P(\Phi(X)\leqslant t)\]}{d:trasVAC}
+Negli esercizi si risolve la diseguaglianza e si esprime la $F_{\Phi(X)}$ in $F_X$.
+
+\definizione{Variabili normali (Gaussiane)}{Siano l'integrale di Gauss e la rispettiva densità astratta.
+	Non esiste una formula per $F(s)$ (funzione di ripartizione), quindi per $0<t<4$ si usano valori noti detti $\phi(t)$.
+	\[\int_{-\infty}^{\infty}e^{\frac{-s^2}{2}}ds=\sqrt{2\pi}\]
+	\[f(s)=\frac{1}{\sqrt{2\pi}}e^{\frac{-s^2}{2}}\]
+	Una variabile con questa densità la chiamiamo normale standard e la indichiamo $ \zeta_0$. Scriviamo $\zeta_0\sim N(0,1)$.}{def:varGaussiane}
+Densità di $\zeta_0$:
+\foto{img/4.png}{0.4}
+
+\mysubsection{Somma opposti}
+Chiamiamo $\Phi(t)=F_{\zeta_o}(t)$. Siano $\Phi(t)\cong1$ se $t>4$ e $\Phi(t)\cong0$ se $t<-4$, allora $\Phi(t)+\Phi(-t)=1$.
+
+\foto{img/5.png}{0.5}
+
+\mysubsection{Valore atteso e Varianza Variabile Normale}
+\begin{itemize}
+	\item Per simmetria della densità si ha valore atteso 0. $E[\zeta_0]=0$.
+
+	\item La varianza vale 1 dato che il valore atteso del quadrato vale 1. Ossia $\mathrm{Var}(\zeta_0)=1$.
+\end{itemize}
+
+\definizione{Variabili Normali non Standard}{Dati $\mu$ e $\delta>0$ la variabile $\zeta\sim N(\mu,\delta^2)$ è data da $\zeta=\mu+\delta\zeta_0$.
+
+	$E[\zeta]=\mu$, $\mathrm{Var}(\zeta)=\delta^2$.}{d:varNormNonStand}
+
+In pratica $\mu>0$ slide a destra, $\mu<0$ slide a sinistra, $\sigma>1$ funzione "spanciata", $\delta<0$ funzione "compatta".
+
+\bigskip
+
+\textbf{Standardizzazione}: Dato $\zeta\sim N(a,b)$ si ottiene $\zeta=a+\sqrt{b}\zeta_0$ di cui si calcola la probabilità $P(\zeta\gtrless c)=P(\zeta_0>\frac{c-a}{b})=1+\Phi(\frac{c-a}{b})$.
+
+\textbf{Scopo?} Le variabili normali sono quelle che si presentano solitamente quando abbiamo a che fare con misurazioni.
+
+\teorema{Teorema Centrale del limite}{Siano $X_1,\dots,X_n$ variabili aleatorie (discrete o continue) aventi la stessa funzione di ripartizione di valore atteso $\mu$ e varianza $\delta^2$ e indipendenti. Allora $X_1+\dots+X_n$ è approssimativamente una variabile normale $N(n\mu,n\delta^2)$. Se $n$ è abbastanza grande.
+
+	In generale considerando $\overline{X_n}=\frac{X_1+\dots+X_n}{n}$ si ha $E[\overline{X_n}]=\mu$ e $\mathrm{Var}(\overline{X_n})=\frac{\delta^2}{n}$. Ottenendo cosi $X_n\sim N(\mu, \frac{\delta^2}{n})$.
+}{teo:centLim}
+
+\dimostrazione{teo:centLim}{Tramite un esempio pratico.
+
+	\colDue{Consideriamo $X\sim U([-1,1])$ di densità.}{\foto{img/dim1.png}{0.7}}
+
+	\colDue{Siano ora $X_1,X_2\sim U([-1,1])$ indipendenti, allora $X_1+X-2$ assume valori tra $[-2,2]$.}{\foto{img/dim2.png}{0.7}}
+
+	\colDue{Analogamente con $X_1,X_2,X_3\sim U([-1,1])$ indipendneti, allora $X_1+X_2+X_3$ assume valori tra $[-3,3]$. (3 rami di parabola).}{\foto{img/dim3.png}{0.7}}
+
+	E cosi facendo...
+}
+
+Dato $c$ con $0<c<1$. La denstià normale standard è data da
+\begin{align*}
+	P(-Z_c<\zeta_0<Z_c)&=\Phi(Z_c)-\Phi(-Z_c)\\
+	&=\Phi(Z_c)-(1-\Phi(Z_c))\\
+	&=2\Phi(Z_c)-1-c\\
+	&=\Phi(Z_c)=\frac{c+1}{2}
+\end{align*}
+
+Sostituendo $\zeta_0$ con $\frac{\overline{X_n}-\mu}{\delta/\sqrt{n}}$ abbiamo $P(-Z_c<\frac{\overline{X_n}-\mu}{\delta/\sqrt{n}}<Z_c)=c$.
+
+\definizione{Correzione di Continuità}{Se le variabili $X_1,\dots,X_n$ assumono valori interi, anche la loro somma darà un valore intero. In questo caso si usa la correzione di continuità in cui un numero intero $n$ viene pensato come l'intervallo \[\left[n-\frac{1}{2}, n+\frac{1}{2}\right]\]}{def:correzioneContinuita}

@@ -1,0 +1,109 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[italian]{babel} % imposta la lingua in italiano.
+\usepackage{amsmath}    	% formule potenziate, allineamento, casi, ecc.
+\usepackage{amssymb}		% simboli aggiuntivi (insiemi, operatori logici, ecc.).
+\usepackage{amsfonts}	    % font matematici aggiuntivi (es. \mathbb).
+\usepackage{paracol}
+\usepackage{enumitem}
+
+\setlist[itemize]{itemsep=2pt, topsep=4pt}
+
+\begin{document}
+	\noindent\textbf{Combinatoria}
+	\begin{itemize}
+		\item Inclusione esclusione: $|A_1\cup \dots \cup A_n|=\sum_{\emptyset\ne I \subseteq \{1,\dots,n\}}^n(-1)^{|I|-1}|\bigcap_{i \in I}A_i|$.
+
+		\item Sequenze k-piene: $|S|=\sum_{j=0}^k(-1)^j\binom{k}{j}(k-j)^n$.
+
+		\item Scombussolamenti: $|S|=\sum_{j=0}^n(-1)^j(n)_{n-j}$.
+
+		\item N.Bell: $B_n=\sum_{k=0}^{n-1}\binom{n-1}{k}B_k$, N.Stirling: a$S_{n,k}=S_{n-1,k-1}+kS_{n-1,k}$.
+	\end{itemize}
+
+
+
+	\noindent\textbf{Statistica Descrittiva}
+	\begin{itemize}
+		\item Media Campionaria:$\overline{x}=\overline{x}_n=\frac{1}{n}(x_1+\dots+x_n)$.
+
+		\item Linearità della media: $\overline{z}=a\overline{x}+b\overline{y}$.
+
+		\item Media Ponderata: $\overline{x_w}=\frac{x_1w_1+\dots+x_nw_n}{w_1+\dots+w_n}$.
+
+		\item Varianza: $\sigma_x^2=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})^2$, $\sigma_y^2=\sigma_x^2$, $\sigma_y^2=a^2\sigma_x^2$.
+
+		\item Covarianza: $\sigma_{x,y}=\frac{1}{n}\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})=\overline{xy}-\overline{x}\cdot \overline{y}$.
+
+		\item Retta minimi quadrati: $S(m,q)=\sigma_y^2+m^2\sigma_x^2-em\sigma_{x,y}+(\overline{y}-q-m\overline{x})^2$.
+
+		\item Media Geometrica: $\overline{x_g}=\sqrt[n]{x_1\cdot\ldots\cdot x_n}$ $\overline{x_g}^n=x_1\cdot\ldots\cdot x_n$.
+	\end{itemize}
+
+
+
+	\noindent\textbf{Probabilità Base}
+	\begin{itemize}
+		\item Probabilità Condizionata: $P(B\mid A)=\frac{P(A\cap B)}{P(A)}$.
+
+		\item Probabilità Totali: $P(B)=\sum_{i=1}^nP(B\cap A_i)=\sum_{i=1}^nP(B\mid A_i)P(A_i)$.
+
+		\item Bayes: $P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A)}$.
+
+		\item Eventi Indipendenti: $P(B\mid A)=P(B)$ $P(A\mid B)=P(A)$.
+	\end{itemize}
+
+
+
+	\noindent\textbf{Probabilità Discreta}
+	\begin{paracol}{2}
+		\noindent D.Uniforme: $X\sim U(\{\dots\})$ \[d_X(h)=\begin{cases}\frac{1}{n} \ h=a_1,\dots,a_n\\0 \ altrimenti\end{cases}\]
+		D.Bernulli: $X\sim B(1,p)$ \[d_X(h)=\begin{cases}p \ se \ h=1\\1-p \ h=0\\0 \ altrimenti\end{cases}\]
+		D.Binomiale: $X\sim B(n,p)$ \[d_X(k)=\begin{cases}\binom{n}{k}p^k(1-p)^{n-k} \ k=[1,n]\\0 \ altrimenti\end{cases}\]
+		\switchcolumn
+		\noindent D.Ipergeometrica: $X\sim H(h,b,r)$ \[d_X(k)=\begin{cases}\frac{\binom{b}{k}\cdot\binom{r}{h-k}}{\binom{b+r}{h}} \ k=0,\dots,h\\0 \ altrimenti\end{cases}\]
+		D.G.M.: $T\sim \tilde{G}(p)$ \[d_T(k)=\begin{cases}(1-p)^{k-1}p \ k=1,\dots\\0 \ altrimenti\end{cases}\]
+		D.G.n.M.: $X\sim G(p)$ \[d_X(k)=\begin{cases}p(1-p)^k \ k=0,\dots\\0 \ altrimenti\end{cases}\]
+	\end{paracol}
+	\begin{itemize}
+		\item Mancanza Memoria G.n.M.: $P(X\geqslant k+m\mid X\geqslant k)=P(X\geqslant m)$.
+
+		\item Variabile di Poisson: $X\sim P(\lambda), d(k)=\begin{cases}e^{-\lambda}\frac{\lambda^k}{k!}\ k=0,\dots\\0 \ altrimenti\end{cases}$.
+
+		\item Prop. V.a. Multidimensionali: $d_{X,Y}(a,b)d_{X,Y}(c,d)=d_{X,Y}(a,d)d_{X,Y}(c,b)$.
+
+		\item V.a. Indipendenti: $P(X=h,Y=k)=P(X=h)P(Y=k)$.
+
+		\item F.r. di V.a. Indipendenti: $F_Z=F_X\cdot F_Y$.
+
+		\item Complementare f.r. di v.a. indipendenti: $(1-F_Z(k))=(1-F_X(k))(1-F_Y(k))$.
+
+		\item Valore atteso: $E[X]=\sum_hd_X(h)h$.
+
+		\item $E[aX+bY]=aE[X]+bE[Y]$, $E[XY]=E[X]E[Y]$.
+
+		$X\sim B(n,p)$, $E[X]=np$. $X\sim H(n,b,r)$, $E[X]=n\frac{b}{b+r}$. $X\sim P(\lambda)$, $E[X]=\lambda$. $X\sim \tilde{G}(p)$, $E[X]=\frac{1}{p}$. $X+1\sim \tilde{G}(p)$, $E[X+1]=\frac{1-p}{p}$.
+
+		\item Varianza: $\mathrm{Var}(X)=E[X^2]-E[X]^2$, $\mathrm{Var}(aX)=a^2\mathrm{Var}(X)$, $\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)$.
+
+		$X\sim B(n, p)$, $\mathrm{Var}(X)=np(1-p)$. $X\sim B(1, p)$, $\mathrm{Var}=p(1-p)$. $X\sim P(\lambda), \mathrm{Var}(X)=\lambda$.
+	\end{itemize}
+
+
+
+	\noindent\textbf{Probabilità Continua}
+	\begin{itemize}
+		\item Densità: $P(a<x<b)=\int_a^bf_X(s)ds$. Valore Atteso: $E[X]=\int_{-\infty}^{\infty}sf_X(s)ds$.
+
+		\item Variabili Uniformi: $f_X(t)=1/b-a$, $F_X(t)=t-a/b-a$, $E[X]=(a+b)/2$, $\mathrm{Var}=(b-a)^2/12$.
+
+		\item Variabili Esponenziale: $X\sim Exp(a)$. $E[X]=\frac{1}{a}$, $\mathrm{Var}(X)=\frac{1}{a^2}$, $\mathrm{Var}(aX)=a^2\mathrm{Var}(X)$. \[f(s)=\begin{cases} ae^{-as} \ se \ s>0\\ 0 \ se \ s<0	\end{cases}, F_X=\begin{cases}
+			1-e^{-at} \ t>0\\0 \ altrimenti
+		\end{cases}\] Esponenziali magiore: $P(X\geqslant t)=e^{-at}$ per $(t>0)$.
+
+		\item Variabili normale Standard: $\zeta_0\sim N(0,1)$. $E[\zeta_0]=0$,	$\mathrm{Var}(\zeta_0)=1$. $\Phi(t)+\Phi(-t)=1$.
+
+		$\zeta\sim N(\mu,\sigma^2)=\mu+\sigma\zeta_0$. $E[\zeta]=\mu$, $\mathrm{Var}(\zeta)=\sigma^2$.
+
+		TCL: dati $E[\overline{X_n}]=\mu$, $\mathrm{Var}(\overline{X_n})=\frac{\sigma^2}{n}$ \[X_n\sim N(\mu, \frac{\sigma^2}{n}), S_n\sim N\{n\mu, n\sigma^2\}\]
+	\end{itemize}
+\end{document}

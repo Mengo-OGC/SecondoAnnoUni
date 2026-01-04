@@ -3,17 +3,13 @@
 \begin{quotation}
 	"Scopo di dedurre proprietà di una popolazione dalla conoscienza dei dati di un campione."
 \end{quotation}
-
 In generale in un indagine statistica non conosciamo $\mu$ o $\sigma$ e quindi il nostro obbiettivo è di stimare, in particolare $\mu$.
-
 \begin{align*}
 	P(-Z_c\frac{\sigma}{\sqrt{n}}<&\overline{X_n}-\mu<Z_c\frac{\sigma}{\sqrt{n}})=c\\
 	P(-\overline{X_n}-Z_c\frac{\sigma}{\sqrt{n}}<&-\mu<-\overline{X_n}+Z_c\frac{\sigma}{\sqrt{n}})=c\\
 	P(\overline{X_n}-Z_c\frac{\sigma}{\sqrt{n}}<&-\mu<\overline{X_n}Z_c\frac{\sigma}{\sqrt{n}})=c
 \end{align*}
-
 $\overline{X_n}$ è la media ottenuta sul campione e la conosciamo. $\sigma$ è la varianza della popolazione ee non la conosciamo.
-
 Sostituendo $\sigma^2$ con $\overline{\sigma_n}$, la varianza del campione, otteniamo \[\mathrm{Conf}(\overline{X_n}-Z_c\frac{\overline{\sigma_n}}{\sqrt{n}}<\mu<\overline{X_n}+Z_c\frac{\overline{\sigma_n}}{\sqrt{n}})=c\]
 
 \subsection{Significatività d'un test}

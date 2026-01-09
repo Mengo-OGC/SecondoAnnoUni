@@ -77,7 +77,7 @@ Si scrive $X\sim B(1,p)$.}{d:densBern}
 
 \definizione{Variabili tempo di primo successo}{Sia $\Omega$ le combinazioni, con probabilità uniforme, di $n$ palline tra blu e rosse, $|\Omega|=\binom{b+r}{n}$.	Si parla di variabile tempo di primo successo quando estraiamo senza rimpiazzo fino ad'ottenere un successo (blu).
 
-Definiamo $T=\#$tentativi effettuati. Il tempo di primo successo in uno s.s.i. a prove indipendenti definisce $T$ come Tempo primo successo che assume $\infty$ valori e $p$ come Probabilità di avere successo ad'ogni tentativo.
+Definiamo $T=\#$tentativi effettuati. Il tempo di primo successo in uno s.s.i. a prove indipendenti definisce $T$ come tempo primo successo che assume $\infty$ valori e $p$ come probabilità di avere successo ad'ogni tentativo.
 	\[p(T=k)=(1-p)^{k-1}p, d_T(k)=
 	\begin{cases}
 		(1-p)^{k-1}p \ se \ k=1,\dots\\
@@ -120,14 +120,13 @@ Scriviamo $X\sim G(p)$.}{d:varGeom}
 		Ricorda: $e^x=\sum_{k=0}^\infty\frac{x^k}{k!},\forall x \in \mathbb{R}$.
 \end{itemize}}
 
-\teorema{Variabile di Poisson}{Sia $X$ una variabile binomiale, $X\sim B(n,p)$, e poniamo $\lambda=pn$ ottentendo $X\sim B(n, \lambda n)$.
-	Per $n\to\infty$ la densità di $X$ tende alla densità di Poisson $P(\lambda)$.}{t:Poisson}
+\teorema{Variabile di Poisson}{Sia $X$ una variabile binomiale, $X\sim B(n,p)$, e poniamo $\lambda=np$ ottentendo $X\sim B(n, \lambda/n)$. Per $n\to\infty$ la densità di $X$ tende alla densità di Poisson $P(\lambda)$.}{t:Poisson}
 
 \dimostrazione{t:Poisson}{La densità di $X$ è
 \begin{align*}
 	d_X(k) &= \binom{n}{k}\left(\frac{\lambda}{n}\right)^k\left(1-\frac{\lambda}{n}\right)^{n-k}\\
 	&= \frac{n(n-1)(n-k+1)}{k!}\frac{\lambda^k}{n^k}\left(1-\frac{\lambda}{n}\right)^n\left(1-\frac{\lambda}{n}\right)^{-k}\\
-	&=\underbracket{\frac{\lambda^k}{k!}}_{e^k}\underbracket{\frac{n(n-1)\dots(n-k+1)}{n^k}}_1\underbracket{\left(1-\frac{\lambda}{n}\right)^n}_{e^{-\lambda}}\underbracket{\left(1-\frac{\lambda}{n}\right)^{-k}}_1\\
+	&=\underbracket{\frac{\lambda^k}{k!}}_{e^\lambda}\underbracket{\frac{n(n-1)\dots(n-k+1)}{n^k}}_1\underbracket{\left(1-\frac{\lambda}{n}\right)^n}_{e^{-\lambda}}\underbracket{\left(1-\frac{\lambda}{n}\right)^{-k}}_1\\
 	&=e^\lambda e^{-\lambda}=1
 \end{align*}}
 
@@ -151,7 +150,7 @@ Le densità delle variabili $X$ e $Y$ , $d_X$ e $d_Y$, si chiamano \textbf{densi
 \end{aligned}\]
 Le marginali sono univocamente determinabili dalla congiunta: \[d_X(h)=\sum_kd_{X,Y}(h,k)\quad d_Y(k)=\sum_hd_{X,Y}(h,k)\] Le densità marginali non determinano la densità congiunta.
 
-Ricorda: $d_{X,Y}(a,b)d_{X,Y}(c,d)=d_{X,Y}(a,d)d_{X,Y}(c,b)$.
+\osservazione{$d_{X,Y}(a,b)d_{X,Y}(c,d)=d_{X,Y}(a,d)d_{X,Y}(c,b)$.}
 
 \definizione{Variabili aleatorie indipendenti}{Due variabili aleatorie $X,Y$ si dicono indipendenti se \[P(X=h,Y=k)=P(X=h)P(Y=k)\] Ossia $d_{X,Y}(h,k)=d_X(h)d_Y(k), \forall h,k\in\mathbb{R}$.}{d:vaIndipendenti}
 In altre parole $X$ e $Y$ sono indipendenti se gli eventi $"X=h"$ e $"Y=k"$ sono indipendenti per ogni $h,k$.
@@ -214,17 +213,17 @@ Ricorda: La funzione di ripartizione della viariabile alealtoria $X$ è $F_X(h)=
 
 \corollario{3 - Linearità valore atteso}{Sia $X\sim P(\lambda)$\[E[X]=\lambda\]}{cor:linValAtt3}
 
-\definizione{V.a. Variabile geometrica Modificata}{Sia $X\sim \tilde{G}(p)$.\[E[X]=\frac{1}{p}\]}{d:valAttVarGeom}
+\corollario{4 - Linearità valore atteso}{Sia $X\sim \tilde{G}(p)$\[E[X]=\frac{1}{p}\]}{d:valAttVarGeom}
 
 \dimostrazione{d:valAttVarGeom}{Sapendo che $d_X(k)=p(1-p)^{k-1}$ e usando il "trucchetto" ($0<x<1$)
 	\[\sum_{k=0}^\infty x^k=\frac{1}{1-x}\stackrel{derivo}{\to}\sum_{k=1}^\infty kx^{k-1}=\frac{1}{(1-x)^2}\]
 	Ponendo $x=1-p$ ottengo
 	\[E[X]=\sum_{k=1}^\infty kp(1-p)^{k-1}=p\sum_{k=1}^\infty k(1-p)^{k-1}=p\frac{1}{(1-(1+p))^2}=\frac{1}{p}\]}
 
-\definizione{V.a. Variabile geometrica non Modificata}{Sia $X\sim G(p)$ ossia $X+1\sim \tilde{G}(p)$\[E[X+1]=E[X]+1=\frac{1-p}{p}\]}{d:valAttGeomMod}
+\corollario{5 - Linearità valore atteso}{Sia $X\sim G(p)$ ossia $X+1\sim \tilde{G}(p)$\[E[X+1]=E[X]+1=\frac{1-p}{p}\]}{d:valAttGeomMod}
 
 \definizione{Prodotto valore atteso di v.a. indipendenti}{Siano $X$ e $Y$ sono indipendenti allora \[E[XY]=E[X]E[Y]\]}{d:prodValAsoluto}
-Nota: Se $X\sim B(1,p)$ ho $E[XY]=E[X^2]=E[X]=p$. Perchè $X$ vale solo 0 o 1.
+Se $X\sim B(1,p)$ ho $E[XY]=E[X^2]=E[X]=p$. Perchè $X$ vale solo 0 o 1.
 
 \dimostrazione{d:prodValAsoluto}{Sia $\Phi(X,Y)=XY$.
 	\begin{align*}
@@ -276,7 +275,7 @@ La definizione può valere anche se le v.a. non sono indipendenti ma \textbf{inc
 		&=np(1-p)
 \end{align*}}
 Attenzione: Questo ragionamento non vale per $X\sim H(n,b,r)$. Infatti in questo caso possiamo scrivere $X=X_1+\dots+X_n$ con $X\sim B(1, \frac{b}{b+r})$.
-Ma le $X_i$ sono indipendenti.
+Ma le $X_i$ non sono indipendenti.
 
 Se $X\sim P(\lambda)$ ossia $X\sim B(n, \frac{\lambda}{n})$ per $n\to\infty$ si ha $\mathrm{Var}(X)=\lambda$.
 

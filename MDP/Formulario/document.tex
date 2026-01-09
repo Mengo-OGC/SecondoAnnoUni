@@ -1,12 +1,13 @@
-\documentclass[12pt, a4paper]{article}
+\documentclass{article}
 \usepackage[italian]{babel} % imposta la lingua in italiano.
 \usepackage{amsmath}    	% formule potenziate, allineamento, casi, ecc.
 \usepackage{amssymb}		% simboli aggiuntivi (insiemi, operatori logici, ecc.).
 \usepackage{amsfonts}	    % font matematici aggiuntivi (es. \mathbb).
 \usepackage{paracol}
 \usepackage{enumitem}
+\usepackage[left=3cm, right=3cm]{geometry}
+\setlist[itemize]{itemsep=0pt, topsep=0pt}
 
-\setlist[itemize]{itemsep=2pt, topsep=4pt}
 
 \begin{document}
 	\noindent\textbf{Combinatoria}
@@ -69,7 +70,11 @@
 
 		\item Variabile di Poisson: $X\sim P(\lambda), d(k)=\begin{cases}e^{-\lambda}\frac{\lambda^k}{k!}\ k=0,\dots\\0 \ altrimenti\end{cases}$.
 
-		\item Prop. V.a. Multidimensionali: $d_{X,Y}(a,b)d_{X,Y}(c,d)=d_{X,Y}(a,d)d_{X,Y}(c,b)$.
+		$X\sim B\{n,p\}=X\sim P\{np\}$.
+
+		\item Marginali: $d_X(h)=\sum_kd_{X,Y}(h,k)$, $d_Y(k)=\sum_hd_{X,Y}(h,k)$.
+
+		Multidimensionali: $d_{X,Y}(a,b)d_{X,Y}(c,d)=d_{X,Y}(a,d)d_{X,Y}(c,b)$.
 
 		\item V.a. Indipendenti: $P(X=h,Y=k)=P(X=h)P(Y=k)$.
 
@@ -98,7 +103,7 @@
 
 		\item Variabili Esponenziale: $X\sim Exp(a)$. $E[X]=\frac{1}{a}$, $\mathrm{Var}(X)=\frac{1}{a^2}$, $\mathrm{Var}(aX)=a^2\mathrm{Var}(X)$. \[f(s)=\begin{cases} ae^{-as} \ se \ s>0\\ 0 \ se \ s<0	\end{cases}, F_X=\begin{cases}
 			1-e^{-at} \ t>0\\0 \ altrimenti
-		\end{cases}\] Esponenziali magiore: $P(X\geqslant t)=e^{-at}$ per $(t>0)$.
+		\end{cases}\] Esponenziali magiore: $P(X\geqslant t)=e^{-at}$ per $(t>0)$. $X_{min}$, ossia minimo di $X_1, X_2$, ha come $a=a_1+a_2$.
 
 		\item Variabili normale Standard: $\zeta_0\sim N(0,1)$. $E[\zeta_0]=0$,	$\mathrm{Var}(\zeta_0)=1$. $\Phi(t)+\Phi(-t)=1$.
 

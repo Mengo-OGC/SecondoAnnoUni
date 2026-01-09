@@ -27,9 +27,7 @@ Un insieme non numerabile sono delle sequenze infinite di bit 0/1.
 \definizione{Combinatoria di base}{Costruisce schemi "complessi" partendo da schemi semplici riuscendo a controllarne la cardinalità. (si opera solo con insiemi finiti).}{d:comDiBase}
 
 \definizione{Prodotto Cartesiano}{Siano $A, B$ insiemi il cui prodotto cartesiano $A \times B$ è l'insieme delle coppie ordinate $(a,b), a \in A, b \in B$. Generalizzando:
-\[
-A_1 \times A_2 \times \dots \times A_k = \{(a_1, \dots, a_k)\mid a_i\in A_i, \forall i \in 1,\dots, k\}
-\]
+\[A_1 \times A_2 \times \dots \times A_k = \{(a_1, \dots, a_k)\mid a_i\in A_i, \forall i \in 1,\dots, k\}\]
 }{d:prodcart}
 Definiamo \textit{n-esima potenza cartesiana} di n come $A^n=A \times \dots \times A$.
 
@@ -42,13 +40,11 @@ La cardinalità dell'insieme delle parti è $|\mathcal{P}(A)|=2^{|A|}$.
 \teorema{Insieme delle parti}{Sia $A$ un insieme di $|A|=n$, allora $\exists$ una corrispondenza biunivoca tra $\mathcal{P}(A)$ e $\{0,1\}^n$.}{t:insiemedelleparti}
 
 \dimostrazione{t:insiemedelleparti}{Vediamo il caso particolare $A=\{1,2,3\}$.
-
 \[\begin{matrix}
 	\{1\} & \{2\} & \{3\} & \{1, 2\} & \{1, 3\} & \{2,3\} & \emptyset & A\\
 	\updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow  & \updownarrow & \updownarrow\\
 	100 & 010 & 001 & 110 & 101 & 011 & 000 & 111
 \end{matrix}\]
-
 Per il caso generale $|A|=n, A=\{a_1,\dots, a_n\}$ procediamo come prima facendo corrispondere ad'un sotto insieme $S\subseteq A$ la sequenza binaria $B$ il cui i-esimo bit è $1\iff a_i\in S$.}
 
 \mysubsection{Principi di base}
@@ -88,7 +84,7 @@ Conseguenza: Dal Fattoriale Discendente, il numero di permutazioni di lunghezza 
 \begin{enumerate}
 	\item $A$ sotto insieme di $\{1,\dots,n\}$ con $a$ elementi.
 	\item $B$ sotto insieme di $\{1,\dots,n\}$ con $b$ elementi.
-	\item Si hanno sequenza binarie lunghezza $n$ con $a$ volte 1 e $b$ volte 0.
+	\item Si hanno sequenze binarie di lunghezza $n$ con $a$ volte 1 e $b$ volte 0.
 \end{enumerate}
 Questi insiemi hanno esattamente $\frac{(n)_a}{a!}=\frac{(n)_b}{b!}=\frac{n!}{a!b!}$ elementi.
 Questo numero $\frac{(n)_a}{a!}=\binom{n}{a}=\binom{n}{a,b}$ è il \textit{coefficente binomiale}.}{prop:combinazioni}
@@ -108,7 +104,7 @@ Coefficente binomiale visto diversamente:
 \end{aligned}
 \]
 Tutte le sequenze hanno 3 "1" e 2 "0".
-Poi 1 e 2 sono in biezione data dal completamento.
+Poi punto1 e punto2 della definizione sono in biezione data dall'complementare.
 $(Parte2)$ Pensiamo di avere una funzione fatta cosi: Nel dominio abbiamo le disposizioni di lunghezza $a$ in $\{1,\dots,n\}$ e nel codominio abbiamo i sotto insiemi di $\{1,\dots,n\}$ con $a$ elementi. Per esempio:
 \[
 \begin{aligned}
@@ -126,8 +122,6 @@ Quindi le disposizioni sono $A!$ volte i sotto insiemi e quindi i sotto insiemi 
 \definizione{Combinazione tipo (a,b)}{Una combinazione di tipo $(a,b)$ con $(a+b=n)$ è una coppia ordinata $(A,B)$ di sotto insiemi di $\{1,\dots,n\}$ con $|A|=a,|B|=b,A\cup B=\{1,\dots,n\}$.}{d:combtipo2}
 
 \definizione{Combinazione tipo (a,b,c)}{Una combinazione di tipo $(a,b,c)$ con $(a+b+c=n)$ è una terna ordinata $(A,B,C)$ di sotto insiemi di $\{1,\dots,n\}$ con $|A|=a,|B|=b, |C|=c,A\cup B \cup C=\{1,\dots,n\}$.}{d:combtipo3}
-
-\definizione{Anagramma}{Sequenze binarie, ternarie, quaternarie, ecc, ordinate di numeri $\{1,\dots,n\}$, con $n=a+b+\dots$, di tipo $(a,b,c,\dots)$ in biezione con le sequenze in cui compare $a$ volte "1", $b$ volte "2", $c$ volte "3", ecc.}{d:anagramma}
 Esempio di riferimento (terna):
 \[
 \begin{aligned}
@@ -137,6 +131,8 @@ Esempio di riferimento (terna):
 	(\{2,4\}, \{1\}, \{3\}) \leftrightarrow (2,1,3,1)\\
 \end{aligned}
 \]
+
+\definizione{Anagramma}{Sequenze binarie, ternarie, quaternarie, ecc, ordinate di numeri $\{1,\dots,n\}$, con $n=a+b+\dots$, di tipo $(a,b,c,\dots)$ in biezione con le sequenze in cui compare $a$ volte "1", $b$ volte "2", $c$ volte "3", ecc.}{d:anagramma}
 
 \proposizione{Binomio Combinazioni tipo (a,b,c)}{Le combinazioni di tipo $(a,b,c)$ con $(a+b+c=n)$ sono $\binom{n}{a,b,c}=\frac{n!}{a!b!c!}$.}{prop:tipo3binomio}
 
@@ -188,14 +184,11 @@ Osserviamo che abbiamo una biezione tra cammini e anagrammi e i cammini sono qui
 
 \mysubsection{Numeri di Fibonacci}
 Conta i sotto insiemi di $\{1,\dots,n\}$ che non hanno 2 numeri consecutivi.
-
 \begin{itemize}
 	\item $F_n=$ numero sotto insiemi di $\{1,\dots,n\}$ senza consecutivi.
 	\item $F_{n,k}=$ numero sotto insiemi di $\{1,\dots,n\}$ di cardinalità $k$ senza consecutivi.
 \end{itemize}
-
 \[F_n=\sum_{k=0}^nF_{n, k}=\sum_{k=0}^n\binom{n-k+1}{k}\]
-
 \begin{proof}
 Arriviamo alla formula con un esempio, $F_{8,3}$. Vediamo questi insiemi come sequenze di lunghezza 8 con 3 "1" non consecutivi (astrazione simile Camminio Reticolare). Devo riuscire ad'usare il principio d'equivalenza con un insieme di cui so la cardinalità. Sò che dopo il primo e secondo "1" c'è sempre uno "0", quindi cancello questo "0" cosi ho sequenze da 6.
 Ora "1" possono essere consecutivi ma posso tornare univocamente alla precedente rappresentazione, quindi è biunivoco.
@@ -213,7 +206,7 @@ Versione ricorsiva di $F_n, \forall n \geqslant 3$ si ha $F_n=F_{n-1}+F_{n-2}$.
 		\item $A_n$ quelli che contengono $n$.
 		\item $B_n$ quelli che non contengono $n$.
 	\end{enumerate}
-	Notare che $F_n=|F_{n-1}|+|F_{n-2}|$.  In generale gli elementi di $B_n$ non contengono $n$, quindi $B_n=F_{n-1}$ e  togliendo $n$ agli elementi di $A_n$ rimane un  qualunque sotto insiemi di $\{1,\dots,n-2\}$ senza consecutivi. Quindi $|A_n|=F_{n-2}$.
+	Notare che $F_n=F_{n-1}+F_{n-2}$.  In generale gli elementi di $B_n$ non contengono $n$, quindi $B_n=F_{n-1}$ e  togliendo $n$ agli elementi di $A_n$ rimane un  qualunque sotto insiemi di $\{1,\dots,n-2\}$ senza consecutivi. Quindi $A_n=F_{n-2}$.
 \end{proof}
 
 \definizione{Principio di inclusione esclusione}{La cardinalità dell'unione di due insiemi: \[|A \cup B| = |A|+|B|-|A \cap B|\] La cardinalità dell'unione di tre insiemi:
@@ -225,8 +218,8 @@ Versione ricorsiva di $F_n, \forall n \geqslant 3$ si ha $F_n=F_{n-1}+F_{n-2}$.
 La cardinalità dell'unione di $n$ insiemi:
 \[|A_1\cup \dots \cup A_n|=\sum_{\emptyset\ne I \subseteq \{1,\dots,n\}}^n(-1)^{|I|-1}|\bigcap_{i \in I}A_i|\]}{d:inclusioneEsclusione}
 Definiamo l'insieme complementare con $(A_1,\dots,A_n)^C$. Permette di risolvere tanti quesiti più facilmente.
-Per convenzine definiamo $\bigcap_{i\in \emptyset}=U$, l'intero insieme.
-Quindi otteniamo che \[|(A_1,\dots,A_n)^C|=|\bigcap_{i\in \emptyset}A_i|+\sum_{\emptyset\ne I \subseteq \{1,\dots,n\}}^n(-1)^{|I|-1}|\bigcap_{i \in I}A_i|\] che è come dire $\sum_{I \subseteq \{1,\dots,n\}}^n(-1)^{|I|}|\bigcap_{i \in I}A_i|$.
+Per convenzine definiamo $\bigcap_{i\in \emptyset}A_i=U$, l'intero insieme.
+Quindi otteniamo che \[|(A_1,\dots,A_n)^C|=|\bigcap_{i\in \emptyset}A_i|-\sum_{\emptyset\ne I \subseteq \{1,\dots,n\}}^n(-1)^{|I|-1}|\bigcap_{i \in I}A_i|\] che è come dire $\sum_{I \subseteq \{1,\dots,n\}}^n(-1)^{|I|}|\bigcap_{i \in I}A_i|$.
 
 \definizione{Sequenze k-piene}{Una sequenza k-piena è una sequenza in cui ogni numero da 1 a k compare almeno una volta. (non compaiono altri numeri).}{seqkpieno}
 Usando il principio di inclusione esclusione scopro che il numero di sequenze k-piene lunghe $n$ e con coefficenti in $\{1,\dots,k\}$ è \[|S|=\sum_{j=0}^k(-1)^j\binom{k}{j}(k-j)^n\]
@@ -243,7 +236,7 @@ Usando il principio di inclusione esclusione scopro che il numero di scombussola
 Nota: Le partizioni possono essere usate per "raggruppare" le permutazioni degli stessi elementi. Non è una fuzione biunivoca.
 
 \definizione{Numero di Bell}{Il numero di partizioni di $\{1,\dots,n\}$ si dice numero di Bell e si indica con $B_n$.
-Si calcola con la formula ricorsiva per $\forall n \geqslant 2$: \[B_n=\sum_{k=0}^{n-1}\binom{n-1}{k}B_k\] Si assume $B_0=1$ per convenzione.}{d:Bell}
+Si calcola con la formula ricorsiva $\forall n \geqslant 2$: \[B_n=\sum_{k=0}^{n-1}\binom{n-1}{k}B_k\] Si assume $B_0=1$ per convenzione.}{d:Bell}
 
 \dimostrazione{d:Bell}{Poniamo $B_{n,k}$ come il numero di partizioni di $\{1,\dots,n\}$ in cui $n$ compare in un blocco con $k$ elementi.
 
@@ -262,7 +255,7 @@ Gli altri $n-k$ numeri li possiamo partizionare in $B_{n-k}$ modi. Implicando $B
 
 Equivalente a quella dell'enunciato ponendo $h=n-k$:
 
-\[B_h=\sum_{h=0}^{n-1}\binom{n-1}{n-h-1}B_h=B_h=\sum_{h=0}^{h-1}\binom{h-1}{h}B_h\]
+\[B_n=\sum_{h=0}^{n-1}\binom{n-1}{n-h-1}B_h\to\sum_{h=0}^{n-1}\binom{n-1}{h}B_h\]
 }
 
 \mysubsection{Triangolo di Bell}
@@ -326,8 +319,8 @@ Trucco per calcolare i numeri di Stirling:
 		& {S_{3,1}}                     &                               & {S_{3,2}}                                                  &                                & {S_{3,3}}                      &           \\
 		{S_{4,1}}                           &                               & {S_{4,2}}                     &                                                            & {S_{4,3}}                      &                                & {S_{4,4}} \\
 		{} \arrow[d, dashed, bend right=60] &                               &                               & 1                                                          &                                &                                &           \\
-		{}                                  &                               & 1 \arrow[rd, "+" description] &                                                            & 1 \arrow[ld, "x2" description] &                                &           \\
-		& 1 \arrow[rd, "+" description] &                               & 3 \arrow[rd, "+" description] \arrow[ld, "x2" description] &                                & 1 \arrow[ld, "x3" description] &           \\
+		{}                                  &                               & 1 \arrow[rd, "+" description] &                                                            & 1 \arrow[ld, "\times2" description] &                                &           \\
+		& 1 \arrow[rd, "+" description] &                               & 3 \arrow[rd, "+" description] \arrow[ld, "\times2" description] &                                & 1 \arrow[ld, "\times3" description] &           \\
 		1                                   &                               & 7                             &                                                            & 6                              &                                & 1
 	\end{tikzcd}
 \end{center}

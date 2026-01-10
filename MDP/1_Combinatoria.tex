@@ -190,9 +190,7 @@ Conta i sotto insiemi di $\{1,\dots,n\}$ che non hanno 2 numeri consecutivi.
 \end{itemize}
 \[F_n=\sum_{k=0}^nF_{n, k}=\sum_{k=0}^n\binom{n-k+1}{k}\]
 \begin{proof}
-Arriviamo alla formula con un esempio, $F_{8,3}$. Vediamo questi insiemi come sequenze di lunghezza 8 con 3 "1" non consecutivi (astrazione simile Camminio Reticolare). Devo riuscire ad'usare il principio d'equivalenza con un insieme di cui so la cardinalità. Sò che dopo il primo e secondo "1" c'è sempre uno "0", quindi cancello questo "0" cosi ho sequenze da 6.
-Ora "1" possono essere consecutivi ma posso tornare univocamente alla precedente rappresentazione, quindi è biunivoco.
-Deduciamo che $F_{8,3}=\binom{6}{3}=20$.
+Arriviamo alla formula con un esempio, $F_{8,3}$. Vediamo questi insiemi come sequenze di lunghezza 8 con 3 "1" non consecutivi (astrazione simile Camminio Reticolare). Devo riuscire ad'usare il principio d'equivalenza con un insieme di cui so la cardinalità. Sò che dopo il primo e secondo "1" c'è sempre uno "0", quindi cancello questo "0" ho sequenze da 6. Ora gli "1" possono essere consecutivi e posso tornare univocamente alla precedente rappresentazione, quindi è biunivoco. Deduciamo che $F_{8,3}=\binom{6}{3}=20$.
 
 In generale $F_{n,k}$ sono le sequenze di lunghezza $n$ con $k$ volte "1", non consecutivi. Cancellando gli "0" che seguono i primi $k-1$ "1" otteniamo una sequenza binaria lunga $n-k+1$, con $k$ "1".
 

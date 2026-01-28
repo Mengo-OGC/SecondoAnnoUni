@@ -4,33 +4,28 @@ Algoritmo pubblico/noto, robusto e chiavi segrete (o note in parte) di varie dim
 	\item Codificare (E): $testoOriginale + chiaveCodifica \stackrel{codifica}{\longrightarrow} testoCodificato$.
 	\item Decodificare (D): $testoCodificato + chiaveDecodifica \stackrel{decodifica}{\longrightarrow} testoOriginale$.
 \end{itemize}
-
 Impossibile ottenere testo orignale dal testo cifrato senza conoscere la chiave.
 
 \subsection{Crittografia Simmetrica (chiave segreta)}
 Stessa chiave $K$ per codificare e decodificare per $A$ e $B$.
-
 +Veloce, +Efficente, -distribuzione chiavi fase risciosa, -tante chiavi (n*(n-1)/2).
-
 \begin{center}
 	\begin{tikzcd}
 		A_K \arrow[r, "testo"] & E_K \arrow[r, "E_K(testo)"] & D_K \arrow[r, "testo"] & B_K
 	\end{tikzcd}
 \end{center}
-
 Algoritmo noto a tutti, chiave nota solo a $A$ e $B$.
 \begin{itemize}
 	\item SI: segretezza, autenticazione, integrità
 	\item NO: Non repudiabilità
 \end{itemize}
-
 Adottato da Des, Triple-DES, AES, ecc.
 
 \subsection{Crittograffia Asimmetrica (chiave pubblica)}
-Una chiave pubblica/nota ($K^+$) e una chave privata/segreta ($K^-$) sia per $A$ che per $B$ \textbf{correlate}\footnote{Un testo cifrato con una chiave può essere decrifrato solo dalla chiave a cui è correlata (legata).}.
-$A$ e $B$ non codividono chiavi segrete.
+Sia $A$ che $B$ hanno una chiave pubblica/nota ($K^+$) e una chave privata/segreta ($K^-$) \textbf{correlate} (un testo cifrato con una chiave può essere decrifrato solo dalla chiave a cui è correlata/legata).
 
-Due chiavi private-pubbliche (correlate) criptano e decriptano in modo reciproco. La chiave privata è incalcolabile dalla chiave pubblica.
+$A$ e $B$ non codividono chiavi segrete ma solo chiavi pubbliche.
+Una chiave privata e una chiave pubblica, correlate, criptano e decriptano reciprocamente. La chiave privata è incalcolabile dalla chiave pubblica.
 
 +Sicurezza (non scambio completo chiavi), -Lento, -azzenza chiavi pubbliche proprietà.
 
@@ -66,20 +61,18 @@ Configurazioni:
 
 	SI: Segretezza, Autenticazione, Integrità, Non repudiabilità.
 \end{itemize}
-
 Adottato da RSA, ecc.
 
 \subsubsection{Funzioni Hash Crittografiche}
-Una \textbf{Funzione Hash crittografiche ($MD()$)} (one-way hash, funzioni digest) prende in input un messaggio (m) lungo a piacere e da in output un digest (stringa) a lunghezza fissa ($MD(m)$).
+Una \textbf{Funzione Hash crittografica ($MD()$)} (one-way hash, funzioni digest) prende in input un messaggio (m) lungo a piacere e da in output un digest (stringa) a lunghezza fissa ($MD(m)$).
+Il digest non è reversibile:
+\begin{enumerate}
+	\item Impossibile $MD(x)=MD(y)$ oppure dato $y=MD(x), x$ è indeterminabile.
 
-Il digest non è reversibile, ossia non esise $MD(x)=MD(y)$ oppure dato $y=MD(x), x$ è indeterminabile.
-
-Più due $m$ sono simili più i digest sono diversi. Più due $m$ sono diversi non è detto che i digest siano molto diversi.
-
-Le hash non sono decodificabili, non servono chiavi di cifratura. Le funzioni di codifica/decodifica non restituiscono output a lunghezza fissa.
-
-Hash è diverso per quanto simili dal checksum (perchè è reversibile).
-
+	\item Più due $m$ sono simili più i digest sono diversi. Più due $m$ sono diversi non è detto che i digest siano molto diversi.
+\end{enumerate}
+Le hash non sono decodificabili (invertibili), non servono chiavi di cifratura. Le funzioni di codifica/decodifica non restituiscono output a lunghezza fissa.
+Hash è diverso per quanto simili dal checksum (veloci/semplici, sono reversibili).
 Funzioni hash: MD5, SHA-1/2(x, 256, 512, ecc)/3, ecc.
 
 \subsection{MAC e Firma digitale}
@@ -87,9 +80,11 @@ MAC (Message Authentication Code) è una tecnica, veloce, di autenticazione parz
 
 \bigskip
 
-\textbf{MAC}: Si attua combinando crittografia simmetrica e funzioni Hash crittografico. Attori devono conoscere la chiave segreta. Assente autenticazione di chi spedisce (potrebbe essere l'altro o sestesso). SI: Integrità, autenticazione.
+\textbf{MAC}: Si attua combinando crittografia simmetrica e funzioni Hash crittografiche. Attori devono conoscere la chiave segreta. Assente autenticazione di chi spedisce (potrebbe essere l'altro o sestesso). SI: Integrità, autenticazione.
 
 \textbf{Firma Digitale}: Tecnica di MAC avanzata. Si attua combinando crittografia asimmetrica e funzioni Hash crittografico. Mit. deve avere chiavi assimetriche. Chiunque può leggere e verificare l'integrità. SI: Integrità, Autenticazione, Non repudiabilità.
+
+\bigskip
 
 \textbf{Spedizione}:
 \begin{enumerate}
@@ -103,7 +98,6 @@ MAC (Message Authentication Code) è una tecnica, veloce, di autenticazione parz
 \begin{enumerate}
 	\item Separazione di (m', MAC).
 	\item Decodifica simmetrica o asimmetrica (usa chiave pubblica mittente) del MAC ottenendo il digest (MD(m)).
-
 	Terminazione improvvisa se decodifica non da successio. Implica che mittente non è quello atteso.
 	\item Applico Funzione hash crittografico a m' ottenendo MD(m').
 	\item Confronto i due digest. Se sono uguali m' è l'originale spedito dal mittente dichiarato.

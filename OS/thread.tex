@@ -116,7 +116,7 @@ Nota: La creazione di un processo è più lenta della creazione di un thread per
 \subsection{SJF}
 Calcolo approssimato CPU Bust: $T_{n+1}=\alpha t_n+(1-\alpha)T_n$.
 \begin{itemize}
-	\item $t_m$ tempo n-esimo CPU burst. Storia recente.
+	\item $t_n$ tempo n-esimo CPU burst. Storia recente.
 	\item $T_{n}$ previsione prevista. Storia passata.
 	\item $\alpha$ peso storia recente e passata.
 \end{itemize}
@@ -155,10 +155,9 @@ Calcolo Media esponensiale: $T_{n+1}=\sum_{j=0}^n\alpha(1-\alpha)^jt_{n-j}+(1-\a
 	\centering
 	\includegraphics[width=0.5\textwidth]{img/filosofi.png} % nome file e larghezza
 \end{figure}
-Le battecche sono un vetore lungo 5 (0...4) e i filosofi accedono alle battecche i e i+1 in \%5.
-
-Rischio di deadklock!!!
-Esistono varie soluzioni, avere un filosofo mancino è la più semplice:
+I filosofi sono un vettore lungo 5 (0, 4) e le battecche sono un vetore lungo 5 (0...4). L'i-esimo filosofo usa la battecca i e i+1 in \%5 (quella alla sua sinistra e destra) prendendole in questo ordine (sinistra e poi destra).
+Si rischia il deadklock nel caso in cui tutti filosofi mangiano. Ognuno prende per prima la batecca alla sua sinistra, tutte le batecche sono in uso, e nessuno ha accesso alla battecca alla sua destra.
+Esistono varie soluzioni al deadlock; avere un filosofo mancino è la più semplice (spezza la simmetria):
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.3\textwidth]{img/filosofoMancino.png} % nome file e larghezza
@@ -185,7 +184,6 @@ Esistono varie soluzioni, avere un filosofo mancino è la più semplice:
 		\node[black, anchor=south west] at (0.94,0.25) {Sistema Operativo};
 	\end{tikzpicture}
 \end{center}
-
 Legenda: p=mittente, m=messaggio, q=destinatario.
 
 \textbf{Sincrono:}
@@ -221,7 +219,6 @@ Legenda: p=mittente, m=messaggio, q=destinatario.
 
 	 Se non si riceve nulla restitusce \texttt{null}.
 \end{itemize}
-
 Nella pratica: lo scambio di messaggi avviene tra canali di comunazioni su cui mandare e ricevere. L'istruzione \texttt{replay(Thoth)} sblocca il mittente (e non la receive).
 
 \subsection{Concorrenza in C}

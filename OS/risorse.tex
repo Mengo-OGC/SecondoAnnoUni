@@ -16,7 +16,7 @@
 \end{center}
 Per gli archi si può segnare la molteplicità, e nelle classi il numero di risorse non assegnate.
 
-\subsection{Detaction and recoverty - Caaso 1}
+\subsection{Detaction and recoverty - Caso 1}
 Teorema: Siano le risorse ad'accesso mutualmente esclusivo, seriali e non prerilasciabili. Con una risorsa per classe si ha deadlock$\iff$ Holt contiene un ciclo (attesa circolare).
 
 Dimostrazione: In un grafo di Holt si ha attesa circolare se si ha attesa circolare nella rispettiva variante di grafo Wait-For (elimina le risorse collassando gl'archi appropriati).
@@ -40,11 +40,11 @@ Dimostrazione: In un grafo di Holt si ha attesa circolare se si ha attesa circol
 \end{tikzpicture}
 \end{center}
 
-\subsection{Detaction and recoverty - Caaso 2}
+\subsection{Detaction and recoverty - Caso 2}
 Teorema: Siano le risorse ad'accesso mutualmente esclusivo, seriali e non prerilasciabili. Con più risorse per classe si ha deadlock $\iff$ Holt non è completamente riducibile (eliminazione tutti archi).
 
 \subsection{Detaction and recoverty - Knot}
-Teorema: Siano le risorse ad'accesso mutualmente esclusivo, seriali e non prerilasciabili. Con una richiesta sospespa per processo si ha deadlock $\iff$ esiste un knot.
+Teorema: Siano le risorse ad'accesso mutualmente esclusivo, seriali e non prerilasciabili. Con una richiesta sospesa per processo si ha deadlock $\iff$ esiste un knot.
 
 \subsection{Stato SAFE - algoritmo del banchiere}
 Sia $s$ una permutazione dei valori $1,\dots,N$ e $s(i)$ l'i-esima posizione nella sequenza. Si calcola il vettore \textbf{avail} cosi:

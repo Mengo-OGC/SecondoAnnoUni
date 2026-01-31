@@ -7,19 +7,21 @@ Algoritmo pubblico/noto, robusto e chiavi segrete (o note in parte) di varie dim
 Impossibile ottenere testo orignale dal testo cifrato senza conoscere la chiave.
 
 \subsection{Crittografia Simmetrica (chiave segreta)}
-Stessa chiave $K$ per codificare e decodificare per $A$ e $B$.
-+Veloce, +Efficente, -distribuzione chiavi fase risciosa, -tante chiavi (n*(n-1)/2).
-\begin{center}
-	\begin{tikzcd}
-		A_K \arrow[r, "testo"] & E_K \arrow[r, "E_K(testo)"] & D_K \arrow[r, "testo"] & B_K
-	\end{tikzcd}
-\end{center}
-Algoritmo noto a tutti, chiave nota solo a $A$ e $B$.
-\begin{itemize}
-	\item SI: segretezza, autenticazione, integrità
-	\item NO: Non repudiabilità
-\end{itemize}
-Adottato da Des, Triple-DES, AES, ecc.
+\begin{multicols}{2}
+	\noindent Stessa chiave $K$ per codificare e decodificare per $A$ e $B$.
+	+Veloce, +Efficente, -distribuzione chiavi fase risciosa, -tante chiavi (n*(n-1)/2).
+	\begin{center}
+		\begin{tikzcd}
+			A_K \arrow[r, "testo"] & E_K \arrow[r, "E_K(testo)"] & D_K \arrow[r, "testo"] & B_K
+		\end{tikzcd}
+	\end{center}
+	Algoritmo noto a tutti, chiave nota solo a $A$ e $B$.
+	\begin{itemize}
+		\item SI: segretezza, autenticazione, integrità
+		\item NO: Non repudiabilità
+	\end{itemize}
+	Adottato da Des, Triple-DES, AES, ecc.
+\end{multicols}
 
 \subsection{Crittograffia Asimmetrica (chiave pubblica)}
 Sia $A$ che $B$ hanno una chiave pubblica/nota ($K^+$) e una chave privata/segreta ($K^-$) \textbf{correlate} (un testo cifrato con una chiave può essere decrifrato solo dalla chiave a cui è correlata/legata).
@@ -76,60 +78,56 @@ Hash è diverso per quanto simili dal checksum (veloci/semplici, sono reversibil
 Funzioni hash: MD5, SHA-1/2(x, 256, 512, ecc)/3, ecc.
 
 \subsection{MAC e Firma digitale}
-MAC (Message Authentication Code) è una tecnica, veloce, di autenticazione parziale dell'origine di un messaggio. Inoltre garantisce l'integrità del messaggio.
+\textbf{MAC (Integrità, autenticazione)}: Il Message Authentication Code è una tecnica veloce di \underline{autenticazione} parziale dell'origine d'un messaggio e che ne garantisce \underline{l'integrità}. Si attua combinando crittografia simmetrica (mitt./dest. conoscono la chiave) e funzioni Hash crittografiche. Manca non repudiabilità del mitt., ossia il dest. può ricevere un messaggio spedito dal mitt. o da sestesso.
 
-\bigskip
+\textbf{Firma Digitale (Integrità, Autenticazione, Non repudiabilità)}: MAC "avanzato" che garantisce autenticazione totale dell'origine combinando crittografia asimmetrica (solo il mitt. ha le chiavi) e funzioni Hash crittografiche.
 
-\textbf{MAC}: Si attua combinando crittografia simmetrica e funzioni Hash crittografiche. Attori devono conoscere la chiave segreta. Assente autenticazione di chi spedisce (potrebbe essere l'altro o sestesso). SI: Integrità, autenticazione.
-
-\textbf{Firma Digitale}: Tecnica di MAC avanzata. Si attua combinando crittografia asimmetrica e funzioni Hash crittografico. Mit. deve avere chiavi assimetriche. Chiunque può leggere e verificare l'integrità. SI: Integrità, Autenticazione, Non repudiabilità.
-
-\bigskip
-
-\textbf{Spedizione}:
-\begin{enumerate}
-	\item Applico Funzione hash crittografico a m ottenendo MD(m).
-	\item Codifico il diget simmetricamente o asimmetricamente (con la chiave privata del mittente) ottenendo il MAC.
-	\item Concatenazione MAC al m.
-	\item Spedizione (m, MAC) che può modificare m in (m', MAC).
-\end{enumerate}
-
-\textbf{Ricezione}:
-\begin{enumerate}
-	\item Separazione di (m', MAC).
-	\item Decodifica simmetrica o asimmetrica (usa chiave pubblica mittente) del MAC ottenendo il digest (MD(m)).
-	Terminazione improvvisa se decodifica non da successio. Implica che mittente non è quello atteso.
-	\item Applico Funzione hash crittografico a m' ottenendo MD(m').
-	\item Confronto i due digest. Se sono uguali m' è l'originale spedito dal mittente dichiarato.
-\end{enumerate}
-
+Sia nel MAC che nella Firma digitale manca la segretezza, ossia tutte le comunicazioni sono in broadcast.
 \begin{center}
 	\begin{adjustbox}{max width=\textwidth}
 		\begin{tikzcd}
-			m \arrow[rrrrr, bend left] \arrow[rr, "hash"] &          & MD(m) \arrow[rr, "codifica"]            &                  & MAC \arrow[r]                & {(m, MAC)} \arrow[d, "Spedizione"'] \\
-			errori                                        & successo & uguali? \arrow[ll, bend left] \arrow[l] & MD(m') \arrow[l] & m' \arrow[l, "hash"']        & {(m',MAC)} \arrow[ld] \arrow[l]     \\
-			&          &                                         & MD(m) \arrow[lu] & MAC \arrow[l, "decodifica"'] &
+			m \arrow[rrrrr, bend left] \arrow[rr, "hash"] &          & MD(m) \arrow[rr, "codifica"]            &                  & MAC/FD \arrow[r]                & {(m, MAC/FD)} \arrow[d, "Internet"'] \\
+			errori                                        & successo & uguali? \arrow[ll, bend left] \arrow[l] & MD(m') \arrow[l] & m' \arrow[l, "hash"']        & {(m',MAC/FD)} \arrow[ld] \arrow[l]     \\
+			&          &                                         & MD(m) \arrow[lu] & MAC/FD \arrow[l, "decodifica"'] &
 		\end{tikzcd}
 	\end{adjustbox}
 \end{center}
+\begin{paracol}{2}
+	\noindent\textbf{Spedizione}:
+	\begin{enumerate}
+		\item Applico Funzione hash crittografico a m ottenendo MD(m).
+		\item Codifico il diget simmetricamente o asimmetricamente (con la chiave privata del mittente) ottenendo il MAC.
+		\item Concatenazione MAC al m.
+		\item Spedizione (m, MAC) che può modificare m in (m', MAC).
+	\end{enumerate}
+	\switchcolumn
+	\noindent\textbf{Ricezione}:
+	\begin{enumerate}
+		\item Separazione di (m', MAC).
+		\item Decodifica simmetrica o asimmetrica (usa chiave pubblica mittente) del MAC ottenendo il digest (MD(m)).
+		Terminazione improvvisa se decodifica non da successio. Implica che mittente non è quello atteso.
+		\item Applico Funzione hash crittografico a m' ottenendo MD(m').
+		\item Confronto i due digest. Se sono uguali m' è l'originale spedito dal mittente dichiarato.
+	\end{enumerate}
+\end{paracol}
 
 \subsection{GPG e PGP}
-GPG meccanismo di firma digitale gratuito basato su PGP proprietario. Garantisce autenticità e integrità di un file/package.
+GPG è un meccanismo di firma digitale gratuito basato su PGP proprietario. Garantisce autenticità e integrità di un file/package.
 
-\bigskip
+Il \textbf{maintainer}\footnote{Colui che distribuisce, si assicura del funzionamento e dell aggiornamento di una risorsa online.} possiede le chiavi asimmetriche di ogni risorsa che  pubblica e crea la firma digitale da distribuire con la risorsa.
+Oggi viene firmato solo il file indice delle risorse (Release.gpg) che contiene la versione e checksum (digest) di ogni risorsa.
 
-Il \textbf{maintainer}\footnote{Qualcuno che distribuisce, assicura il funzionamento e aggiornamento di una risorsa online.} della risorsa possiede chiavi asimmetriche e per ogni risorsa da pubblicare crea la firma digitale e la distribuisce  con la risorsa.
-Oggi firmato solo file indice di risorse  (Release.gpg) che ha versione e checksum (digest) di ogni risorsa.
-
-L'utente, scarica se non l'ha la chiave pubblica, scarica il package+firma cerifica firma con la chiave pubblica del mainteiner.
-
+Azioni per scaricare una risorsa del maintainer:
+\begin{itemize}
+	\item Scarica la chiave pubblica del maintainer, se non l'ha gia fatto.
+	\item Scarica il package e la firma digitale.
+	\item Cerifica la firma digitale con la chiave pubblica del mainteiner.
+\end{itemize}
 Le chiavi pubbliche si possono trovare di default  nell'OS o si scaricano da canali ufficiali verificando a modo.
 
 \tabella{GPG}{
-	\riga{sha256sum \textit{nomefile[, ...]}}{Stampa una riga per ogni file pssato contenete il digest e il file separati da: '*' se file binario, ' ' se file di testo, 'U' se file universale, '\^' per bits.}
-	\riga{sha256sum -c \textit{nomeFile.sha256}}{Verifica correttezza del digest contenuto in nomeFile.sha256.
-
-	Il rispettivo nomeFile deve essere nella direcotry corrente.}
+	\riga{sha256sum \textit{nomefile[, ...]}}{Stampa una riga per ogni file passato contenete il digest e il file separati da: '*' se file binario, ' ' se file di testo, 'U' se file universale, '\^' per bits.}
+	\riga{sha256sum -c \textit{nomeFile.sha256}}{Verifica correttezza del digest contenuto in nomeFile.sha256. Il file deve essere nella direcotry corrente.}
 	\riga{gpg --list-secret-keys}{Verifica disponibilità chiavi GPG.
 
 	Aggiungendo \texttt{--key-format long} si ha l'id delle chiavi.
@@ -137,7 +135,7 @@ Le chiavi pubbliche si possono trovare di default  nell'OS o si scaricano da can
 	\riga{gpg --gen-key}{Genera le chiavi GPG.
 
 	\texttt{gpg --full-generate-key} Maggiore configurazione.}
-	\riga{gpg --armor --detach-sign nomefile}{Crea file di firla nomefile.asc (firma detached).}
+	\riga{gpg --armor --detach-sign nomefile}{Crea file di firma nomefile.asc (firma detached).}
 	\riga{gpg --detach-sign nomefile}{Crea file binario nomefile.sig.}
 	\riga{gpg --clearsign nomefile}{Crea file nomefile.asc con testo e firma (firma inline).}
 	\riga{gpg --sign nomefile}{Crea file nomefile.gpg con testo e firma in binario (firma in-place).}

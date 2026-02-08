@@ -54,37 +54,9 @@ Ogni processo tiene referenza di un unico figlio, anche se ne può creare divers
 	\riga{strcpy(buffer, "...")}{Prepara il buffer con il messaggio da inviare.}
 	\riga{write(varPipe[1], buffer, sizeBuffer+1)}{Scrive nella pipe.}
 }
+Permette di comunicare fra processi correlati usando sistem-call e i descrittori di file. Il collegamento esiste fino a eliminazione esplicita o natuale del processo.
 
-Permette di comunicare fra processi correlati usando sistem-call e i descrittori di file. Il collegamento esiste fino a eliminazione esplicita o del processo.
-
-\begin{center}
-	\begin{tikzpicture}
-		\draw[draw=black, thin, solid] (-6.00,3.00) rectangle (-1.50,-1.00);
-		\draw[draw=black, thin, solid] (-5.50,2.00) rectangle (-4.50,-0.50);
-		\draw[draw=black, thin, solid] (-4.00,1.50) rectangle (-2.00,0.50);
-		\draw[draw=black, thin, solid] (-4.00,0.50) rectangle (-2.00,-0.50);
-		\node[black, anchor=south west] at (-6.06,3.25) {P1};
-		\node[black, anchor=south west] at (-5.56,2.25) {Buffer};
-		\node[black, anchor=south west] at (-4.06,0.75) {Read};
-		\node[black, anchor=south west] at (-4.06,-0.25) {Write};
-		\node[black, anchor=south west] at (-4.06,1.75) {PIPE};
-		\draw[draw=black, thin, solid] (0.50,3.00) rectangle (5.00,-1.00);
-		\draw[draw=black, thin, solid] (3.50,2.00) rectangle (4.50,-0.50);
-		\draw[draw=black, thin, solid] (1.00,1.50) rectangle (3.00,0.50);
-		\draw[draw=black, thin, solid] (1.00,0.50) rectangle (3.00,-0.50);
-		\node[black, anchor=south west] at (0.44,3.25) {P2};
-		\node[black, anchor=south west] at (3.44,2.25) {Buffer};
-		\node[black, anchor=south west] at (0.94,1.75) {PIPE};
-		\node[black, anchor=south west] at (0.94,0.75) {Write};
-		\node[black, anchor=south west] at (0.94,-0.25) {Read};
-		\draw[draw=black, -latex, thin, solid] (-2.00,1.00) -- (1.00,1.00);
-		\draw[draw=black, -latex, thin, solid] (1.00,0.00) -- (-2.00,0.00);
-	\end{tikzpicture}
-\end{center}
-
-Ogni processo ha un buffer di caratteri e una pipe (array di due celle) per scrivere e leggere con l'altro processo i dati contentuti nel buffer.
-
-Nota: I processi sono visti come file, per questo le operazioni si chiamano come quelle dei file.
+Ogni processo ha un buffer di caratteri e una pipe (array di due celle) per scrivere e leggere con l'altro processo i dati contentuti nel buffer. I processi sono visti come file, per questo le operazioni si chiamano come quelle dei file.
 
 \tabella{Multi-thread}{
 	\riga{nomeFunzioneThread(arg : void*) : void*}{Funzione assegnata da eseguire a un thread.

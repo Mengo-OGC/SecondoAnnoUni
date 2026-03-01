@@ -1,0 +1,47 @@
+\section{Definizioni}
+\paragraph{Sistema Informativo (SI)} è un sistema di procedure, informatizzate e non, che permettono di gestire informazioni utili.
+
+Provvede a raccogliere e classificare le informazioni, con procedure integrate e idonne. Deve produrre in tempo utile, al giusto livello le sintesi necessarie per i processi decisionali. Inoltre controlla e gestisce l'ente.
+
+Si suddividono in: non strutturati (DSS), semi strutturati (management) come gli ERP, strutturati (Transaction processing).
+\paragraph{Base di Dati} è la componente che memorizza strutturalemente le informazioni del Sistema Informatico.
+\paragraph{Batabase} è una collezione di dati gestita tramite DBMS. Logicamente i dati sono uniti nel modello di rappresentazione del DBMS ma fisicamente possono risiedere su dispositivi diversi. Tramite un opportuno linguaggio gli utenti si interfacciano al database.
+\paragraph{DMBS}, Data Base Management System, è un sofware di gestione efficente delle informazioni di un SI. Garantisce persistenza, condivisione, affidabilità e riservatezza. Rappresenta i dati in forma integrata e secondo un modello logico.
+
+Necessità/Peculiarità: gestione tanti dati, scalabili in dimensione, persistenti e condivisi (fault tolerance e concorrenza), soddisfare esigenze applicative variabili offrendo indipendeza tra programmi/dati/operazioni. Offre supporto per almeno un modello dei dati.
+\subparagraph{Perchè non adottare un file system?} Sarebbe povera d'astrazione, accesso informazioni difficile, limitazioni condivisione risorse, insufficenti protezioni ai guasti, vincoli d'integrità sui dati "cablati nel codice".
+Esempio sono i Sistemi informatici settoriali.
+\subsection{Applicazioni}
+\begin{paracol}{2}
+	\paragraph{OLTP} On-Line Transactional Processing sono DBMS relazionali in lettura e strittura ad'alta velocità di esecuzione. Svolgono operazioni ordinarie per un contesto specifico su quantità ridotte di dati recenti.
+	\switchcolumn
+	\paragraph{OLAP} On-Line Analytical Processing sono Datawarehouse prevalentemente in lettura offline. Supportano decisioni strategiche su grandi quantità di dati storici.
+\end{paracol}
+\subsection{Attori}
+\paragraph{Data Base Administrato (DBA)} installa, configura e gestisce il DMBS; crea gli oggetti logici, crea gli utenti di cui definisce i privilegi, garantisce la sicurezza e l'integrità, effettua controllo e monitoraggio degli accessi, monitora e ottimizza le performance, pianifica le strategie di backup e recovery.
+\paragraph{Data Base Designer} cura la progettazione del modello dettagliato ossia le scelte progettuali concettuali, logiche e fisiche usabile per l'implementazione del database.
+\paragraph{Software Engineer} Analisi di sistema che definiscono le transazioni per le esigenze degli utenti e programmatori che le realizzano.
+\paragraph{End User} interagiscono con i database conto proprio. Divisibili in:
+\begin{itemize}
+	\item Naive End User accedono traminte un'applicazione che usa query preconfigurate.
+	\item Sophisticated End User conosce la struttura del database, le potenzialità del DBMS e vi accede col linguaggio d'interrogazione o strumenti avanzati.
+\end{itemize}
+\subsection{Dato vs Informazione}
+\paragraph{Dato} è ciò che è immediatamente presente alla coscenza prima di ogni elaborazione. In informatica si attribuisce un significato ai dati.
+\paragraph{Informazione} è dato processato che da conoscenza più o meno esatta di qualcosalto.
+Un'informazione è utile per un processo decisionale in base alla soggettività, rilevanza, tempestività, accuratezza, presentazione, accessibilità e completezza.
+\subsubsection{Progettazine di database}
+\begin{paracol}{2}
+	\begin{enumerate}
+		\item Requisiti del SI
+		\item Progettazione concettuale
+		\item SCHEMA CONCETTUALE
+		\item Progettazione logica
+		\item SCHEMA LOGICO
+		\item Progettazione fisisca
+		\item SCHEMA FISICO
+	\end{enumerate}
+	\switchcolumn
+	Nella progettazione di un SI le progettazioni di primaria importanza sono della base di dati e delle applicazioni. La base di dati viene progettata per prima essendo i dati più stabili nel tempo.
+\end{paracol}
+

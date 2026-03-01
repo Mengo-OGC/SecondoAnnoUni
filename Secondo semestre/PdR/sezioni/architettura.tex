@@ -1,0 +1,129 @@
+\section{Architettura}
+La prima generazine di reti di calcolatori erano sistemi chiusi captivity\footnote{Tutti componenti della rete dello stesso produttore, per via degli standard.} e specializzate nel servizio, e quindi incompatibili.
+
+L'ISO-OSI propose OSI-RM, il primo standard unificato per realizzare reti di calcolatori aperte.
+\paragraph{L'Architettura a strati} è il concetto centrale di ogni standard.
+Permette di scomporre il problema "difficile" in sottoproblemi "facili" da risolvere con livelli indipendenti, e intercambiabili, tra loro definendo \textbf{servizi e interfacce}.
+
+\paragraph{Il sistema aperto} permette una rete in cui qualunque terminale comunica con qualunque altro terminale o fornitore di servizio mediante qualunque rete. (sono necessari degli standard).
+
+Implementativamente richiede:
+\begin{itemize}
+	\item \textbf{Modello di riferimento}, schema concettuale degli strati numerati coinvolti che definisce funzionamento d'ogni strato e rispettive relazioni.
+	\item \textbf{Definizione dei servizi}, definizione astratta di ciò che uno strato fornisce.
+	\item \textbf{Protocolli ed'interfacce}, descrizione di come uno strato fornice il servizio.
+\end{itemize}
+\subsection{Modello di riferimento}
+\begin{center}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tikzcd}
+			{[7 \ Application \ (A)]} \arrow[d, shift right] \arrow[rrrr, "end-to-end", dashed, shift left]                                     &  &                                                                                                                                                                                                       &  & {[7 \ Application \ (A)]} \arrow[d, shift right] \arrow[llll, dashed, shift left]                                      \\
+			{[6 \ Presentation \ (P)]} \arrow[d, shift right] \arrow[rrrr, dashed, shift left] \arrow[u, shift right]                           &  &                                                                                                                                                                                                       &  & {[6 \ Presentation \ (P)]} \arrow[d, shift right] \arrow[u, shift right] \arrow[llll, dashed, shift left]              \\
+			{[5 \ Session \ (S)]} \arrow[rrrr, "(Protocollo)", dashed, shift left] \arrow[d, shift right] \arrow[u, shift right]                &  &                                                                                                                                                                                                       &  & {[5 \ Session \ (S)]} \arrow[d, "(Interfaccia)"', shift right] \arrow[u, shift right] \arrow[llll, dashed, shift left] \\
+			{[4 \ Transport \ (T)]} \arrow[rrrr, dashed, shift left] \arrow[d, shift right] \arrow[u, "(Interfaccia)"', shift right]            &  &                                                                                                                                                                                                       &  & {[4 \ Transport \ (T)]} \arrow[d, shift right] \arrow[u, shift right] \arrow[llll, dashed, shift left]                 \\
+			{[3 \ Network \ (N)]} \arrow[rr, "link-by-link", dashed, shift left] \arrow[d, shift right] \arrow[u, shift right]                  &  & {[3 \ Network \ (N)]} \arrow[rr, "link-by-link", dashed, shift left] \arrow[d, shift right] \arrow[ll, dashed, shift left]                                                                            &  & {[3 \ Network \ (N)]} \arrow[d, shift right] \arrow[u, shift right] \arrow[ll, dashed, shift left]                     \\
+			{[2 \ Data Link \ (Dl)]} \arrow[rr, dashed, shift left] \arrow[d, shift right] \arrow[u, shift right]                               &  & {[2 \ Data Link \ (Dl)]} \arrow[rr, dashed, shift left] \arrow[d, shift right] \arrow[u, shift right] \arrow[ll, dashed, shift left]                                                                  &  & {[2 \ Data Link \ (Dl)]} \arrow[d, shift right] \arrow[u, shift right] \arrow[ll, dashed, shift left]                  \\
+			{[1 \ Physical \ (Pl)]} \arrow[rr, dashed, shift left] \arrow[rr, "Mezzo \ fisico"', Rightarrow, bend right] \arrow[u, shift right] &  & {[1 \ Physical \ (Pl)]} \arrow[rr, dashed, shift left] \arrow[rr, "Mezzo \ fisico"', Rightarrow, bend right] \arrow[u, shift right] \arrow[ll, dashed, shift left] \arrow[ll, Rightarrow, bend right] &  & {[1 \ Physical \ (Pl)]} \arrow[u, shift right] \arrow[ll, dashed, shift left] \arrow[ll, Rightarrow, bend right]
+		\end{tikzcd}
+	\end{adjustbox}
+\end{center}
+L'architettura presenta 7 strati numerati dal basso verso l'alto:
+\begin{enumerate}
+	\item \textbf{Fisico} attiva, mantiene e disattiva la connessione fisica fra 2 entità strato 2. Specifica la meccanica, elettrica, funzionale e procedurale di come inviare i singoli bit sul mezzo trasmissivo.
+	\item \textbf{Linea} attiva, mantiene e disattiva la connessione fisica fra 2 entità strato 3. Rende il collegamento affidabile strutturando il flusso in unità di dialogo dette frames e eseguendo controlli di flusso, sequenza e di errori di trasmissione.
+	\item \textbf{Rete} sceglie la strata per far giungere i packets al destinatario (routing). Fa la commutazione di packets. Usa uno schema di indirizzi universale. Permette sottoreti interconnettibili.
+	\item \textbf{Trasporto} fornisce canale sicuro end-to-end. Adatta dimensione files ai pacchetti di rete (fragmenting/reassembling).
+	\item \textbf{Sessione} suddivide il dialogo fra le applicazioni in unità logiche. La sessione è identificabile, interrompibile e riprendibile. Permette chiusura ordinata della comunicazione. Usa punti di sincronizzazione.
+	\item \textbf{Presentazione} adatta la sintassi (forma) dei dati preservandone la semantica (significato) mediante ANS 1.
+	\item \textbf{Applicazione} non offre servizi essendo l'utente della rete.
+\end{enumerate}
+\begin{paracol}{2}
+	\noindent Gli strati 1, 2, 3 (lower) sono \textbf{network oriented} e sono gli unici ripetuti anche nei nodi intermedi della rete.
+	Operano link-by-link con funzione di relay.
+	\switchcolumn
+	\noindent Gli strati 5, 6, 7 (upper) sono \textbf{application oriented} e sono insieme allo strato 4 ripetuti solo nei nodi terminali della rete.
+	Operano end-to-end.
+\end{paracol}
+\paragraph{Quindi} dentro la rete bisogna parlare la stessa ligua, mentre nei terminali si può parlare qualsiasi lingua.
+\paragraph{Problema} Il livello di Trasporto per una rete universale diffusa e unica lo strato di trasporto deve essere unico, e anche parte dello strato di rete (internetworking). Questo perchè fungono da raccordo tra upper e lower.
+\paragraph{TCP/IP} è l'implementazione effettiva di questa suddivisione a livelli, ma raggruppa sotto applicazione i livelli presentazione e sessione, e sotto link il livello fisico.
+\subsubsection{Definizioni}
+\paragraph{Entità} è ogni elemento attivo in uno strato identificato da un nome simbolico.
+\paragraph{Protocollo} sono le regole di dialogo fra entità dello stesso livello. (comunicazione elementi lontani).
+\paragraph{Interfaccia} sono le regole di dialogo fra entità di livelli adiacenti. (comunicazione elementi vicini).
+\subsubsection{Flusso informativo}
+I dati dell'utente vengono processari dai livelli in ordine, dal 7 al 1 e dal 1 al 7, tramite \textbf{encapsulation}, $PDU_N$=$SDU_{N-1}+PCI_N$, e \textbf{dencapsulation}, $PDU_{N}$=$SDU_{N+1}-PCI_N$.
+\paragraph{PCI} dati aggiunti (header) dal livello N.
+\paragraph{SDU} dati passati (body) dallo strato N all N+1.
+\paragraph{PDU} dati passati fra entità dello stesso strato. Costituito per
+\paragraph{SAP} indirizzo identificativo del flusso dati fra N e N+1.
+\begin{itemize}
+	\item Un'entità di strato N può associarsi a più SAP.
+	\item Una SAP non può essere condivisa da più entità dello stesso strato.
+\end{itemize}
+\subsubsection{Modalità Servizio:}
+\begin{paracol}{2}
+	\paragraph{Connection Oriented} crea una connessione, associazione logica fra sistemi per trasferire dati, in tre fasi: istaurazione, trasferimento, chiusura.
+	\switchcolumn
+	\paragraph{Connectionless} fornisce informazioni per il trasferimento dei dati a ogni accesso del servizio. Le unità di dati trasferite sono indipendenti tra loro.
+\end{paracol}
+\subsubsection{Modalità di dialogo}
+\paragraph{Confermato} il destinatario deve rispondere della ricezione del messaggio al mittente. (ACK).
+\paragraph{Non confermato} il destinatario non deve rispondere al mittente.
+\paragraph{Parzialmente confermato} il service-provider conferma della ricezione del messaggio da parte del destinatario al mittente.
+\subsubsection{Azioni}
+\paragraph{Segnemntazione} conforma i SDU alle lunghezze massime dei messaggi dividendo un SDU in più PDU. Il riassemblamento riunisce le PDU nella SDU iniziale.
+Più SDU possono essere unite in una PDU.
+\paragraph{Multiplazione} favorisce la condivisione dele risorse mappando più connessioni N in una N-1.
+\paragraph{Splitting} aumenta flessibilità e velocità mappando più connessioni N-1 in una N.
+\subsection{Indirizzamento}
+Definiamo \textbf{Identifier} gli identificativi di una risorsa in rete e \textbf{Locator} l'indirizzo per localizzare tale risorsa.
+\begin{paracol}{2}
+	\paragraph{Indirizzo Globale} è valido per tutta la rete, deve essere univoco. Assegnato con procedura globale.
+	\switchcolumn
+	\paragraph{Indirizzo Locale} è valido in una sottoporzione della rete, e quindi non è univoco. Assegnato con procedura locale.
+\end{paracol}
+\paragraph{LAN}
+Una LAN è una rete d'accesso locale, con un indirizzo di LAN, che implementa lo strato 1 e 2 ISO-OSI. Adatta a collegamenti a brevi distanze usa un canale di trasmissione/ricezione condiviso fra tutti i calcolatori della LAN.
+\subparagraph{Canale condiviso} implica comunicazioni broadcast che necessità del controllo dell'accesso al canale e limitare la quantità di dati per lo strato 3.
+\subsubsection{URL}
+Identificatore globale di risorse in rete.
+
+\medskip
+\noindent\fbox{\parbox{\textwidth}{
+		\centering\footnotesize
+		[ProtocolloApplicativo]://[NomeServerWEB]:[NumeroPorta]/[PercorsoDocumento]
+}}
+
+\medskip
+NumeroPorta (t-SAP) e PercorsoDocumento sono localmente univoci mentre NomeServerWEB (N-SAP) è univoco globalmente.
+\subsubsection{MAC}
+Indirizzo locale di 6byte cablato nella scheda di rete (ora registro eprom) univoci a livello mondiale. Usato solo a livello di LAN per filtrare i pacchetti in arrivo al terminale.
+
+Primi 3byte individuano il costruttore e ultimi 3byte sono un codice progressivo.
+
+Combinazioni speciali permettono multicast (primo bit a 1) o broadcast (tutti bit a 1).
+\subsubsection{IP}
+Indirizzo globale di 4byte in rappresentazione dotted decimal. Usato per indicare la destinazione finale indipendentemente dai passi intermedi.
+
+Un host ha tanti indirizzi quanti punti di interconnessione con la rete. I multi-homed hosts ne sono un esempio.
+\subsubsection{Numero di porta}
+Indirizzo locale al singolo calcolatore di 2byte e condiviso dai protocolli di trasporto Usato per identificare singole applicazioni.
+\paragraph{Well Known} sono porte associate staticamente a delle applicazioni. Cosi i client sanno già a quale porta fare la richiesta al server.
+Riservati (1-1023), Registrati (1024-49151) e ad uso dei client (49152-65635).
+\paragraph{Flusso} è definito dagli ip e porte del mittente e destinatario.
+\subsection{Entità in rete}
+\paragraph{Client} è un applicazione che utilizza i servizi messi a disposizione da un server.
+\paragraph{Server} è un applicazione che fornisce un servizio mediante un interfaccia standard (protocollo).
+
+Servizio sequenziale/parallelo, a connessione persistente con notifica push, autenticazione e autorizzazione.
+\subparagraph{Demone} è quando un server si apre passivamente mettendosi in ascolto e attesa dell'arrivo di una richiesta.
+Il Client si apre attivamente collegandosi al server.
+\paragraph{Modalità}
+Approccio \textbf{many to one} (client verso server) sincrono e bloccante (client reagisce a \textit{timeout}).
+
+Mediante binding dinamico a ogni invocazione il client sceglie il server, che se non disponibile la rete da errore.
+
+\paragraph{Peer-to-peer (P2P)} è una variante a client e server. Gli host in rete sono equivalenti e fungono sia da client (usa risorse) che da server (fornisce risorse). (Auto scalabile).
+\subsection{DNS}
+Il DNS (Domain Name System) è un applicazione di rete che associa agli indirizzi ip associati alle schede di rete dei calcolatori una stringa.

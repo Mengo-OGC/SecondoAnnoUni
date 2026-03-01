@@ -1,0 +1,205 @@
+\section{Introduzione all'IA}
+\begin{quotation}
+	Intendiamo l'Intelligenza Artificiale come l'abilità di saper risolvere dei problemi.
+\end{quotation}
+I due approcci per far risolvere a una macchina un problema sono dire esattamente la procedura risolutiva alla macchina o il \textbf{Machine Learning}, ossia la macchina impara da sola a risolvere i problemi dai dati.
+\begin{center}
+	\begin{minipage}{0.48\textwidth}
+		\begin{adjustbox}{max width=\linewidth}
+			\begin{tikzcd}
+				\text{Inputs (observations)} \arrow[d] \arrow[rd] & {\text{[Approccio classico]}} \\
+				Programmer \arrow[r] & Program \arrow[d] \\
+				Outputs \arrow[u, bend left] & \langle \text{Computer} \rangle \arrow[l]
+			\end{tikzcd}
+		\end{adjustbox}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\begin{adjustbox}{max width=\linewidth}
+			\begin{tikzcd}
+				Inputs \arrow[rd] & {\text{[Machine Learning]}} & \\
+				& \langle \text{Computer} \rangle \arrow[r] & Program \\
+				Outputs \arrow[ru] & &
+			\end{tikzcd}
+		\end{adjustbox}
+	\end{minipage}
+\end{center}
+Un sottoinsieme del Machine Learning è il Deep Learning che usa reti neurali per analizzare diversi fattori con una struttura simile al sistema neurale umano.
+\subsection{Paradigma}
+\begin{enumerate}
+	\item DATA ACQUISITION, Elemento fondamentale e oggi obbiettivo centrale acquisirne in grandi quantità.
+	\item DATA PROCESSING, Tecniche di elaborazione dati per adattarli al modello da sviluppare.
+	\item MODEL, Nucleo di tecniche matematiche e statistiche in grado d'apprendere.
+	\item PREDICTION, L'output del modello polimorfo a seconda del modello di cui va valutata efficacia tramite metriche appropriate.
+\end{enumerate}
+\paragraph{L'acquisizione di dati} avviene da risorse pubbliche o acquisendo un nuovo set di dati.
+
+Trami l'annotazione o etichettatura si associa ai dati un'etichetta ossia la rappresentazione del contenuto semantico del dato e può essere numerica o categorica.
+Un dato non annotato è inutile ameno che venga clusterizzato.
+\begin{itemize}
+	\item \textbf{Supervised learning} è un contestoin cui i dati sono annotati.
+	\item \textbf{Unsupervised learning} è un contesto in cui i dati non sono annotati.
+
+	L'algoritmo riconosce pattern nell'input senza indicazioni specifiche sugli output con lo scopo di autoapprendere la struttura degli input.
+
+	Usato coi problemi di clustering per trovare gruppi di dati secondo caratteristiche comuni.
+	\item \textbf{Semi-supervised learning} è un contesto in cui i dati sono miscelati. Non è sempre praticabile.
+\end{itemize}
+L'organizzazione dei dati è suddivisa in Training set, Validation set (dati su cui vengono messi a punto gli iperparametri) e Testing set.
+
+\paragraph{Task} in ML a seconda dell'output atteso:
+\begin{itemize}
+	\item \textbf{Classificazione}, definisce la classe d'appartenenza di un input specifico. Se ci sono due classi si parla di classificazione binaria altrimenti di classificazione multiclasse.
+
+	Una classe è un set di dati con proprietà comuni (semanticamente parlando) e è correlata all'etichetta.
+	\item \textbf{Regressione}, trova relazioni tra le variabili dipendenti e indipendenti al fine di fare previsioni su nuovi dati.
+
+	Restituisce un valore continuo.
+	\item \textbf{Clustering}, identifica gruppi di input con caratteristiche simili.
+
+	Usato in contesti non supervisionati. Il numero di gruppi non è noto a priori e spesso i gruppi diventano classi. Più complesso della classificazione.
+\end{itemize}
+\subsection{MLP}
+Una rete neurale Multilayer Perceptron (MLP) è un insieme di perceptron, reti neurali di singoli neuroni artificiali, suddivise su più strati interconnessi tra loro. Un MLP può gestire separazioni più complicate di una lineare.
+
+Una rete ha un livello di input, uno di output e diversi livelli intermedi detti hidden layer. Ogni livello è composto da diversi neuroni.
+\paragraph{Ground-Trougt} è la veridicità della rete.
+\subsubsection{Neurone Artificiale}
+Il neurone artificiale imita l'architettura di un neurone biologico.
+\begin{center}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tikzcd}
+			dendriti/input \arrow[rr] &  & corpo \ cellulare/somma \arrow[rr, "assone"] &  & sinapsi/output
+		\end{tikzcd}
+	\end{adjustbox}
+\end{center}
+\begin{itemize}
+	\item \textbf{Dentriti}, dette estensioni cellulari, ricevono segnali elettrici/chimici da altri neuroni.
+	\item \textbf{Il corpo} elabora i segnali dei dentriti nel tempo e converte il valore elaborato in un segnale.
+
+	L'elaborazione consiste in una funzione di \textbf{soglia} che somma tutti gli input e se questi raggiungono una certa soglia in una finestra temporale, viene mandato un outut, altrimenti nulla.
+	\item \textbf{L'assone} è il prolungamento del neurone hai neuroni, anche distanti, a cui trasmettere il segnale.
+	\item \textbf{Le sinapsi} sono le estemità trasmissive dell'assone connesse hai neuroni, tramite i rispettivi dentriti.
+\end{itemize}
+Le sinapsi possono modificare individualmente la propria risposta modificando \textbf{l'efficienza di trasposto} dell'informazione.
+
+Il valore di soglia e l'efficenza di trasporto per uno stesso neurone sono variabili e legate al processo d'apprendimento.
+\subsubsection{Perceptron}
+Il percettrone è il primo esempio di rete neurale. La rete è composta da un'unico neurone artificiale sul cui output viene applicata la funzione d'attivazione.
+Le reti neurali normlai hanno diversi neuroni con il seguente.
+\begin{center}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tikzcd}
+			in_1 \arrow[rd, "w_{1i}" description] &                                                      & out_i=f(net_i)                                                          \\
+			\vdots \arrow[r, "\dots" description] & \sum \arrow[r]                                       & {net_i=\sum_{j=1,\dots,d}w_{ji}\cdot in_j+w_{0i}} \arrow[u, bend right] \\
+			in_d \arrow[ru, "w_{di}" description] & in_0=1\text{ (bias)} \arrow[u, "w_{0i}" description] &
+		\end{tikzcd}
+	\end{adjustbox}
+\end{center}
+\paragraph{Funzinamento} Il neuore restituisce output $out_i$ della \textbf{funzione d'attivazione} $out_i=f(net_i)$ applicata sulla somma $net_i$ dei vari input e del \textbf{bias} moltiplicati per il rispettivo peso \textbf{peso}.
+
+NOTA: La somma $net_i$ può essere sia positiva che negativa.
+\subparagraph{Il peso} è l'importanza, quanto "accellero" o "rallento", che il neurone da a quell'input specifico. La $i$ indica il peso per l'i-esimo neurone.
+
+Durante la fase d'adddestramento/apprendimento della rete si calibrano i pesi.
+\subparagraph{Il bias} è il peso di un input fittizzio fissato a 1 di default. Serve a tara il punto ottimale di lavoro ponendo un ofset, addestrabile. In una rete moderna è opzionale e viene usato solamente nei neuroni teminali della rete.
+\subparagraph{La funzione d'attivazione} determina se un neurone deve attivarsi, se input superiori a una certa soglia, e restituire un segnale o meno.
+Le funzioni devono essere \textbf{non lineari} e \textbf{derivabili}.
+
+Alcune funzioni: Sigmoid ($\frac{1}{1+e^{-x}}$), tanh ($\tanh(x)$), ReLu ($max(0, x)$), leaky ReLu ($max(0.1x, x)$), Maxout, ELU.
+\subsubsection{Connessioni}
+Nuove sinapsi/collegamenti vengono constantemente create in modo casuale.
+
+Qunado due neuroni connessi si attivano simutaneamente il collegamento si rinforza e impariamo (aumentiamo il peso).
+
+Se due neuroni connessi non si attivano mai assieme il collegamento si indebolisce e disimpariamo (diminuiamo il peso) fino a sciogliersi (le sinapsi si staccano). I due neuroni staccati possono riconettersi.
+
+In base alle connessioni della rete possiamo avere:
+\paragraph{FFNN} Le reti feedforward (allineamento in avanti) le connessioni collegano i neuroni di un livello coi neuroni di un livello successivo, mai di un livello precedente o lo stesso livello.
+\paragraph{Ricorrenti} Le reti riccorrenti prevedono connessioni di feedback, verso neuroni dello stesso livello e a livelli precedenti.
+
+I risultati dipendono dall'input e da una memoria (ingressi precedenti) della rete.
+\subsubsection{Apprendimento}
+Fissata la topologia della rete neurale l'addestramento è trovare i pesi che permettono il \textbf{mapping desiderato} tra input e output.
+Per apprendere dai dati bisogna seguire le seguenti fasi:
+\begin{center}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tikzcd}
+			apprendo \arrow[r] & provo \arrow[r, bend right] \arrow[rr, bend right] & correggo \arrow[l, bend right] & fine
+		\end{tikzcd}
+	\end{adjustbox}
+\end{center}
+Provare e correggere si chiama \textbf{apprendimento iterativo}. Apprendere piccole parti per volta si chiama \textbf{apprendimento per batch}.
+
+Nota: una rete viene izializzata con pesi inizializzati in un intorno di 0, sia positivi che negativi.
+\subsubsection{Funzione di loss}
+La funzione di loss è usata nella fase dell'apprendimento per corregge la rete neurale prima della prossima ripetizione. \textbf{Misura l'errore della previsione del modello rispetto ai dati di training}. La funzione di loss deve essere derivabile.
+
+Usasta per capire in automatico se sto incrementando (mi allontano) o diminuendo (mi avvicino) l'errore, tramite la derivata della funzione obiettivo. Apprendere significa minimizzare la funzione obiettivo.
+\paragraph{La Discesa del gradiente} è l'avvicinarsi all'obiettivo/minimo a ogni "passo". Bisogna trovare la giusta dimensione del passo:
+\begin{itemize}
+	\item \textbf{Passi lunghi} possono saltare l'obiettivo.
+	\item \textbf{Passi corti} richiedono troppo tempo per raggiungere l'obiettivo.
+\end{itemize}
+Utilizza Backpropagation e la regola della catena. Va ad'ottimizzare il \textbf{Learning rate} e il \textbf{Batch size}.
+\paragraph{Binary Cross-Entropy} esempio di funzione di loss usata per i problemi di classificazione binaria \[BCE=-y_i\cdot \log\hat{y}_i-(1-y_i)\cdot\log(1-\hat{y}_i)\] dove $y_i$ è il vlaore attesso e $\hat{y}_i$ è la previsione dell'i-esimo neurone.
+
+Scopo: punire molto gli errori molto gravi e punire poco gli errori lievi.
+
+Funzionamento: $BCE$ è un valore d'errore sempre positivo dato solo da uno dei due membri, uno dei due si annulla, e i meno fanno si che il risultato sia positivo. Sono usati dei $\log$ perchè ci interessano gli output negativi, che crescono tanto in valore assoluto, dati dagli input tra 0 e 1.
+\paragraph{Categorical Cross-Entropy} esempio di funzione di loss usata per i problemi di cassificazione multi classe \[CCE=-\sum_iy_i\cdot \log\hat{y}_i\]
+Scopo: dare un valore basso per classe corretta.
+Funzionamento: tutti valori sommatoria si annullano tranne uno. In un One-hot vector viene messo a 1 l'unico bit corrispondente alla classe indovinata e tutti gli altri stanno a 0.
+\paragraph{Mean Squared Error o MSE} esempio di funzione di loss usata per i task di regressione \[C(W)=\frac{\sum_{i=1}^n(y_i-\hat{y}_i(W))^2}{n}\] Definito come la media dei quadrati delle differenze tra l'output previsto dal modello e l'output reale associato ai dati di training.
+\begin{itemize}
+	\item n = numero di esempi di training.
+	\item $y_i$ è l'output reale associato a ciascun esempio di training.
+	\item $\hat{y}_i(W)$ è l'output previsto dal modello per l'input corrispondente; con $W$ sono indicati i parametri della rete.
+\end{itemize}
+\paragraph{Mean Absolute Error o MAE} esempio di funzione di loss usata in problemi di regressione \[C(W)=\frac{\sum_{i=1}^n|y_i-\hat{y}_i(W)|}{n}\]
+\paragraph{Backpropagation} dice dove abbiamo sbagliato.
+\paragraph{Regola della catena} ???
+\subsubsection{Softmax}
+La rete nel layer di output da valori positivi o negativi a "caso", ma per le funzioni di loss servono percentuali.
+
+Si aggiungere il layer \textbf{softmax} che trasforma l'output della rete (logits) in probabilità (valori in [0, 1[  che sommati danno 1).
+
+Softmax è una funzione continua differenziabile che richiede n.neuroni output uguale al n.classi \[p_i=\frac{e^{a_i}}{\sum_{k=1}^ne^{a_k}}\]
+
+Nota: tramite l'elevamento esponenziale si trasportano gli output negativi in positivi. Può gestire sia output molto grandi che molto piccoli. Indipendente dall'ordine di grandezza degli output della rete.
+\subsection{CNN}
+In un normale MLP ogni neurone di un layer è connesso a tutti i neuroni del layer precedente e un approccio tale con l'elaborazione delle immagini è pesante.
+
+Le MLP non hanno alcuna invarianza per traslazione, ossia del dato che viene codificato da un neurone si perde la relazione di vicinanza a un altro dato assegnato a un altro neurone.
+\paragraph{Le Convolutional Neural Network (CNN)} sono reti progettate per processare immagini.
+
+Organizzano i neuroni in tre dimensioni. Collegano i neuroni localizatamente, vengono legati i neuroni ai neuroni associati ai pixel vicini e non a tutti.
+\paragraph{La struttura} delle CNN è 3D, larghezza (W), altezza (H) e profondità (C) maggiore di 1.
+\subsubsection{Kernel e convoluzione}
+\paragraph{Il kernel} è un quadrato ($3\times 3$ tipicamente) con dei pesi fissati preallenabili. Praticamente è usato come filtro digitale sulle immagini per estrarre feature.
+\paragraph{La convoluzione} è il processo matematico che collega il kernel all'immagine. Tramite uno \textbf{sliding-window}, il kernel si centra su ogni pixel dell'immagine uno dopo l'altro.
+Per i pixel del bordo viene applicato un padding a 0.
+
+\paragraph{Il feature map} è l'unione dei prodotti scalari tra il kernel e le porzione di immagine coperate durante lo sliding-window \[g(x,y)=(f*h)(x,y)=\sum_{i=0}^{F-1}\sum_{j=0}^{F-1}f(x,y)h(x-i, y-j)\] condensa una caratteristica dell'immagine.
+
+Nota: Una profondità maggiore di 1 significa usare più kernel e ottenere più feature map che definiscono il volume di output.
+\paragraph{I layer} convolutive più si allontanano dall'input più estraggono informazioni complesse.
+\subsubsection{Procedimento}
+\begin{center}
+	\begin{adjustbox}{max width=\textwidth}
+	\begin{tikzcd}
+			Input \arrow[r] & Feature extractor \arrow[r] & Flatten \ layer \arrow[r] & Classifier \arrow[r] & output
+		\end{tikzcd}
+	\end{adjustbox}
+\end{center}
+\paragraph{Il Feature extractor} è una CNN. Tramite vari \textbf{Polling layers} e \textbf{2D convolution layers} vengono prodotte varie feature map, per analizzare aspetti differenti dell'immagine di input.
+\subparagraph{Polling layers} riducono la dimensione spaziale dell'immagine (la comprime). Per esempio prendende il valore massimo o medio di una finestra dell'immaggine.
+
+Vantaggi: invarianza alla posizione, riduce computazioni, previene overfitting.
+\subparagraph{2D convolution layers} applicano i kernel all'immagine per estrarne le feature.
+\paragraph{Il flatten layer} è ottenuto srotolando i feature map prodotto dal Feature extractor in un vettore di input per il Classifier.
+\paragraph{Il Classifier} è un MLP con neuroni fully connected. Lo strato di output viene poi processato da una softmax activation function.
+\subsubsection{Tipologie di training}
+\paragraph{From scratch} addestra la rete da una configurazione random dei pesi tramite molti dati di training. Lungo e complesso.
+\paragraph{Pre-trained} usa una rete gia addestrata senza modificare l'output originale. Non serve training ne dati.
+\paragraph{Fine-tuned} usa rete pre addestrata congelando i pesi del feature extractor e cambio solo i pesi del classifier.

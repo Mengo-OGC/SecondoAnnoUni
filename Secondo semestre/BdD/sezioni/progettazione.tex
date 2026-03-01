@@ -1,0 +1,44 @@
+\section{Progettazione}
+La progettazione di un SI richiede gli strumenti di modellazione UML completato dai metodi di progettazione dei database. Un SI cosi progettato risponde alle esigenze di un applicazione orientata agli oggetti, alle funzioni o al controllo. Orientamenti d'analisi:
+\begin{enumerate}
+	\item \textbf{Oggetti}, identifica e classifica gli oggetti e le loro interazioni. Le proprietà degli oggetti sono stabili nel tempo (il loro uso no).
+	\item \textbf{Funzioni}, rappresenta un sistema (rete processi, flussi informativi tra processi). Usato DFD per la creazione della gerarchia funzionale.
+	\item \textbf{Stati}, identifica gli stati operativi e le transizioni di stato in cui si può trovare un sistema.
+\end{enumerate}
+\subsection{Meccanismi di astrazione}
+\paragraph{Classificazione} raggruppa gli oggetti in classi in base alle loro proprietà.
+\paragraph{Generalizzazione} Definisce superclassi di classi con caratteristiche comuni tramite la relazione \textit{"è un"}. Specializzazione processo inverso.
+\begin{paracol}{2}
+	\subparagraph{Classe generalizzata}
+	\begin{itemize}
+		\item \textbf{Totale (T)} se è l'unione delle specializzazioni.
+		\item \textbf{Parziale (P)} se contiene l'unione delle specializzazioni.
+	\end{itemize}
+	\switchcolumn
+	\subparagraph{Classe specializzata}
+	\begin{itemize}
+		\item \textbf{Esclusiva (E)} se è disgiunta da altre specializzazioni.
+		\item \textbf{Sovrapposta (S)} se può esistere un'intersezione non vuota con altre specializzazioni.
+	\end{itemize}
+\end{paracol}
+Combinazioni: TE, TS, PE, PS.
+\paragraph{Aggregazione} esprime le relazioni parte-tutto tra oggetti, funzioni o stati.
+\paragraph{Proiezione} cattura la vista delle relazioni strutturali fra oggetti, funzioni o stati.
+\subsection{Associazioni}
+Sono aggregazioni di cui le classi sono le componenti. Sono corrispondenze tra classi.
+\subsubsection{Cardinalità}
+La cardinalità è il numero corrispondenze a cui ogni istanza di una classe deve/può partecipare riguardo un'associazione.
+\begin{itemize}
+	\item \textbf{min-card(C, A)}, cardinalità minima (deve raggiungere) della classe C nell'associazione A.
+	\begin{paracol}{2}
+		\noindent Partecipazione opzionale \[min-card(C, A)=0\] Istanze di C possono non associarci ad'altre istanze tramite A.
+		\switchcolumn
+		\noindent Partecipazione obbligatoria \[min-card(C, A)>0\] Ogni istanza di C deve associarsi ad'almeno un'altra istanza tramite A.
+	\end{paracol}
+	\item \textbf{max-card(C, A)}, cardinalità massima (può raggiungere) della classe C nell'associazione A.
+\end{itemize}
+\subsection{Tipi di associazioni binarie}
+In tutti questi casi la partecipazione è opzionale.
+\paragraph{uno a uno} max-card(C1, A)=1 e max-card(C2, A)=1.
+\paragraph{uno a molti} max-card(C1, A)=1 e max-card(C2, A)=N, o viceversa.
+\paragraph{molti a molti} max-card(C1, A)=N e max-card(C2, A)=M.

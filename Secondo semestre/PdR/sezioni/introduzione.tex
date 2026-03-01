@@ -1,0 +1,188 @@
+\section{Comunicare}
+La comunicazione è la condivisione e scambio di informazioni. Si attua coi seguenti elementi fondamentali (più opzionalmente un terzo elemento che fornisce il mezzo di trasporto): \footnotesize\[[Codificatore/Trasmettitore] \longleftrightarrow [Trasporto] \longleftrightarrow [Ricevitore/Decodificatore]\] \normalsize Oggi le comunicazioni non devono avere limiti di spazio e tempo (approssimativamente) e essere standardizzate.
+
+I mezzi trasmissivi ottimali sono la luce e i sengali elettromagnetici sono la soluzione ottimale.
+\subsection{Terminologia}
+\paragraph{Il Canale} è un'entità logica o fisica (diverse per tecnologia e principi fisici) che permette il trasporto dei singoli flussi informativi fra nodi remoti nello spazio.
+
+Classificabili in Monodirezionali, Bidirezionali, Bidirezionali assimmetrici (quando un verso è usato più dell'altro), Punto-punto, Punto-multipunto Broadcast (tutti) o Multicast (sottoinsieme).
+
+Un canale è definito dalla quantità di informazioni trasportabile e qualità del trasporto.
+\subparagraph{Multicanale} è un unico collegamento che implementa più canali.
+\paragraph{La Rete} è un insieme di canali condivisi per comunicazioni a richiesta con lo scopo del riuso dei canali. Una rete si compone di:
+\begin{itemize}
+	\item \textbf{Terminali}, sono l'interfaccia dell'utente alla rete, codificano e decodificano l'informazione in modo tale che sia comprensibile all'utente o alla rete.
+	\item \textbf{Collegamenti}, permettono il trasferimento di uno o più flussi di informazioni fra punti remoti nello spazio.
+	\item \textbf{Nodi di commutazione}, utilizzano i mezzi trasmissivi al fine di creare canali di comunicazione sulla base delle richieste degli utenti in modo automatico secondo regole prefissate.
+\end{itemize}
+\subparagraph{Rete gerarchica} organizza si più livelli la rete:
+\begin{itemize}
+	\item \textbf{Rete accesso}, collega i terminali a nodi periferici connessi a loro volta a nodi intermedi. (Topologia a stella).
+	\item \textbf{Rete di trasporto}, collega a lunga distanza i nodi di transito. (Maglia completa).
+\end{itemize}
+Più si va nel kernel della rete più i canali si fanno "capienti" (perchè supportano un numero maggiore di utenti) e robusti rispetto alle periverie.
+\paragraph{Topologie di rete} danno una descrizione geometrica di una rete tramite grafi (nodi e rami). Alcuni grafi:
+\begin{itemize}
+	\item \textbf{Maglia completa}, ha un collegamento per ogni coppia di nodi terminali ($N(N-1)/2$ collegamenti).
+
+	Tanta resilienza e costo/complessità. Usato nel Kernel di una rete.
+	\item \textbf{Stella}, ogni nodo ha un solo collegamento al nodo di comunicazione centrale attivo/passivo ($N$ collegamenti).
+
+	Poca resilienza e costo/complessità. Usato nelle periferie di una rete.
+	\item \textbf{Bus attivo/passivo}, Ogni nodo collegato a unico collegamento condiviso bidirezionale.
+	\item \textbf{Anello}, ogni nodo collegato con soli altri due nodi monodirezionalmente o bidirezionalmente.
+\end{itemize}
+\subsection{Informazione}
+Le categorie di sorgenti d'informazione sono voce e suoni, immagini e i dati. Queste categorie sono determinante dalla sorgente dell'informazione.
+\paragraph{Il Segnale} è il risultato della trasformazione dell'informazione originale, prodotta dalla sorgente e appartenente a una delle tre classi, in una grandezza elettrica.
+\subparagraph{La sorgente} può essere analogica (infiniti valori) o digitale (numero finito di valori, 0 e 1 tipicamente).
+
+\paragraph{Segnale sinusoidale} è un segnale analogico molto semplice \[A\sin(2\pi ft + \phi)\] dove $A$ è l'ampiezza ossia l'intensità del segnale, $f$ è la frequenza ossia il tono del segnale (unità di misura l'Hz ossia il numero di oscillazioni al secondo) e $\phi$ è la fase (di poco interesse per noi).
+
+\textbf{Spettogramma}: Rappresenta le sinusioni in un grafico di x=$f$ e  y=$A$) come segmenti verticali. Si usa la trasformata di Fourier per fare lo spettro di ogni segnale, potendoli rappresentare come somme di sinusoidi.
+\begin{paracol}{2}
+	\subparagraph{La Larghezza di banda} sono le frequnze comprese tra la $f_m$ e la $f_M$ nello spettro che un segnale assume. Si calcola facendo $f_M-f_m=B$.
+
+	Più è grande la larghezza di banda più il segnale sarà complesso.
+	\switchcolumn
+	\subparagraph{La Banda passante} sono le frequenze trasmissibili sul mezzo trasmissivo e con la tecnologia scelta.
+\end{paracol}
+
+\medskip
+
+\noindent La banda passante può essere inferiore alla larghezza di banda del segnale, e quindi filtrarne una parte, fintanto si comunichino informazioni utili e non uguali alle originali.
+\subsection{Multi-informazione}
+Abbiamo l'obbiettivo di trasportare sullo stesso mezzo trasmissivo più informazioni in canali differenti, ossia avere una comunicazione \textbf{intercanale}.
+\paragraph{L'Interferenza} è il risultato distruttivo dalla somma irriversibile dei segnali (sofrapposizione degli spettri) se vengono trasmessi sullo stesso canale.
+\paragraph{Il Multiplex} sposta le frequenze dall'intervallo originario a un altro e viceversa, in modo tale da non avere interferenze (ogni segnale non può sommarsi con altri avendo un intervallo proprio). Si usano le formule di prostaferesi. \[\cos(2\pi f_1t)\cos(2\pi f_2t)=\frac{1}{2}[\cos(2\pi f_ht)+\cos(2\pi f_lt)]\]\[f_h=f_1+f_2, f_l=f_1-f_2\]
+Ora una rete manda un multiplex e nel mezzo trasmissivo abbiamo vari sotto canali.
+\begin{itemize}
+	\item \textbf{Modulazione AM}, modifica l'ampiezza dei segnali con somme e moltiplicazioni seguendo le formule proposte.
+	\item \textbf{Modulazione FM}, modifica la frequenza dei segnali in modo più coplesso della AM ma con risultati migliori e per questo ancora usata.
+\end{itemize}
+\subsection{Implementazioni}
+Tramite i compomenti elettrici come oscillatori (generano sinusoidi a frequenze desiderate), mixers (moltiplicano i segnali), amplificatori (aumentano la distanza rigenerando il segnale), filtri (selezionano le frequenze) si applicano i concetti logici.
+
+Prima tecnologia tubi a vuoto (delicato, obselescente) surclassata dai transistor (legge di moore\footnote{La legge di moore, del raddopio del numero di transistor ogni 18 mesi, è motivata dal fatto che avere nello stesso spazio più componenti piccole comporta minor costi e maggior resistenza.}).
+\subsection{Digitalizzazione}
+Le comunicazioni analogiche sono difficili (distorsioni, attenuazioni, interferenze) e richiedono soluzioni specifiche a problemi comuni in base all'implementazione. Soluzione:\[ADC\longleftrightarrow DAC\]
+\subsubsection{Fasi digitalizzazione}
+Dato in input in segnale analogico le fasi di digitalizzazione sono le seguenti in ordine.
+\paragraph{Campionamento} misurazione in predeterminati istanti di tempo che produce una serie temporale di misurazioni.
+
+Possibile operazione distruttiva (impossibile ricostruire segnale originario) con rischio di \textbf{sub-sampling} (assenza informazioni) o \textbf{Over-sampling} (valori sovrabbondanti).
+
+Il teorema di Shannon-Nyquist definisce il minimo intervallo che permette di ricostruire il segnale analogico integralmente \[T_s=\frac{1}{f_s}<\frac{1}{2f_M}, f_s>2f_M\]
+\paragraph{Quantizzazione} adatta le misurazioni del campionamento al n umero di cifre prederminato per la rappresentazione binaria.
+
+Più bit uso più sarò preciso a rappresentare il segnale, ma sarà sempre "scalinato".
+\subsection{Vantaggi digitale}
+\paragraph{Integrazione} data dal formato unico dell'informazione, i bit.
+\paragraph{Computazione} dei bit naturale per i calcolatori elettronici. Sono facili operazioni di modifica (aggiunta, estrazione, combinazione), compressione e cifratura.
+\subsection{Servizio}
+La rete permette un certo tipo di comunicazione in base alla tipologia d'interazione nella comunicazione, alla modalità di fluizione dell'informazione e alla tipologia d'informazione.
+\begin{itemize}
+	\item \textbf{Interattivi}, sorgente e destinazione hanno interazioni. Tipicamente ha uno scambio asincrono dei dati tramite memorizzazione.
+	\item \textbf{Distribuiti}, sorgente diffonde informazioni indipendentemente dai destinatari sconosciuti.
+
+	\textbf{Senza controllo di presentazione}, destinatario non controlla ordine di ricezione.
+
+	\textbf{Con controllo di presentazione}, destinatario controlla ordine di ricezione.
+\end{itemize}
+Il flusso infromativo può essere: \textbf{Punto-Punto (1-1), Multicast (1-N noti), Broadcast (1-tutti), Monodirezionale, Bidirezionale Simmetrico o Asimmetrico}.
+Il servizio può essere:
+\begin{itemize}
+	\item \textbf{Monomediale}, trasferisce un solo tipo d'informazione, oppure più tipologie d'informazione sotto forma d'un solo segnale.
+	\item \textbf{Multimediali}, trasferisce più tipi d'informazione e con modalità distinte (per protocolli e qualità di servizio). Da problemi di sincronizzazione.
+\end{itemize}
+\subsubsection{Qualità del servizio}
+\paragraph{La trasparenza} è la capacità della rete di non modificare l'informazione pertinente ad un dialogo.
+\begin{itemize}
+	\item \textbf{Semantica}, tutela l'integrità dell'informazione trasportata. Gestisce anche situazioni d'errore ripristinando i dati.
+	\item \textbf{Temporale}, tutela dai ritardi di transito. Il ritardo è sempre presente per via della propagazione.
+\end{itemize}
+
+\textbf{Quality of service (QoS)} è la qualità della comunicazione percepita (funzione della trasparenza).
+
+I sistemi non real-time richiedono alta trasparenza semantica mentre i sistemi real-time trasparenza temporale (servizi isocroni).
+\paragraph{La Compensazione al terminale} è una soluzione hai ritardi introdotti dalla rete è applicare un ritardo al terminale del ricevitore che permette di raccogliere in un playback buffer i dati generati dal mittente per ripordurli successivamente dopo un ritardi di playback senza interruzioni.
+Si ottiene cosi una trasmissione correttamente temporizzata.
+
+\medskip
+\begin{adjustbox}{max width=\textwidth}
+	\begin{tikzcd}
+		\text{mitt. trasmette} \arrow[rrr, "\text{ritardo rete}" description] &  &  & \text{dest. riceve} \arrow[rrr, "\text{ritardo playback}" description] &  &  & \text{dest. riproduce}
+	\end{tikzcd}
+\end{adjustbox}
+
+\medskip
+Se il tempo ri ricezione coincide con il tempo di riproduzione si verifica un interruzione del servizio. (pensa a video in streaming con barra rossa e barra grigia).
+\subparagraph{Le reti CBR e VBR} son definire a flusso costante e variabile di bit.
+\subparagraph{Le reti a tempo differito e non} sono quando il dato viene usato qunado il destinatario vuole e qunado va consumato subito (trasmissioni in line).
+\subsubsection{Multiplazione}
+La multiplazione è il trasporto di più canali sullo stesso mezzo trasmissivo.
+
+Multiplazione=una rete per più servizi con requisiti diversi. Serve una rete flessibile in allocazione, distribuisce le risorse secondo le necessità, e gestione, richieste di servizi diversi non interferiscono tra loro.
+
+\paragraph{Le diverse realizzazioni} sono teoricamente, in condizioni ottimali, equivalenti:
+\begin{itemize}
+	\item \textbf{FDM} basata sulle frequenze usa un approccio analogico. Hai canali digitali viene assegnato un differente intervallo di frequenze.
+	\item \textbf{TDM} basata sul tempo usa un approccio digitale. L'intero mezzo trasmissivo viene usato a giro da un solo canale per una finestra temporale fissa.
+	\item \textbf{CDM} basata su codici ortogonali associati hai canali che trasmettono simultaneamente e sulla stessa frequenza.
+
+	Il mittente moltiplica il segnale per il codice del ricevitore e i ricevitori moltiplicheranno il messaggio ricevuto per il proprio codici ortogonali. L'unico ricevitore avrà un risultato diverso da zero è quello a cui era indirizzato il messaggio.
+	\item Divisione di spazio.
+\end{itemize}
+\subsubsection{TDM}
+La TDM nelle reti digitali ha il maggior successo.
+Casi di applicazioni della TDM con assegnamento della banda staticamente o dinamicamente:
+
+\medskip
+\begin{adjustbox}{max width=\textwidth}
+	\begin{tikzcd}
+		& Slotted \arrow[rd] \arrow[r]                           & framed \arrow[rr, "usata" description] \arrow[rrd, "inusata" description] &  & statica  \\
+		\textbf{TDM} \arrow[ru] \arrow[r] & unslotted \arrow[rrr, "usata" description, bend right] & unframed \arrow[rr, "inusata" description]                                &  & dinamica
+	\end{tikzcd}
+\end{adjustbox}
+\paragraph{slotted} il tempo è diviso in slot di dimensione fissa. Le unità informative sono hanno la stessa lunghezza e commisurata allo slot.
+	\subparagraph{slotted framed} struttura gli slot in frame di dimensioni prefissate e sincronizzati da un slot dedicato.
+
+Ogni slot in un frame ha una posizione e è un canale a sè. La posizione si ripete tra frame ma in flussi separati (stesso codice canali diversi).
+\subparagraph{slotted unframed (S-TDM)} gestisce sequenze di slot di lunghezza variabile tramite slot di sincronizzazione.
+
+Ogni slot in una sequenza è numerato e è un canale a sè. La numerazione si ripete tra sequenze ma in flussi separati (stesso codice canali diversi).
+\paragraph{unslotted} delimita le unità informative di lunghezza variabile tramite delimitatori.
+\paragraph{A.B.statica} il flusso informativo coincide alla banda  dedicatagli, che non può cambiare durante la comunicazione.
+\paragraph{A.B.dinamica (A-TDM)} il flusso informativo condivide la banda con altri flussi, secondo la necessità. La banda può cambiare durante la  comunicazione.
+
+Necessario definire come si assegna la banda e come gestire situazioni di contesa.
+\subsection{La rete}
+La rete consente la comunicazione tra una combinazione qualunque di elementi terminali, tramite canali end-to-end dinamicamente creati all'occorrenza, con una qualità del servizio accettabile.
+
+\paragraph{End-to-end} è il canale supportato da diversi mezzi trasmissivi, in funzione dell'architettura della rete, per connette sorgente e destinazione.
+\paragraph{ipercubo} La rete è costituita dal piano di gestione della rete più Piano di controllo della rete e i dati di controllo. Quest osecondo contiene i dati d'utente.
+\subsubsection{Funzionalità}
+\begin{multicols}{2}
+	\paragraph{Trasmissione} gestisce il trasferimento fisico del segnale punto-punto/punto-multipunto.
+	\paragraph{Commutazione} gestisce l'instradamento delle informazioni nella rete per far comunicare i nodi terminali.
+	\paragraph{Segnalazione} gestisce lo scambio di informazioni della rete stessa e per gestire la comunicazione.
+	\paragraph{Gestione} tutto ciò che riguarda il mantenimento delle funzioni della rete.
+\end{multicols}
+\subsubsection{Commutazione}
+\paragraph{Circuito} gestisce informazioni analogiche e digitali.
+La rete crea un cananale dedicato e esclusivo tra i due nodi terminali.
+
+\medskip
+\begin{adjustbox}{max width=\textwidth}
+	\begin{tikzcd}
+		Instaurazione \ del \ circuito \arrow[rr] &  & Dialogo \arrow[rr] &  & Disconnessione \ del \ circuito
+	\end{tikzcd}
+\end{adjustbox}
+
+\subparagraph{Call set-up time} è un ritardo iniziale per settare il canale.
+Rete trasparente temporalmente durante il dialogo.
+Necessaria disconnessione al circuito per liberare le risorse di rete.
+\paragraph{Messaggio} gestisce informazioni digitali.
+Struttura le informazioni d'utente e di segnalazione in messaggi suddivisi in pacchetti di dimensione prefissata.
+\subparagraph{Circuito virtuale} prestabilito percorso dei pacchetti a cui è associato un numero di circuito virtuale. I pacchetti hanno solo il numero di circuito.
+\subsection{Datagram} pacchetti instradati indipendentemente con informazioni d'indirizzamento. Possono esserci tempo d'arrivo differenti che comportano un riordinamento dei pacchetti a destinazione.

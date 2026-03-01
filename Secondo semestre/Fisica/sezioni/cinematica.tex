@@ -1,0 +1,42 @@
+\section{Cinematica e Dinamica}
+La cinematica si occupa della descrizione del moto mentre la dinamica della sua causa. Insieme cinematica e dinamica danno la meccanica.
+\definizione{Punto materiale}{Il punto materiale, o particella, è un corpo che presenta dimensioni trascurabili rispetto a quelle dello spazio in cui può muoversi (o degli altri corpi).}{def:puntoMateriale}
+Un punto materiale compie solo trasformazioni. Un corpo esteso compie traslazioni e rotazioni e vibrazioni.
+
+Il moto di un punto materiale è determinata se è nota la posizione del punto in funzione del tempo in un dato sistema di riferimento.
+\definizione{Traiettoria}{La traiettoria (una curva nello spazio) è il luogo dei punti occupati dal corpo in movimento.}{def:traiettoria}
+\definizione{Velocità}{La velocità è la variazione nel tempo della posizione del corpo.}{def:velocità}
+\definizione{Accellerazione}{L'acellerazione è variazione nel tempo della velocità.}{def:accellerazione}
+\definizione{Moto rettilineo}{Il moto rettilineo si svolge lungo una retta, fissata un'origine e un verso. Il moto cosi è descrivibile secondo un'unica coordinata scalare $x(t)$.}{def:motorett}
+\textbf{Diagramma orario} fissa sulle ascisse il tempo $t$ e sulle coordinate la posizone $x$. Rappresenta la posizione lungo la retta del corpo in un determinato istante. (se va avanti o indietro).
+\mysubsection{Velocità nel moto rettilineo}
+Definiamo la velocità media come il rapporto tra lo spazio e il tempo, tra due punti \[v_m=\frac{\Delta x}{\Delta y}=\frac{x_2-x_1}{t_2-t_1}\]
+\definizione{Velocità istantanea}{
+La velocità istantanea è la velocità nel moto rettilineo se rendo gli intervalli $\Delta t$ infinitesimali \[\lim\limits_{\Delta t \to 0}\frac{\Delta x}{\Delta y}=\frac{dx}{dt}=v\] La velocità istantanea è la rapidità di variazione della posizione in un dato istante.}{def:velistantanea}
+\definizione{Moto rettilineo uniforme}{
+Il moto rettilineo uniforme ha $v=v(t)$ costante dato il segno della velocità che indica la direzione del moto.
+
+Nota la legge oraria $x(t)$ tramite derivazione rispetto al tempo è ricavabile la velocità.}{def:defMotoRetUniforme}
+\mysubsection{Problema inverso}
+Sia un punto materiale in $x$ al tempo $t$ e in $(x+dx)$ al tempo $(t+dt)$. Vale la relazione $dx=v(t)dt$ e avrò \[\Delta x = \int_{x_0}^{x}dx=\int_{t_0}^{t}dt\implies x-x_0=\int_{t_0}^{t}v(t)dt\] da cui ricaviamo la legge oraria $x(t)=x_o+\int_{t_o}^{t}v(t)dt$ e la velocità media $v_m=\frac{1}{t-t_0}\int_{t_0}^{t}v(t)dt$.
+
+Nel moto rettilineo uniforme $v$ è constante e si ottiene \[x(t)=x_0+\int_{t_0}^{t}vdt=x_0+v\int_{t_0}^{t}dt=x_0+v(t-t_0)\] e scegliendo $t_0=0$ si ha $x(t)=x_0+vt$. In questo caso la velocità istantanea coincide con la velocità media.
+\definizione{Accelerazione media e istantanea}{L'accellerazione media è la variazione della velocità in una finestra temporale \[a_m=\frac{\Delta v}{\Delta t}\]L'accelerazione istantanea è \[a=\frac{dv}{dt}=\frac{d^2v}{dt^2}\]}{def:accMedia}
+Se l'accellerazione è zero siamo nel caso del moto rettilineo uniforme.
+\paragraph{Il segno} dell'accellerazione dice se la velocità aumenta o diminuisce nel tempo.
+Osservo che il verso del moto è il segno della velocità, non da quello dell'accellerazione.
+
+\paragraph{Problema inverso} \[dv=a(t)dt\implies \Delta v = \int_{v_0}^{v}dv=\int_{t+0}^{t}a(t)dt\]\[v(t)=v_0+\int_{t_0}^{t}a(t)dt\]
+
+Se conosciamo $a(x)$ possiamo fare \[v^2=v_0^2+2\int_{x_0}^{x}a(x)dx\] dato da $a=dv/dt=\frac{dv}{dx}\cdot\frac{dx}{dt}=v\frac{dv}{dx}\implies adx=vdv$.
+
+Nota: $m/s=3.6km/h$.
+\definizione{Moto rettilineo uniformemente accelerato}{
+\begin{multicols}{2}
+	Se l'accellerazione non è costante un moto è definito vario. Un moto con un accellerazione costante è uniformente accelerato, con \[v(t)=v_0+a(t-t_0)\]\[x(t)=x_0+v_0(t-t_0)+1/2a(t-t_0)^2\] ponendo $t_0=0$ si ottiene
+	\[\begin{cases}
+		v(t)=v_0+at\\
+		x(t)=x_0+v_0t+1/2at^2
+	\end{cases}\]
+	dalla relazione tra velocità e posizione si ottiene \[v^2=v_0^2+2a(x-x_0)\]
+\end{multicols}}{motorettuniformacc}

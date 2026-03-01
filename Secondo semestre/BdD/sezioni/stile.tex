@@ -1,0 +1,29 @@
+\usepackage[italian]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{lastpage}
+\usepackage[colorlinks=true, linkcolor=black]{hyperref}
+\usepackage{tikz}			% per fare grafici
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+\usepackage{paracol}
+\usepackage{multicol}
+
+\tikzcdset{
+	scale cd/.style={
+		every label/.append style={scale=#1},
+		cells={nodes={scale=#1}}
+	}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\hyperref[toc]{$\leftarrow$Indice}}
+\fancyhead[C]{\leftmark}
+\fancyhead[R]{\thepage/\pageref{LastPage}}
+
+\title{Basi di Dati}
+\author{Leonardo Mengozzi}
+\date{}

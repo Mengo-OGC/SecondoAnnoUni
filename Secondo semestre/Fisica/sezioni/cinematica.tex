@@ -40,3 +40,117 @@ Nota: $m/s=3.6km/h$.
 	\end{cases}\]
 	dalla relazione tra velocità e posizione si ottiene \[v^2=v_0^2+2a(x-x_0)\]
 \end{multicols}}{motorettuniformacc}
+\mysubsection{Caduta verticale die gravi}
+Trascurando l'attrito, ogni corpo in caduta libera in prossimità della superfice terrestre si muuove verso il basso con accellerazione costante di modulo $g=0.91m/s^2$.
+Fissato l'asse verso l'alto si ha $a=-g$.
+
+Si tratta di un moto uniformemente accellerato con accellerazione identica per tutti i gravi.
+
+\paragraph{Con $v_0=0$} un corpo cade da un'altezza $h$ verso il basso.
+\[
+\begin{cases}
+	v=-gt\\
+	x=h-\frac{1}{2}gt^2\\
+\end{cases}
+\begin{cases}
+	v(x)=\sqrt{2g(h-x)}\\
+	t(x)=\sqrt{\frac{2(h-x)}{g}}\\
+\end{cases}
+\]
+Condizoni iniziali:$x_0=h, v_0=0, t_0=0$.
+Ponendo $x=0$ dal secondo sistema si ottiene:
+\subparagraph{Tempo di caduta} $t_c=\sqrt{\frac{2h}{g}}$.
+\subparagraph{Velocità al suolo} $v_c=\sqrt{2gh}$.
+\paragraph{Con $v_0<0$} un corpo cade da un'altezza $h$ verso il basso.
+\[
+\begin{cases}
+	v=-v_1-gt\\
+	x=h-v_1t-\frac{1}{2}gt^2\\
+\end{cases}
+\begin{cases}
+	v(x)=\sqrt{v_1^2+2g(h-x)}\\
+	t(x)=-\frac{v_1}{g}+\sqrt{\frac{v_1^2}{g^2}+\frac{2(h-x)}{g}}\\
+\end{cases}
+\]
+Condizioni iniziali: $x_0=h, v_00-v_iv_i>0), t_o=0$. Nota che per $t(x)$ si scarta la soluzione negativa.
+Ponendo $x=0$ dal secondo sistema si ottiene:
+\subparagraph{Tempo di caduta} $t_c=-\frac{v_1}{g}+\sqrt{\frac{v_1^2}{g^2}\frac{2h}{g}}$.
+\subparagraph{Velocità al suolo} $v_c=\sqrt{v_1^2+2gh}$.
+\paragraph{Con $v>0$} un corpo lanciato verso l'alto partendo dal suolo.
+\[
+\begin{cases}
+	v = -v_2-gt\\
+	x = v_2t-\frac{1}{2}gt^2\\
+\end{cases}
+\begin{cases}
+	v(x)=\pm\sqrt{v_2^2-2g(x)}\\
+	t(x)=\frac{v_2}{g}\pm\sqrt{\frac{v_2^2}{g^2}-\frac{2x}{g}}\\
+\end{cases}
+\]
+Condizioni iniziali: $x_0=0, v_0=v_2>0, t_0=0$.
+Ponendo $x=0$ dal secondo sistema si ottiene:
+\subparagraph{Tempo di caduta} $t_c=\frac{v_2}{g}\pm\frac{v_2}{g}$.
+\subparagraph{Velocità al suolo} $v_c=\pm v_2$.
+\subparagraph{La leggere oraria} di questo moto è una parabola che interseca l'ascissa in $t=0$ con $v=v_2$ e in $t=\frac{2v_2}{g}$ con $v=-v_2$.
+
+\begin{multicols}{2}
+	\noindent Ponendo $v=0$ nella legge oraria troviamo $t_m$, il tempo i corrispondenza della massima altezza raggiunta.\[0=v_2-gt_m\implies t_m=v_2/g\] Il corpo in $t_m$ sta a $x_m=v_2^2/2g$.
+	\begin{itemize}
+		\item $t<t_m\to v>0$
+		\item $t>t_m\to v<0$
+		\item $t_{tot}=2t_m$
+	\end{itemize}
+\end{multicols}
+\subsection{Moto del proiettile}
+Grave con accellerazione costante di modulo $g$ diretta verso il basso e accellerazione orrizontale nulla.
+
+Preso l'asse $y$ diretto verso l'alto si avrà $a_y=-g, a_x=a_z=0$ all'istante iniziale.
+
+Sia $\vec{v_0}$ la velocità iniziale nel piano $xy$, $v_{0z}=0$ e $v_z=0$ per ogni istante, cosi definità \[\vec{v_0}=v_{0x}\hat{i}+v_{0y}\hat{j}=v_0\cos\Phi_0\hat{i}+v_0\sin\Phi\hat{j}\] Con $\Phi$ l'angolo di lancio rispetto all'origine.
+In ogni istante si ha $|\vec{v}|=\sqrt{v_x^2+v_y^2}$ e che $\tan\Phi_0=v_y/v_x$.
+
+Dato $a_x=0$ si ha $v_x(t)=v_0\cos\Phi_0$ e $v_y(t)=v_{y0}+a_yt=v_0\sin\Phi_0-gt$, da cui si ha la legge oraria \[
+\begin{cases}
+	x(t)=(v_0\cos\Phi_0)t\\
+	y(t)=(v_0\sin\Phi_0)t-\frac{1}{2}gt^2\\
+\end{cases}
+\] Da cui ricaviamo traiettoria e gittata.
+\paragraph{La Traiettoria} è parabola passante per il punto di lancio. \[y(x)=(\tan\Phi_0)x-\frac{g}{2v_0^2\cos^2\Phi_0}x^2\]
+\paragraph{La Gittata} è la distanza orrizontale totale percorsa. \[R=\frac{v_0^2}{g}\sin2\Phi_0\]
+\subsection{Moto Circolare}
+Dato un sistema di riferimento con origine nel centro della traiettoria circolare e piano $xy$ nel piano della circonferenza.
+\begin{multicols}{2}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{img/motocircolare.png}
+	\end{figure}
+	\[
+	\begin{cases}
+		x = R\cos\Theta\\
+		y = R\sin\Theta\\
+		z = 0\\
+	\end{cases}
+	\]
+	Vetotre poszione: \[\vec{r}=R\cos\theta\hat{i}+R\sin\theta\hat{j}\]
+	In $\Omega=(R, 0 0)$ si ha origine della ascissa curvilinea di rotazione antioraria, $s=R\theta0(0\leqslant s \leqslant 2\pi R)$, ossia la distanza percorsa lungo la circonferenza da $\Omega$ fino $P$. \[\theta=s/R\]
+\end{multicols}
+\paragraph{Moto circolare uniforme} ha la velocità scalare $v_s$ costante. \[v_s=R\omega\] Con $w=\frac{v_s}{R}$ la velocità angolare.
+
+Legge oraria dell'angolo $\theta$: $\theta(t)=\theta_0+\omega(t-t_0)$.
+
+Se si pone $t_0=0$ e $\theta(t)=\omega t$ si ha $\theta(t)=\omega t$.
+\subparagraph{Accellerazione centripeda} Dati
+\[
+\begin{cases}
+	\vec{r}(t)=R\cos(\omega t)\hat{i}+R\sin(\omega t)\hat{j}\\
+	\vec{v}(t)=-\omega R \sin(\omega t)\hat{i}+\omega R \cos(\omega t)\hat{j}\\
+	\vec{a}(t)=-\omega^2\vec{r}(t)\\
+\end{cases}
+\]
+Sappiamo che l'accellerazione è diversa da 0, è centripeda e costante in modulo. $\vec(a), \vec{r}$ hanno stessa direzione e verso opposto dando un vettore che da $P$ va a $O$. \[a_c=|\vec{a}(t)|=\omega^2R=\frac{v_s^2}{R}\]
+Costante in modulo e proporzionale alla velocità angolare.
+\paragraph{Accellerazione tangenziale} quando il moto circolare non uniforme, con velocità scalare e angolare non costanti, si ha velocità centripeda e tangenziale.
+
+La velocità totale è somma vettoriale delle velocità perpendicolari centripeda e tangenziale.
+
+accellerazione angolare $\alpha=d\omega/dt$, tangenziale $a_t=\alpha R$ e totale $a=R\sqrt{\omega^4+\alpha^2}$

@@ -105,6 +105,24 @@
 	boxrule=0.4pt
 }
 
+\rowcolors{2}{gray!10}{white}
+
+\newcommand{\riga}[2]{
+	#1 & #2\\
+}
+
+\newcommand{\tabella}[2]{
+	\subsection{#1}
+	\begin{tabularx}{\textwidth}{|p{0.35\textwidth}X|}
+		\hline
+		\rowcolor{gray!20}
+		\textbf{#1} & \textbf{Descrizione}\\
+		\hline
+		#2
+		\hline
+	\end{tabularx}
+}
+
 \title{Metodi Numerici per L'Intelligenza Artificiale}
 \author{Leonardo Mengozzi}
 \date{}

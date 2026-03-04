@@ -1,0 +1,120 @@
+\section{NumPy}
+\tabella{Creazione ndarray}{
+	\riga{np.array(origine)}{Converte una tupla o una lista in un ndarray uniformando tutti i dati a quelli del tipo "più grosso".
+	Il tipo di dato viene scelto in base al sistema operativo adoperato.}
+	\riga{np.arange(min, max, step)}{Crea valori equidistanziati dallo step nell'intervallo min e max escluso. Si può indicare anche solo max.}
+	\riga{np.linspace(min, max, n)}{Crea n valori equistanziati nell'intervallo min e max incluso.
+	Aggiungendo il parametro endpoint=False max è escluso (default a True).
+	Aggiungendo il parametro retstep=True viene restituito lo step applicato (default a False).}
+	\riga{np.zeros((r, c))}{Crea un matrice di zeri di r righe e c colonne. (dimensioni passate con tupla).}
+	\riga{np.zeros\_like(origine)}{Crea un array di zeri di shape uguale a quello passato come origine.}
+	\riga{np.ones((r, c))}{Come zeros ma di uno.}
+	\riga{no.onels\_like(origine)}{Come zeros\_like ma di uno.}
+	\riga{np.full((r, c), valore)}{Crea un array di r righe e c colonne di elementi come valore.}
+	\riga{np.full\_like(origine, valore)}{Crea un array con la stessa shape di origine ma di elementi uguali a valore.}
+	\riga{np.repeat(arr, n)}{Crea un array ripetendo n volte ogni elemento di arr.
+	Agiungendo il parametro axis=n si indica per quale asse ripetere.}
+	\riga{np.tile(arr, n)}{Crea un array ripetendo n volte arr.}
+}
+\tabella{Matrici identità}{
+	\riga{np.eye(n)}{Crea una matrice identità $n\times n$. Equivalente a np.identity(n).}
+	\riga{np.eye(n, k=c)}{Crea una matrice identità con la diagonale shiftata di più (alto) o meno (basso) c.}
+	\riga{np.diag(arr)}{Estrae la diagonale da arr.}
+	\riga{np.diag([...])}{Crea una matrice di zeri con diagonale il vettore passato.}
+
+}
+\tabella{Campionamento}{
+	\riga{np.random.seed(seed)}{Imposta il seme di generazione.}
+	\riga{np.random.rand()}{Genera numeri uniformemente distribuiti in [o, 1[. Con parametro n si fa un vettoer e con parametri n, m un matrice.}
+	\riga{np.random.randn()}{Genera numeri dalla distribuzione normale standard. Con parametro n si fa un vettoer e con parametri n, m un matrice.}
+	\riga{np.random.randn(m, n)}{Genera numeri dalla distribuzione di media=m e varianza=n.}
+	\riga{np.random.randint(min, max, n)}{Genera n numeri interi tra min e max escluso.}
+	\riga{np.random.shuffle(arr)}{Mescola in-place gli elementi di arr.}
+	\riga{np.permutation(arr)}{Restituisce una copia permutata di arr.}
+}
+\tabella{Parametri creazione ndarray}{
+	\riga{order=C\textbar F}{Specifica come memorizzare le matrici. Con "C" si fa per righe (default) mentre "F" lo fa per colonne.}
+	\riga{dtype=np.tipo}{Specifica il tipo degli elementi dell'array da creare. tipo: int64, float32, int, float (float64), bool, complex64.}
+}
+\tabella{Attributi ndarray}{
+	\riga{.ndim}{Da il numero di dimensini dell'array.}
+	\riga{.shape}{Da una tupla con il numero di elementi per dimensione. Può fare il reshape mediante .shape=d1, d2, ecc.}
+	\riga{.size}{Da il numero totale di elementi.}
+	\riga{.dtype}{Da il tipo di dato degli elementi dell'array.}
+	\riga{.intemsize}{Da la dimensione in byte degli elementi dell'array.}
+	\riga{.nbytes}{Da la dimensione in byte dell'array.}
+	\riga{.flags}{Da varie info sull'array}
+	\riga{.base}{Punta all'array originale se quello su cui è chiamato è una view (se è una copia da None).}
+}
+\subsection{Operazioni}
+\paragraph{element wise:} \textit{C = A +-*/ B}, C è il risultato di una delle quattro operazioni, eseguite elemento per elemento, tra A e B.
+\paragraph{U-Functions:} operano elemento per elemento su array di qualsiasi dimensione producendo array di output con stessa shape dell'input.
+
+Alcune: np.power(), np.sqrt(), np.exp(), np.log(), np.sin(), np.cos(), np.tan(), np.greater(), np.less(), np.equal().
+
+\subsection{Broadcasting}
+Meccanismo che permette di eseguire operazioni su array di forme diverse estendendo virtualmente gli array piccoli per renderli compatibili con quello grande. \textbf{Due dimensioni sono compatibili se sono uguali oppure una è 1}. Casistiche:
+\paragraph{Scalare e Array:} Lo scalare diventa un array di shape uguale all'altro array con elementi tutti uguali allo stalare.
+\paragraph{Array 1D e Array 2D:} L'array 1D viene ripetuto diventando un array 2D di stessa shape dell'altro array.
+\paragraph{Array di shape differenti:} Restituendo "una copia" dell'array più grande dove è stata applicata l'operazione solo alle celle comuni, ossia quelle degli array piccoli.
+\tabella{Statistiche}{
+	\riga{np.sum(arr, axis=n)}{Restitusice l'array delle somma dell'n-asse specificato di arr.}
+	\riga{np.mean(arr, axis=n)}{Restitusice l'array delle medie dell'n-asse specificato di arr.}
+	\riga{np.median(arr, axis=n)}{Restitusice l'array delle mediane dell'n-asse specificato di arr.}
+}
+Valori assi: axis=0=colonne, axis=1=righe, ecc. Se non si specifica l'asse si fa l'operazione su tutto l'array.
+\tabella{Comparazione}{
+	\riga{np.min(arr, axis=n)}{Da i minimi dell'n-asse specificato.}
+	\riga{np.max(arr, axis=n)}{Da i massimi dell'n-asse specificato.}
+	\riga{np.argmin(arr, axis=n)}{Da gli indicii dei minimi dell'n-asse specificato.}
+	\riga{np.argmax(arr, axis=n)}{Da gli indicii dei massimi dell'n-asse specificato.}
+	\riga{np.minimum(arr1, arr2)}{Da l'array dei minimi considerati elemento per elemento (stesso indice).}
+	\riga{np.maximum(arr1, arr2)}{Da l'array dei massimi considerati elemento per elemento (stesso indice).}
+	\riga{arr1 condizone arr2}{Da l'array dei booleani valutati elemento per elemento (stesso indice) secondo la condizone. Si può fare il confronto anche con uno scalare. Per condizioni multiple si usano gli operatori \&, |, e le single condizioni vanno tra ().}
+}
+Valori assi: axis=0=colonne, axis=1=righe, ecc. Se non si specifica l'asse si fa l'operazione su tutto l'array, ma argmin/argmax danno l'indice dell'array appiattito.
+\tabella{Ordinamento}{
+	\riga{np.sort(arr, axis=n)}{Restituisce una copia ordinata lungo l'n-asse specificato.}
+	\riga{arr.sort(axis=n)}{Ordina in-place lungo l'n-asse specificato.}
+	\riga{np.argsort(arr, axis=n)}{Restituisce gli indici che ordinano l'array lungo l'n-asse specificato. Se axis=None fa lo stesso sull'array flattened.}
+}
+Valori assi: axis=0=colonne, axis=1=righe, ecc.
+\tabella{Indexing}{
+	\riga{arr[n]}{Accede al valore di arr partendo da 0. Se n è negativo si va dall'ultimo al primo.}
+	\riga{arr[m, n]}{Accede al valore di riga m e colonna n.}
+	\riga{arr[r1:r2, c1:c2]}{Accede alla sotto matrice limitata da r1, r2 esclusa, c1, c2 esclusa. Se si specifica solo : si intente tutte le righe o colonne. Opzionalmente si specifica il passo con r1:r2:passo o c1:c2:passo.}
+	\riga{arr[bools]}{Sia bools un'array di boleani di shape uguale arr. Accede agli elementi di arr corrispondenti ai True in bools. Con $\sim$bools si usano i False.}
+	\riga{arr[codizone]}{Restituisce un array flattened degli elementi di arr che rispettano la condizone (in cui si usa arr).}
+	\riga{np.where(condizone, vero, false)}{Restituisce il caso vero o false secondo condizione (in cui si usa un arr).}
+	\riga{np.argwhere(condizone)}{Restituisce gli indici che rispettano la condizone (in cui si usa un arr).}
+}
+\subsection{Condivisione e duplicazione}
+I metodi np.copy(arr), arr.copy(), np.array(arr, copy=True) restituiscono una copia profonda di arr.
+\tabella{Viste}{
+	\riga{arr.view()}{Genera una vista di arr. Ossia un oggetto che guarda gli stessi dati di arr (una modica alla view si riflette sull arr), ma non intacca altre proprietà di arr.}
+	\riga{np.shares\_memory(a, b)}{Dice se due array sono uno una vista dell'altro, ossia condividono lo stesso spazio di memoria.}
+	\riga{arr[min:max]}{Restituisce una view di arr da min a max escluso.}
+	\riga{arr.T}{Restituisce una view di arr trasposta.}
+	\riga{arr.flatten()}{Restituisce una copia di arr flatterizzata (appiattisce l'array a una dimensione).}
+	\riga{arr.ravel()}{Restituisce una view di arr flatterizzata.}
+}
+Flatterizzare ossia appiattire l'array multidimensionale a uno di una dimensione.
+\tabella{Manipolazione}{
+	\riga{np.append(arr, valore)}{Restituisce un nuovo array dato da value aggiunto in coda a arr. Opzionalmente si specifica l'asse su cui appendere con axis=n.}
+	\riga{np.insert(arr, pos, valore)}{Inserisce in pos, da 0, in arr il valore.}
+	\riga{np.delete(arr, ind)}{Rimuove da arr l'elemento in posizone ind.}
+	\riga{np.delete(arr, [ind1, ...])}{Rimuove da arr gli elementi negl'indifici specificicati.}
+	\riga{np.delete(arr, ind, axis=n)}{Rimuove da arr l'asse di indice ind.}
+	\riga{arr[[r1, r2]] = arr[[r2, r2]]}{Scambia le righe r1 e r2 di arr.}
+	\riga{arr.reshape((n, m))}{Restituisce una view di arr con la shape secondo la tupla. Si possono passare n e m direttamente, senza tupla. Se m o n è -1 si calcoleranno le righe o le colonne in funzione all'altra dimensione nota.}
+	\riga{arr.resize((n, m))}{Cambia la shape di arr in-place secondo la tupla.}
+	\riga{np.concatenate((arr1, arr2), axis=n)}{Restituisce la concatenazione ri arr1 e arr2 sull'n-asse indicato.}
+	\riga{np.vstack((arr1,  arr2))}{Restituisce lo stack verticale degli array. Equivalente a np.r\_[arr1, arr2].}
+	\riga{np.hstack((arr1, arr2))}{Restituisce lo stack orrizonatale degli array. Equivalente a np.c\_[arr1, arr2].}
+	\riga{arr=arr[np.newaxis, :]}{Aumenta la dimensionalità di arr.}
+	\riga{np.unique(arr)}{Restituisce un array con gli elementi di arr non ripetuti. Se si specifica return\_counts=True viene restituito anche il vettore del numero di ripetizioni di ogni elemento.}
+}
+Valori assi: axis=0=colonne, axis=1=righe, ecc.
+\tabella{Algebra Lineare}{
+	\riga{arr1 @ arr2}{Restituisce prodotto scalare di arr1 e arr2. Equivalente a arr1.dot(arr2) oppure np.dot(arr1, arr2).}
+}

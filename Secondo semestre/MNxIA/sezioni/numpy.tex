@@ -1,4 +1,6 @@
-\section{NumPy}
+\section{NumPy e Matplotlib}
+\texttt{import numpy as np\\
+import matplotlib.pyplot as plt}
 \tabella{Creazione ndarray}{
 	\riga{np.array(origine)}{Converte una tupla o una lista in un ndarray uniformando tutti i dati a quelli del tipo "più grosso".
 	Il tipo di dato viene scelto in base al sistema operativo adoperato.}
@@ -27,7 +29,6 @@
 	\riga{np.random.seed(seed)}{Imposta il seme di generazione.}
 	\riga{np.random.rand()}{Genera numeri uniformemente distribuiti in [o, 1[. Con parametro n si fa un vettore e con parametri n, m un matrice.}
 	\riga{np.random.randn()}{Genera numeri dalla distribuzione normale standard. Con parametro n si fa un vettore e con parametri n, m un matrice.}
-	\riga{np.random.randn(m, n)}{Genera numeri dalla distribuzione di media=m e varianza=n.}
 	\riga{np.random.randint(min, max, n)}{Genera n numeri interi tra min e max escluso.}
 	\riga{np.random.shuffle(arr)}{Mescola in-place gli elementi di arr.}
 	\riga{np.random.permutation(arr)}{Restituisce una copia permutata di arr.}
@@ -105,7 +106,7 @@ Flatterizzare significa appiattire l'array multidimensionale a uno di una sola d
 	\riga{np.delete(arr, ind)}{Rimuove da arr l'elemento in posizone ind.}
 	\riga{np.delete(arr, [ind1, ...])}{Rimuove da arr gli elementi negl'indifici specificicati.}
 	\riga{np.delete(arr, ind, axis=n)}{Rimuove da arr l'asse di indice ind.}
-	\riga{arr[[r1, r2]] = arr[[r2, r2]]}{Scambia le righe r1 e r2 di arr.}
+	\riga{arr[[r1, r2]] = arr[[r2, r1]]}{Scambia le righe r1 e r2 di arr.}
 	\riga{arr.reshape((n, m))}{Restituisce una view di arr con la shape secondo la tupla. Si possono passare n e m direttamente, senza tupla. Se m o n è -1 si calcoleranno le righe o le colonne in funzione all'altra dimensione nota.}
 	\riga{arr.resize((n, m))}{Cambia la shape di arr in-place secondo la tupla.}
 	\riga{np.concatenate((arr1, arr2), axis=n)}{Restituisce la concatenazione ri arr1 e arr2 sull'n-asse indicato.}
@@ -117,4 +118,20 @@ Flatterizzare significa appiattire l'array multidimensionale a uno di una sola d
 Valori assi: axis=0=colonne, axis=1=righe, ecc.
 \tabella{Algebra Lineare}{
 	\riga{arr1 @ arr2}{Restituisce prodotto scalare di arr1 e arr2. Equivalente a arr1.dot(arr2) oppure np.dot(arr1, arr2).}
+}
+\tabella{Plt}{
+	\riga{plt.plot(x, y, '...')}{Aggiuge una funzione con x input e y funzione da rappresentare con lo stile definito tra apici (r g b..., - * \^, \texttt{--} : ). Si possono aggiungere più funzioni allo stesso grafico.}
+	\riga{plt.semilogy(x, y, '...')}{Come plt.plot ma la y è in scala semilogaritmica.}
+	\riga{plt.subplot(r, c, p)}{Specifica in quante righe e colonne dividere lo spazio e in quale poszione disegnare il prossimo grafico.}
+	\riga{plt.bar(names, values)}{Fa un grafico a barre.}
+	\riga{plt.pie(dims, labels=[...], colors=[...])}{Fa un grafico a torta.}
+	\riga{plt.grid(True)}{Abilita la visualizzazione della griglia.}
+	\riga{plt.xlabel('...')}{Imposta la label dell'asse x.}
+	\riga{plt.ylabel('...')}{Imposta la label dell'asse y.}
+	\riga{plt.title('...')}{Imposta la label del titolo.}
+	\riga{plt.legend(["...", ...])}{Fa la legenda delle funzioni aggiunte.}
+	\riga{plt.savefig("nome.estensione")}{Salva la figura.}
+	\riga{plt.text(x, y, 'testo', c='...')}{Scrive nella posizione x y il testo specificato.}
+	\riga{plt.annotate('testo', xy=(x,y), xytext=(x,y), arrowprops=\{'arrowstyle':'-$>$'\})}{Scrive un annotazione in posizione xytext che punta a xy.}
+	\riga{plt.show()}{Mostra la figura.}
 }

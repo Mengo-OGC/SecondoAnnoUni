@@ -1,0 +1,102 @@
+\section{Modello Relazionale}
+Modello logico, indipendente dalla rappresentazione dei dati, l'unica astrazione è la relazione che sostituisce tutti i costrutti d'alto livello dell'E/R.
+
+\textbf{Il modello relazione è basato sui valori.}
+\subsection{Relazione}
+\paragraph{Def. Prodotto cartesiano} Siano $A, B$ insiemi non vuoti e non necessariamente distinti. Si definisce prodotto cartesiano $A\times B$ l'insieme delle coppie ordinate $(a, b)$, ennuple, con $a\in A, b\in B$.
+
+Si nota che $A\times B\ne B\times A$ ma sono in corrisondenza biunivoca e $A\times\emptyset=\emptyset\times A=\emptyset$.
+\subparagraph{Potenza cartesiana} $D^n$ è il prodotto di $n$ coppie dell'insieme D.
+
+\paragraph{Def. Relazione (binaria)} Siano $A, B$ insiemi non vuoti e non necessariamente distinti. Una relazione da $A$ a $B$ è ogni sottoinsieme non vuoto di $A\times B$.
+
+Dato $r\subseteq A\times B$, si dice che $a\in A$ è in relazione con $b\in B$ se $(a, b)\in r$.
+
+\subparagraph{Relazione in A} è un sottoinsieme non vuoto del prodotto cartesiano $A^2$, se $B=A$.
+
+\paragraph{Def. Relazione n-aria} Siano $D_1,\dots,D_n$ con $n>0$ insiemi non vuoti e non necessariamente distinti. Una relazione su $D_1,\dots,D_n$ è ogni sottoinsieme non vuoto di $A\times\dots\times B$.
+
+$D_1,\dots,D_n$ sono i domini della relazione, $n$ è il grado e il numero di ennuple è la cardinalità.
+
+\paragraph{Proprietà} Sia una relazione un insieme di ennuple, allora:
+\begin{itemize}
+	\item Tutte le ennuple sono distinte tra loro.
+	\item Non è definito alcun ordinamento tra le diverse ennuple.
+	\item Internamente le ennuple sono ordinate rispetto ai domini. (L'ordine di considerazione dei domini è rilevante).
+	\item Internamente alle ennuple uno stesso dominio può essere usato in più posizioni.
+\end{itemize}
+Nota: Si può fare una relazione ache del prodotto cartesiano con grado uno, grado infinito, e domini finiti.
+\paragraph{Rappresentazione} bit map, insiemistica, inadeguata per relazioni con $n>2$ o cardinalità grandi, tabellare efficace e multi-dimensionale adatta solo se $n<=3$.
+
+Nella multi-dimensionale si rappresentano solo i cubetti presenti. Inoltre è utile per evidenziare viste sui dati nei data warehouse.
+
+\paragraph{Attributo} è un nome univoco associato a ogni occorrenza di dominio (ripetuto o meno) che specifica il ruolo del dominio nella relazione.
+L'ordine degli attributi non ha più rilevanza (problema prodotto cartesiano).
+
+Nella rappresentazione tabellare sono le intestazioni di colonna mentre nella multi-dimensionale i nomi degli assi.
+
+\paragraph{Def. formale di Relazione} Sia $\mathrm{dom}(A)$ il dominio dell'attributo $A$ e si consideri l'insieme di attributi $X=\{A_1,\dots,A_n\}$. Una tupla $t$ è una funzione che associa a ogni $A_i\in X$ un valore di $\mathrm{dom}(A_i)$.
+
+Uno schema di relazione su $X$ è definito da un nome $R$ e dall'insieme di attributi $X$, e si indica con $R(X)$.
+
+Uno stato/estensione di relazione su $X$ è un insieme $r$ di tuple su $X$, che è anche denominato semplicemente "relazione".
+
+\subparagraph{Lo schema di un DB} è un insieme di schemi di relazioni con nomi distinti, $R=\{R_1(X_1),\dots,R_m(X_m)\}$ con $R_i\ne R_j, \forall i \ne j$ e uno stato è un insieme di stati di relazioni $r=\{r_1,\dots, r_m\}$ con $r_i$ stato di relazione su $R_i(X_i)$.
+
+\paragraph{Notazione} $A=\{A\}, XY=X\cup Y, ABC=\{A, B, C\}, R(ABC)=R(\{A, B, C\})$.
+
+Un'istanza è uno stato di relazione.
+
+\subsection{Tabella}
+\paragraph{Def. Tabella} Rappresenta una relazione se i valori di ciascuna colonna sono omogenei (stesso dominio), le righe sono tra loro diverse e le intestazioni di colonna sono diverse tra loro.
+
+
+\subparagraph{La Relazione} è un particolare tipo di tabella dove l'ordine delle righe e colonne è irrilevante.
+
+\subsection{Forme normali}
+Il modello relazionale richiede una normalizzazione dei dati tale da preservare l'informazione originale.
+
+\paragraph{1NF} nel modello relaziona non sono permessi domini strutturati per la definizione delle relazioni.
+
+Una relazione è in \textbf{prima forma normale} se ogni dominio è atomico.
+
+\subparagraph{Informazioni incomplete} si adotta il valore nullo (NULL), che non è un valore di dominio. \[t[A]\in\mathrm{dom}(A)\cup\{NULL\}\]
+Non si può inferire che due tuple abbiamo lo stesso valore per lo stesso attributo a NULL, ossia $NULL\ne NULL$. Ma per la verifica di tuple duplici si considera $NULL=NULL$. Graficamente si annota con *.
+
+Alcuni domini possono non accettare il valore NULL.
+
+\subsubsection{Vincoli intra-relazionali}
+Vincoli che interessano una relazione alla volta.
+\paragraph{Integrità} proprietà che deve essere soddisfatta da ogni possibile stato osservabile di una relazione. (Descrivibile da funzioni booleane).
+
+\paragraph{Dominio} impone i valori ammissibili per un singolo attributo.
+
+\paragraph{Tupla} impone condizioni su ciascuna tupla. Generalizzazione dei vincoli di dominio.
+
+\paragraph{Chiave} vieta la presenza di tuple distinte che hanno lo stesso valore su uno o più attributi.
+
+Sia $R(X)$ uno schema e $K\subseteq X$ un insieme di attributi:
+\begin{itemize}
+	\item $K$ è \textbf{superchiave} se e solo se in ogni stato ammissibile $r$ di $R(X)$ non esistono due tuple distinte $t1, t2$ tali che $t1[K]=t2[K]$.
+	\item $K$ è \textbf{chaive} se e solo se è una superchiave minimale, ovvero non esiste $K'\subseteq K$ con $K'$ superchiave.
+\end{itemize}
+Una chiave è un identificatore minimale per ogni $r$ su $R(X)$.
+
+L'insieme $X$ di tutti gli attributi dello schema è senz'altro una superchiave per $R(X)$.
+
+Con $n$ attributi è sempre possibile arrivare a individuare una chiave $K\subseteq X$.
+
+\subparagraph{Funzioni} di identificazione e correlazione, relazione ha come attributi le chiavi delle relazioni a cui è legata, dei dati.
+
+\subparagraph{Primary key (K)} è una chiave su cui non si ammettono valori nulli.
+
+Graficamente si sottolineano gli attributi che la compongono.
+
+\subsection{Vincoli inter-relazionali}
+Vincoli che enfatizzano le correlazioni tra tuple ottenute usando le chiavi.
+
+\paragraph{Vincolo d'integrità referenziale} Siano $R_1(X_1), R_2(X_2)$ due schemi di un DB $R$ e sia $Y$ un insieme di attributi in $X_2$. Un \textbf{vincolo d'integrità referenziale} su $Y$ impone che in ogni stato $r=\{r_1,\dots\}$ del DB l'insieme dei valori di $Y$ in $r_2$ sia un sottoinsieme dell'insieme dei valori della chiave primaria di $R_1(X_1)$ presenti nello stato $r_1$.
+
+\subparagraph{Forein key (Y)} è l'insieme $Y$. Y e K pososno dare nomi diversi agli attributi comuni. Y e K possono far parte della stessa relazione, se $Y\ne K$. Y può essere NULL.
+
+Graficamente si annota nomeFK:RelazioneProvenienza.

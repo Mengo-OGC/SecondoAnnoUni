@@ -1,0 +1,65 @@
+\section{Protocolli Applicativi}
+\subsection{DNS}
+Il DNS (Domain Name System) è un applicazione di rete che "traduce" nomi in indirizzi ip associati alle schede di rete dei calcolatori.
+A un nome è associato uno o più ip.
+
+Protocollo applicativo, usa UDP come trasporto e ha porta 53.
+
+\paragraph{Nome} è una stringa alfanumerica di sotto stringhe separate da punti, il numero di sotto stringhe è virtualmente illimitato.
+\subparagraph{Le sotto stringhe} non sono arbritarie ma riflettono la gerarchia dei domini e sotto-domini che seguono delle convenzioni.
+\rettangolo{nomeHost.domL3.domL2.domL1}
+L'estensione dei domini cresce da sinistra a destra. Il nomeHost è arbritario ma non ripetuto e i domini sono assegnati da IANA.
+
+Il dominio viene registrato (Registro.it, Icann, Whois) mentre i sotto domini non sono registrati.
+
+\paragraph{Fisicamente} il DNS è un db distribuito che applica automaticamente il funzionamento dell'elenco telefonico.
+I browser consultano i server DNS.
+\subparagraph{Il database distribuito} divide lo spazio dei nomi in \textbf{zone} (domini) non sovrapposti contenenti uno o più sottodomini.
+Ogni zona ha un \textbf{ } principale e uno o più server secondari.
+
+Un name server conosce solo gli ip dei nomi della sua zona.
+
+\paragraph{Name Resolver} è un programma host (protocollo standard col server) per convertire ip$\leftrightarrow$nome. Viene invocato da un applicativo.
+
+L'host ha gli ip dei DNS server della zona. L'host può avere pre-configurata un archivio locale nomi-indirizzi.
+
+Fasi risposta del name resolver:
+\begin{enumerate}
+	\item \textbf{risoluzione locale}, se da successo viene comunicato ip all'applicativo.
+	\item \textbf{risoluzioen globale}, interrogato DNS di zona dell'host che coopera con DNS di altre zone. Contattato DNS di primo livello del nome da risolveere, e eventualmente i minori.
+	\begin{paracol}{2}
+		Risposta Ricorsiva: DNS interrogato risove nome, interroga altri DNS, sotto-domini DNS e risponde direttamente.
+		\switchcolumn
+		Risposta Iterativa: DNS interrogato risponde indicando DNS o sotto-dominio DNS con risposta.
+	\end{paracol}
+	Usate in combinazione tipicamente.
+\end{enumerate}
+
+\paragraph{Recursive DNS} può produrre una risposta alla richiesta, primo server raggiungibile dal dominio ma non contiene tutti dettagli sul nome di dominio.
+\paragraph{Authoritative DNS} è il server del possessore di dominio e fornisce ultima parola su una risposta DNS.
+\subsubsection{DNS PDU}
+Composto da 6 campi (identification, flags, number of question/ answers/ authority/ additional) ognuna di 2byte. Questo header delle PDU precedere il DNS data.
+\rettangolo{Query: HEADER \textbar QUESTION}
+\begin{itemize}
+	\item QNAME = nome di dominio per cui si effettua la richiesta.
+	\item QTYPE = tipo di richiesta.
+	\item QCLASS = classe della domanda.
+\end{itemize}
+\rettangolo{Responce: HEADER \textbar QUESTION \textbar Records \textbar Answer records \textbar Authoritative records \textbar Additional records}
+\begin{itemize}
+	\item NAME = nome di dominio per cui si effettua la richiesta.
+	\item TYPE = tipo di risposta.
+	\item TTL = secondi che la risposta può essere tenuta in memoria.
+\end{itemize}
+\paragraph{Flags:} QR, Opcode, AA, TC, RD, RA, 3bit a 0, rCode.
+\begin{itemize}
+	\item QR = 0 query, 1 response.
+	\item rCode = 0 tutto ok, 1 err formato, 2 err server, 3 err nome, 4 richiesta non supportata e 5 server non risonde.
+\end{itemize}
+\paragraph{Tipi richieste/risposte:} seguono formato RR (name, value, type, ttl) e i type sono:
+\begin{itemize}
+	\item A = restituisce l'indirizzo corrispondente al nome della richiesta.
+	\item NS = indica il DNS server autorevole il per nome della richiesta.
+	\item CNAME = permette di collegare un nome DNS (alias) ad un altro che continuerà la risoluzione, così ho più nomi che fanno riferimento allo stesso indirizzo.
+	\item MX = collega un nome di dominio ad una lista di server di posta autorevoli per quel dominio
+\end{itemize}

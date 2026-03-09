@@ -1,0 +1,95 @@
+\section{Numeri Finiti}
+Nel calcolatore i numeri reali vengono approssimati e le operazioni elementari possono dare risultati non esattamente rappresentabili nel calcolatore.
+
+Bisogna fare una stima della differenza tra il risultato effettivo del calcolatore da quello esatto (matematico).
+
+\paragraph{L'errori di arrotondamento} è una causa di un risultato inesatto. Cause dell'errore sono il \textbf{numero cifre usate e l'ordine delle operazioni}.
+
+\subparagraph{Rappresentazione dei numeri}
+\textbf{Numeri macchina} sono le rappresentazioni dei numeri reali usati nei calcolatori.
+
+\subparagraph{Operazioni nel calcolatore}
+\textbf{Operazioni macchina} sono +-*/ nel calcolatore e non godono di tutte le proprietà degli originali. Ogni operazione macchina produce un errore d'arrotondamento.
+
+\subsection{Sistema di numerazione posizionale}
+Sistema dove il valore di una cifra è determinato dalla base del sistema e dalla potenza della base associata alla sua posizione.
+\definizione{Base $\beta$}{Sia $\alpha\in\mathbb{R}$, $n\in\mathbb{N}$ grande in funzione di $!\alpha!$, $a_n,\dots, a_0$ cifre parte intera e $b_1,\dots$ cifre parte decimale di $\alpha$, $\beta\leqslant2$ la base di destinazinoe e $a_k, b_k\in\{0, 1, \dots, \beta-1\}$. Possiamo rappresentare $\alpha$ in base. $\beta$\[\alpha=\pm(a_na_0.b_1\dots)_\beta=\pm\left(\sum_{k=0}^{n}a_k\beta^k+\sum_{k=1}^{\infty}b_k\beta^{-k}\right)\]
+}{def:sisNumPos}
+
+\begin{multicols}{2}
+	\paragraph{Sistema virgola fissa} predefiniscono la posizione della virgola e preriserva un numero fisso di cifre per la parte intera ($I$) e frazionaria ($f$). \[\alpha=\pm\sum_{i=-f}^{I-1}a_i\beta^i\]
+	In memoria il numero è memorizzato come un'intero e la posizione della virgola è fissata dal sistema a priori.
+
+	Sia $J\in\mathbb{Z}$ l'intero effettivamente memorizzato in memoria e $f$ il numero di cifre frazionarie si ha \[\alpha=J\beta^{-f}\]
+	Caratteristiche: semplicità e velocità, intervallo limitato (no numeri modulo arbitrariamente grande o piccolo) e precisione costante.
+\end{multicols}
+\begin{multicols}{2}
+	\paragraph{Sistema virgola mobile} la posizione della virgola è determinata da un'esponente.
+	\[\alpha=\pm m\beta^p\]
+	Sia $m$ è la mantissa con un numero fisso di cifre significative e $p$ è l'esponente che determina la scala.
+
+	$p>0$ è uno spostamento a destra mentre $p<0$ a sinistra.
+
+	Caratteristiche: rappresenta numeri grandi e piccoli.
+\end{multicols}
+\teorema{Rappresentazione normalizzata}{Sia $\alpha\in\mathbb{R}\setminus\{0\}, \beta\geqslant2$ allora $\exists p\in\mathbb{Z}$ e $(a_i)_{i>1}$ con $0\leqslant a_i\leqslant \beta-1, i=1,\dots$ e $a_1\ne0$.\[\alpha=\pm0.a_1\dots\beta^p=\pm\left(\sum_{i=1}^{+\infty}a_i\beta^{-i}\right)\cdot\beta^p=\pm m\cdot\beta^p\]}{teo:rappNormale}
+\osservazione{La mantissa ha un unica rappresentazione in $\beta^{-1}\leqslant m <1$. Si chiama parte esponente $\beta^p$ e esponente $p$.}
+\subsection{Insieme dei Floating Point}
+Siano $\beta$ la base, $t$ il numero di cifre per la mantissa e $L, U\in \textbf{Z}, L<U$.
+
+L'insieme dei floating point è l'insieme finito dei numeri reali esattamente rappresentabili con quel calcolatore nella base $\beta$ con $t$ cifre e esponenti tra $L, U$.
+{\footnotesize \[F(\beta, t, L, U)=\left\{\alpha\in\mathbb{R}\setminus\{0\}\mid\alpha=\mathrm{sign}(\alpha)0.a_1\dots a_t\beta^p=\mathrm{sign}(\alpha)\left(\sum_{i=1}^{t}a_i\beta^{-i}\right)\beta^p\right\}\cup\{0\}\]}
+Con $0\leqslant a_i \leqslant \beta - 1, i=1,\dots$ e $a_1\ne0, L\leqslant p \leqslant U, L<0, U>0$.
+
+\paragraph{Sono approssimati} i numeri reali non rappresentabili con precisione.
+
+All'inserimento di un numero $\alpha$ nel calcolatore può succere:
+\begin{itemize}
+	\item \textbf{$p\notin[L, U]$}, numero non rappresentabile nel calcolatore. Se $p<L$ si ha underflow, se $p>U$ si ha overflow.
+	\item \textbf{$p\in[L, U]$}, numero rappresentabile nel calcolatore.Può succere che:
+
+	\begin{multicols}{2}
+	Le cifre $a_i, i>t$ sono tutte nulle e $\alpha$ è esattamente rappresentabile.
+	Le cifre $a_i, i>t$ non sono tutte nulle e la rappresentazione di $\alpha$ è data:
+	\[fl(\alpha)=\begin{cases}
+		0 \ se \ \alpha=0\\
+		\pm m_t\beta^p \ se \ \alpha\ne0\\
+	\end{cases}\]
+	\[fl(\alpha)=\pm0.a_1\dots\tilde{a}_t\beta^p\]
+	Causando un troncamento, $\tilde{a}_t=a_t$ o un arrotondamento se $\beta$ è pari \[\sigma(a)_t=\begin{cases}
+		a_t \ se \ a_{t+1}<\beta/2\\
+		a_t+1 \ se \ a_{t+1}\geqslant \beta/2\\
+	\end{cases}\]
+	\end{multicols}
+\end{itemize}
+\paragraph{Arrotondamento ai pari} è un caso speciale dell'approssimazione per arrotondamento.
+
+Applicabile quando $\alpha$ è equidistante tra due numeri finiti consecutivi, ossia $a_{t+1}=\beta/2$, e le cifre successive alla $t+1$ sono nulle, ossia $a_i=0, \forall i > t+1$.
+
+La $ft(\alpha)$ incrementa di 1 $a_{t+1}$ se $a_t$ è dispari e non incrementa $a_{t+1}$ se $a_t$ è pari.
+
+\subparagraph{Utilità:} evità una distorsione sistematica, errore medio positivo/negativo (bias), negli arrotondamenti ripetuti.
+\subsection{Numeri macchina limite}
+In $F(\beta, t, L, U)$ la mantissa minima è $\beta^{-1}$ e la massima $1-\beta^{-t}$.
+\begin{paracol}{2}
+	\paragraph{Il più piccolo} $\alpha_\mathrm{min}=\beta^{L-1}$.
+	\switchcolumn
+	\paragraph{Il più grande} $\alpha_\mathrm{max}=\beta^U-\beta^{U-t}$.
+\end{paracol}
+\teorema{Cardinalità dei floating point}{Sia $F=F(\beta, t, L, U$ l'insieme dei numeri floating point tale che:
+\begin{itemize}
+	\item Il numero di elementi positivi non uniformemente distribuiti in $[\beta^{L-1}, \beta^U[$ sia \[(\beta-1)\beta^{t-1}(U-L+1)\]
+	\item Il numero di elementi negativi non uniformemente distribuiti in $]-\beta^U, -\beta^{L-1}]$ sia \[(\beta-1)\beta^{t-1}(U-L+1)\]
+	\item L'insieme contiene lo 0.
+\end{itemize}
+Pertanto la cardinalità di $F$ è $\#F=2(\beta-1)\beta^{t-1}(U-L+1)+1$.}{teo:cardFP}
+(Dimostrazione sulle slide).
+\paragraph{Distribuzione:} I numeri non sono uniformente distribuiti globalmente, ma sono equispaziati relativamente ad ogni singolo esponente.
+\subparagraph{Spacing} è la distanza tra due numeri consecutivi di $F$ in $[\beta^p, \beta^{p+1}]$. \[s=\beta^{p+1-t}\] Questa distanza non è "matematica" per la distribuzione.
+\subparagraph{La Densità} dei numeri decresce all'aumentare del valore assoluto nel numero.
+\paragraph{Precisione di macchina: } L'eps è lo spacing tra $\beta^0, \beta^1, (p=0)\implies eps=\beta^{1-t}$. \[u=1/2eps\text{ (roundoff unit)}\]
+Bisogna definire una stima della differenza tra $\alpha$ reale e $fl(\alpha)$.
+\definizione{Errore assoluto}{Si definisce errore assoluto di approssimazioen la quantità \[E_a=|fl(\alpha)-\alpha|\]}{def:errAss}
+\definizione{Errore relativo}{Si definisce errore relativo di arrotondamento di $\alpha\ne0$ la quantità \[E_\mathrm{rel}=\frac{|fl(\alpha)-\alpha|}{|\alpha|}\]}{def:errRel}
+\teorema{Rappresentazione di $\alpha$ reale}{Sia $\alpha\ne0$ un numero reale rappresentato in base $\beta$ come $\alpha=\pm0.a_1\dots\beta^p$ con $a_1\ne0, p\in[L, U]$. Allora se non si verifica un Overflow si ha \[|fl(\alpha)-\alpha\leqslant K\cdot\beta^{p-t}\]\[\frac{|fl(\alpha)-\alpha|}{|\alpha|}\leqslant K\cdot\beta^{1-t}\]Con $K=1$ nel caso di troncamento e $K=1/2$ nel caso di arrotondamento.}{teo:rapp}
+(Dimostrazione sulle slide).

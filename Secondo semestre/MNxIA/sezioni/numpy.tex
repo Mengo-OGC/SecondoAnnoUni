@@ -25,14 +25,14 @@
 }
 \tabella{Campionamento}{
 	\riga{np.random.seed(seed)}{Imposta il seme di generazione.}
-	\riga{np.random.rand()}{Genera numeri uniformemente distribuiti in [o, 1[. Con parametro n si fa un vettoer e con parametri n, m un matrice.}
-	\riga{np.random.randn()}{Genera numeri dalla distribuzione normale standard. Con parametro n si fa un vettoer e con parametri n, m un matrice.}
+	\riga{np.random.rand()}{Genera numeri uniformemente distribuiti in [o, 1[. Con parametro n si fa un vettore e con parametri n, m un matrice.}
+	\riga{np.random.randn()}{Genera numeri dalla distribuzione normale standard. Con parametro n si fa un vettore e con parametri n, m un matrice.}
 	\riga{np.random.randn(m, n)}{Genera numeri dalla distribuzione di media=m e varianza=n.}
 	\riga{np.random.randint(min, max, n)}{Genera n numeri interi tra min e max escluso.}
 	\riga{np.random.shuffle(arr)}{Mescola in-place gli elementi di arr.}
-	\riga{np.permutation(arr)}{Restituisce una copia permutata di arr.}
+	\riga{np.random.permutation(arr)}{Restituisce una copia permutata di arr.}
 }
-\tabella{Parametri creazione ndarray}{
+\tabella{Parametri creazione}{
 	\riga{order=C\textbar F}{Specifica come memorizzare le matrici. Con "C" si fa per righe (default) mentre "F" lo fa per colonne.}
 	\riga{dtype=np.tipo}{Specifica il tipo degli elementi dell'array da creare. tipo: int64, float32, int, float (float64), bool, complex64.}
 }
@@ -70,7 +70,7 @@ Valori assi: axis=0=colonne, axis=1=righe, ecc. Se non si specifica l'asse si fa
 	\riga{np.argmax(arr, axis=n)}{Da gli indicii dei massimi dell'n-asse specificato.}
 	\riga{np.minimum(arr1, arr2)}{Da l'array dei minimi considerati elemento per elemento (stesso indice).}
 	\riga{np.maximum(arr1, arr2)}{Da l'array dei massimi considerati elemento per elemento (stesso indice).}
-	\riga{arr1 condizone arr2}{Da l'array dei booleani valutati elemento per elemento (stesso indice) secondo la condizone. Si può fare il confronto anche con uno scalare. Per condizioni multiple si usano gli operatori \&, |, e le single condizioni vanno tra ().}
+	\riga{arr1 condizone arr2}{Da l'array dei booleani valutati elemento per elemento (stesso indice) secondo la condizone. Si può fare il confronto anche con uno scalare. Per condizioni multiple si usano gli operatori \&, \textbar, e le single condizioni vanno tra ().}
 }
 Valori assi: axis=0=colonne, axis=1=righe, ecc. Se non si specifica l'asse si fa l'operazione su tutto l'array, ma argmin/argmax danno l'indice dell'array appiattito.
 \tabella{Ordinamento}{
@@ -95,10 +95,10 @@ I metodi np.copy(arr), arr.copy(), np.array(arr, copy=True) restituiscono una co
 	\riga{np.shares\_memory(a, b)}{Dice se due array sono uno una vista dell'altro, ossia condividono lo stesso spazio di memoria.}
 	\riga{arr[min:max]}{Restituisce una view di arr da min a max escluso.}
 	\riga{arr.T}{Restituisce una view di arr trasposta.}
-	\riga{arr.flatten()}{Restituisce una copia di arr flatterizzata (appiattisce l'array a una dimensione).}
+	\riga{arr.flatten()}{Restituisce una copia di arr flatterizzata.}
 	\riga{arr.ravel()}{Restituisce una view di arr flatterizzata.}
 }
-Flatterizzare ossia appiattire l'array multidimensionale a uno di una dimensione.
+Flatterizzare significa appiattire l'array multidimensionale a uno di una sola dimensione.
 \tabella{Manipolazione}{
 	\riga{np.append(arr, valore)}{Restituisce un nuovo array dato da value aggiunto in coda a arr. Opzionalmente si specifica l'asse su cui appendere con axis=n.}
 	\riga{np.insert(arr, pos, valore)}{Inserisce in pos, da 0, in arr il valore.}

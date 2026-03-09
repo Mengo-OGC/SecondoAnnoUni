@@ -1,0 +1,51 @@
+\section{Protocolli DataLink}
+(PDU dette frame).
+\subsection{Controllo di canale}
+\paragraph{Premessa} Tra i due estremi del mezzo trasmissivo i bit non cambiano l'ordine con cui sono stati trasmessi dalla sorgente. Ma a livello di pacchetto l'ordine può cambiare, per via dei nodi di rete.
+
+\begin{paracol}{2}
+	\paragraph{Protocolli di linea} è un canale sequenziale a banda costante 1-1 o 1-N in cui i frame frame arrivano nella stessa sequenza d'invio con ritardi di propagazione uguali.
+	\switchcolumn
+	\paragraph{Protocolli di trasporto} è un canale non sequenziale a banda variabile. Soffre di perdita di dati, duplicazione dei dati, ritardi variabili e arrivi fuori sequenza.
+\end{paracol}
+
+\paragraph{Scopo} Rendere affidabile e sicuro il servizio di collegamento offerto dallo strato 2 allo strato 3.
+
+Funzioni svolte (non dallo stesso protocollo): strutturazione del flusso, controllo/gestione errori, controllo flusso, controllo sequenza, gestione protocollo accesso collegamento 1-N.
+
+\paragraph{Problematiche di Sincronismo} In ricezione per riconoscere i bit bisogna determinare gli istanti di campionamento per ricostruire il sincronismo di cifra (problema riflesso dallo strato 1).
+
+Il ricevitore estrae il segnale di sincronismo che può agganciarsi in due modi:
+\begin{itemize}
+	\item \textbf{Canale sempre pieno} mantenuto dal protocollo di linea mediante successivamente all'inizializzazione dell'aggancio sempre mantenuto.
+	\item \textbf{Canale momentaneamente vuoto} con all'inizio di ogni tramissione l'inserimento di un preambolo di sincronizzazione.
+\end{itemize}
+\subparagraph{Sincronismo di cifra} garantisce corretta lettura singoli bit.
+\subparagraph{Sincronismo di frame} distingue le PDU tramite:
+\begin{itemize}
+	\item Protocolli asincroni che permettono ai frame di iniziare e finire arbritariamente grazie info nel PCI per riconoscere inizio/fine.
+	\item Protocolli sincroni che fanno iniziare e finire in istanti precisi i frame. Non necessitano di PCI.
+\end{itemize}
+\paragraph{Condifica di canale} come gli altri blocchi esegue una decodifica in ricezione.
+
+\begin{adjustbox}{width=\textwidth}
+	\begin{tikzcd}
+		Sorgente \arrow[r] & \text{Codifica di Sorgente} \arrow[rr] & {} & {\text{[Codifica di Canale]}} \arrow[rr] & {}                                                                                                             & \text{Codifica di Linea} \arrow[rr] & {} & \text{Meezzo Fisico} \\
+		&                                        &    &                                          & \text{Codifica Crittografica} \arrow[u, dashed] \arrow[rru, dashed, bend right] \arrow[llu, dashed, bend left] &                                     &    &
+	\end{tikzcd}
+\end{adjustbox}
+\subsubsection{Controllo d'errore}
+\paragraph{Codici a bloccho} codifica a blocchi di $k$ bit d'informazione. Vengono trasmessi $n=k+r$ bit dove $k$ sono i dati e $r$ i bit di rindondanza in funzione combinatoria di $k$.
+
+I messaggi possibili sono $2^k$ e le parole di codice possibili sono $2^n>2^k$ di cui $2^n-2^k$ non sono lecite e usate per rilevare o rilevare e correggere errori.
+
+Nota: Solo in binario è possibile fare la correzione.
+\begin{paracol}{2}
+	\subparagraph{Rivelazione d'errore} Una parola invalida indica la presenza d'un errore. Non si sanno i bit errati. Necessita della ritrasmissione dei dati.
+
+	Migliore se faccio tanti errori.
+	\switchcolumn
+	\subparagraph{Correzione d'errore} Una parola invalida indica la presenza d'un errore e corregge il bit (trasparenza semantica).
+
+	Migliore se faccio pochi errori.
+\end{paracol}

@@ -117,6 +117,43 @@ Dato $a_x=0$ si ha $v_x(t)=v_0\cos\Phi_0$ e $v_y(t)=v_{y0}+a_yt=v_0\sin\Phi_0-gt
 \] Da cui ricaviamo traiettoria e gittata.
 \paragraph{La Traiettoria} è parabola passante per il punto di lancio. \[y(x)=(\tan\Phi_0)x-\frac{g}{2v_0^2\cos^2\Phi_0}x^2\]
 \paragraph{La Gittata} è la distanza orrizontale totale percorsa. \[R=\frac{v_0^2}{g}\sin2\Phi_0\]
+
+
+\subsection{Vettori}
+\paragraph{Vettore libero} è un'oggetto definito da \textbf{modulo, direzione, verso} che rappresenta uno spostamento indipendente dalla posizione d'applicazione.
+\subparagraph{Ugualianza} Due vettori sono uguali solo se hanno tutte e tre le grandezze uguali. Vettori diversi possono avere alcune grandezze uguali.
+
+Se due vettori $\vec{e}, \vec{f}$ differiscono solo per il verso si può dire $\vec{e}=-\vec{f}.$
+\paragraph{Vettore applicato} è un vettore con un punto d'applicazione.
+\paragraph{Prodotto con scalare} Dati $\vec{a}$ vettore e $m$ scalare ho \[\vec{b}=m\vec{a}\]In cui la direzione è mantenuta, il modulo è $m$ volte il modulo di $\vec{a}$ e il verso è lo stesso se $m>0$, altrimenti è l'opposto.
+\paragraph{Versore} è un vettore di modulo unitario, $|\vec{u}|=1$. Tutti i vettori con stessa direzione e verso a $\vec{u}$ sono scrivibili come $\vec{a}=a\vec{u}$, dove $a$ specifica il modulo e verso mentre $\vec{u}$ la direzione.
+Notazionalmente un versore si indica $\hat{u}_r$.
+
+Dato un vettore $\vec{a}$ posso ottenerne il versore con $\frac{\vec{a}}{|\vec{a}|}=\hat{u}_a$.
+\paragraph{La Somma} di vettori è commutativa, associativa e graficamente si ottiene mettendo un vettore in coda all'altro. \[\vec{c}=\vec{a}+\vec{b}\]
+\subparagraph{Vettori paralleli} si sommano i moduli con segno determinato dal verso. \[\vec{a_1}+\vec{a_2}=(a_1+a_2)\hat{u}\]
+\paragraph{La Differenza} di vettori è la somma di uno con l'opposto dell'altro. \[\vec{a}-\vec{b}=\vec{a}+(-\vec{b})\]
+\paragraph{Scomposizione} Dato $\vec{v}$ e due direzioni orientate $r, s$ posso scrivere \[\vec{v}=\vec{v}_r+\vec{v}_s=v_r\hat{r}+v_s\hat{s}\] Dove $\vec{v}_r, \vec{v}_s$ sono i vettori componenti lungo $r,s$ e $\hat{r}, \hat{s}$ sono i versori che definiscono direzione e verso lungo $r,s$.
+
+La scomposizione può essere anche in più direzioni. La somma di vettori scomposisti è la somma dei coefficenti.
+\paragraph{Prodotto scalare} Dati $\vec{a}, \vec{b}$ e $\theta$ l'angolo formato dai due vettori ottengo il prodotto scalare con \[\vec{a}\cdot\vec{b}=ab\cos(\theta)\] Graficamente è una proiezione ortogonale.
+\subparagraph{Proprietà}
+\begin{itemize}
+	\item Il prodotto è nullo se uno dei vettori è nullo o $\theta=90°$.
+	\item Il prodotto è commutativo, distributivo e gli scalari possono essere spostati.
+	\item Se i due vettori sono uguali si ha $a^2$.
+	\item Non è iterabile.
+\end{itemize}
+\paragraph{Prodotto vettoriale} tra due vettori $\vec{a}, \vec{b}$ è un vettore $\vec{c}$ \[\vec{c}=\vec{a}\times\vec{b}\] La direzione di $\vec{c}$ è perpendicolare al piano $\vec{a}, \vec{b}$, il verso è destrorso rispetto alla rotazione $\vec{a}\to\vec{b}$ e il modulo è $c=ab\sin(\theta)$ con $0\leqslant \theta \leqslant \pi$.
+\subparagraph{Proprietà}
+\begin{itemize}
+	\item $\vec{a}\times\vec{a}=\vec{a}\times\lambda\vec{a}=0$.
+	\item Anticommutativa: $\vec{a}\times\vec{b}=-\vec{b}\times\vec{a}$.
+	\item Distributiva: $\vec{a}\times(\vec{b}+\vec{c})=\vec{a}\times\vec{b}+\vec{a}\times\vec{c}$.
+	\item $\vec{a}\times(\lambda\vec{b})=\lambda(\vec{a}\times\vec{b})$.
+	\item Non vale la proprietà associativa.
+\end{itemize}
+
 \subsection{Moto Circolare}
 Dato un sistema di riferimento con origine nel centro della traiettoria circolare e piano $xy$ nel piano della circonferenza.
 \begin{multicols}{2}

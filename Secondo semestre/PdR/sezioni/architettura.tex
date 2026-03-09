@@ -88,14 +88,7 @@ Una LAN è una rete d'accesso locale, con un indirizzo di LAN, che implementa lo
 \subparagraph{Canale condiviso} implica comunicazioni broadcast che necessità del controllo dell'accesso al canale e limitare la quantità di dati per lo strato 3.
 \subsubsection{URL}
 Identificatore globale di risorse in rete.
-
-\medskip
-\noindent\fbox{\parbox{\textwidth}{
-		\centering\footnotesize
-		[ProtocolloApplicativo]://[NomeServerWEB]:[NumeroPorta]/[PercorsoDocumento]
-}}
-
-\medskip
+\rettangolo{[ProtocolloApplicativo]://[NomeServerWEB]:[NumeroPorta]/[PercorsoDocumento]}
 NumeroPorta (t-SAP) e PercorsoDocumento sono localmente univoci mentre NomeServerWEB (N-SAP) è univoco globalmente.
 \subsubsection{MAC}
 Indirizzo locale di 6byte cablato nella scheda di rete (ora registro eprom) univoci a livello mondiale. Usato solo a livello di LAN per filtrare i pacchetti in arrivo al terminale.
@@ -125,5 +118,3 @@ Approccio \textbf{many to one} (client verso server) sincrono e bloccante (clien
 Mediante binding dinamico a ogni invocazione il client sceglie il server, che se non disponibile la rete da errore.
 
 \paragraph{Peer-to-peer (P2P)} è una variante a client e server. Gli host in rete sono equivalenti e fungono sia da client (usa risorse) che da server (fornisce risorse). (Auto scalabile).
-\subsection{DNS}
-Il DNS (Domain Name System) è un applicazione di rete che associa agli indirizzi ip associati alle schede di rete dei calcolatori una stringa.
